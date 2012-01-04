@@ -4,26 +4,21 @@ package eco
 
 import (
 	. "gomatrix.googlecode.com/hg/matrix"
-	"math"
 )
 
-func MeanEuclid_D(data *DenseMatrix)  *DenseMatrix {
+func MeanEuclid_D(data *DenseMatrix) *DenseMatrix {
 	var (
-		sum float64
 		dis *DenseMatrix
 	)
 
 	dis = Euclid_D(data)
-	sum = 0.0
-
-	for i := 0; i < dis.Rows(); i++	{
+	rows := dis.Rows()
+	for i := 0; i < rows; i++ {
 		for j := i + 1; j < dis.Cols(); j++ {
-			x = dis.Get(i, j)
-			dis.Set(i, j, x/dis.Rows())
-			dis.Set(j, i, x/dis.Rows())
+			x := dis.Get(i, j)
+			dis.Set(i, j, x/float64(rows))
+			dis.Set(j, i, x/float64(rows))
 		}
 	}
 	return dis
 }
-
-

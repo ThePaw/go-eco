@@ -4,7 +4,7 @@ package eco
 
 import (
 	. "gomatrix.googlecode.com/hg/matrix"
-	"math"
+	. "math"
 )
 
 func robinson_S(data *DenseMatrix) *DenseMatrix {
@@ -47,8 +47,8 @@ func robinson_S(data *DenseMatrix) *DenseMatrix {
 		for k = j + 1; k < data.Rows(); k++ {
 			sum = 0
 			for i = 0; i < data.Cols(); i++ {
-				//	sum += math.Abs(percent->x[j][i] - percent->x[k][i]);
-				sum += math.Abs(percent.Get(j, i) - percent.Get(k, i))
+				//	sum += Abs(percent->x[j][i] - percent->x[k][i]);
+				sum += Abs(percent.Get(j, i) - percent.Get(k, i))
 			}
 			//			sim->x[j][k] = sim->x[k][j] = 200 - sum;
 

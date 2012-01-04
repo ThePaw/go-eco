@@ -1,26 +1,26 @@
 package eco
 
 import (
+	. "fmt"
 	. "gomatrix.googlecode.com/hg/matrix"
-	"math"
 )
 
+func ReadMatrix() *DenseMatrix {
+	var (
+		rows, cols int
+		x          float64
+		data       *DenseMatrix
+	)
 
-func ReadMatrix.....
-var(
-	data *DenseMatrix
-)
-
-
-	fmt.Scanf("%d", &rows)  ...Fscanln
-	fmt.Scanf("%d", &cols)
+	Scanf("%d", &rows)
+	Scanf("%d", &cols)
 
 	data = Zeros(rows, cols)
-	for i := 0; i < data.Rows(); i++	{
-		for j := i + 1; j < data.Rows(); j++ {
-			sum = 0
-			fmt.Scanf("%f", &x)
+	for i := 0; i < rows; i++ {
+		for j := i + 1; j < cols; j++ {
+			Scanf("%f", &x)
 			data.Set(i, j, x)
 		}
 	}
-
+	return data
+}

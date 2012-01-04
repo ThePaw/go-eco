@@ -1,0 +1,8 @@
+GOFILES=\
+     circleProduct.go\
+     euclid.go\
+     gower.go\
+     m_euclid.go\
+     manhattan.go\
+     read.go\
+     robinson.go\

@@ -2,7 +2,7 @@ package eco
 
 import (
 	"testing"
-//	"fmt"
+	//	"fmt"
 	. "gomatrix.googlecode.com/hg/matrix"
 )
 
@@ -10,11 +10,10 @@ import (
 func TestEuclid(t *testing.T) {
 	var (
 		data, out *DenseMatrix
-		d float64 = 1.7320508075688771
-		s float64 = 0.36602540378443865
+		d, s      float64
 	)
 
-	data = Zeros(2, 3) 
+	data = Zeros(2, 3)
 	data.Set(0, 0, 0)
 	data.Set(0, 1, 0)
 	data.Set(0, 2, 0)
@@ -23,35 +22,67 @@ func TestEuclid(t *testing.T) {
 	data.Set(1, 2, 1)
 
 	out = Euclid_D(data)
+	d = 1.7320508075688771
+	s = 0.36602540378443865
 
-	if !check(out.Get(0, 0), out.Get(1, 1)){
+	if !check(out.Get(0, 0), out.Get(1, 1)) {
 		t.Error()
 	}
-	if !check(out.Get(0, 0), 0.0){
+	if !check(out.Get(0, 0), 0.0) {
 		t.Error()
 	}
-	if !check(out.Get(0, 1), out.Get(1, 0)){
+	if !check(out.Get(0, 1), out.Get(1, 0)) {
 		t.Error()
 	}
-	if !check(out.Get(0, 1), d){
+	if !check(out.Get(0, 1), d) {
 		t.Error()
 	}
 
 	out = Euclid_S(data)
 
-	if !check(out.Get(0, 0), out.Get(1, 1)){
+	if !check(out.Get(0, 0), out.Get(1, 1)) {
 		t.Error()
 	}
-	if !check(out.Get(0, 0), 1.0){
+	if !check(out.Get(0, 0), 1.0) {
 		t.Error()
 	}
-	if !check(out.Get(0, 1), out.Get(1, 0)){
+	if !check(out.Get(0, 1), out.Get(1, 0)) {
 		t.Error()
 	}
-	if !check(out.Get(0, 1), s){
+	if !check(out.Get(0, 1), s) {
+		t.Error()
+	}
+
+	out = Manhattan_D(data)
+	d = 3
+	s = 0.25
+
+	if !check(out.Get(0, 0), out.Get(1, 1)) {
+		t.Error()
+	}
+	if !check(out.Get(0, 0), 0.0) {
+		t.Error()
+	}
+	if !check(out.Get(0, 1), out.Get(1, 0)) {
+		t.Error()
+	}
+	if !check(out.Get(0, 1), d) {
+		t.Error()
+	}
+
+	out = Manhattan_S(data)
+
+	if !check(out.Get(0, 0), out.Get(1, 1)) {
+		t.Error()
+	}
+	if !check(out.Get(0, 0), 1.0) {
+		t.Error()
+	}
+	if !check(out.Get(0, 1), out.Get(1, 0)) {
+		t.Error()
+	}
+	if !check(out.Get(0, 1), s) {
 		t.Error()
 	}
 
 }
-
-

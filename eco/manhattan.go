@@ -1,5 +1,5 @@
-// Euclidean distance and similarity
-// In N dimensions, the Euclidean distance between two points p and q is √(∑i=1N (pi-qi)²) where pi (or qi) is the coordinate of p (or q) in dimension i.
+// Manhattan distance and similarity
+// Also known as rectilinear distance, Minkowski's L1 distance, taxi cab metric, or city block distance. 
 
 package eco
 
@@ -8,7 +8,7 @@ import (
 	. "math"
 )
 
-func Euclid_D(data *DenseMatrix) *DenseMatrix {
+func Manhattan_D(data *DenseMatrix) *DenseMatrix {
 	var (
 		sum float64
 		dis *DenseMatrix
@@ -27,21 +27,21 @@ func Euclid_D(data *DenseMatrix) *DenseMatrix {
 			for k := 0; k < data.Cols(); k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
-				sum += (x - y) * (x - y)
+				sum += Abs(x - y)
 			}
-			dis.Set(i, j, Sqrt(sum))
-			dis.Set(j, i, Sqrt(sum))
+			dis.Set(i, j, sum)
+			dis.Set(j, i, sum)
 		}
 	}
 	return dis
 }
 
-func Euclid_S(data *DenseMatrix) *DenseMatrix {
+func Manhattan_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		sim, dis *DenseMatrix
 	)
 
-	dis = Euclid_D(data)
+	dis = Manhattan_D(data)
 	sim = Zeros(data.Rows(), data.Rows()) // square similarity matrix row vs. row
 
 	for i := 0; i < data.Rows(); i++ {
