@@ -32,7 +32,7 @@ func circleProduct_S(data *DenseMatrix) *DenseMatrix {
 	}
 
 	for i = 0; i < data.Rows(); i++ {
-		for j = i + 1; j < data.Cols(); j++ {
+		for j = i + 1; j < data.Rows(); j++ {
 			sum = 0
 			for k = 0; k < data.Cols(); k++ {
 				sum += math.Min(data.Get(i, k), data.Get(j, k))
