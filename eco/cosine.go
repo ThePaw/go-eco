@@ -40,11 +40,11 @@ func Cosine_D(data *DenseMatrix) *DenseMatrix {
 			for k := 0; k < cols; k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
-				sum1 += x * y;
-				sum2 += x * x;
-				sum3 += y * y;
+				sum1 += x * y
+				sum2 += x * x
+				sum3 += y * y
 			}
-			d :=  sum1 / (Sqrt(sum2) * Sqrt(sum3))
+			d := sum1 / (Sqrt(sum2) * Sqrt(sum3))
 			dis.Set(i, j, d)
 			dis.Set(j, i, d)
 		}
@@ -69,7 +69,7 @@ func Cosine_S(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			s := 1.00/(dis.Get(i, j) + 1.0)
+			s := 1.00 / (dis.Get(i, j) + 1.0)
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}

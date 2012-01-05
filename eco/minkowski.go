@@ -1,5 +1,4 @@
-// Canberra distance and similarity
-// Lance G. N. and Williams W. T. (1967) Mixed data classificatory programs. 1. Agglomerative systems. Aust. Comput. J. 1, 82-85. 
+// Minkowski distance and similarity
 
 package eco
 
@@ -8,14 +7,15 @@ import (
 	. "math"
 )
 
-// Canberra distance matrix
-func Canberra_D(data *DenseMatrix) *DenseMatrix {
+// Minkowski distance matrix
+func Minkowski_D(power int, data *DenseMatrix) *DenseMatrix {
 	var (
 		dis *DenseMatrix
 	)
+
 	rows := data.Rows()
 	cols := data.Cols()
-	dis = Zeros(rows, rows) // square distance matrix row vs. row
+	dis = Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		dis.Set(i, i, 0.0)
@@ -27,23 +27,24 @@ func Canberra_D(data *DenseMatrix) *DenseMatrix {
 			for k := 0; k < cols; k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
-				sum += Abs((x - y) / (x + y))
+				sum += Pow(Abs(x-y), float64(power))
 			}
-			dis.Set(i, j, sum)
-			dis.Set(j, i, sum)
+			d := Pow(sum, 1.00/float64(power))
+			dis.Set(i, j, d)
+			dis.Set(j, i, d)
 		}
 	}
 	return dis
 }
 
-// Canberra similarity matrix
-// If d denotes Canberra distance, similarity is s=1.00/(d+1), so that it is in [0, 1]
-func Canberra_S(data *DenseMatrix) *DenseMatrix {
+// Minkowski similarity matrix
+// If d denotes Minkowski distance, similarity is s=1.00/(d+1), so that it is in [0, 1]
+func Minkowski_S(power int, data *DenseMatrix) *DenseMatrix {
 	var (
 		sim, dis *DenseMatrix
 	)
 
-	dis = Canberra_D(data)
+	dis = Minkowski_D(power, data)
 	rows := data.Rows()
 	sim = Zeros(rows, rows)
 
@@ -61,15 +62,15 @@ func Canberra_S(data *DenseMatrix) *DenseMatrix {
 	return sim
 }
 
-// Scaled Canberra distance matrix
-// Reference needed!
-func CanberraSc_D(data *DenseMatrix) *DenseMatrix {
+// Minkowski Infinite Order distance matrix
+func MinkowskiInfiniteOrder_D(data *DenseMatrix) *DenseMatrix {
 	var (
 		dis *DenseMatrix
 	)
+
 	rows := data.Rows()
 	cols := data.Cols()
-	dis = Zeros(rows, rows) // square distance matrix row vs. row
+	dis = Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		dis.Set(i, i, 0.0)
@@ -77,18 +78,13 @@ func CanberraSc_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			sum := 0.0
-			count := 0
+			d := 0.0
 			for k := 0; k < cols; k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
+				d = Max(d, Abs(x-y))
 
-				if x != 0 || y != 0 {
-					count++
-					sum += Abs((x - y) / (x + y))
-				}
 			}
-			d := sum / float64(count)
 			dis.Set(i, j, d)
 			dis.Set(j, i, d)
 		}
@@ -96,14 +92,14 @@ func CanberraSc_D(data *DenseMatrix) *DenseMatrix {
 	return dis
 }
 
-// Scaled Canberra similarity matrix
-// If d denotes Scaled Canberra distance, similarity is s=1.00/(d+1), so that it is in [0, 1]
-func CanberraSc_S(data *DenseMatrix) *DenseMatrix {
+// Minkowski Infinite Order similarity matrix
+// If d denotes Minkowski Infinite Order distance, similarity is s=1.00/(d+1), so that it is in [0, 1]
+func MinkowskiInfiniteOrder_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		sim, dis *DenseMatrix
 	)
 
-	dis = CanberraSc_D(data)
+	dis = MinkowskiInfiniteOrder_D(data)
 	rows := data.Rows()
 	sim = Zeros(rows, rows)
 

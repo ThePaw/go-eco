@@ -20,14 +20,13 @@ import (
 // Gower distance for interval-scaled variables
 func Gower_D(data *DenseMatrix) *DenseMatrix {
 	var (
-		maxx, minx, missing float64
-		dis                 *DenseMatrix
+		dis *DenseMatrix
 	)
+	const missing float64 = -999 //code for missing values
 
-	missing = -999 //code for missing values
 	rows := data.Rows()
 	cols := data.Cols()
-	dis = Zeros(rows, rows) // square similarity matrix row vs. row
+	dis = Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		dis.Set(i, i, 0.0)
@@ -37,8 +36,8 @@ func Gower_D(data *DenseMatrix) *DenseMatrix {
 		for j := i + 1; j < rows; j++ {
 			sum := 0.0
 			count := 0
-			maxx = 0
-			minx = 0
+			maxx := 0.0
+			minx := 0.0
 
 			// columns are considered as interval-scaled variables and 
 			// d_ijk = abs(x_ik - x_jk) / R_k
@@ -58,14 +57,16 @@ func Gower_D(data *DenseMatrix) *DenseMatrix {
 					count++
 				}
 			}
-			dis.Set(i, j, sum/float64(count))
-			dis.Set(j, i, sum/float64(count))
+			d := sum / float64(count)
+			dis.Set(i, j, d)
+			dis.Set(j, i, d)
 		}
 	}
 	return dis
 }
 
-// Gower similarity for interval-scaled (float) variables
+// Gower similarity for interval-scaled variables
+// If d denotes Gower distance, similarity is s=1.00/(d+1), so that it is in [0, 1]
 func Gower_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		rows     int
@@ -74,7 +75,7 @@ func Gower_S(data *DenseMatrix) *DenseMatrix {
 
 	rows = data.Rows()
 	dis = Gower_D(data)
-	sim = Zeros(rows, rows) // square similarity matrix row vs. row
+	sim = Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		sim.Set(i, i, 1.0)
@@ -82,9 +83,9 @@ func Gower_S(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			x := dis.Get(i, j) + 1.0
-			sim.Set(i, j, 1.00/x)
-			sim.Set(j, i, 1.00/x)
+			s := 1.00 / (dis.Get(i, j) + 1.0)
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
 		}
 	}
 	return sim
@@ -95,16 +96,13 @@ func Gower_S(data *DenseMatrix) *DenseMatrix {
 // Otherwise, the original Gower's (1971) dissimilarity is considered. 
 func GowerOrd_D(data *DenseMatrix, kr bool) *DenseMatrix {
 	var (
-		rows, cols, count        int
-		maxx, minx, sum, missing float64
-		dis                      *DenseMatrix
+		dis *DenseMatrix
 	)
+	const missing float64 = -999 //code for missing values
 
-	missing = -999 //code for missing values
-	rows = data.Rows()
-	cols = cols
-	dis = Zeros(rows, rows) // square similarity matrix row vs. row
-	sum = 0.0
+	rows := data.Rows()
+	cols := data.Cols()
+	dis = Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		dis.Set(i, i, 0.0)
@@ -112,10 +110,10 @@ func GowerOrd_D(data *DenseMatrix, kr bool) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			sum = 0
-			count = 0
-			maxx = 0
-			minx = 0
+			sum := 0.0
+			count := 0
+			maxx := 0.0
+			minx := 0.0
 
 			// columns are considered as categorical ordinal variables and the values are substituted 
 			// with the corresponding position index, r_ik in the factor levels. 
@@ -141,9 +139,36 @@ func GowerOrd_D(data *DenseMatrix, kr bool) *DenseMatrix {
 					count++
 				}
 			}
-			dis.Set(i, j, sum/float64(count))
-			dis.Set(j, i, sum/float64(count))
+			d := sum / float64(count)
+			dis.Set(i, j, d)
+			dis.Set(j, i, d)
 		}
 	}
 	return dis
+}
+
+// Gower similarity for ordered variables
+// If d denotes Gower distance, similarity is s=1.00/(d+1), so that it is in [0, 1]
+func GowerOrd_S(data *DenseMatrix) *DenseMatrix {
+	var (
+		rows     int
+		sim, dis *DenseMatrix
+	)
+
+	rows = data.Rows()
+	dis = Gower_D(data)
+	sim = Zeros(rows, rows)
+
+	for i := 0; i < rows; i++ {
+		sim.Set(i, i, 1.0)
+	}
+
+	for i := 0; i < rows; i++ {
+		for j := i + 1; j < rows; j++ {
+			s := 1.00 / (dis.Get(i, j) + 1.0)
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
+		}
+	}
+	return sim
 }

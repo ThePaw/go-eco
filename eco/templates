@@ -13,6 +13,7 @@ func FFF_D(data *DenseMatrix) *DenseMatrix {
 	var (
 		dis *DenseMatrix
 	)
+
 	rows := data.Rows()
 	cols := data.Cols()
 	dis = Zeros(rows, rows)

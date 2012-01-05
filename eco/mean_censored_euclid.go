@@ -1,5 +1,5 @@
-// Manhattan distance and similarity
-// Also known as rectilinear distance, Minkowski's L1 distance, taxi cab metric, or city block distance. 
+// Mean Censored Euclidean distance and similarity
+//
 
 package eco
 
@@ -8,7 +8,8 @@ import (
 	. "math"
 )
 
-func Manhattan_D(data *DenseMatrix) *DenseMatrix {
+// Mean Censored Euclidean distance matrix
+func MeanCensoredEuclid_D(data *DenseMatrix) *DenseMatrix {
 	var (
 		dis *DenseMatrix
 	)
@@ -24,24 +25,31 @@ func Manhattan_D(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
 			sum := 0.0
+			nonzero := 0
 			for k := 0; k < cols; k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
-				sum += Abs(x - y)
+				sum += (x - y) * (x - y)
+				if x != 0.0 || y != 0.0 {
+					nonzero++
+				}
 			}
-			dis.Set(i, j, sum)
-			dis.Set(j, i, sum)
+			d := Sqrt(sum / float64(nonzero))
+			dis.Set(i, j, d)
+			dis.Set(j, i, d)
 		}
 	}
 	return dis
 }
 
-func Manhattan_S(data *DenseMatrix) *DenseMatrix {
+// Mean Censored Euclidean similarity matrix
+// If d denotes Mean Censored Euclidean distance, similarity is s=1.00/(d+1), so that it is in [0, 1]
+func MeanCensoredEuclid_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		sim, dis *DenseMatrix
 	)
 
-	dis = Manhattan_D(data)
+	dis = MeanCensoredEuclid_D(data)
 	rows := data.Rows()
 	sim = Zeros(rows, rows)
 

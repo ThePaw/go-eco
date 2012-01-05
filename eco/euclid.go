@@ -16,7 +16,7 @@ func Euclid_D(data *DenseMatrix) *DenseMatrix {
 	)
 	rows := data.Rows()
 	cols := data.Cols()
-	dis = Zeros(rows, rows) // square distance matrix row vs. row
+	dis = Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		dis.Set(i, i, 0.0)
@@ -30,8 +30,9 @@ func Euclid_D(data *DenseMatrix) *DenseMatrix {
 				y := data.Get(j, k)
 				sum += (x - y) * (x - y)
 			}
-			dis.Set(i, j, Sqrt(sum))
-			dis.Set(j, i, Sqrt(sum))
+			d := Sqrt(sum)
+			dis.Set(i, j, d)
+			dis.Set(j, i, d)
 		}
 	}
 	return dis
@@ -53,9 +54,9 @@ func Euclid_S(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			x := dis.Get(i, j) + 1.0
-			sim.Set(i, j, 1.00/x)
-			sim.Set(j, i, 1.00/x)
+			s := 1.00 / (dis.Get(i, j) + 1.0)
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
 		}
 	}
 	return sim

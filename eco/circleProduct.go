@@ -1,11 +1,10 @@
-/* 
-Circle product similarity
-	   Marquardt, W.H. 1978 Archaeological seriation. In: Schiffer, M.B.(ed.)
-	   Advances in Archaeological Method and Theory. Academic Press, N.Y., p.281.
-	   Kendall, D.G. 1971b Seriation from abundance matrices. In: Hodson, F.R.,
-	   Kendall, D.G. & Tautu, P: Mathematics in the archaeological and historical
-	   sciences. Edinburgh University Press, pp. 215-252. 
-*/
+// Circle product similarity
+// Marquardt, W.H. 1978 Archaeological seriation. In: Schiffer, M.B.(ed.)
+// Advances in Archaeological Method and Theory. Academic Press, N.Y., p.281.
+// Kendall, D.G. 1971b Seriation from abundance matrices. In: Hodson, F.R.,
+// Kendall, D.G. & Tautu, P: Mathematics in the archaeological and historical
+// sciences. Edinburgh University Press, pp. 215-252. 
+
 package eco
 
 import (
@@ -20,7 +19,7 @@ func circleProduct_S(data *DenseMatrix) *DenseMatrix {
 
 	rows := data.Rows()
 	cols := data.Cols()
-	sim = Zeros(rows, rows) // square similarity matrix row vs. row
+	sim = Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		sim.Set(i, i, 1.0)

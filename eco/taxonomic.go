@@ -24,7 +24,9 @@ func Taxonomic_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			sum1 := 0.0; sum2 := 0.0; sum3 := 0.0
+			sum1 := 0.0
+			sum2 := 0.0
+			sum3 := 0.0
 			for k := 0; k < cols; k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
@@ -32,8 +34,9 @@ func Taxonomic_D(data *DenseMatrix) *DenseMatrix {
 				sum2 += y * y
 				sum3 += x * y
 			}
-			dis.Set(i, j, Sqrt(sum1 + sum2 - 2.0 * sum3))
-			dis.Set(j, i, Sqrt(sum1 + sum2 - 2.0 * sum3))
+			d := Sqrt(sum1 + sum2 - 2.0*sum3)
+			dis.Set(i, j, d)
+			dis.Set(j, i, d)
 		}
 
 	}
@@ -57,9 +60,9 @@ func Taxonomic_S(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			x := dis.Get(i, j) + 1.0
-			sim.Set(i, j, 1.00/x)
-			sim.Set(j, i, 1.00/x)
+			s := 1.00 / (dis.Get(i, j) + 1.0)
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
 		}
 	}
 	return sim

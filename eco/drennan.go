@@ -26,7 +26,7 @@ func Drennan_D(data *DenseMatrix) *DenseMatrix {
 			rowsum += data.Get(i, j)
 		}
 		for j := i + 1; j < cols; j++ {
-			percent.Set(i, j, data.Get(i, j) * 100.0 / rowsum) 
+			percent.Set(i, j, data.Get(i, j)*100.0/rowsum)
 		}
 	}
 
@@ -42,8 +42,9 @@ func Drennan_D(data *DenseMatrix) *DenseMatrix {
 				y := percent.Get(j, k)
 				sum += (x - y)
 			}
-			dis.Set(i, j, sum/200.0)
-			dis.Set(j, i, sum/200.0)
+			d := sum / 200.0
+			dis.Set(i, j, d)
+			dis.Set(j, i, d)
 		}
 	}
 	return dis
@@ -65,9 +66,9 @@ func Drennan_S(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			x := dis.Get(i, j) + 1.0
-			sim.Set(i, j, 1.00/x)
-			sim.Set(j, i, 1.00/x)
+			s := 1.00 / (dis.Get(i, j) + 1.0)
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
 		}
 	}
 	return sim

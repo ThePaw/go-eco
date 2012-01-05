@@ -1,5 +1,5 @@
-// Manhattan distance and similarity
-// Also known as rectilinear distance, Minkowski's L1 distance, taxi cab metric, or city block distance. 
+// Bray - Curtis distance and similarity
+//
 
 package eco
 
@@ -8,7 +8,8 @@ import (
 	. "math"
 )
 
-func Manhattan_D(data *DenseMatrix) *DenseMatrix {
+// Bray - Curtis distance matrix
+func BrayCurtis_D(data *DenseMatrix) *DenseMatrix {
 	var (
 		dis *DenseMatrix
 	)
@@ -23,25 +24,30 @@ func Manhattan_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			sum := 0.0
+			sum1 := 0.0
+			sum2 := 0.0
 			for k := 0; k < cols; k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
-				sum += Abs(x - y)
+				sum1 += Abs(x - y)
+				sum2 += x + y
 			}
-			dis.Set(i, j, sum)
-			dis.Set(j, i, sum)
+			d := sum1 / sum2
+			dis.Set(i, j, d)
+			dis.Set(j, i, d)
 		}
 	}
 	return dis
 }
 
-func Manhattan_S(data *DenseMatrix) *DenseMatrix {
+// Bray - Curtis similarity matrix
+// If d denotes Bray - Curtis distance, similarity is s=1.00/(d+1), so that it is in [0, 1]
+func BrayCurtis_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		sim, dis *DenseMatrix
 	)
 
-	dis = Manhattan_D(data)
+	dis = BrayCurtis_D(data)
 	rows := data.Rows()
 	sim = Zeros(rows, rows)
 
