@@ -1,8 +1,12 @@
 GOFILES=\
+     canberra.go\
      circleProduct.go\
+     cosine.go\
+     drennan.go\
      euclid.go\
      gower.go\
      m_euclid.go\
      manhattan.go\
      read.go\
      robinson.go\
+     taxonomic.go\

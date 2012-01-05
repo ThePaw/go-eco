@@ -1,6 +1,6 @@
-// Euclidean distance and similarity
-// In N dimensions, the Euclidean distance between two points p and q is √(∑i=1N (pi-qi)²) where pi (or qi) is the coordinate of p (or q) in dimension i.
-// Similarity is 1.00/(d+1), so that it is in [0, 1]
+// Taxonomic distance and similarity
+// Dij = [ Σ ( Xki – Xkj )^2 / N] ^(1/2)
+// Sneath, PHA & RR Sokal 1973 Numerical Taxonomy: the principles and practice of numerical classification. WH Freeman and Co., San Francisco.
 
 package eco
 
@@ -9,8 +9,8 @@ import (
 	. "math"
 )
 
-// Euclidean distance matrix
-func Euclid_D(data *DenseMatrix) *DenseMatrix {
+// Taxonomic distance matrix
+func Taxonomic_D(data *DenseMatrix) *DenseMatrix {
 	var (
 		dis *DenseMatrix
 	)
@@ -24,26 +24,30 @@ func Euclid_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			sum := 0.0
+			sum1 := 0.0; sum2 := 0.0; sum3 := 0.0
 			for k := 0; k < cols; k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
-				sum += (x - y) * (x - y)
+				sum1 += x * x
+				sum2 += y * y
+				sum3 += x * y
 			}
-			dis.Set(i, j, Sqrt(sum))
-			dis.Set(j, i, Sqrt(sum))
+			dis.Set(i, j, Sqrt(sum1 + sum2 - 2.0 * sum3))
+			dis.Set(j, i, Sqrt(sum1 + sum2 - 2.0 * sum3))
 		}
+
 	}
 	return dis
 }
 
-// Euclidean similarity matrix
-func Euclid_S(data *DenseMatrix) *DenseMatrix {
+// Taxonomic similarity matrix
+// If d denotes Taxonomic distance, similarity is s=1.00/(d+1), so that it is in [0, 1]
+func Taxonomic_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		sim, dis *DenseMatrix
 	)
 
-	dis = Euclid_D(data)
+	dis = Taxonomic_D(data)
 	rows := data.Rows()
 	sim = Zeros(rows, rows)
 

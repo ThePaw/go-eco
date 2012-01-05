@@ -20,16 +20,14 @@ import (
 // Gower distance for interval-scaled variables
 func Gower_D(data *DenseMatrix) *DenseMatrix {
 	var (
-		rows, cols, count        int
-		maxx, minx, sum, missing float64
-		dis                      *DenseMatrix
+		maxx, minx, missing float64
+		dis                 *DenseMatrix
 	)
 
 	missing = -999 //code for missing values
-	rows = data.Rows()
-	cols = data.Cols()
+	rows := data.Rows()
+	cols := data.Cols()
 	dis = Zeros(rows, rows) // square similarity matrix row vs. row
-	sum = 0.0
 
 	for i := 0; i < rows; i++ {
 		dis.Set(i, i, 0.0)
@@ -37,8 +35,8 @@ func Gower_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			sum = 0
-			count = 0
+			sum := 0.0
+			count := 0
 			maxx = 0
 			minx = 0
 
