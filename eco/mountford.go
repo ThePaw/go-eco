@@ -8,11 +8,11 @@ import (
 )
 
 func mount_fun(theta, j, a, b float64) float64 {
-	return (Exp(theta*a) + Exp(theta*b) - Exp(theta*(a+b-j)) - 1)
+	return Exp(theta*a) + Exp(theta*b) - Exp(theta*(a+b-j)) - 1
 }
 
 func mount_der(theta, j, a, b float64) float64 {
-	return (a*Exp(theta*a) + b*Exp(theta*b) - (a+b-j)*Exp(theta*(a+b-j)))
+	return a*Exp(theta*a) + b*Exp(theta*b) - (a+b-j)*Exp(theta*(a+b-j))
 }
 
 // Mountford distance matrix
@@ -58,30 +58,31 @@ func Mountford_D(data *DenseMatrix) *DenseMatrix {
 				if x > 0.0 && y > 0.0 {
 					sim++
 				}
-				if x > 0 {
+				if x > 0.0 {
 					t1++
 				}
-				if y > 0 {
+				if y > 0.0 {
 					t2++
 				}
 				count++
 			}
-			if count == 0 || t1 == 0 || t2 == 0 {
-				panic("error")
+			if count == 0 {
+				panic("NaN")
 			}
-			if sim == 0 {
+			if t1 == 0 || t2 == 0 {
+				d = NaN()
+			} else if sim == 0 {
 				d = 0
-			}
-			if sim == t1 || sim == t2 {
+			} else if sim == t1 || sim == t2 {
 				d = Log(2.0)
 			} else {
-				J := float64(sim)
-				A := float64(t1)
-				B := float64(t2)
-				d = 2 * J / (2*A*B - (A+B)*J)
+				jjj := float64(sim)
+				aaa := float64(t1)
+				bbb := float64(t2)
+				d = 2 * jjj / (2*aaa*bbb - (aaa+bbb)*jjj)
 				for k := 0; k < maxit; k++ {
 					oldist := d
-					d -= mount_fun(d, J, A, B) / mount_der(d, J, A, B)
+					d -= mount_fun(d, jjj, aaa, bbb) / mount_der(d, jjj, aaa, bbb)
 					if Abs(oldist-d)/oldist < tol || Abs(oldist-d) < ε {
 						break
 					}

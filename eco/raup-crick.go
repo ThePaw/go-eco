@@ -5,6 +5,8 @@ package eco
 import (
 	. "gomatrix.googlecode.com/hg/matrix"
 	. "gostat.googlecode.com/hg/stat"
+	"fmt"
+	"os"
 )
 
 // Raup - Crick distance matrix for presence-absence data
@@ -20,13 +22,15 @@ import (
 
 func RaupCrick_D(data *DenseMatrix) *DenseMatrix {
 	var (
-		A, B, J, count, t1, t2 int64
+		d float64
+		aaa, bbb, jjj, count, t1, t2, sim int64
 		dis                    *DenseMatrix
 	)
 
 	rows := data.Rows()
 	cols := data.Cols()
 	dis = Zeros(rows, rows)
+	checkData(data)
 
 	for i := 0; i < rows; i++ {
 		dis.Set(i, i, 0.0)
@@ -34,7 +38,7 @@ func RaupCrick_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			sim := 0
+			sim = 0
 			t1 = 0
 			t2 = 0
 			count = 0
@@ -56,27 +60,24 @@ func RaupCrick_D(data *DenseMatrix) *DenseMatrix {
 			if count == 0 {
 				panic("error")
 			}
-			J = int64(sim - 1)
+			jjj = sim - 1
 			if t1 < t2 {
-				A = t1
-				B = t2
+				aaa = t1
+				bbb = t2
 
 			} else {
-				A = t2
-				B = t1
+				aaa = t2
+				bbb = t1
 			}
-			//	d = 1 - phyper(J, A, float64(count) - A, B, 1, 0);
-
+			//	d = 1 - phyper(jjj, aaa, float64(count) - aaa, bbb, 1, 0);
+			
 			/*
-			J = k
-			A = m
-			count = size
-			B = n
-
-			Hypergeometric_CDF_At(size, m, n, k 
+			phyper(k, m, size-m,   n)
+			       ==
+			Hypergeometric_CDF_At(size, m, n, k)
 			*/
-
-			d := 1 - Hypergeometric_CDF_At(count, A, B, J)
+//fmt.Println("hyper: ", count, aaa, bbb, jjj)
+			d = 1.0 - Hypergeometric_CDF_At(count, aaa, bbb, jjj)
 			dis.Set(i, j, d)
 			dis.Set(j, i, d)
 		}
@@ -101,10 +102,33 @@ func RaupCrick_S(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			s := 1.00 / (dis.Get(i, j) + 1.0)
+			s := 1.0 - dis.Get(i, j)
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
 	}
 	return sim
+}
+
+func checkData(data *DenseMatrix) {
+	rows := data.Rows()
+	cols := data.Cols()
+	warning:=false
+L:
+	for i := 0; i < cols; i++ {
+		colSum:=0
+		for j := 0; j < rows; j++ {
+			if data.Get(i, j) > 0.0 {
+				colSum++
+			}
+		}
+		if colSum == 0 {
+			warning=true
+			break L
+		}
+	}
+	if warning {
+		fmt.Fprint(os.Stderr, "warning: data have empty species which influence the results\n")
+	}
+	return
 }
