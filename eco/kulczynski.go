@@ -1,5 +1,5 @@
-// Bray–Curtis distance and similarity
-// d[jk] = (sum abs(x[ij]-x[ik])/(sum (x[ij]+x[ik]))
+// Kulczynski distance and similarity
+// d[jk] =  1 - 0.5*((sum min(x[ij],x[ik])/(sum x[ij]) + (sum min(x[ij],x[ik])/(sum x[ik]))
 // Similarity is 1.00/(d+1), so that it is in [0, 1]
 
 package eco
@@ -9,8 +9,8 @@ import (
 	. "math"
 )
 
-// Bray–Curtis distance matrix
-func BrayCurtis_D(data *DenseMatrix) *DenseMatrix {
+// Kulczynski distance matrix
+func Kulczynski_D(data *DenseMatrix) *DenseMatrix {
 	var (
 		dis *DenseMatrix
 	)
@@ -24,15 +24,17 @@ func BrayCurtis_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			sum1 := 0.0
-			sum2 := 0.0
+			sumMin := 0.0
+			sumX := 0.0
+			sumY := 0.0
 			for k := 0; k < cols; k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
-				sum1 += Abs(x - y)
-				sum2 += x + y
+				sumMin += Min(x, y)
+				sumX += x
+				sumY += x
 			}
-			d := sum1 / sum2
+			d := 1 - 0.5*(sumMin/sumX + sumMin/sumY)
 			dis.Set(i, j, d)
 			dis.Set(j, i, d)
 		}
@@ -40,13 +42,13 @@ func BrayCurtis_D(data *DenseMatrix) *DenseMatrix {
 	return dis
 }
 
-// Bray–Curtis similarity matrix
-func BrayCurtis_S(data *DenseMatrix) *DenseMatrix {
+// Kulczynski similarity matrix
+func Kulczynski_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		sim, dis *DenseMatrix
 	)
 
-	dis = BrayCurtis_D(data)
+	dis = Kulczynski_D(data)
 	rows := data.Rows()
 	sim = Zeros(rows, rows)
 
@@ -56,8 +58,7 @@ func BrayCurtis_S(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-//			s := 1.00 / (dis.Get(i, j) + 1.0)
-			s := 1.00 - dis.Get(i, j)
+			s := 1.00 / (dis.Get(i, j) + 1.0)
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}

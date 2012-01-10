@@ -23,12 +23,12 @@ dist.quant(xx, method = 1, diag = TRUE, upper = TRUE, tol = 1e-07)
 
 #####
 library(vegan)
-x <- read.csv("data.csv", header = FALSE, sep = " ")
+x <- read.csv("data.csv", header = FALSE, sep = ",")
 vegdist(x, method="euclidean", binary=FALSE, diag=TRUE, upper=TRUE, na.rm = FALSE)
 vegdist(x, method="manhattan", binary=FALSE, diag=TRUE, upper=TRUE, na.rm = FALSE)
 vegdist(x, method="canberra", binary=FALSE, diag=TRUE, upper=TRUE, na.rm = FALSE)
 vegdist(x, method="gower", binary=FALSE, diag=TRUE, upper=TRUE, na.rm = FALSE)
-vegdist(x, method="mountford", binary=FALSE, diag=TRUE, upper=TRUE, na.rm = FALSE) // gives all zeroes
+m  <-  vegdist(x, method="bray", binary=FALSE, diag=TRUE, upper=TRUE, na.rm = FALSE)
 
 
 u1 <- round(runif(100))
@@ -49,8 +49,28 @@ u5 <- round(runif(10))
 u6 <- round(runif(10))
 bb <- data.frame(u1, u2, u3, u4, u5, u6)
 b <- t(bb)
-write(bb, file = "bin_small.csv", ncolumns = 100, append = FALSE, sep = ",")
+write(bb, file = "bin_small.csv", ncolumns = 10, append = FALSE, sep = ",")
 
 bb <- read.csv("bin_small.csv", header = FALSE, sep = ",")
 m  <-  vegdist(b, method="raup", binary=TRUE, diag=TRUE, upper=TRUE, na.rm = FALSE)
+m  <-  vegdist(b, method="mountford", binary=TRUE, diag=TRUE, upper=TRUE, na.rm = FALSE)
+
+bb <- read.csv("bin_big.csv", header = FALSE, sep = ",")
+m  <-  vegdist(b, method="raup", binary=TRUE, diag=TRUE, upper=TRUE, na.rm = FALSE)
+m  <-  vegdist(b, method="mountford", binary=TRUE, diag=TRUE, upper=TRUE, na.rm = FALSE)
+m  <-  vegdist(b, method="chao", binary=TRUE, diag=TRUE, upper=TRUE, na.rm = FALSE)
+
+
+u1 <- round(50*runif(100))
+u2 <- round(50*runif(100))
+u3 <- round(50*runif(100))
+u4 <- round(50*runif(100))
+u5 <- round(50*runif(100))
+u6 <- round(50*runif(100))
+cc <- data.frame(u1, u2, u3, u4, u5, u6)
+c <- t(cc)
+x <-as.matrix(cc)
+write(x, file = "c", ncolumns = 6, append = FALSE, sep = ",")
+m  <-  vegdist(c, method="morisita", binary=FALSE, diag=TRUE, upper=TRUE, na.rm = FALSE)
+m  <-  vegdist(xx, method="horn", binary=FALSE, diag=TRUE, upper=TRUE, na.rm = FALSE)
 

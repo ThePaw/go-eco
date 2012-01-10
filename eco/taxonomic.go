@@ -43,14 +43,45 @@ func Taxonomic_D(data *DenseMatrix) *DenseMatrix {
 	return dis
 }
 
-// Taxonomic similarity matrix
-// If d denotes Taxonomic distance, similarity is s=1.00/(d+1), so that it is in [0, 1]
+
+// Scaled taxonomic distance matrix
+func TaxonomicSc_D(data *DenseMatrix) *DenseMatrix {
+	var (
+		dis *DenseMatrix
+	)
+
+	dis = Taxonomic_D(data)
+	rows := data.Rows()
+
+	// find maximum value
+	max := 0.0
+	for i := 0; i < rows; i++ {
+		for j := i + 1; j < rows; j++ {
+			x:= dis.Get(i, j)
+			if max < x {
+				max = x
+			}
+		}
+	}
+
+	// scale
+	for i := 0; i < rows; i++ {
+		for j := i + 1; j < rows; j++ {
+			d:= dis.Get(i, j)/max
+			dis.Set(i, j, d)
+			dis.Set(j, i, d)
+		}
+	}
+	return dis
+}
+
+// Scaled taxonomic  similarity matrix
 func Taxonomic_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		sim, dis *DenseMatrix
 	)
 
-	dis = Taxonomic_D(data)
+	dis = TaxonomicSc_D(data)
 	rows := data.Rows()
 	sim = Zeros(rows, rows)
 
@@ -60,10 +91,12 @@ func Taxonomic_S(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			s := 1.00 / (dis.Get(i, j) + 1.0)
+			s := 1.00 - dis.Get(i, j)
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
 	}
 	return sim
 }
+
+

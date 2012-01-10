@@ -115,9 +115,9 @@ func checkData(data *DenseMatrix) {
 	cols := data.Cols()
 	warning:=false
 L:
-	for i := 0; i < cols; i++ {
+	for j := 0; j < cols; j++ {
 		colSum:=0
-		for j := 0; j < rows; j++ {
+		for i := 0; i < rows; i++ {
 			if data.Get(i, j) > 0.0 {
 				colSum++
 			}

@@ -1,18 +1,24 @@
 GOFILES=\
+     binomial.go\
      bray-curtis.go\
      canberra.go\
+     chao.go\
      circleProduct.go\
      cosine.go\
      drennan.go\
      euclid.go\
      gower.go\
+     horn-morisita.go\
+     kulczynski.go\
      m_euclid.go\
      manhattan.go\
      mean_censored_euclid.go\
      millar.go\
      minkowski.go\
+     morisita.go\
      mountford.go\
      raup-crick.go\
      read.go\
      robinson.go\
      taxonomic.go\
+     trunc.go\
