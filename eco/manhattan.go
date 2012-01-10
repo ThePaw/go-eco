@@ -8,6 +8,7 @@ import (
 	. "math"
 )
 
+// Manhattan distance
 func Manhattan_D(data *DenseMatrix) *DenseMatrix {
 	var (
 		dis *DenseMatrix
@@ -36,6 +37,7 @@ func Manhattan_D(data *DenseMatrix) *DenseMatrix {
 	return dis
 }
 
+// Manhattan similarity
 func Manhattan_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		sim, dis *DenseMatrix
@@ -58,3 +60,10 @@ func Manhattan_S(data *DenseMatrix) *DenseMatrix {
 	}
 	return sim
 }
+
+// Boolean Manhattan distance
+func ManhattanBool_D(data *DenseMatrix) *DenseMatrix {
+	return EuclidSqBool_D(data)
+}
+
+

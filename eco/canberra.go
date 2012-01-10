@@ -120,3 +120,10 @@ func CanberraSc_S(data *DenseMatrix) *DenseMatrix {
 	}
 	return sim
 }
+
+
+func CanberraBool_D(data *DenseMatrix) *DenseMatrix {
+	//same as GowerZBool()
+	return GowerZBool_D(data)
+}
+

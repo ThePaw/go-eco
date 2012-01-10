@@ -73,3 +73,8 @@ func HornMorisita_S(data *DenseMatrix) *DenseMatrix {
 	}
 	return sim
 }
+
+func HornMorisitaBool_D(data *DenseMatrix) *DenseMatrix {
+	return BrayCurtisBool_D(data)
+}
+

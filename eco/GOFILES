@@ -1,24 +1,31 @@
 GOFILES=\
+     aux_fn.go\
+     average_sq.go\
      binomial.go\
      bray-curtis.go\
      canberra.go\
      chao.go\
-     circleProduct.go\
+     circle_product.go\
      cosine.go\
+     czekanowski.go\
+     dice.go\
      drennan.go\
      euclid.go\
      gower.go\
      horn-morisita.go\
      kulczynski.go\
-     m_euclid.go\
+     lance-williams.go\
      manhattan.go\
-     mean_censored_euclid.go\
      millar.go\
      minkowski.go\
      morisita.go\
      mountford.go\
+     pattern_diff.go\
      raup-crick.go\
-     read.go\
      robinson.go\
+     shannon.go\
+     shape_diff.go\
+     sim_ratio.go\
+     size_diff.go\
      taxonomic.go\
-     trunc.go\
+     variance.go\
