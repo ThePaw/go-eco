@@ -1,14 +1,13 @@
-// Cosine complement distance and similarity
+// Růžička distance and similarity
 
 package eco
 
 import (
 	. "gomatrix.googlecode.com/hg/matrix"
-	"math"
 )
 
-// Cosine complement distance matrix, for boolean data
-func Cosine_D(data *DenseMatrix) *DenseMatrix {
+// Růžička distance matrix
+func Ruzicka_D(data *DenseMatrix) *DenseMatrix {
 	var (
 		aa, bb, jj float64
 		dis                    *DenseMatrix
@@ -23,9 +22,9 @@ func Cosine_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			aa, bb, jj, _ = getABJPquad(data, i, j)
-			// 1-J/sqrt(A*B)
-			d := 1.0-jj/math.Sqrt(aa*bb)
+			aa, bb, jj, _ = getABJPmin(data, i, j)
+			// (A+B-2*J)/(A+B-J)
+			d := (aa+bb-2*jj)/(aa+bb-jj)
 			dis.Set(i, j, d)
 			dis.Set(j, i, d)
 		}

@@ -42,9 +42,9 @@ func DiceBool_D(data *DenseMatrix) *DenseMatrix {
 				}
 
 			}
-			d := 1.0 - 2.0 * float64(a) / float64(b + c)
-			dis.Set(i, j, d)
-			dis.Set(j, i, d)
+			dist := 1.0 - 2.0 * float64(a) / float64(b + c)
+			dis.Set(i, j, dist)
+			dis.Set(j, i, dist)
 		}
 	}
 	return dis

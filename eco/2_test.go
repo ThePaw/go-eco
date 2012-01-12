@@ -543,4 +543,192 @@ func TestChao(t *testing.T) {
 		}
 	}
 }
+/*
+// Millar vs. Binomial
+// now obsolete, Millar reimplemented as Binomial
+func TestMillarBinomial(t *testing.T) {
+	var (
+		data, out1, out2 *DenseMatrix
+	)
+
+	fmt.Println("test whether Binomial_D == Millar_D")
+	data = GetBinData2()
+	out1 = Binomial_D(data)
+	out2 = Millar_D(data)
+	rows := data.Rows()
+// check
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			x:=out1.Get(i, j)
+			y:=out2.Get(i, j)
+
+			if !check(x, y) {
+				t.Error()
+				fmt.Println(i, j, x, y)
+			}
+		}
+	}
+}
+*/
+
+
+// Jaccard test against R:vegan
+func TestJaccard(t *testing.T) {
+	var (
+		data, out, known *DenseMatrix
+	)
+
+	fmt.Println("Jaccard test against R:vegan, small data")
+	data = GetBinData2()
+	out = JaccardBool_D(data)
+
+//known distances
+	dist := [...]float64{0.0000000,0.5714286,0.7142857,0.2857143,0.8000000,0.7777778,
+0.5714286,0.0000000,0.8333333,0.3333333,0.7500000,0.8750000,
+0.7142857,0.8333333,0.0000000,0.7142857,0.7142857,1.0000000,
+0.2857143,0.3333333,0.7142857,0.0000000,0.8000000,0.7777778,
+0.8000000,0.7500000,0.7142857,0.8000000,0.0000000,0.6250000,
+0.7777778,0.8750000,1.0000000,0.7777778,0.6250000,0.0000000}
+
+	rows := data.Rows()
+	known = Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			known.Set(i, j, dist[i*rows+j])
+		}
+	}
+
+// check
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			x:=out.Get(i, j)
+			y:=known.Get(i, j)
+
+			if !check(x, y) {
+				t.Error()
+				fmt.Println(i, j, x, y)
+			}
+		}
+	}
+}
+
+// Růžička test against R:vegan
+func TestRůžička(t *testing.T) {
+	var (
+		data, out, known *DenseMatrix
+	)
+
+	fmt.Println("Růžička test against R:vegan, small data")
+	data = GetData()
+	out = Ruzicka_D(data)
+
+//known distances
+	dist := [...]float64{0,0.1360725,0.1220938,0.1636589,0.1386349,0.1507104,
+0.1360725,0,0.1841972,0.1671344,0.1434959,0.1647677,
+0.1220938,0.1841972,0,0.2178314,0.1526746,0.2102936,
+0.1636589,0.1671344,0.2178314,0,0.1222924,0.1765896,
+0.1386349,0.1434959,0.1526746,0.1222924,0,0.1520803,
+0.1507104,0.1647677,0.2102936,0.1765896,0.1520803,0}
+
+	rows := data.Rows()
+	known = Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			known.Set(i, j, dist[i*rows+j])
+		}
+	}
+
+// check
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			x:=out.Get(i, j)
+			y:=known.Get(i, j)
+
+			if !check(x, y) {
+				t.Error()
+				fmt.Println(i, j, x, y)
+			}
+		}
+	}
+}
+// Sørensen test against R:vegan
+func TestSørensen(t *testing.T) {
+	var (
+		data, out, known *DenseMatrix
+	)
+
+	fmt.Println("Sørensen test against R:vegan, small data")
+	data = GetBinData2()
+	out = SorensenBool_D(data)
+
+//known distances
+	dist := [...]float64{0,0.4,0.5555556,0.1666667,0.6666667,0.6363636,
+0.4,0,0.7142857,0.2,0.6,0.7777778,
+0.5555556,0.7142857,0,0.5555556,0.5555556,1,
+0.1666667,0.2,0.5555556,0,0.6666667,0.6363636,
+0.6666667,0.6,0.5555556,0.6666667,0,0.4545455,
+0.6363636,0.7777778,1,0.6363636,0.4545455,0}
+	rows := data.Rows()
+	known = Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			known.Set(i, j, dist[i*rows+j])
+		}
+	}
+
+// check
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			x:=out.Get(i, j)
+			y:=known.Get(i, j)
+
+			if !check(x, y) {
+				t.Error()
+				fmt.Println(i, j, x, y)
+			}
+		}
+	}
+}
+
+// Arrhenius test against R:vegan
+func TestArrhenius(t *testing.T) {
+	var (
+		data, out, known *DenseMatrix
+	)
+
+	fmt.Println("Arrhenius test against R:vegan, big data")
+	data = GetBinData()
+	out = ArrheniusBool_D(data)
+
+//known distances
+	dist := [...]float64{0.0000000,0.6033410,0.5802860,0.6214884,0.5711567,0.5388661,
+0.6033410,0.0000000,0.6780719,0.5647846,0.5899117,0.6520767,
+0.5802860,0.6780719,0.0000000,0.6199690,0.5025003,0.5700122,
+0.6214884,0.5647846,0.6199690,0.0000000,0.6668737,0.6141088,
+0.5711567,0.5899117,0.5025003,0.6668737,0.0000000,0.6185709,
+0.5388661,0.6520767,0.5700122,0.6141088,0.6185709,0.0000000}
+
+
+	rows := data.Rows()
+	known = Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			known.Set(i, j, dist[i*rows+j])
+		}
+	}
+
+// check
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			x:=out.Get(i, j)
+			y:=known.Get(i, j)
+
+			if !check(x, y) {
+				t.Error()
+				fmt.Println(i, j, x, y)
+			}
+		}
+	}
+}
+
 

@@ -1,4 +1,5 @@
 GOFILES=\
+     arrhenius.go\
      aux_fn.go\
      average_sq.go\
      binomial.go\
@@ -13,6 +14,8 @@ GOFILES=\
      euclid.go\
      gower.go\
      horn-morisita.go\
+     jaccard.go\
+     kendall.go\
      kulczynski.go\
      lance-williams.go\
      manhattan.go\
@@ -20,12 +23,17 @@ GOFILES=\
      minkowski.go\
      morisita.go\
      mountford.go\
+     ochiai.go\
      pattern_diff.go\
+     pearson.go\
      raup-crick.go\
      robinson.go\
+     ruzicka.go\
      shannon.go\
      shape_diff.go\
      sim_ratio.go\
      size_diff.go\
+     sorensen.go\
+     spearman.go\
      taxonomic.go\
      variance.go\
