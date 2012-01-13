@@ -1,0 +1,5 @@
+GOFILES=\
+     matrix.go\
+     richness.go\
+     shannon.go\
+     simpson.go\

@@ -1,0 +1,10 @@
+HornMorisitaBool_D	==	BrayCurtisBool_D
+ManhattanBool_D		==	EuclidSqBool_D
+CanberraBool_D		==	GowerZBool_D
+Millar_D		==	Binomial_D
+quantitative version of the Sørensen index is also known as Czekanowski index
+CzekanowskiBool_S	==	SørensenBool_S 
+
+
+
+

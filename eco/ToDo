@@ -1,9 +1,0 @@
-ToDo:
-
-Binomial_D == Millar_D: test it
-check for ties
-FN_S remaining, check those already done for range
-add scale fn  to transfoprm results to 0..1
-betadiver.R
-decostand.R
-

@@ -1,0 +1,10 @@
+ToDo:
+
+# Binomial_D == Millar_D: test it
+check for ties
+FN_S remaining, check those already done for range
+add scale fn  to transform results to 0..1
+betadiver.R
+decostand.R
+http://rgm2.lab.nig.ac.jp/RGM2/func.php?rd_id=ade4:dist.quant
+
