@@ -13,8 +13,7 @@ func Shannon(data *Matrix, base byte, corr bool) *Vector {
 
 	for i := 0; i < rows; i++ {
 		h := 0.0
-		// tot = total number of all individuals in the sample
-		tot := 0.0
+		tot := 0.0	// total number of all individuals in the sample
 		for j := 0; j < cols; j++ {
 			x := data.Get(i, j)
 			tot += x

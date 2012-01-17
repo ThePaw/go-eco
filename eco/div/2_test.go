@@ -236,3 +236,44 @@ func TestSimpson(t *testing.T) {
 		}
 	}
 }
+
+// Atkinson test against R:ineq
+func TestAtkinson(t *testing.T) {
+	fmt.Println("Atkinson test against R:ineq, epsilon =1.0")
+	data := GetData()
+	out := Atkinson(data, 1.0)
+
+	//known inequalities
+	known := [...]float64{0.00820619, 0.008100257, 0.01597159, 0.008376986, 0.004774476, 0.01199175}
+
+	rows := data.R
+
+	// check
+	for i := 0; i < rows; i++ {
+		x := out.Get(i)
+		y := known[i]
+
+		if !check(x, y) {
+			t.Error()
+			fmt.Println(i, x, y)
+		}
+	}
+
+	fmt.Println("Atkinson test against R:ineq, epsilon =1.0")
+	out = Atkinson(data, 0.5)
+
+	//known inequalities
+	known = [...]float64{0.004060306, 0.004058885, 0.00797419, 0.004124863, 0.002395535, 0.005992798}
+
+	// check
+	for i := 0; i < rows; i++ {
+		x := out.Get(i)
+		y := known[i]
+
+		if !check(x, y) {
+			t.Error()
+			fmt.Println(i, x, y)
+		}
+	}
+}
+

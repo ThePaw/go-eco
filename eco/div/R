@@ -9,4 +9,7 @@ diversity(x, index = "shannon", base = 10)
 diversity(x, index = "simpson")
 diversity(x, index = "invsimpson")
 
+library(ineq)
+x <- read.csv("data.csv", header = FALSE, sep = ",")
+Atkinson(x[1], parameter = 0.5)
 
