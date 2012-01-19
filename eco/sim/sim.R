@@ -171,7 +171,7 @@ function(x, coord=NULL, method="soer", dn=NULL, normalize = FALSE, listin = FALS
         dis <- (4*((a*d) - (b*c))) / ((a+d)^2 + (b+c)^2)
     }
     else if (method == 44) {
-        dis <- ((a+d) - (b+c)) / (a+b+c+d)
+        dis <- ((a+d) - (b+c)) / (a+b+c+d) ##
     }
     else if (method == 45) {
         dis <- (a*(a+b+c+d) - (2*max(a+b, a+c))) / (((a+b+c+d)*min(a+b, a+c)) - (2*max(a+b, a+c)))

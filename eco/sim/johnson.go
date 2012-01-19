@@ -1,5 +1,5 @@
-// Legendre similarity matrix
-// Gower & Legendre (1986), Russell/Rao in Ellis et al. (1993), Legendre & Legendre (1998)
+// Johnson similarity matrix
+// Johnson (1971), Johnson (1967)
 
 package eco
 
@@ -7,20 +7,20 @@ import (
 	. "gomatrix.googlecode.com/hg/matrix"
 )
 
-// Legendre similarity matrix #1
-// Gower & Legendre (1986), Russell/Rao in Ellis et al. (1993)
-func Legendre1Bool_S(data *DenseMatrix) *DenseMatrix {
+// Johnson similarity matrix #1
+// Johnson (1971)
+func Johnson1Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		sim           *DenseMatrix
-		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
+		a, b float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.Rows()
 	sim = Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, d = getABCD(data, i, j)
-			s:= a / (a+b+c+d)
+			a, b, _, _ = getABCD(data, i, j)
+			s:= a / (2*b)
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
@@ -28,9 +28,9 @@ func Legendre1Bool_S(data *DenseMatrix) *DenseMatrix {
 	return sim
 }
 
-// Legendre similarity matrix #2
-// Legendre & Legendre (1998)
-func Legendre2Bool_S(data *DenseMatrix) *DenseMatrix {
+// Johnson similarity matrix #2
+// Johnson (1967)
+func Johnson2Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		sim           *DenseMatrix
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
@@ -41,11 +41,13 @@ func Legendre2Bool_S(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s:= (3*a) / ((3*a) + b +c)
+			s:= (a/(a+b)) + (a/(a+c))
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
 	}
 	return sim
 }
+
+
 

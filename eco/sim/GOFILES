@@ -9,6 +9,7 @@ GOFILES=\
      canberra.go\
      chao.go\
      chebychev.go\
+     chisquare.go\
      circle_product.go\
      co-co-gaston.go\
      cody.go\
@@ -16,8 +17,11 @@ GOFILES=\
      czekanowski.go\
      dennis.go\
      dice.go\
+     divergence.go\
      drennan.go\
      euclid.go\
+     eyraud.go\
+     forbes.go\
      fossum.go\
      gower.go\
      hamann.go\
@@ -26,12 +30,15 @@ GOFILES=\
      harte.go\
      horn-morisita.go\
      jaccard.go\
+     johnson.go\
      kendall.go\
      kulczynski.go\
+     lamont.go\
      lance-williams.go\
      lande.go\
      legendre.go\
      lennon.go\
+     maarel.go\
      magurran.go\
      manhattan.go\
      margaleff.go\
@@ -44,6 +51,7 @@ GOFILES=\
      ochiai.go\
      pattern_diff.go\
      pearson.go\
+     peirce.go\
      raup-crick.go\
      renkonen.go\
      robinson.go\
@@ -59,6 +67,7 @@ GOFILES=\
      size_diff.go\
      sokal.go\
      sorensen.go\
+     sorgenfrei.go\
      spearman.go\
      stiles.go\
      taxonomic.go\

@@ -6,10 +6,10 @@ package eco
 
 import (
 	. "gomatrix.googlecode.com/hg/matrix"
-	. "math"
+	"math"
 )
 
-// Euclidean distance matrix
+// Euclidean distance matrix, float data
 func Euclid_D(data *DenseMatrix) *DenseMatrix {
 	var (
 		dis *DenseMatrix
@@ -30,7 +30,7 @@ func Euclid_D(data *DenseMatrix) *DenseMatrix {
 				y := data.Get(j, k)
 				sum += (x - y) * (x - y)
 			}
-			d := Sqrt(sum)
+			d := math.Sqrt(sum)
 			dis.Set(i, j, d)
 			dis.Set(j, i, d)
 		}
@@ -131,7 +131,7 @@ func MeanCensoredEuclid_D(data *DenseMatrix) *DenseMatrix {
 					nonzero++
 				}
 			}
-			d := Sqrt(sum / float64(nonzero))
+			d := math.Sqrt(sum / float64(nonzero))
 			dis.Set(i, j, d)
 			dis.Set(j, i, d)
 		}
@@ -164,66 +164,38 @@ func MeanCensoredEuclid_S(data *DenseMatrix) *DenseMatrix {
 	return sim
 }
 
-// Squared Boolean Euclidean distance matrix
-func EuclidSqBool_D(data *DenseMatrix) *DenseMatrix {
+// Squared Boolean Euclidean similatity matrix
+func EuclidSqBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		dis        *DenseMatrix
-		a, b, c, d int64
+		sim           *DenseMatrix
+		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.Rows()
-	cols := data.Cols()
-	dis = Zeros(rows, rows)
-	a = 0
-	b = 0
-	c = 0
-	d = 0
-
-	checkIfBool(data)
-
+	sim = Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
-		dis.Set(i, i, 0.0)
-	}
-
-	for i := 0; i < rows; i++ {
-		for j := i + 1; j < rows; j++ {
-			for k := 0; k < cols; k++ {
-				x := data.Get(i, k)
-				y := data.Get(j, k)
-
-				switch {
-				case x != 0 && y != 0:
-					a++
-				case x != 0 && y == 0:
-					b++
-				case x == 0 && y != 0:
-					c++
-				case x == 0 && y == 0:
-					d++
-				}
-
-			}
-			d := float64(b + c)
-			dis.Set(i, j, d)
-			dis.Set(j, i, d)
+		for j := i; j < rows; j++ {
+			a, b, c, d = getABCD(data, i, j)
+			s:= (b + c) / (a+b+c+d)
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
 		}
 	}
-	return dis
+	return sim
 }
 
-// Boolean Euclidean distance matrix
-func EuclidBool_D(data *DenseMatrix) *DenseMatrix {
-	var (
-		dis *DenseMatrix
-	)
-	dis = Euclid_D(data)
+// Boolean Euclidean similatity matrix
+// Mean Euclidean in Ellis et al. (1993)
+func EuclidBool_S(data *DenseMatrix) *DenseMatrix {
+	sim := EuclidSqBool_S(data)
 	rows := data.Rows()
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			d := Sqrt(dis.Get(i, j))
-			dis.Set(i, j, d)
-			dis.Set(j, i, d)
+			s := math.Sqrt(sim.Get(i, j))
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
 		}
 	}
-	return dis
+	return sim
 }
+

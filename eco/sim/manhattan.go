@@ -81,9 +81,5 @@ func ManhattanBool_S(data *DenseMatrix) *DenseMatrix {
 	return sim
 }
 
-// Boolean Manhattan distance
-func ManhattanBool_D(data *DenseMatrix) *DenseMatrix {
-	return EuclidSqBool_D(data)
-}
 
 
