@@ -1,4 +1,5 @@
 GOFILES=\
+     abcd.go\
      arrhenius.go\
      aux_fn.go\
      average_sq.go\
@@ -9,19 +10,33 @@ GOFILES=\
      chao.go\
      chebychev.go\
      circle_product.go\
+     co-co-gaston.go\
+     cody.go\
      cosine.go\
      czekanowski.go\
+     dennis.go\
      dice.go\
      drennan.go\
      euclid.go\
+     fossum.go\
      gower.go\
+     hamann.go\
      hamming.go\
+     harrison.go\
+     harte.go\
      horn-morisita.go\
      jaccard.go\
      kendall.go\
      kulczynski.go\
      lance-williams.go\
+     lande.go\
+     legendre.go\
+     lennon.go\
+     magurran.go\
      manhattan.go\
+     margaleff.go\
+     mcconnagh.go\
+     michael.go\
      millar.go\
      minkowski.go\
      morisita.go\
@@ -32,12 +47,24 @@ GOFILES=\
      raup-crick.go\
      renkonen.go\
      robinson.go\
+     rogers.go\
+     routledge.go\
+     ruggiero.go\
      ruzicka.go\
      shannon.go\
      shape_diff.go\
      sim_ratio.go\
+     simple_matching.go\
+     simpson.go\
      size_diff.go\
+     sokal.go\
      sorensen.go\
      spearman.go\
+     stiles.go\
      taxonomic.go\
      variance.go\
+     weiher.go\
+     whittaker.go\
+     williams.go\
+     wilson-shmida.go\
+     yule.go\

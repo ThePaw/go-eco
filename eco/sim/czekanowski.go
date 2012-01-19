@@ -27,7 +27,7 @@ func Czekanowski_D(data *DenseMatrix) *DenseMatrix {
 				sum2 += y * y
 				sum3 += x * y
 			}
-			d := 1 - 200.0 * sum1 / (sum2 + sum3)
+			d := 1 - 200.0*sum1/(sum2+sum3)
 			dis.Set(i, j, d)
 			dis.Set(j, i, d)
 		}
@@ -41,5 +41,3 @@ func Czekanowski_S(data *DenseMatrix) *DenseMatrix {
 	//1-D
 	return sFromD(dis, 0)
 }
-
-

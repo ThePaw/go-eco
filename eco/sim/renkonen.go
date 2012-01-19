@@ -8,9 +8,9 @@ import (
 
 // Renkonen dissimilarity
 func Renkonen_D(data *DenseMatrix) *DenseMatrix {
-	
+
 	// recalculate data to proportions
-	recalcToProp(data) 
+	recalcToProp(data)
 
 	rows := data.Rows()
 	cols := data.Cols()
@@ -44,4 +44,3 @@ func Renkonen_S(data *DenseMatrix) *DenseMatrix {
 	// s = 1/(D+1) type
 	return sFromD(dis, 1)
 }
-

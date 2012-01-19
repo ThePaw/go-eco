@@ -1,62 +1,36 @@
-// Dice's (dis)similarity matrix
+// Dice's similarity and dissimilarity matrix
+// Dice (1945), Wolda (1981)
 
 package eco
 
 import (
 	. "gomatrix.googlecode.com/hg/matrix"
+	"math"
 )
 
-/*
-func DiceBool_D(data *DenseMatrix) *DenseMatrix {
+func DiceBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		dis        *DenseMatrix
-		a, b, c, d int64
+		sim           *DenseMatrix
+		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.Rows()
-	cols := data.Cols()
-	dis = Zeros(rows, rows)
-	a = 0
-	b = 0
-	c = 0
-	d = 0
-
-	checkIfBool(data)
-
+	sim = Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
-		dis.Set(i, i, 0.0)
-	}
-
-	for i := 0; i < rows; i++ {
-		for j := i + 1; j < rows; j++ {
-			for k := 0; k < cols; k++ {
-				x := data.Get(i, k)
-				y := data.Get(j, k)
-
-				switch {
-				case x != 0 && y != 0:
-					a++
-				case x != 0 && y == 0:
-					b++
-				case x == 0 && y != 0:
-					c++
-				case x == 0 && y == 0:
-					d++
-				}
-
-			}
-			dist := 1.0 - 2.0 * float64(a) / float64(b + c)
-			dis.Set(i, j, dist)
-			dis.Set(j, i, dist)
+		for j := i; j < rows; j++ {
+			a, b, c, _ = getABCD(data, i, j)
+			s:= a / (math.Min(b+a, c+a)) 
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
 		}
 	}
-	return dis
+	return sim
 }
-*/
 
 // Dice's dissimilarity
 // it is not a proper distance metric as it does not possess the property of triangle inequality
-// Dice = 2*Jaccard / (1 + Jaccard) 
+// Dice = 2*Jaccard / (1 + Jaccard)
+// Formula from R:vegan 
 func DiceBool_D(data *DenseMatrix) *DenseMatrix {
 	var (
 		aa, bb, jj float64
@@ -83,8 +57,3 @@ func DiceBool_D(data *DenseMatrix) *DenseMatrix {
 	return dis
 }
 
-func DiceBool_S(data *DenseMatrix) *DenseMatrix {
-	dis := DiceBool_D(data)
-	//1-D
-	return sFromD(dis, 0)
-}

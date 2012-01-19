@@ -6,8 +6,27 @@ import (
 	. "gomatrix.googlecode.com/hg/matrix"
 	"math"
 )
+// Ochiai similarity matrix
+func OchiaiBool_S(data *DenseMatrix, which byte) *DenseMatrix {
+	var (
+		sim           *DenseMatrix
+		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
+	)
 
-// Ochiai distance matrix, for boolean data
+	rows := data.Rows()
+	sim = Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := i; j < rows; j++ {
+			a, b, c, _ = getABCD(data, i, j)
+			s:= a / math.Sqrt((a + b) * (a + c))
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
+		}
+	}
+	return sim
+}
+
+// Ochiai distance matrix, for boolean data (according to R: vegan)
 func OchiaiBool_D(data *DenseMatrix) *DenseMatrix {
 	var (
 		aa, bb, jj float64
@@ -33,3 +52,4 @@ func OchiaiBool_D(data *DenseMatrix) *DenseMatrix {
 	}
 	return dis
 }
+

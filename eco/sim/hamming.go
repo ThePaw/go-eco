@@ -36,7 +36,6 @@ func hamming_D(data *DenseMatrix) *DenseMatrix {
 	return dis
 }
 
-
 // Hamming distance matrix, for boolean data
 func HammingBool_D(data *DenseMatrix) *DenseMatrix {
 	checkIfBool(data)
@@ -45,6 +44,6 @@ func HammingBool_D(data *DenseMatrix) *DenseMatrix {
 
 // Hamming distance matrix, for categorical data
 func HammingCat_D(data *DenseMatrix) *DenseMatrix {
-//	checkIfCat(data)
+	//	checkIfCat(data)
 	return hamming_D(data)
 }

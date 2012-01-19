@@ -259,7 +259,7 @@ func TestAtkinson(t *testing.T) {
 		}
 	}
 
-	fmt.Println("Atkinson test against R:ineq, epsilon =1.0")
+	fmt.Println("Atkinson test against R:ineq, epsilon =0.5")
 	out = Atkinson(data, 0.5)
 
 	//known inequalities

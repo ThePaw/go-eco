@@ -1,6 +1,5 @@
-// Kulczynski distance and similarity
-// d[jk] =  1 - 0.5*((sum min(x[ij],x[ik])/(sum x[ij]) + (sum min(x[ij],x[ik])/(sum x[ik]))
-// Similarity is 1.00/(d+1), so that it is in [0, 1]
+// Kulczynski similarity and distance matrix
+// Oosting (1956), Southwood (1978)
 
 package eco
 
@@ -8,6 +7,45 @@ import (
 	. "gomatrix.googlecode.com/hg/matrix"
 	. "math"
 )
+
+// Kulczynski similarity matrix #1
+func Kulczynski1_S(data *DenseMatrix) *DenseMatrix {
+	var (
+		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
+	)
+
+	rows := data.Rows()
+	sim := Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := i; j < rows; j++ {
+			a, b, c, _ = getABCD(data, i, j)
+			s:= a / (b+c)
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
+		}
+	}
+	return sim
+}
+
+// Kulczynski similarity matrix #2
+func Kulczynski2_S(data *DenseMatrix) *DenseMatrix {
+	var (
+		sim           *DenseMatrix
+		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
+	)
+
+	rows := data.Rows()
+	sim = Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := i; j < rows; j++ {
+			a, b, c, _ = getABCD(data, i, j)
+			s:= ((a/2) * ((2*a) + b +c)) / ((a+b)*(a+c)) 
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
+		}
+	}
+	return sim
+}
 
 // Kulczynski distance matrix
 func Kulczynski_D(data *DenseMatrix) *DenseMatrix {
@@ -42,26 +80,4 @@ func Kulczynski_D(data *DenseMatrix) *DenseMatrix {
 	return dis
 }
 
-// Kulczynski similarity matrix
-func Kulczynski_S(data *DenseMatrix) *DenseMatrix {
-	var (
-		sim, dis *DenseMatrix
-	)
 
-	dis = Kulczynski_D(data)
-	rows := data.Rows()
-	sim = Zeros(rows, rows)
-
-	for i := 0; i < rows; i++ {
-		sim.Set(i, i, 1.0)
-	}
-
-	for i := 0; i < rows; i++ {
-		for j := i + 1; j < rows; j++ {
-			s := 1.00 / (dis.Get(i, j) + 1.0)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
-		}
-	}
-	return sim
-}

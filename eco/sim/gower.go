@@ -173,6 +173,7 @@ func GowerOrd_S(data *DenseMatrix) *DenseMatrix {
 	return sim
 }
 
+// Gower distance for boolean data
 func GowerBool_D(data *DenseMatrix) *DenseMatrix {
 	var (
 		dis        *DenseMatrix
@@ -219,20 +220,15 @@ func GowerBool_D(data *DenseMatrix) *DenseMatrix {
 	return dis
 }
 
+// Citation needed
 func GowerZBool_D(data *DenseMatrix) *DenseMatrix {
 	var (
 		dis        *DenseMatrix
-		a, b, c, d int64
+		a, b, c, _ float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.Rows()
-	cols := data.Cols()
 	dis = Zeros(rows, rows)
-	a = 0
-	b = 0
-	c = 0
-	d = 0
-
 	checkIfBool(data)
 
 	for i := 0; i < rows; i++ {
@@ -241,26 +237,37 @@ func GowerZBool_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			for k := 0; k < cols; k++ {
-				x := data.Get(i, k)
-				y := data.Get(j, k)
-
-				switch {
-				case x != 0 && y != 0:
-					a++
-				case x != 0 && y == 0:
-					b++
-				case x == 0 && y != 0:
-					c++
-				case x == 0 && y == 0:
-					d++
-				}
-
-			}
-			d := float64(b+c) / float64(a+b+c)
+			a, b, c, _ = getABCD(data, i, j)
+			d := (b+c) / (a+b+c)
 			dis.Set(i, j, d)
 			dis.Set(j, i, d)
 		}
 	}
 	return dis
 }
+
+// Gower similarity for boolean data
+// Gower & Legendre (1986)
+func GowerBool_S(data *DenseMatrix) *DenseMatrix {
+	var (
+		sim           *DenseMatrix
+		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
+	)
+
+	rows := data.Rows()
+	sim = Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := i; j < rows; j++ {
+			a, b, c, d = getABCD(data, i, j)
+			s:= (a - (b+c)+d) / (a+b+c+d)
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
+		}
+	}
+	return sim
+}
+
+
+
+
+

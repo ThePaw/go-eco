@@ -175,7 +175,7 @@ func dFromS(sim *DenseMatrix, which int) *DenseMatrix {
 			s := sim.Get(i, j)
 			switch {
 			case which == 0:
-				d = 1-s
+				d = 1 - s
 			case which == 1:
 				d = 1/s - 1
 			}
@@ -185,7 +185,7 @@ func dFromS(sim *DenseMatrix, which int) *DenseMatrix {
 	return dis
 }
 
-func recalcToProp(data *DenseMatrix) int{
+func recalcToProp(data *DenseMatrix) int {
 	rows := data.Rows()
 	cols := data.Cols()
 	// calculate row sums (sum of all abundances of all species in the sample)
@@ -196,10 +196,9 @@ func recalcToProp(data *DenseMatrix) int{
 		}
 		// recalculate to proportiond
 		for j := 0; j < cols; j++ {
-			x:= data.Get(i, j)
+			x := data.Get(i, j)
 			data.Set(i, j, x/rowSum)
 		}
 	}
 	return 0
 }
-
