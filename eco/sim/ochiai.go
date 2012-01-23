@@ -6,10 +6,11 @@ import (
 	. "gomatrix.googlecode.com/hg/matrix"
 	"math"
 )
+
 // Ochiai similarity matrix
-func OchiaiBool_S(data *DenseMatrix, which byte) *DenseMatrix {
+func OchiaiBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim     *DenseMatrix
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -18,7 +19,7 @@ func OchiaiBool_S(data *DenseMatrix, which byte) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s:= a / math.Sqrt((a + b) * (a + c))
+			s := a / math.Sqrt((a+b)*(a+c))
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
@@ -35,7 +36,7 @@ func OchiaiBool_D(data *DenseMatrix) *DenseMatrix {
 
 	rows := data.Rows()
 	dis = Zeros(rows, rows)
-	checkIfBool(data)
+	warnIfNotBool(data)
 
 	for i := 0; i < rows; i++ {
 		dis.Set(i, i, 0.0)
@@ -52,4 +53,3 @@ func OchiaiBool_D(data *DenseMatrix) *DenseMatrix {
 	}
 	return dis
 }
-

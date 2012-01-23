@@ -123,10 +123,10 @@ func Mountford_S(data *DenseMatrix) *DenseMatrix {
 }
 
 // Mountford similarity matrix, for boolean data
-func MountfordBool_S(data *DenseMatrix, which byte) *DenseMatrix {
+func MountfordBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
-		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
+		sim     *DenseMatrix
+		a, b, c, s float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.Rows()
@@ -134,11 +134,15 @@ func MountfordBool_S(data *DenseMatrix, which byte) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s:= 2 * a / (a * (b + c) + (2 * b * c))
+if (a*(b+c) + (2 * b * c)) != 0 {
+			s = 2 * a / (a*(b+c) + (2 * b * c))
+} else {
+			s = 2 * a / (a*(b+c) + (2 * b * c))
+
+}
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
 	}
 	return sim
 }
-

@@ -1,5 +1,7 @@
 ToDo:
 
+rename bool _S fns in 'dist' to _D
+tests against R:simba
 # Binomial_D == Millar_D: test it
 check for ties
 FN_S remaining, check those already done for range

@@ -52,7 +52,7 @@ func truncData(data *DenseMatrix) {
 
 }
 
-func checkIfBool(data *DenseMatrix) {
+func warnIfNotBool(data *DenseMatrix) {
 	rows := data.Rows()
 	cols := data.Cols()
 	eps := 1e-3
@@ -77,6 +77,8 @@ func checkIfBool(data *DenseMatrix) {
 
 }
 
+// Calculates A, B, J, and P values from two rows of boolean data matrix, "quadratic variant". 
+// See R:vegan:vegdist
 // "quadratic" terms are J = sum(x*y), A = sum(x^2), B = sum(y^2)
 func getABJPquad(data *DenseMatrix, i, j int) (aa, bb, jj, pp float64) {
 	cols := data.Cols()
@@ -95,6 +97,8 @@ func getABJPquad(data *DenseMatrix, i, j int) (aa, bb, jj, pp float64) {
 	return
 }
 
+// Calculates A, B, J, and P values from two rows of boolean data matrix, "minimum variant". 
+// See R:vegan:vegdist
 // "minimum" terms are J = sum(min(x,y)), A = sum(x) and B = sum(y)
 func getABJPmin(data *DenseMatrix, i, j int) (aa, bb, jj, pp float64) {
 	cols := data.Cols()
@@ -113,6 +117,8 @@ func getABJPmin(data *DenseMatrix, i, j int) (aa, bb, jj, pp float64) {
 	return
 }
 
+// Calculates A, B, J, and P values from two rows of boolean data matrix. 
+// See R:vegan:vegdist
 func getABJPbool(data *DenseMatrix, i, j int) (aa, bb, jj, pp float64) {
 	cols := data.Cols()
 
@@ -145,6 +151,7 @@ func getABJPbool(data *DenseMatrix, i, j int) (aa, bb, jj, pp float64) {
 	return
 }
 
+// Calculates similarity matrix from the distance / dissimilarity matrix. 
 func sFromD(dis *DenseMatrix, which int) *DenseMatrix {
 	var s float64
 	rows := dis.Rows()
@@ -165,6 +172,7 @@ func sFromD(dis *DenseMatrix, which int) *DenseMatrix {
 	return sim
 }
 
+// Calculates distance / dissimilarity matrix from the similarity matrix
 func dFromS(sim *DenseMatrix, which int) *DenseMatrix {
 	var d float64
 	rows := sim.Rows()
@@ -185,6 +193,7 @@ func dFromS(sim *DenseMatrix, which int) *DenseMatrix {
 	return dis
 }
 
+// recalculates data matrix to proportions. 
 func recalcToProp(data *DenseMatrix) int {
 	rows := data.Rows()
 	cols := data.Cols()
@@ -201,4 +210,34 @@ func recalcToProp(data *DenseMatrix) int {
 		}
 	}
 	return 0
+}
+
+// For boolean data, calculates a, b, c, d values of the contingency table. 
+// To be use for calculation of similarity indices. 
+func getABCD(data *DenseMatrix, row1, row2 int) (a, b, c, d float64) {
+	cols := data.Cols()
+
+	warnIfNotBool(data)
+
+	a = 0
+	b = 0
+	c = 0
+	d = 0
+
+	for k := 0; k < cols; k++ {
+		x := data.Get(row1, k)
+		y := data.Get(row2, k)
+
+		switch {
+		case x != 0 && y != 0:
+			a++
+		case x != 0 && y == 0:
+			b++
+		case x == 0 && y != 0:
+			c++
+		case x == 0 && y == 0:
+			d++
+		}
+	}
+	return a, b, c, d
 }

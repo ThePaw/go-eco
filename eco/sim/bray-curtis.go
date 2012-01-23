@@ -68,19 +68,13 @@ func BrayCurtis_S(data *DenseMatrix) *DenseMatrix {
 
 func BrayCurtisBool_D(data *DenseMatrix) *DenseMatrix {
 	var (
-		dis        *DenseMatrix
-		a, b, c, d int64
+		a, b, c float64
 	)
 
-	rows := data.Rows()
-	cols := data.Cols()
-	dis = Zeros(rows, rows)
-	a = 0
-	b = 0
-	c = 0
-	d = 0
+	warnIfNotBool(data)
 
-	checkIfBool(data)
+	rows := data.Rows()
+	dis := Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		dis.Set(i, i, 0.0)
@@ -88,26 +82,12 @@ func BrayCurtisBool_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			for k := 0; k < cols; k++ {
-				x := data.Get(i, k)
-				y := data.Get(j, k)
-
-				switch {
-				case x != 0 && y != 0:
-					a++
-				case x != 0 && y == 0:
-					b++
-				case x == 0 && y != 0:
-					c++
-				case x == 0 && y == 0:
-					d++
-				}
-
-			}
-			d := float64(b+c) / (2.0 * float64(a+b+c)) // ???
-			dis.Set(i, j, d)
-			dis.Set(j, i, d)
+			a, b, c, _ = getABCD(data, i, j)
+			dist := (b+c) / (2.0 * (a+b+c)) // ???
+			dis.Set(i, j, dist)
+			dis.Set(j, i, dist)
 		}
 	}
 	return dis
 }
+

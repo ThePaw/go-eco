@@ -1,7 +1,27 @@
-0.0000000,0.6033410,0.5802860,0.6214884,0.5711567,0.5388661,
-0.6033410,0.0000000,0.6780719,0.5647846,0.5899117,0.6520767,
-0.5802860,0.6780719,0.0000000,0.6199690,0.5025003,0.5700122,
-0.6214884,0.5647846,0.6199690,0.0000000,0.6668737,0.6141088,
-0.5711567,0.5899117,0.5025003,0.6668737,0.0000000,0.6185709,
-0.5388661,0.6520767,0.5700122,0.6141088,0.6185709,0.0000000,
-,
+##Values of sim indices for identical samples
+##so these need to be renamed to _D
+Whittaker:  0
+WilsonShmida:  0
+CoCoGaston:  0
+Williams1:  0
+Williams2:  0.0003246753246753247
+Weiher:  0
+Simpson1:  0
+Routledge1:  0
+Routledge2:  -8.881784197001252e-16
+Routledge3:  -8.881784197001252e-16
+Manhattan:  0
+Magurran:  0
+Lennon1:  0
+Lennon2:  0
+Legendre1:  0.56 ??
+Lande:  0
+Lamont:  0.5 ??
+Harte:  0
+Harrison:  0
+Fossum:  -25   ?????
+Eyraud:  -0.0005073051948051948
+Euclid:  0
+Divergence:  0
+Cody:  0
+

@@ -13,7 +13,7 @@ func BergerParkerDiv(data *Matrix) *Vector {
 	div := NewVector(cols)
 
 	for i := 0; i < rows; i++ {
-		tot := 0.0	// total number of all individuals in the sample
+		tot := 0.0 // total number of all individuals in the sample
 		for j := 0; j < cols; j++ {
 			x := data.Get(i, j)
 			if x > 0 {
@@ -30,4 +30,3 @@ func BergerParkerDiv(data *Matrix) *Vector {
 	}
 	return div
 }
-

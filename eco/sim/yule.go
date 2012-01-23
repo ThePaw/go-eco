@@ -8,9 +8,9 @@ import (
 )
 
 // Yule similarity matrix
-func YuleBool_S(data *DenseMatrix, which byte) *DenseMatrix {
+func YuleBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim        *DenseMatrix
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -19,11 +19,10 @@ func YuleBool_S(data *DenseMatrix, which byte) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			s:= (a*d - b*c) / (a*d + b*c)
+			s := (a*d - b*c) / (a*d + b*c)
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
 	}
 	return sim
 }
-

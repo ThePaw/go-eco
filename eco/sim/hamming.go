@@ -38,7 +38,7 @@ func hamming_D(data *DenseMatrix) *DenseMatrix {
 
 // Hamming distance matrix, for boolean data
 func HammingBool_D(data *DenseMatrix) *DenseMatrix {
-	checkIfBool(data)
+	warnIfNotBool(data)
 	return hamming_D(data)
 }
 

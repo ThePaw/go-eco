@@ -1,5 +1,4 @@
 GOFILES=\
-     abcd.go\
      arrhenius.go\
      aux_fn.go\
      average_sq.go\
@@ -21,6 +20,7 @@ GOFILES=\
      drennan.go\
      euclid.go\
      eyraud.go\
+     fager.go\
      forbes.go\
      fossum.go\
      gower.go\

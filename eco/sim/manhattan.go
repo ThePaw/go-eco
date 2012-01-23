@@ -64,7 +64,7 @@ func Manhattan_S(data *DenseMatrix) *DenseMatrix {
 // Boolean Manhattan similarity
 func ManhattanBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim        *DenseMatrix
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -73,13 +73,10 @@ func ManhattanBool_S(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			s:= (b+c) / (a+b+c+d) 
+			s := (b + c) / (a + b + c + d)
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
 	}
 	return sim
 }
-
-
-

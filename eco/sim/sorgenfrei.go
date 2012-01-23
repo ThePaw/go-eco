@@ -10,7 +10,7 @@ import (
 // Sorgenfrei similarity matrix
 func SorgenfreiBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim     *DenseMatrix
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -19,11 +19,10 @@ func SorgenfreiBool_S(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s:=  a*a / ((a+b)*(a+c))
+			s := a * a / ((a + b) * (a + c))
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
 	}
 	return sim
 }
-

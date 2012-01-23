@@ -1,0 +1,64 @@
+rm -f _test/go-eco.googlecode.com/hg/eco.a
+8g   -p go-eco.googlecode.com/hg/eco -o _gotest_.8 arrhenius.go aux_fn.go average_sq.go baroni-urbani.go binomial.go bray-curtis.go canberra.go chao.go chebychev.go chisquare.go circle_product.go co-co-gaston.go cody.go cosine.go czekanowski.go dennis.go dice.go divergence.go drennan.go euclid.go eyraud.go fager.go forbes.go fossum.go gower.go hamann.go hamming.go harrison.go harte.go horn-morisita.go jaccard.go johnson.go kendall.go kulczynski.go lamont.go lance-williams.go lande.go legendre.go lennon.go maarel.go magurran.go manhattan.go margaleff.go mcconnagh.go michael.go millar.go minkowski.go morisita.go mountford.go ochiai.go pattern_diff.go pearson.go peirce.go raup-crick.go renkonen.go robinson.go rogers.go routledge.go ruggiero.go ruzicka.go shannon.go shape_diff.go sim_ratio.go simple_matching.go simpson.go size_diff.go sokal.go sorensen.go sorgenfrei.go spearman.go stiles.go taxonomic.go variance.go weiher.go whittaker.go williams.go wilson-shmida.go yule.go  4_test.go check_test.go
+rm -f _test/go-eco.googlecode.com/hg/eco.a
+gopack grc _test/go-eco.googlecode.com/hg/eco.a _gotest_.8 
+Values of similarity indices for complementary samples
+Whittaker:  0
+Mountford:  +Inf
+Yule:  1
+WilsonShmida:  0
+CoCoGaston:  0
+Ochiai:  1
+Jaccard:  1
+Sorensen:  1
+Williams1:  0
+Williams2:  0.0003246753246753247
+Weiher:  0
+Stiles:  4.5641683399962245
+Sorgenfrei:  1
+SokalSneath1:  1
+SokalSneath2:  +Inf
+SokalSneath3:  1
+SokalSneath4:  1
+SokalSneath5:  1
+Simpson1:  0
+Simpson2:  1
+SimpleMatching:  1
+Ruggiero:  1
+Routledge1:  0
+Routledge2:  -8.881784197001252e-16
+Routledge3:  -8.881784197001252e-16
+RogersTanimoto:  1
+Peirce:  1
+Michael:  0.9856
+McConnagh:  1
+Margaleff:  1.7857142857142858
+Manhattan:  0
+Magurran:  0
+Maarel:  1
+Lennon1:  0
+Lennon2:  0
+Legendre1:  0.56
+Legendre2:  1
+Lande:  0
+Lamont:  0.5
+Kulczynski1:  +Inf
+Kulczynski2:  1
+Johnson1:  +Inf
+Johnson2:  2
+Harte:  0
+Harrison:  0
+Hamann:  1
+Gower:  1
+Fossum:  -25
+Forbes:  1
+Eyraud:  -0.0005073051948051948
+Euclid:  0
+Divergence:  0
+Dice:  1
+Dennis:  4.4
+Cody:  0
+ChiSquared:  100
+BaroniUrbani:  1
+Fager:  0.9331846895218939
+PASS

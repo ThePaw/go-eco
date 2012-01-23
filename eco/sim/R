@@ -100,3 +100,11 @@ b <- read.csv("bin_big.csv", header = FALSE, sep = ",")
 m  <- dissimilarity(b, y=NULL,method="jaccard") 
 y <-as.matrix(m)
 
+
+library("simba") 
+b <- read.csv("bin_big.csv", header = FALSE, sep = ",")
+m <- sim(b, method = "soerensen")
+y <-as.matrix(m)
+write(y, file = "foo", ncolumns = 6, append = FALSE, sep = ",")
+
+

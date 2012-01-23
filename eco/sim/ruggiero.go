@@ -10,7 +10,7 @@ import (
 // Ruggiero similarity matrix
 func RuggieroBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim  *DenseMatrix
 		a, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -19,11 +19,10 @@ func RuggieroBool_S(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, _, c, _ = getABCD(data, i, j)
-			s:= a / (a+c)
+			s := a / (a + c)
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
 	}
 	return sim
 }
-

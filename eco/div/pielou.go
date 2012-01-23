@@ -13,7 +13,6 @@ func Pielou(data *Matrix) *Vector {
 	s := richness(data)
 	j := NewVector(cols)
 
-
 	for i := 0; i < rows; i++ {
 		j.Set(i, h/math.Log(s))
 	}

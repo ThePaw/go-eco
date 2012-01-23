@@ -20,7 +20,7 @@ func ArrheniusBool_D(data *DenseMatrix) *DenseMatrix {
 
 	rows := data.Rows()
 	dis = Zeros(rows, rows)
-	checkIfBool(data)
+	warnIfNotBool(data)
 
 	for i := 0; i < rows; i++ {
 		dis.Set(i, i, 0.0)

@@ -23,4 +23,3 @@ func Richness(data *Matrix) *Vector {
 	}
 	return out
 }
-

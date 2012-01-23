@@ -11,7 +11,7 @@ import (
 // Johnson (1971)
 func Johnson1Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim  *DenseMatrix
 		a, b float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -20,7 +20,7 @@ func Johnson1Bool_S(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, _, _ = getABCD(data, i, j)
-			s:= a / (2*b)
+			s := a / (2 * b)
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
@@ -32,7 +32,7 @@ func Johnson1Bool_S(data *DenseMatrix) *DenseMatrix {
 // Johnson (1967)
 func Johnson2Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim     *DenseMatrix
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -41,13 +41,10 @@ func Johnson2Bool_S(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s:= (a/(a+b)) + (a/(a+c))
+			s := (a / (a + b)) + (a / (a + c))
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
 	}
 	return sim
 }
-
-
-

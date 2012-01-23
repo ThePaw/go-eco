@@ -2,8 +2,8 @@
 package eco
 
 import (
-	"math"
 	"go-fn.googlecode.com/hg/fn"
+	"math"
 )
 
 // Brillouin diversity
@@ -17,10 +17,10 @@ func Brillouin(data *Matrix) *Vector {
 	div := NewVector(cols)
 
 	for i := 0; i < rows; i++ {
-		tot = 0	// total number of all individuals in the sample
+		tot = 0 // total number of all individuals in the sample
 		sumLnF := 0.0
 		for j := 0; j < cols; j++ {
-			x := int64(math.Floor(data.Get(i, j)))	// must be int64
+			x := int64(math.Floor(data.Get(i, j))) // must be int64
 			if x > 0 {
 				tot += x
 			}
@@ -32,4 +32,3 @@ func Brillouin(data *Matrix) *Vector {
 	}
 	return div
 }
-

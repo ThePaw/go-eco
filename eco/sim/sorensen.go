@@ -1,4 +1,5 @@
 // Sørensen similarity and distance
+// Soerensen (1948)
 
 package eco
 
@@ -7,9 +8,9 @@ import (
 )
 
 // Sørensen similarity matrix, for boolean data
-func SorensenBool_S(data *DenseMatrix, which byte) *DenseMatrix {
+func SorensenBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim     *DenseMatrix
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -18,7 +19,7 @@ func SorensenBool_S(data *DenseMatrix, which byte) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s:= 2*a/(2*a + b + c)
+			s := 2 * a / (2*a + b + c)
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
@@ -35,7 +36,7 @@ func SorensenBool_D(data *DenseMatrix) *DenseMatrix {
 
 	rows := data.Rows()
 	dis = Zeros(rows, rows)
-	checkIfBool(data)
+	warnIfNotBool(data)
 
 	for i := 0; i < rows; i++ {
 		dis.Set(i, i, 0.0)

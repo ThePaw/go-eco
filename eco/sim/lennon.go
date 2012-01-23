@@ -11,7 +11,7 @@ import (
 // Lennon similarity matrix #1
 func Lennon1Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim     *DenseMatrix
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -20,17 +20,18 @@ func Lennon1Bool_S(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s:= (2 * math.Abs(b-c)) / (2*a + b +c)
+			s := (2 * math.Abs(b-c)) / (2*a + b + c)
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
 	}
 	return sim
 }
+
 // Lennon similarity matrix #2
 func Lennon2Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim     *DenseMatrix
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -39,11 +40,10 @@ func Lennon2Bool_S(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s:= 1 - (math.Log((2*a + b + c)/(a + b + c)) / math.Log(2))
+			s := 1 - (math.Log((2*a+b+c)/(a+b+c)) / math.Log(2))
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
 	}
 	return sim
 }
-

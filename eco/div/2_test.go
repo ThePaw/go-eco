@@ -201,7 +201,7 @@ func TestSimpson(t *testing.T) {
 	out := Simpson(data, 'c', false)
 
 	//known diversities
-	known := [...]float64{0.9870751,0.9860367,0.9857834,0.9868089,0.9871495,0.9866519}
+	known := [...]float64{0.9870751, 0.9860367, 0.9857834, 0.9868089, 0.9871495, 0.9866519}
 
 	rows := data.R
 
@@ -221,7 +221,7 @@ func TestSimpson(t *testing.T) {
 	out = Simpson(data, 'i', false)
 
 	//known diversities
-	known = [...]float64{77.36975,71.61625,70.34054,75.80850,77.81822,74.91707}
+	known = [...]float64{77.36975, 71.61625, 70.34054, 75.80850, 77.81822, 74.91707}
 
 	rows = data.R
 
@@ -276,4 +276,3 @@ func TestAtkinson(t *testing.T) {
 		}
 	}
 }
-

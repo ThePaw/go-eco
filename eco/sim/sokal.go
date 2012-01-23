@@ -13,7 +13,7 @@ import (
 // Legendre & Legendre 1998: 255, eq. 7.3 (S3 index)
 func SokalSneath1Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim        *DenseMatrix
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -34,7 +34,7 @@ func SokalSneath1Bool_S(data *DenseMatrix) *DenseMatrix {
 // Legendre & Legendre 1998: 255, eq. 7.4 (S4 index)
 func SokalSneath2Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim        *DenseMatrix
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -55,7 +55,7 @@ func SokalSneath2Bool_S(data *DenseMatrix) *DenseMatrix {
 // Legendre & Legendre 1998: 255, eq. 7.5 (S5 index)
 func SokalSneath3Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim        *DenseMatrix
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -76,7 +76,7 @@ func SokalSneath3Bool_S(data *DenseMatrix) *DenseMatrix {
 // Legendre & Legendre 1998: 255, eq. 7.6 (S6 index)
 func SokalSneath4Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim        *DenseMatrix
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -98,7 +98,7 @@ func SokalSneath4Bool_S(data *DenseMatrix) *DenseMatrix {
 // Sokal & Sneath (1963)  ### REF!pg, eq.
 func SokalSneath5Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim     *DenseMatrix
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -107,11 +107,10 @@ func SokalSneath5Bool_S(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s := a / (a + 2*(b + c))
+			s := a / (a + 2*(b+c))
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
 	}
 	return sim
 }
-

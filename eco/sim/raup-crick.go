@@ -10,7 +10,7 @@ import (
 )
 
 // Raup - Crick distance matrix for presence-absence data
-// Raup–Crick distance is a probabilistic index based on presence/absence data. It is defined as 1 - prob(j), 
+// Raup - Crick distance is a probabilistic index based on presence/absence data. It is defined as 1 - prob(j), 
 // or based on the probability of observing at least j species in shared in compared communities. 
 // Legendre & Legendre (1998) suggest using simulations to assess the probability, but the current function uses analytic result 
 // from hypergeometric distribution instead. This probability (and the index) is dependent on the number of species missing in both sites, 

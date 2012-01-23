@@ -7,9 +7,9 @@ import (
 )
 
 // Wilson - Shmida similarity matrix
-func WilsonShmidaBool_S(data *DenseMatrix, which byte) *DenseMatrix {
+func WilsonShmidaBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim     *DenseMatrix
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -18,11 +18,10 @@ func WilsonShmidaBool_S(data *DenseMatrix, which byte) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s:= (b+c)/(2*a+b+c) 
+			s := (b + c) / (2*a + b + c)
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
 	}
 	return sim
 }
-

@@ -9,7 +9,7 @@ import (
 )
 
 // Kulczynski similarity matrix #1
-func Kulczynski1_S(data *DenseMatrix) *DenseMatrix {
+func Kulczynski1Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -19,7 +19,7 @@ func Kulczynski1_S(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s:= a / (b+c)
+			s := a / (b + c)
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
@@ -28,9 +28,9 @@ func Kulczynski1_S(data *DenseMatrix) *DenseMatrix {
 }
 
 // Kulczynski similarity matrix #2
-func Kulczynski2_S(data *DenseMatrix) *DenseMatrix {
+func Kulczynski2Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim           *DenseMatrix
+		sim     *DenseMatrix
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
@@ -39,7 +39,7 @@ func Kulczynski2_S(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s:= ((a/2) * ((2*a) + b +c)) / ((a+b)*(a+c)) 
+			s := ((a / 2) * ((2 * a) + b + c)) / ((a + b) * (a + c))
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
@@ -79,5 +79,3 @@ func Kulczynski_D(data *DenseMatrix) *DenseMatrix {
 	}
 	return dis
 }
-
-

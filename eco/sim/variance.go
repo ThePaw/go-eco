@@ -18,7 +18,7 @@ func VarianceBool_D(data *DenseMatrix) *DenseMatrix {
 	c = 0
 	d = 0
 
-	checkIfBool(data)
+	warnIfNotBool(data)
 
 	for i := 0; i < rows; i++ {
 		dis.Set(i, i, 0.0)

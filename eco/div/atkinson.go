@@ -37,8 +37,6 @@ func Atkinson(data *Matrix, epsilon float64) *Vector {
 		}
 		mu /= float64(cols)
 
-
-
 		if epsilon == 1 {
 			// R:			 
 			// A <- 1 - (exp(mean(log(x)))/mean(x))

@@ -17,7 +17,7 @@ func Renyi(data *Matrix, q float64) *Vector {
 	div := NewVector(cols)
 	for i := 0; i < rows; i++ {
 		sum := 0.0
-		tot := 0.0	// total number of all individuals in the sample
+		tot := 0.0 // total number of all individuals in the sample
 		for j := 0; j < cols; j++ {
 			x := data.Get(i, j)
 			if x > 0 {
@@ -35,5 +35,3 @@ func Renyi(data *Matrix, q float64) *Vector {
 	}
 	return div
 }
-
-

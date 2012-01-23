@@ -6,19 +6,13 @@ import (
 
 func ShapeDiffBool_D(data *DenseMatrix) *DenseMatrix {
 	var (
-		dis        *DenseMatrix
-		a, b, c, d int64
+		a, b, c, d float64
 	)
 
-	rows := data.Rows()
-	cols := data.Cols()
-	dis = Zeros(rows, rows)
-	a = 0
-	b = 0
-	c = 0
-	d = 0
+	warnIfNotBool(data)
 
-	checkIfBool(data)
+	rows := data.Rows()
+	dis := Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		dis.Set(i, i, 0.0)
@@ -26,25 +20,12 @@ func ShapeDiffBool_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			for k := 0; k < cols; k++ {
-				x := data.Get(i, k)
-				y := data.Get(j, k)
-
-				switch {
-				case x != 0 && y != 0:
-					a++
-				case x != 0 && y == 0:
-					b++
-				case x == 0 && y != 0:
-					c++
-				case x == 0 && y == 0:
-					d++
-				}
-
-			}
-			d := float64(int64(cols)*(b+c)-(b-c)*(b-c)) / float64(cols*cols)
-			dis.Set(i, j, d)
-			dis.Set(j, i, d)
+			a, b, c, d = getABCD(data, i, j)
+			p:=(a+b+c+d)
+//			dist := (float64(cols)*(b+c)-(b-c)*(b-c)) / float64(cols*cols)
+			dist := (p*(b+c)-(b-c)*(b-c)) / (p*p)
+			dis.Set(i, j, dist)
+			dis.Set(j, i, dist)
 		}
 	}
 	return dis

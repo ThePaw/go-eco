@@ -564,7 +564,7 @@ func TestMillarBinomial(t *testing.T) {
 		}
 	}
 }
-*/
+
 
 // Jaccard test against R:vegan
 func TestJaccard(t *testing.T) {
@@ -605,6 +605,7 @@ func TestJaccard(t *testing.T) {
 		}
 	}
 }
+*/
 
 // Růžička test against R:vegan
 func TestRůžička(t *testing.T) {
@@ -773,3 +774,205 @@ func TestDice(t *testing.T) {
 	}
 }
 */
+
+// Sorensen test against R:simba
+
+func TestSorensenS(t *testing.T) {
+	var (
+		data, out, known *DenseMatrix
+	)
+
+	fmt.Println("Soerensen sim test against R:simba")
+	data = GetBoolData()
+	out = SorensenBool_S(data)
+
+	//known similarities
+	dist := [...]float64{1,0.4807692,0.5048544,0.4615385,0.5142857,0.5471698,
+0.4807692,1,0.4,0.5208333,0.4948454,0.4285714,
+0.5048544,0.4,1,0.4631579,0.5833333,0.5154639,
+0.4615385,0.5208333,0.4631579,1,0.4123711,0.4693878,
+0.5142857,0.4948454,0.5833333,0.4123711,1,0.4646465,
+0.5471698,0.4285714,0.5154639,0.4693878,0.4646465,1}
+
+	rows := data.Rows()
+	known = Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			known.Set(i, j, dist[i*rows+j])
+		}
+	}
+
+	// check
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			x := out.Get(i, j)
+			y := known.Get(i, j)
+
+			if !check(x, y) {
+				t.Error()
+				fmt.Println(i, j, x, y)
+			}
+		}
+	}
+}
+
+// Jaccard test against R:simba
+func TestJaccardS(t *testing.T) {
+	var (
+		data, out, known *DenseMatrix
+	)
+
+	fmt.Println("Jaccard sim test against R:simba")
+	data = GetBoolData()
+	out = JaccardBool_S(data)
+
+	//known similarities
+	dist := [...]float64{1,0.3164557,0.3376623,0.3,0.3461538,0.3766234,
+0.3164557,1,0.25,0.3521127,0.3287671,0.2727273,
+0.3376623,0.25,1,0.3013699,0.4117647,0.3472222,
+0.3,0.3521127,0.3013699,1,0.2597403,0.3066667,
+0.3461538,0.3287671,0.4117647,0.2597403,1,0.3026316,
+0.3766234,0.2727273,0.3472222,0.3066667,0.3026316,1}
+
+	rows := data.Rows()
+	known = Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			known.Set(i, j, dist[i*rows+j])
+		}
+	}
+
+	// check
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			x := out.Get(i, j)
+			y := known.Get(i, j)
+
+			if !check(x, y) {
+				t.Error()
+				fmt.Println(i, j, x, y)
+			}
+		}
+	}
+}
+
+// Ochiai test against R:simba
+func TestOchiaiS(t *testing.T) {
+	var (
+		data, out, known *DenseMatrix
+	)
+
+	fmt.Println("Ochiai sim test against R:simba")
+	data = GetBoolData()
+	out = OchiaiBool_S(data)
+
+	//known similarities
+	dist := [...]float64{1,0.482198,0.5067928,0.4629100,0.5154324,0.5480485,
+0.482198,1,0.4000222,0.5208333,0.4948717,0.4286607,
+0.5067928,0.4000222,1,0.4631836,0.58346,0.5157106,
+0.4629100,0.5208333,0.4631836,1,0.4123930,0.4694855,
+0.5154324,0.4948717,0.58346,0.4123930,1,0.4646702,
+0.5480485,0.4286607,0.5157106,0.4694855,0.4646702,1}
+
+	rows := data.Rows()
+	known = Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			known.Set(i, j, dist[i*rows+j])
+		}
+	}
+
+	// check
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			x := out.Get(i, j)
+			y := known.Get(i, j)
+
+			if !check(x, y) {
+				t.Error()
+				fmt.Println(i, j, x, y)
+			}
+		}
+	}
+}
+
+// MountfordBool test against R:simba
+func TestMountfordBoolS(t *testing.T) {
+	var (
+		data, out, known *DenseMatrix
+	)
+
+	fmt.Println("MountfordBool sim test against R:simba")
+	data = GetBoolData()
+	out = MountfordBool_S(data)
+
+	//known similarities
+	dist := [...]float64{1,0.01801153,0.02010828,0.01666667,0.02035432,0.02296120,
+0.01801153,1,0.01403768,0.02264493,0.02020202,0.01531729,
+0.02010828,0.01403768,1,0.01816680,0.02919708,0.02197802,
+0.01666667,0.02264493,0.01816680,1,0.01447178,0.01806756,
+0.02035432,0.02020202,0.02919708,0.01447178,1,0.01753717,
+0.02296120,0.01531729,0.02197802,0.01806756,0.01753717,1}
+
+	rows := data.Rows()
+	known = Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			known.Set(i, j, dist[i*rows+j])
+		}
+	}
+
+	// check
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			x := out.Get(i, j)
+			y := known.Get(i, j)
+
+			if !check(x, y) {
+				t.Error()
+				fmt.Println(i, j, x, y)
+			}
+		}
+	}
+}
+
+// WhittakerBool test against R:simba
+func TestWhittakerBoolS(t *testing.T) {
+	var (
+		data, out, known *DenseMatrix
+	)
+
+	fmt.Println("WhittakerBool sim test against R:simba")
+	data = GetBoolData()
+	out = WhittakerBool_S(data)
+
+	//known similarities
+	dist := [...]float64{0,0.4807692,0.5048544,0.4615385,0.5142857,0.5471698,
+0.4807692,0,0.4,0.5208333,0.4948454,0.4285714,
+0.5048544,0.4,0,0.4631579,0.5833333,0.5154639,
+0.4615385,0.5208333,0.4631579,0,0.4123711,0.4693878,
+0.5142857,0.4948454,0.5833333,0.4123711,0,0.4646465,
+0.5471698,0.4285714,0.5154639,0.4693878,0.4646465,0}
+	rows := data.Rows()
+	known = Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			known.Set(i, j, dist[i*rows+j])
+		}
+	}
+
+	// check
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			x := out.Get(i, j)
+			y := known.Get(i, j)
+
+			if !check(x, y) {
+				t.Error()
+				fmt.Println(i, j, x, y)
+			}
+		}
+	}
+}
+
+
