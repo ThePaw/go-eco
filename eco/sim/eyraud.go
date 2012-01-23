@@ -1,27 +1,27 @@
-// Eyraud similarity matrix
+// Eyraud dissimilarity matrix
 // Eyraud (1936) in Shi (1993)
-
+// Warning: it gives values near zero for both identical, and complementary data!!! STRANGE!
 package eco
 
 import (
 	. "gomatrix.googlecode.com/hg/matrix"
 )
 
-// Eyraud similarity matrix
-func EyraudBool_S(data *DenseMatrix) *DenseMatrix {
+// Eyraud dissimilarity matrix
+func EyraudBool_D(data *DenseMatrix) *DenseMatrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.Rows()
-	sim := Zeros(rows, rows)
+	dis := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			s := (a - ((a + b) * (a + c))) / ((a + b) * (a + c) * (b + d) * (c + d))
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := (a - ((a + b) * (a + c))) / ((a + b) * (a + c) * (b + d) * (c + d))
+			dis.Set(i, j, v)
+			dis.Set(j, i, v)
 		}
 	}
-	return sim
+	return dis
 }

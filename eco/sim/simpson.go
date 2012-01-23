@@ -8,24 +8,23 @@ import (
 	"math"
 )
 
-// Simpson similarity matrix #1
-func Simpson1Bool_S(data *DenseMatrix) *DenseMatrix {
+// Simpson dissimilarity matrix #1
+func Simpson1Bool_D(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim     *DenseMatrix
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.Rows()
-	sim = Zeros(rows, rows)
+	dis := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s := math.Min(b, c) / (math.Min(b, c) + a)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			delta := math.Min(b, c) / (math.Min(b, c) + a)
+			dis.Set(i, j, delta)
+			dis.Set(j, i, delta)
 		}
 	}
-	return sim
+	return dis
 }
 
 // Simpson similarity matrix #2
