@@ -77,6 +77,28 @@ func warnIfNotBool(data *DenseMatrix) {
 
 }
 
+func warnIfDblZeros(data *DenseMatrix) {
+	rows := data.Rows()
+	cols := data.Cols()
+	warning := false
+L:
+	for j := 0; j < cols; j++ {
+		colSum := 0
+		for i := 0; i < rows; i++ {
+			if data.Get(i, j) > 0.0 {
+				colSum++
+			}
+		}
+		if colSum == 0 {
+			warning = true
+			break L
+		}
+	}
+	if warning {
+		fmt.Fprint(os.Stderr, "warning: data have empty species which influence the results\n")
+	}
+	return
+}
 // Calculates A, B, J, and P values from two rows of boolean data matrix, "quadratic variant". 
 // See R:vegan:vegdist
 // "quadratic" terms are J = sum(x*y), A = sum(x^2), B = sum(y^2)

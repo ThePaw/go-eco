@@ -1,5 +1,4 @@
-// Harrison dissimilarity matrix
-// Harrison et al. (1992), Koleff et al. (2003)
+// Faith similarity
 
 package eco
 
@@ -8,21 +7,25 @@ import (
 	"math"
 )
 
-// Harrison dissimilarity matrix
-func HarrisonBool_D(data *DenseMatrix) *DenseMatrix {
+// Faith similarity matrix
+// Faith (1983)
+// Legendre & Legendre (1998): 258, eq. 7.18 (S26 index)
+func FaithBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.Rows()
-	dis := Zeros(rows, rows)
+	sim := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			v := math.Min(b,c) / (math.Max(b,c) + a)
-			dis.Set(i, j, v)
-			dis.Set(j, i, v)
+			s := (a + d/2)/ (a+b+c+d)
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
 		}
 	}
-	return dis
+	return sim
 }
+
+

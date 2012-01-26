@@ -15,6 +15,8 @@ func BaroniUrbaniBool_S(data *DenseMatrix) *DenseMatrix {
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
+	warnIfNotBool(data)
+
 	rows := data.Rows()
 	sim = Zeros(rows, rows)
 	for i := 0; i < rows; i++ {

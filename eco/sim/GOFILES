@@ -52,7 +52,6 @@ GOFILES=\
      pattern_diff.go\
      pearson.go\
      peirce.go\
-     raup-crick.go\
      renkonen.go\
      robinson.go\
      rogers.go\
@@ -77,3 +76,5 @@ GOFILES=\
      williams.go\
      wilson-shmida.go\
      yule.go\
+     raup-crick.go\
+

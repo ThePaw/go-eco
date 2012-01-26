@@ -937,14 +937,14 @@ func TestMountfordBoolS(t *testing.T) {
 }
 
 // WhittakerBool test against R:simba
-func TestWhittakerBoolS(t *testing.T) {
+func TestWhittakerBoolD(t *testing.T) {
 	var (
 		data, out, known *DenseMatrix
 	)
 
-	fmt.Println("WhittakerBool sim test against R:simba")
+	fmt.Println("WhittakerBool dis test against R:simba")
 	data = GetBoolData()
-	out = WhittakerBool_S(data)
+	out = WhittakerBool_D(data)
 
 	//known similarities
 	dist := [...]float64{0,0.4807692,0.5048544,0.4615385,0.5142857,0.5471698,
@@ -971,6 +971,44 @@ func TestWhittakerBoolS(t *testing.T) {
 				t.Error()
 				fmt.Println(i, j, x, y)
 			}
+		}
+	}
+}
+
+// Raup-Crick1 test against R:vegan, smaller data
+func TestRaupCrick1(t *testing.T) {
+	var (
+		data, out, known *DenseMatrix
+	)
+
+	fmt.Println("Raup-Crick1 test against R:vegan, smaller data")
+	data = GetBoolData2()
+	out = RaupCrick1_S(data)
+
+	//known distances
+	dist := [...]float64{0.00000000, 0.45238095, 0.66666667, 0.11904762, 1.00000000, 0.97619048,
+		0.45238095, 0.00000000, 0.83333333, 0.07142857, 0.88095238, 0.97619048,
+		0.66666667, 0.83333333, 0.00000000, 0.66666667, 0.66666667, 1.00000000,
+		0.11904762, 0.07142857, 0.66666667, 0.00000000, 1.00000000, 0.97619048,
+		1.00000000, 0.88095238, 0.66666667, 1.00000000, 0.00000000, 0.73809524,
+		0.97619048, 0.97619048, 1.00000000, 0.97619048, 0.73809524, 0.00000000}
+
+	rows := data.Rows()
+	known = Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			known.Set(i, j, dist[i*rows+j])
+		}
+	}
+
+	// check
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			if !check(out.Get(i, j), known.Get(i, j)) {
+				t.Error()
+				fmt.Println(1-out.Get(i, j), known.Get(i, j))
+			}
+
 		}
 	}
 }

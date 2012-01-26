@@ -8,7 +8,9 @@ import (
 )
 
 // Legendre similarity matrix #1
-// Gower & Legendre (1986), Russell/Rao in Ellis et al. (1993)
+// Gower & Legendre (1986), Russell/Rao in Ellis et al. (1993); Russel & Rao (1940)
+// Legendre & Legendre (1998): 257, eq. 7.14 (S11 index)
+
 func Legendre1Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

@@ -5,7 +5,8 @@ function(x, coord=NULL, method="soer", dn=NULL, normalize = FALSE, listin = FALS
         method <- "jaccard"
 	METHODS <- c("soerensen", "jaccard", "ochiai", "mountford", "whittaker", "lande", "wilsonshmida", "cocogaston", "magurran", 
 "10 harrison", "11 cody", "12 williams", "13 williams2", "harte", 
-"15 simpson", "lennon", "weiher", "ruggiero", "lennon2", "20 rout1ledge", "rout2ledge", "rout3ledge", "sokal1", "dice", 
+"15 simpson", "lennon", "weiher", "ruggiero", "lennon2", 
+"20 rout1ledge", "rout2ledge", "rout3ledge", "sokal1", "dice", 
 25 kulcz1insky", "kulcz2insky", "mcconnagh", "manhattan", "simplematching", 
 "30 margaleff", "pearson", "roger", "baroni", "dennis", 
 "35 fossum", "gower", "legendre", "sokal2", "sokal3", 

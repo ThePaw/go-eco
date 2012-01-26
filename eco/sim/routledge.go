@@ -62,9 +62,9 @@ func Routledge3Bool_D(data *DenseMatrix) *DenseMatrix {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
 			v := math.Log(2*a+b+c) - ((1 / (2*a + b + c)) * 2 * a * math.Log(2)) - ((1 / (2*a + b + c)) * ((a+b)*math.Log(a+b) + (a+c)*math.Log(a+c)))
-			delta := math.Exp(v) - 1
-			dis.Set(i, j, delta)
-			dis.Set(j, i, delta)
+			v = math.Exp(v) - 1
+			dis.Set(i, j, v)
+			dis.Set(j, i, v)
 		}
 	}
 	return dis

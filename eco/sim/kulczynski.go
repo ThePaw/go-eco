@@ -1,4 +1,5 @@
 // Kulczynski similarity and distance matrix
+// Kulczynski (1928)
 // Oosting (1956), Southwood (1978)
 
 package eco
@@ -9,6 +10,7 @@ import (
 )
 
 // Kulczynski similarity matrix #1
+// Legendre & Legendre (1998): 257, eq. 7.15 (S12 index)
 func Kulczynski1Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
@@ -79,3 +81,38 @@ func Kulczynski_D(data *DenseMatrix) *DenseMatrix {
 	}
 	return dis
 }
+
+// Kulczynski similarity matrix
+// Legendre & Legendre (1998): 265, eq. 7.25 (S18 index)
+// for count or interval data
+
+func Kulczynski_S(data *DenseMatrix) *DenseMatrix {
+	rows := data.Rows()
+	cols := data.Cols()
+	out := Zeros(rows, rows)
+
+	for i := 0; i < rows; i++ {
+		out.Set(i, i, 0.0)
+	}
+
+	for i := 0; i < rows; i++ {
+		for j := i + 1; j < rows; j++ {
+			sumMin := 0.0
+			sumX := 0.0
+			sumY := 0.0
+			for k := 0; k < cols; k++ {
+				x := data.Get(i, k)
+				y := data.Get(j, k)
+				sumMin += Min(x, y)
+				sumX += x
+				sumY += x
+			}
+			v := 0.5*(sumMin/sumX+sumMin/sumY)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
+		}
+	}
+	return out
+}
+
+

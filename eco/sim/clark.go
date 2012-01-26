@@ -1,15 +1,15 @@
-// Minkowski distance
+// Clark dissimilarity
 
 package eco
 
 import (
 	. "gomatrix.googlecode.com/hg/matrix"
-	. "math"
 )
 
-// Minkowski distance matrix
-// Legendre & Legendre (1998): 281, eq. 7.44 (D6 index)
-func Minkowski_D(power int, data *DenseMatrix) *DenseMatrix {
+// Clark matrix, count or interval data
+// Clark (1952)
+// Legendre & Legendre (1998): 283, eq. 7.51 (D11 index)
+func Whittaker_D(data *DenseMatrix) *DenseMatrix {
 	rows := data.Rows()
 	cols := data.Cols()
 	out := Zeros(rows, rows)
@@ -24,14 +24,14 @@ func Minkowski_D(power int, data *DenseMatrix) *DenseMatrix {
 			for k := 0; k < cols; k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
-				sum += Pow(Abs(x-y), float64(power))
+				t:= (x-y)/(x+y)
+				sum += t*t
 			}
-			v := Pow(sum, 1/float64(power))
+			v := math.Sqrt(sum/float64(cols))
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
 	}
 	return out
 }
-
 

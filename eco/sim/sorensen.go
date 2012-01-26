@@ -10,16 +10,35 @@ import (
 // Sørensen similarity matrix, for boolean data
 func SorensenBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim     *DenseMatrix
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.Rows()
-	sim = Zeros(rows, rows)
+	sim := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
 			s := 2 * a / (2*a + b + c)
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
+		}
+	}
+	return sim
+}
+
+// S9 similarity matrix, for boolean data
+// Legendre & Legendre (1998): 257, eq. 7.12
+func S9Bool_S(data *DenseMatrix) *DenseMatrix {
+	var (
+		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
+	)
+
+	rows := data.Rows()
+	sim := Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := i; j < rows; j++ {
+			a, b, c, _ = getABCD(data, i, j)
+			s := 3 * a / (3*a + b + c)
 			sim.Set(i, j, s)
 			sim.Set(j, i, s)
 		}
@@ -53,8 +72,9 @@ func SorensenBool_D(data *DenseMatrix) *DenseMatrix {
 	}
 	return dis
 }
-
+/*
 // Sørensen distance matrix, for quantitative data
 func Sorensen_D(data *DenseMatrix) *DenseMatrix {
 	return Czekanowski_D(data)
 }
+*/

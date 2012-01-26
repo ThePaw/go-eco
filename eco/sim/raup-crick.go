@@ -1,12 +1,13 @@
 // Raup - Crick distance and similarity
+// Raup & Crick (1979)
 
 package eco
 
 import (
-	"fmt"
-	. "gomatrix.googlecode.com/hg/matrix"
-	. "gostat.googlecode.com/hg/stat"
-	"os"
+	"math"
+	"gostat.googlecode.com/hg/stat"
+	"go-fn.googlecode.com/hg/fn"
+	"gomatrix.googlecode.com/hg/matrix"
 )
 
 // Raup - Crick distance matrix for presence-absence data
@@ -19,18 +20,21 @@ import (
 // The index is nonmetric: two communities with no shared species may have a dissimilarity slightly below one, 
 // and two identical communities may have dissimilarity slightly above zero. 
 // Compared to other metrics for p/a data, Raup-Crick seems to be very robust for small samples.
+// Algorithm from R:vegan
+// phyper(k, m, size-m, n) == Hypergeometric_CDF_At(size, m, n, k)
 
-func RaupCrick_D(data *DenseMatrix) *DenseMatrix {
+func RaupCrick_D(data *matrix.DenseMatrix) *matrix.DenseMatrix {
 	var (
 		d                                 float64
-		aaa, bbb, jjj, count, t1, t2, sim int64
-		dis                               *DenseMatrix
+		aaa, bbb, jjj, t1, t2, sim int64
+		dis                               *matrix.DenseMatrix
 	)
 
 	rows := data.Rows()
 	cols := data.Cols()
-	dis = Zeros(rows, rows)
-	checkData(data)
+	dis = matrix.Zeros(rows, rows)
+	warnIfNotBool(data)
+	warnIfDblZeros(data)
 
 	for i := 0; i < rows; i++ {
 		dis.Set(i, i, 0.0)
@@ -41,7 +45,6 @@ func RaupCrick_D(data *DenseMatrix) *DenseMatrix {
 			sim = 0
 			t1 = 0
 			t2 = 0
-			count = 0
 			for k := 0; k < cols; k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
@@ -55,11 +58,8 @@ func RaupCrick_D(data *DenseMatrix) *DenseMatrix {
 				if y > 0.0 {
 					t2++
 				}
-				count++
 			}
-			if count == 0 {
-				panic("error")
-			}
+
 			jjj = sim - 1
 			if t1 < t2 {
 				aaa = t1
@@ -71,13 +71,8 @@ func RaupCrick_D(data *DenseMatrix) *DenseMatrix {
 			}
 			//	d = 1 - phyper(jjj, aaa, float64(count) - aaa, bbb, 1, 0);
 
-			/*
-				phyper(k, m, size-m,   n)
-				       ==
-				Hypergeometric_CDF_At(size, m, n, k)
-			*/
-			//fmt.Println("hyper: ", count, aaa, bbb, jjj)
-			d = 1.0 - Hypergeometric_CDF_At(count, aaa, bbb, jjj)
+			//fmt.Println("hyper: ", cols, aaa, bbb, jjj)
+			d = 1.0 - stat.Hypergeometric_CDF_At(int64(cols), aaa, bbb, jjj)
 			dis.Set(i, j, d)
 			dis.Set(j, i, d)
 		}
@@ -85,50 +80,58 @@ func RaupCrick_D(data *DenseMatrix) *DenseMatrix {
 	return dis
 }
 
-// Raup - Crick similarity matrix
-// If d denotes Raup - Crick distance, similarity is s = 1.00 - d, so that it is in [0, 1]
-func RaupCrick_S(data *DenseMatrix) *DenseMatrix {
-	var (
-		sim, dis *DenseMatrix
-	)
 
-	dis = RaupCrick_D(data)
+
+// Raup - Crick similarity matrix #1
+// Raup & Crick (1979): 1217, eq. 4
+// This is the naive version of their similarity index;
+// for final version, use the algorithm described on page 1219
+func RaupCrick1_S(data *matrix.DenseMatrix) *matrix.DenseMatrix {
+	var a, b, n int64
+
 	rows := data.Rows()
-	sim = Zeros(rows, rows)
+	cols := data.Cols()
+	sim := matrix.Zeros(rows, rows)
+	warnIfNotBool(data)
+	warnIfDblZeros(data)
 
-	for i := 0; i < rows; i++ {
-		sim.Set(i, i, 1.0)
-	}
 
+	n = int64(cols)
 	for i := 0; i < rows; i++ {
-		for j := i + 1; j < rows; j++ {
-			s := 1.0 - dis.Get(i, j)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+		for j := i; j < rows; j++ {
+			a = 0
+			b = 0
+			common := 0
+			for k := 0; k < cols; k++ {
+				x := data.Get(i, k)
+				y := data.Get(j, k)
+				if x > 0.0 && y > 0.0 {
+					common++
+				}
+
+				if x > 0.0 {
+					a++
+				}
+				if y > 0.0 {
+					b++
+				}
+			}
+
+			p:= 0.0
+			for k := 0; k < common; k++ {
+				p += probK(a, b, n, int64(k))
+			}
+
+			sim.Set(i, j, p)
+			sim.Set(j, i, p)
 		}
 	}
 	return sim
 }
 
-func checkData(data *DenseMatrix) {
-	rows := data.Rows()
-	cols := data.Cols()
-	warning := false
-L:
-	for j := 0; j < cols; j++ {
-		colSum := 0
-		for i := 0; i < rows; i++ {
-			if data.Get(i, j) > 0.0 {
-				colSum++
-			}
-		}
-		if colSum == 0 {
-			warning = true
-			break L
-		}
-	}
-	if warning {
-		fmt.Fprint(os.Stderr, "warning: data have empty species which influence the results\n")
-	}
-	return
+func probK(a, b, n, k int64) float64{
+	logNum:= fn.LnFact(a)+fn.LnFact(b)+fn.LnFact(n-a)+fn.LnFact(n-b)
+	logDen:= fn.LnFact(n)+fn.LnFact(k)+fn.LnFact(a-k)+fn.LnFact(k-b)+fn.LnFact(b-k)
+	return math.Exp(logNum-logDen)
 }
+

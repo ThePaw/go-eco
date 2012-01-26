@@ -13,12 +13,11 @@ import (
 // Legendre & Legendre 1998: 255, eq. 7.3 (S3 index)
 func SokalSneath1Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim        *DenseMatrix
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.Rows()
-	sim = Zeros(rows, rows)
+	sim := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
@@ -34,12 +33,11 @@ func SokalSneath1Bool_S(data *DenseMatrix) *DenseMatrix {
 // Legendre & Legendre 1998: 255, eq. 7.4 (S4 index)
 func SokalSneath2Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim        *DenseMatrix
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.Rows()
-	sim = Zeros(rows, rows)
+	sim := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
@@ -55,12 +53,11 @@ func SokalSneath2Bool_S(data *DenseMatrix) *DenseMatrix {
 // Legendre & Legendre 1998: 255, eq. 7.5 (S5 index)
 func SokalSneath3Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim        *DenseMatrix
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.Rows()
-	sim = Zeros(rows, rows)
+	sim := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
@@ -76,12 +73,11 @@ func SokalSneath3Bool_S(data *DenseMatrix) *DenseMatrix {
 // Legendre & Legendre 1998: 255, eq. 7.6 (S6 index)
 func SokalSneath4Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim        *DenseMatrix
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.Rows()
-	sim = Zeros(rows, rows)
+	sim := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
@@ -94,16 +90,16 @@ func SokalSneath4Bool_S(data *DenseMatrix) *DenseMatrix {
 }
 
 // Sokal - Sneath similarity matrix #5
-// Is this the same as SokalSneath1Bool ??
 // Sokal & Sneath (1963)  ### REF!pg, eq.
+// Legendre & Legendre 1998: 255, eq. 7.13 (S10 index)
+// sokal1 of R:simba
 func SokalSneath5Bool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim     *DenseMatrix
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.Rows()
-	sim = Zeros(rows, rows)
+	sim := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
@@ -114,3 +110,85 @@ func SokalSneath5Bool_S(data *DenseMatrix) *DenseMatrix {
 	}
 	return sim
 }
+
+// Sokal - Sneath similarity matrix #6
+// sokal2 of R:simba
+func SokalSneath6Bool_S(data *DenseMatrix) *DenseMatrix {
+	var (
+		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
+	)
+
+	rows := data.Rows()
+	sim := Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := i; j < rows; j++ {
+			a, b, c, d = getABCD(data, i, j)
+			s := (a*d) / math.Sqrt((a+b)*(a + c)*(d + b)*(d + c))
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
+		}
+	}
+	return sim
+}
+
+// Sokal - Sneath similarity matrix #7
+// sokal3 of R:simba
+func SokalSneath7Bool_S(data *DenseMatrix) *DenseMatrix {
+	var (
+		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
+	)
+
+	rows := data.Rows()
+	sim := Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := i; j < rows; j++ {
+			a, b, c, d = getABCD(data, i, j)
+			s := ((2*a)+(2*d)) / (a+d+(a+b+c+d))
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
+		}
+	}
+	return sim
+}
+
+// Sokal - Sneath similarity matrix #8
+// sokal4 of R:simba
+func SokalSneath8Bool_S(data *DenseMatrix) *DenseMatrix {
+	var (
+		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
+	)
+
+	rows := data.Rows()
+	sim := Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := i; j < rows; j++ {
+			a, b, c, d = getABCD(data, i, j)
+			s := ((2*a)+(2*d)) / (a+d+(a+b+c+d))
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
+		}
+	}
+	return sim
+}
+
+// Sokal - Sneath similarity matrix #9
+// Legendre & Legendre 1998: 255, eq. 7.16 (S13 index)
+func SokalSneath9Bool_S(data *DenseMatrix) *DenseMatrix {
+	var (
+		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
+	)
+
+	rows := data.Rows()
+	sim := Zeros(rows, rows)
+	for i := 0; i < rows; i++ {
+		for j := i; j < rows; j++ {
+			a, b, c, _ = getABCD(data, i, j)
+			s := (a/(a+b) + a/(a+c)) / 2
+			sim.Set(i, j, s)
+			sim.Set(j, i, s)
+		}
+	}
+	return sim
+}
+
+

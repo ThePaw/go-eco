@@ -1,4 +1,5 @@
 // Ochiai distance and similarity
+// Ochiai (1957)
 
 package eco
 
@@ -8,6 +9,8 @@ import (
 )
 
 // Ochiai similarity matrix
+// Ochiai (1957)
+// Legendre & Legendre (1998): 258, eq. 7.17 (S14 index)
 func OchiaiBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		sim     *DenseMatrix

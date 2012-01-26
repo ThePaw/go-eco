@@ -1,3 +1,4 @@
+// Lance-Williams similarity
 package eco
 
 import (

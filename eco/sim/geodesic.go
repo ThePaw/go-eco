@@ -1,15 +1,15 @@
-// Minkowski distance
+// Geodesic distance
+// Legendre & Legendre (1998): 280, eq. 7.39 (D4 index)
 
 package eco
 
 import (
 	. "gomatrix.googlecode.com/hg/matrix"
-	. "math"
+	"math"
 )
 
-// Minkowski distance matrix
-// Legendre & Legendre (1998): 281, eq. 7.44 (D6 index)
-func Minkowski_D(power int, data *DenseMatrix) *DenseMatrix {
+// Geodesic distance matrix, float data
+func Geodesic_D(data *DenseMatrix) *DenseMatrix {
 	rows := data.Rows()
 	cols := data.Cols()
 	out := Zeros(rows, rows)
@@ -20,13 +20,18 @@ func Minkowski_D(power int, data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			sum := 0.0
+				sumXY :=0
+				sumXX :=0
+				sumYY :=0
 			for k := 0; k < cols; k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
-				sum += Pow(Abs(x-y), float64(power))
+				sumXY += x * y
+				sumXX += x*x
+				sumYY += y*y
 			}
-			v := Pow(sum, 1/float64(power))
+			v := math.Sqrt(2*(1 - (sumXY/math.Sqrt(sumXX*sumYY)))
+			v = math.Acos(1 - v*v/2)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}

@@ -9,6 +9,7 @@ import (
 )
 
 // Manhattan distance
+// Legendre & Legendre (1998): 282, eq. 7.45 (D7 index)
 func Manhattan_D(data *DenseMatrix) *DenseMatrix {
 	rows := data.Rows()
 	cols := data.Cols()
