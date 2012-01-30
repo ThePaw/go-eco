@@ -10,13 +10,10 @@ import (
 )
 
 func KendallTau_S(data *DenseMatrix) *DenseMatrix {
-	var (
-		sim, ranks *DenseMatrix
-	)
 	rows := data.Rows()
 	cols := data.Cols()
-	sim = Zeros(rows, rows)
-	ranks = Zeros(rows, rows)
+	out := Zeros(rows, rows)
+	ranks := Zeros(rows, rows)
 
 	// ToDo: check for ties
 
@@ -35,7 +32,7 @@ func KendallTau_S(data *DenseMatrix) *DenseMatrix {
 	}
 
 	for i := 0; i < rows; i++ {
-		sim.Set(i, i, 1.0)
+		out.Set(i, i, 1.0)
 	}
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
@@ -50,10 +47,10 @@ func KendallTau_S(data *DenseMatrix) *DenseMatrix {
 					}
 				}
 			}
-			s := float64(con-dis) / (float64(cols*(cols-1)) / 2.0)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := float64(con-dis) / (float64(cols*(cols-1)) / 2.0)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }

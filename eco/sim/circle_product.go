@@ -13,16 +13,12 @@ import (
 )
 
 func circleProduct_S(data *DenseMatrix) *DenseMatrix {
-	var (
-		sim *DenseMatrix
-	)
-
 	rows := data.Rows()
 	cols := data.Cols()
-	sim = Zeros(rows, rows)
+	out := Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
-		sim.Set(i, i, 1.0)
+		out.Set(i, i, 1.0)
 	}
 
 	for i := 0; i < rows; i++ {
@@ -31,9 +27,9 @@ func circleProduct_S(data *DenseMatrix) *DenseMatrix {
 			for k := 0; k < cols; k++ {
 				sum += Min(data.Get(i, k), data.Get(j, k))
 			}
-			sim.Set(i, j, sum)
-			sim.Set(j, i, sum)
+			out.Set(i, j, sum)
+			out.Set(j, i, sum)
 		}
 	}
-	return sim
+	return out
 }

@@ -14,14 +14,14 @@ func HarteBool_D(data *DenseMatrix) *DenseMatrix {
 	)
 
 	rows := data.Rows()
-	dis := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
 			v := 1 - (2 * a / (2*a + b + c))
-			dis.Set(i, j, v)
-			dis.Set(j, i, v)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return dis
+	return out
 }

@@ -13,10 +13,10 @@ import (
 func Euclid_D(data *DenseMatrix) *DenseMatrix {
 	rows := data.Rows()
 	cols := data.Cols()
-	dis := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
-		dis.Set(i, i, 0.0)
+		out.Set(i, i, 0.0)
 	}
 
 	for i := 0; i < rows; i++ {
@@ -27,81 +27,40 @@ func Euclid_D(data *DenseMatrix) *DenseMatrix {
 				y := data.Get(j, k)
 				sum += (x - y) * (x - y)
 			}
-			d := math.Sqrt(sum)
-			dis.Set(i, j, d)
-			dis.Set(j, i, d)
+			v := math.Sqrt(sum)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return dis
-}
-
-// Euclidean similarity matrix
-func Euclid_S(data *DenseMatrix) *DenseMatrix {
-	dis := Euclid_D(data)
-	rows := data.Rows()
-	sim := Zeros(rows, rows)
-
-	for i := 0; i < rows; i++ {
-		sim.Set(i, i, 1.0)
-	}
-
-	for i := 0; i < rows; i++ {
-		for j := i + 1; j < rows; j++ {
-			s := 1.00 / (dis.Get(i, j) + 1.0)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
-		}
-	}
-	return sim
+	return out
 }
 
 // Mean Euclidean distance matrix
 func MeanEuclid_D(data *DenseMatrix) *DenseMatrix {
-	dis := Euclid_D(data)
-	rows := dis.Rows()
+	out := Euclid_D(data)
+	rows := out.Rows()
 	for i := 0; i < rows; i++ {
-		for j := i + 1; j < dis.Cols(); j++ {
-			d := dis.Get(i, j) / float64(rows)
-			dis.Set(i, j, d)
-			dis.Set(j, i, d)
+		for j := i + 1; j < out.Cols(); j++ {
+			v := out.Get(i, j) / float64(rows)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return dis
-}
-
-// Mean Euclidean similarity matrix
-// If d denotes Mean Euclidean distance, similarity is s=1.00/(d+1), so that it is in [0, 1]
-func MeanEuclid_S(data *DenseMatrix) *DenseMatrix {
-	dis := MeanEuclid_D(data)
-	rows := data.Rows()
-	sim := Zeros(rows, rows)
-
-	for i := 0; i < rows; i++ {
-		sim.Set(i, i, 1.0)
-	}
-
-	for i := 0; i < rows; i++ {
-		for j := i + 1; j < rows; j++ {
-			s := 1.00 / (dis.Get(i, j) + 1.0)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
-		}
-	}
-	return sim
+	return out
 }
 
 // Mean Censored Euclidean distance matrix
 func MeanCensoredEuclid_D(data *DenseMatrix) *DenseMatrix {
 	var (
-		dis *DenseMatrix
+		out *DenseMatrix
 	)
 
 	rows := data.Rows()
 	cols := data.Cols()
-	dis = Zeros(rows, rows)
+	out = Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
-		dis.Set(i, i, 0.0)
+		out.Set(i, i, 0.0)
 	}
 
 	for i := 0; i < rows; i++ {
@@ -116,33 +75,12 @@ func MeanCensoredEuclid_D(data *DenseMatrix) *DenseMatrix {
 					nonzero++
 				}
 			}
-			d := math.Sqrt(sum / float64(nonzero))
-			dis.Set(i, j, d)
-			dis.Set(j, i, d)
+			v := math.Sqrt(sum / float64(nonzero))
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return dis
-}
-
-// Mean Censored Euclidean similarity matrix
-// If d denotes Mean Censored Euclidean distance, similarity is s=1.00/(d+1), so that it is in [0, 1]
-func MeanCensoredEuclid_S(data *DenseMatrix) *DenseMatrix {
-	dis := MeanCensoredEuclid_D(data)
-	rows := data.Rows()
-	sim := Zeros(rows, rows)
-
-	for i := 0; i < rows; i++ {
-		sim.Set(i, i, 1.0)
-	}
-
-	for i := 0; i < rows; i++ {
-		for j := i + 1; j < rows; j++ {
-			s := 1.00 / (dis.Get(i, j) + 1.0)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
-		}
-	}
-	return sim
+	return out
 }
 
 // Squared Boolean Euclidean dissimilarity matrix
@@ -152,29 +90,29 @@ func EuclidSqBool_D(data *DenseMatrix) *DenseMatrix {
 	)
 
 	rows := data.Rows()
-	dis := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
 			v := (b + c) / (a + b + c + d)
-			dis.Set(i, j, v)
-			dis.Set(j, i, v)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return dis
+	return out
 }
 
 // Boolean Euclidean dissimilarity matrix
 // Mean Euclidean in Ellis et al. (1993)
 func EuclidBool_D(data *DenseMatrix) *DenseMatrix {
-	dis := EuclidSqBool_D(data)
+	out := EuclidSqBool_D(data)
 	rows := data.Rows()
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			v := math.Sqrt(dis.Get(i, j))
-			dis.Set(i, j, v)
-			dis.Set(j, i, v)
+			v := math.Sqrt(out.Get(i, j))
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return dis
+	return out
 }

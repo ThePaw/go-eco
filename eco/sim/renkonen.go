@@ -14,10 +14,10 @@ func Renkonen_D(data *DenseMatrix) *DenseMatrix {
 
 	rows := data.Rows()
 	cols := data.Cols()
-	dis := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
-		dis.Set(i, i, 1.0)
+		out.Set(i, i, 1.0)
 	}
 
 	for i := 0; i < rows; i++ {
@@ -30,17 +30,11 @@ func Renkonen_D(data *DenseMatrix) *DenseMatrix {
 			}
 			// original formula: Σ min(p1, p2)
 			// d = 1/s - 1
-			d := 1/sum - 1
-			dis.Set(i, j, d)
-			dis.Set(j, i, d)
+			v := 1/sum - 1
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return dis
+	return out
 }
 
-// Renkonen similarity
-func Renkonen_S(data *DenseMatrix) *DenseMatrix {
-	dis := Renkonen_D(data)
-	// s = 1/(D+1) type
-	return sFromD(dis, 1)
-}

@@ -693,7 +693,7 @@ func TestRuggieroBool(t *testing.T) {
 	rows := data.Rows()
 	known = Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
-		for j := 0; j < rows; j++ {
+		for j := i+1; j < rows; j++ {
 			known.Set(i, j, dist[i*rows+j])
 		}
 	}
@@ -703,7 +703,7 @@ func TestRuggieroBool(t *testing.T) {
 		for j := i+1; j < rows; j++ {
 			if !check(out.Get(i, j), known.Get(i, j)) {
 				t.Error()
-fmt.Println(out.Get(i, j), known.Get(i, j))
+				fmt.Println(i, j, out.Get(i, j), known.Get(i, j))
 			}
 
 		}

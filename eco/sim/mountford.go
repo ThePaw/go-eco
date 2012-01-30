@@ -28,9 +28,6 @@ func mount_der(theta, j, a, b float64) float64 {
 // as similar and the index is non-metric. The Mountford index is in the range 0 ... log(2), but the dissimilarities are divided by log(2) 
 // so that the results will be in the conventional range 0 ... 1. 
 func Mountford_D(data *DenseMatrix) *DenseMatrix {
-	var (
-		dis *DenseMatrix
-	)
 	const (
 		maxit = 20
 		ε     = 1e-12
@@ -39,10 +36,10 @@ func Mountford_D(data *DenseMatrix) *DenseMatrix {
 
 	rows := data.Rows()
 	cols := data.Cols()
-	dis = Zeros(rows, rows)
+	out := Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
-		dis.Set(i, i, 0.0)
+		out.Set(i, i, 0.0)
 	}
 
 	for i := 0; i < rows; i++ {
@@ -51,7 +48,7 @@ func Mountford_D(data *DenseMatrix) *DenseMatrix {
 			t1 := 0
 			t2 := 0
 			count := 0
-			d := 0.0
+			v := 0.0
 			for k := 0; k < cols; k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
@@ -70,79 +67,53 @@ func Mountford_D(data *DenseMatrix) *DenseMatrix {
 				panic("NaN")
 			}
 			if t1 == 0 || t2 == 0 {
-				d = NaN()
+				v = NaN()
 			} else if sim == 0 {
-				d = 0
+				v = 0
 			} else if sim == t1 || sim == t2 {
-				d = Log(2.0)
+				v = Log(2.0)
 			} else {
 				jjj := float64(sim)
 				aaa := float64(t1)
 				bbb := float64(t2)
-				d = 2 * jjj / (2*aaa*bbb - (aaa+bbb)*jjj)
+				v = 2 * jjj / (2*aaa*bbb - (aaa+bbb)*jjj)
 				for k := 0; k < maxit; k++ {
-					oldist := d
-					d -= mount_fun(d, jjj, aaa, bbb) / mount_der(d, jjj, aaa, bbb)
-					if Abs(oldist-d)/oldist < tol || Abs(oldist-d) < ε {
+					oldist := v
+					v -= mount_fun(v, jjj, aaa, bbb) / mount_der(v, jjj, aaa, bbb)
+					if Abs(oldist-v)/oldist < tol || Abs(oldist-v) < ε {
 						break
 					}
 				}
 			}
 
-			d = 1 - d/Log(2.0)
-			dis.Set(i, j, d)
-			dis.Set(j, i, d)
+			v = 1 - v/Log(2.0)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return dis
-}
-
-// Mountford similarity matrix
-// If d denotes Mountford distance, similarity is s=1.00-d, so that it is in [0, 1]
-func Mountford_S(data *DenseMatrix) *DenseMatrix {
-	var (
-		sim, dis *DenseMatrix
-	)
-
-	dis = Mountford_D(data)
-	rows := data.Rows()
-	sim = Zeros(rows, rows)
-
-	for i := 0; i < rows; i++ {
-		sim.Set(i, i, 1.0)
-	}
-
-	for i := 0; i < rows; i++ {
-		for j := i + 1; j < rows; j++ {
-			s := 1.00 - dis.Get(i, j)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
-		}
-	}
-	return sim
+	return out
 }
 
 // Mountford similarity matrix, for boolean data
 func MountfordBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim     *DenseMatrix
-		a, b, c, s float64 // these are actually counts, but float64 simplifies the formulas
+		a, b, c, v float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.Rows()
-	sim = Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
 if (a*(b+c) + (2 * b * c)) != 0 {
-			s = 2 * a / (a*(b+c) + (2 * b * c))
+			v = 2 * a / (a*(b+c) + (2 * b * c))
 } else {
-			s = 2 * a / (a*(b+c) + (2 * b * c))
+			v = 2 * a / (a*(b+c) + (2 * b * c))
 
 }
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }

@@ -3,6 +3,7 @@ package eco
 import (
 	"fmt"
 	mtx "gomatrix.googlecode.com/hg/matrix"
+
 	"testing"
 )
 
@@ -60,7 +61,7 @@ func TestRaupCrick1(t *testing.T) {
 	// check
 	for i := 0; i < rows; i++ {
 		for j := 0; j < rows; j++ {
-			if !check(out.Get(i, j), known.Get(i, j)) {
+			if i != j && ! check(1-out.Get(i, j), known.Get(i, j)) {
 				t.Error()
 				fmt.Println(1-out.Get(i, j), known.Get(i, j))
 			}

@@ -2,6 +2,7 @@ package eco
 
 import (
 	"fmt"
+//	"encoding/csv"
 	. "gomatrix.googlecode.com/hg/matrix"
 	"math"
 	"os"
@@ -26,6 +27,24 @@ func ReadMatrix() *DenseMatrix {
 	}
 	return data
 }
+
+/*
+// Reads CSV from stdin and dumps it back to stdout.
+func ReadMatrixCSV() *DenseMatrix {
+	var (
+		rows, cols int
+		x          float64
+		data       *DenseMatrix
+	)
+
+        table, err := csv.ReadAll(os.Stdin)
+        if err != nil {
+                panic(err.String())
+        }
+        // turn table to matrix... to be implemented
+	return data
+}
+*/
 
 func truncData(data *DenseMatrix) {
 	rows := data.Rows()
@@ -173,46 +192,44 @@ func getABJPbool(data *DenseMatrix, i, j int) (aa, bb, jj, pp float64) {
 	return
 }
 
-// Calculates similarity matrix from the distance / dissimilarity matrix. 
+// Calculates similarity matrix from the distance matrix. 
 func sFromD(dis *DenseMatrix, which int) *DenseMatrix {
-	var s float64
 	rows := dis.Rows()
-	sim := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		for j := 0; j < rows; j++ {
-			d := dis.Get(i, j)
+			v := dis.Get(i, j)
 			switch {
 			case which == 0:
-				s = 1 - d
+				v = 1 - v
 			case which == 1:
-				s = 1 / (d + 1)
+				v = 1 / (v + 1)
 			}
-			sim.Set(i, j, s)
+			out.Set(i, j, v)
 		}
 	}
-	return sim
+	return out
 }
 
-// Calculates distance / dissimilarity matrix from the similarity matrix
+// Calculates distance matrix from the similarity matrix
 func dFromS(sim *DenseMatrix, which int) *DenseMatrix {
-	var d float64
 	rows := sim.Rows()
-	dis := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		for j := 0; j < rows; j++ {
-			s := sim.Get(i, j)
+			v := sim.Get(i, j)
 			switch {
 			case which == 0:
-				d = 1 - s
+				v = 1 - v
 			case which == 1:
-				d = 1/s - 1
+				v = 1/v - 1
 			}
-			dis.Set(i, j, d)
+			out.Set(i, j, v)
 		}
 	}
-	return dis
+	return out
 }
 
 // recalculates data matrix to proportions. 

@@ -15,16 +15,16 @@ func WhittakerBool_D(data *DenseMatrix) *DenseMatrix {
 	)
 
 	rows := data.Rows()
-	dis := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			delta := ((a + b + c) / ((2*a + b + c) / 2)) - 1
-			dis.Set(i, j, delta)
-			dis.Set(j, i, delta)
+			v := ((a + b + c) / ((2*a + b + c) / 2)) - 1
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return dis
+	return out
 }
 
 // Whittaker distance matrix, count or interval data

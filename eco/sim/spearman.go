@@ -6,13 +6,10 @@ import (
 )
 
 func SpearmanRho_S(data *DenseMatrix) *DenseMatrix {
-	var (
-		sim, ranks *DenseMatrix
-	)
 	rows := data.Rows()
 	cols := data.Cols()
-	sim = Zeros(rows, rows)
-	ranks = Zeros(rows, cols)
+	out := Zeros(rows, rows)
+	ranks := Zeros(rows, cols)
 
 	// ToDo: check for ties
 
@@ -31,7 +28,7 @@ func SpearmanRho_S(data *DenseMatrix) *DenseMatrix {
 	}
 
 	for i := 0; i < rows; i++ {
-		sim.Set(i, i, 1.0)
+		out.Set(i, i, 1.0)
 	}
 
 	for i := 0; i < rows; i++ {
@@ -40,10 +37,10 @@ func SpearmanRho_S(data *DenseMatrix) *DenseMatrix {
 			for k := 0; k < cols; k++ {
 				sumd2 += (ranks.Get(i, k) - ranks.Get(j, k)) * (ranks.Get(i, k) - ranks.Get(j, k))
 			}
-			s := 1.0 - 6.0*sumd2/float64(cols*cols*cols-cols)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := 1.0 - 6.0*sumd2/float64(cols*cols*cols-cols)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }

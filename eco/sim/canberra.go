@@ -10,15 +10,12 @@ import (
 
 // Canberra distance matrix
 func Canberra_D(data *DenseMatrix) *DenseMatrix {
-	var (
-		dis *DenseMatrix
-	)
 	rows := data.Rows()
 	cols := data.Cols()
-	dis = Zeros(rows, rows) // square distance matrix row vs. row
+	out := Zeros(rows, rows) // square distance matrix row vs. row
 
 	for i := 0; i < rows; i++ {
-		dis.Set(i, i, 0.0)
+		out.Set(i, i, 0.0)
 	}
 
 	for i := 0; i < rows; i++ {
@@ -29,50 +26,22 @@ func Canberra_D(data *DenseMatrix) *DenseMatrix {
 				y := data.Get(j, k)
 				sum += Abs((x - y) / (x + y))
 			}
-			dis.Set(i, j, sum)
-			dis.Set(j, i, sum)
+			out.Set(i, j, sum)
+			out.Set(j, i, sum)
 		}
 	}
-	return dis
-}
-
-// Canberra similarity matrix
-// If d denotes Canberra distance, similarity is s=1.00/(d+1), so that it is in [0, 1]
-func Canberra_S(data *DenseMatrix) *DenseMatrix {
-	var (
-		sim, dis *DenseMatrix
-	)
-
-	dis = Canberra_D(data)
-	rows := data.Rows()
-	sim = Zeros(rows, rows)
-
-	for i := 0; i < rows; i++ {
-		sim.Set(i, i, 1.0)
-	}
-
-	for i := 0; i < rows; i++ {
-		for j := i + 1; j < rows; j++ {
-			s := 1.00 / (dis.Get(i, j) + 1.0)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
-		}
-	}
-	return sim
+	return out
 }
 
 // Scaled Canberra distance matrix
 // Reference needed!
 func CanberraSc_D(data *DenseMatrix) *DenseMatrix {
-	var (
-		dis *DenseMatrix
-	)
 	rows := data.Rows()
 	cols := data.Cols()
-	dis = Zeros(rows, rows) // square distance matrix row vs. row
+	out := Zeros(rows, rows) // square distance matrix row vs. row
 
 	for i := 0; i < rows; i++ {
-		dis.Set(i, i, 0.0)
+		out.Set(i, i, 0.0)
 	}
 
 	for i := 0; i < rows; i++ {
@@ -88,37 +57,12 @@ func CanberraSc_D(data *DenseMatrix) *DenseMatrix {
 					sum += Abs((x - y) / (x + y))
 				}
 			}
-			d := sum / float64(count)
-			dis.Set(i, j, d)
-			dis.Set(j, i, d)
+			v := sum / float64(count)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return dis
-}
-
-// Scaled Canberra similarity matrix
-// If d denotes Scaled Canberra distance, similarity is s=1.00/(d+1), so that it is in [0, 1]
-func CanberraSc_S(data *DenseMatrix) *DenseMatrix {
-	var (
-		sim, dis *DenseMatrix
-	)
-
-	dis = CanberraSc_D(data)
-	rows := data.Rows()
-	sim = Zeros(rows, rows)
-
-	for i := 0; i < rows; i++ {
-		sim.Set(i, i, 1.0)
-	}
-
-	for i := 0; i < rows; i++ {
-		for j := i + 1; j < rows; j++ {
-			s := 1.00 / (dis.Get(i, j) + 1.0)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
-		}
-	}
-	return sim
+	return out
 }
 
 func CanberraBool_D(data *DenseMatrix) *DenseMatrix {

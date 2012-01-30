@@ -12,13 +12,10 @@ import (
 
 // Drennan distance matrix
 func Drennan_D(data *DenseMatrix) *DenseMatrix {
-	var (
-		dis, percent *DenseMatrix
-	)
 	rows := data.Rows()
 	cols := data.Cols()
-	percent = Zeros(rows, cols) // percentages
-	dis = Zeros(rows, rows)     // distances
+	percent := Zeros(rows, cols) // percentages
+	out := Zeros(rows, rows)     // distances
 
 	for i := 0; i < rows; i++ {
 		rowsum := 0.0
@@ -31,7 +28,7 @@ func Drennan_D(data *DenseMatrix) *DenseMatrix {
 	}
 
 	for i := 0; i < rows; i++ {
-		dis.Set(i, i, 0.0)
+		out.Set(i, i, 0.0)
 	}
 
 	for i := 0; i < rows; i++ {
@@ -42,34 +39,11 @@ func Drennan_D(data *DenseMatrix) *DenseMatrix {
 				y := percent.Get(j, k)
 				sum += (x - y)
 			}
-			d := sum / 200.0
-			dis.Set(i, j, d)
-			dis.Set(j, i, d)
+			v := sum / 200.0
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return dis
+	return out
 }
 
-// Drennanean similarity matrix
-func Drennan_S(data *DenseMatrix) *DenseMatrix {
-	var (
-		sim, dis *DenseMatrix
-	)
-
-	dis = Drennan_D(data)
-	rows := data.Rows()
-	sim = Zeros(rows, rows)
-
-	for i := 0; i < rows; i++ {
-		sim.Set(i, i, 1.0)
-	}
-
-	for i := 0; i < rows; i++ {
-		for j := i + 1; j < rows; j++ {
-			s := 1.00 / (dis.Get(i, j) + 1.0)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
-		}
-	}
-	return sim
-}

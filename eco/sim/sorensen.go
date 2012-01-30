@@ -14,16 +14,16 @@ func SorensenBool_S(data *DenseMatrix) *DenseMatrix {
 	)
 
 	rows := data.Rows()
-	sim := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s := 2 * a / (2*a + b + c)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := 2 * a / (2*a + b + c)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }
 
 // S9 similarity matrix, for boolean data
@@ -34,43 +34,42 @@ func S9Bool_S(data *DenseMatrix) *DenseMatrix {
 	)
 
 	rows := data.Rows()
-	sim := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s := 3 * a / (3*a + b + c)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := 3 * a / (3*a + b + c)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }
 
 // Sørensen distance matrix, for boolean data
 func SorensenBool_D(data *DenseMatrix) *DenseMatrix {
 	var (
 		aa, bb, jj float64
-		dis        *DenseMatrix
 	)
 
 	rows := data.Rows()
-	dis = Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	warnIfNotBool(data)
 
 	for i := 0; i < rows; i++ {
-		dis.Set(i, i, 0.0)
+		out.Set(i, i, 0.0)
 	}
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
 			aa, bb, jj, _ = getABJPbool(data, i, j)
 			// (A+B-2*J)/(A+B)
-			d := (aa + bb - 2*jj) / (aa + bb)
-			dis.Set(i, j, d)
-			dis.Set(j, i, d)
+			v := (aa + bb - 2*jj) / (aa + bb)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return dis
+	return out
 }
 /*
 // Sørensen distance matrix, for quantitative data

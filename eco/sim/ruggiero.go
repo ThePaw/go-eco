@@ -14,14 +14,14 @@ func RuggieroBool_S(data *DenseMatrix) *DenseMatrix {
 	)
 
 	rows := data.Rows()
-	sim := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, _, c, _ = getABCD(data, i, j)
-			s := a / (a + c)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := a / (a + c)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }

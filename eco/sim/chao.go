@@ -1,9 +1,9 @@
-// Chao distance and similarity
+// Chao distance
 // Chao's index (Ecol. Lett. 8, 148-159; 2005) tries to take into
 // account the number of unseen shared species using Chao's method for
 // estimating the number of unseen species.
 // Chao, A., Chazdon, R. L., Colwell, R. K. and Shen, T. (2005). A new statistical approach for assessing similarity of species composition with incidence and abundance data. Ecology Letters 8, 148–159. 
-// Similarity is 1.00-d
+// Similarity is 1.00-v
 
 package eco
 
@@ -14,19 +14,16 @@ import (
 
 // Chao distance matrix
 func Chao_D(data *DenseMatrix) *DenseMatrix {
-	var (
-		dis *DenseMatrix
-		d   float64
-	)
+	var v   float64
 
 	rows := data.Rows()
 	cols := data.Cols()
-	dis = Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	// check whether data are integers; if not, truncate them
 	truncData(data)
 
 	for i := 0; i < rows; i++ {
-		dis.Set(i, i, 0.0)
+		out.Set(i, i, 0.0)
 	}
 
 	for i := 0; i < rows; i++ {
@@ -95,40 +92,18 @@ func Chao_D(data *DenseMatrix) *DenseMatrix {
 				vv = 1
 			}
 			if uu <= 0.0 || vv <= 0.0 {
-				d = 1.0
+				v = 1.0
 			} else {
-				d = 1.0 - uu*vv/(uu+vv-uu*vv)
+				v = 1.0 - uu*vv/(uu+vv-uu*vv)
 			}
-			if d < 0.0 {
-				d = 0.0
+			if v < 0.0 {
+				v = 0.0
 			}
-			dis.Set(i, j, d)
-			dis.Set(j, i, d)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return dis
+	return out
 }
 
-// Chao similarity matrix
-func Chao_S(data *DenseMatrix) *DenseMatrix {
-	var (
-		sim, dis *DenseMatrix
-	)
 
-	dis = Chao_D(data)
-	rows := data.Rows()
-	sim = Zeros(rows, rows)
-
-	for i := 0; i < rows; i++ {
-		sim.Set(i, i, 1.0)
-	}
-
-	for i := 0; i < rows; i++ {
-		for j := i + 1; j < rows; j++ {
-			s := 1.00 - dis.Get(i, j)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
-		}
-	}
-	return sim
-}

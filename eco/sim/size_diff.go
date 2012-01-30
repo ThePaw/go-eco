@@ -6,13 +6,13 @@ import (
 
 func SizeDiffBool_D(data *DenseMatrix) *DenseMatrix {
 	var (
-		dis        *DenseMatrix
+		out        *DenseMatrix
 		a, b, c, d int64
 	)
 
 	rows := data.Rows()
 	cols := data.Cols()
-	dis = Zeros(rows, rows)
+	out = Zeros(rows, rows)
 	a = 0
 	b = 0
 	c = 0
@@ -21,7 +21,7 @@ func SizeDiffBool_D(data *DenseMatrix) *DenseMatrix {
 	warnIfNotBool(data)
 
 	for i := 0; i < rows; i++ {
-		dis.Set(i, i, 0.0)
+		out.Set(i, i, 0.0)
 	}
 
 	for i := 0; i < rows; i++ {
@@ -42,10 +42,10 @@ func SizeDiffBool_D(data *DenseMatrix) *DenseMatrix {
 				}
 
 			}
-			d := float64(b+c) * float64(b+c) / float64(cols*cols)
-			dis.Set(i, j, d)
-			dis.Set(j, i, d)
+			v := float64(b+c) * float64(b+c) / float64(cols*cols)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return dis
+	return out
 }

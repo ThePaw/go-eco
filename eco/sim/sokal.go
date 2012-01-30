@@ -17,16 +17,16 @@ func SokalSneath1Bool_S(data *DenseMatrix) *DenseMatrix {
 	)
 
 	rows := data.Rows()
-	sim := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			s := (2*a + 2*d) / (2*a + b + c + 2*d)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := (2*a + 2*d) / (2*a + b + c + 2*d)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }
 
 // Sokal - Sneath similarity matrix #2
@@ -37,16 +37,16 @@ func SokalSneath2Bool_S(data *DenseMatrix) *DenseMatrix {
 	)
 
 	rows := data.Rows()
-	sim := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			s := (a + d) / (b + c)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := (a + d) / (b + c)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }
 
 // Sokal - Sneath similarity matrix #3
@@ -57,16 +57,16 @@ func SokalSneath3Bool_S(data *DenseMatrix) *DenseMatrix {
 	)
 
 	rows := data.Rows()
-	sim := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			s := (a/(a+b) + a/(a+c) + d/(b+d) + d/(c+d)) / 4
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := (a/(a+b) + a/(a+c) + d/(b+d) + d/(c+d)) / 4
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }
 
 // Sokal - Sneath similarity matrix #4
@@ -77,16 +77,16 @@ func SokalSneath4Bool_S(data *DenseMatrix) *DenseMatrix {
 	)
 
 	rows := data.Rows()
-	sim := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			s := a / math.Sqrt((a+b)*(a+c)) * d / math.Sqrt((b+d)*(c+d))
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := a / math.Sqrt((a+b)*(a+c)) * d / math.Sqrt((b+d)*(c+d))
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }
 
 // Sokal - Sneath similarity matrix #5
@@ -99,16 +99,16 @@ func SokalSneath5Bool_S(data *DenseMatrix) *DenseMatrix {
 	)
 
 	rows := data.Rows()
-	sim := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s := a / (a + 2*(b+c))
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := a / (a + 2*(b+c))
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }
 
 // Sokal - Sneath similarity matrix #6
@@ -119,16 +119,16 @@ func SokalSneath6Bool_S(data *DenseMatrix) *DenseMatrix {
 	)
 
 	rows := data.Rows()
-	sim := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			s := (a*d) / math.Sqrt((a+b)*(a + c)*(d + b)*(d + c))
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := (a*d) / math.Sqrt((a+b)*(a + c)*(d + b)*(d + c))
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }
 
 // Sokal - Sneath similarity matrix #7
@@ -139,16 +139,16 @@ func SokalSneath7Bool_S(data *DenseMatrix) *DenseMatrix {
 	)
 
 	rows := data.Rows()
-	sim := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			s := ((2*a)+(2*d)) / (a+d+(a+b+c+d))
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := ((2*a)+(2*d)) / (a+d+(a+b+c+d))
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }
 
 // Sokal - Sneath similarity matrix #8
@@ -159,16 +159,16 @@ func SokalSneath8Bool_S(data *DenseMatrix) *DenseMatrix {
 	)
 
 	rows := data.Rows()
-	sim := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			s := ((2*a)+(2*d)) / (a+d+(a+b+c+d))
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := ((2*a)+(2*d)) / (a+d+(a+b+c+d))
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }
 
 // Sokal - Sneath similarity matrix #9
@@ -179,16 +179,16 @@ func SokalSneath9Bool_S(data *DenseMatrix) *DenseMatrix {
 	)
 
 	rows := data.Rows()
-	sim := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			s := (a/(a+b) + a/(a+c)) / 2
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := (a/(a+b) + a/(a+c)) / 2
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }
 
 

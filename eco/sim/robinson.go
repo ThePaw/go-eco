@@ -8,18 +8,14 @@ import (
 )
 
 func robinson_S(data *DenseMatrix) *DenseMatrix {
-	var (
-		sim, percent *DenseMatrix
-	)
-
 	rows := data.Rows()
 	cols := data.Cols()
-	sim = Zeros(data.Rows(), data.Rows()) // square similarity matrix row vs. row
-	percent = Zeros(data.Rows(), data.Cols())
+	out := Zeros(data.Rows(), data.Rows()) // square similarity matrix row vs. row
+	percent := Zeros(data.Rows(), data.Cols())
 
 	// Set diagonal to 200
 	for i := 0; i < data.Rows(); i++ {
-		sim.Set(i, i, 200.0)
+		out.Set(i, i, 200.0)
 	}
 
 	// calculate percentages
@@ -43,10 +39,10 @@ func robinson_S(data *DenseMatrix) *DenseMatrix {
 				y := percent.Get(j, k)
 				sum += Abs(x - y)
 			}
-			s := 200.0 - sum
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := 200.0 - sum
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }

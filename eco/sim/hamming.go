@@ -11,10 +11,10 @@ import (
 func hamming_D(data *DenseMatrix) *DenseMatrix {
 	rows := data.Rows()
 	cols := data.Cols()
-	dis := Zeros(rows, rows)
+	out := Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
-		dis.Set(i, i, 0.0)
+		out.Set(i, i, 0.0)
 	}
 
 	for i := 0; i < rows; i++ {
@@ -28,12 +28,12 @@ func hamming_D(data *DenseMatrix) *DenseMatrix {
 					count++
 				}
 			}
-			d := float64(count)
-			dis.Set(i, j, d)
-			dis.Set(j, i, d)
+			v := float64(count)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return dis
+	return out
 }
 
 // Hamming distance matrix, for boolean data

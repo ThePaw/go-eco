@@ -8,15 +8,12 @@ import (
 
 // Pearson's ρ (rho) similarity matrix
 func PearsonRho_S(data *DenseMatrix) *DenseMatrix {
-	var (
-		sim *DenseMatrix
-	)
 	rows := data.Rows()
 	cols := data.Cols()
-	sim = Zeros(rows, rows)
+	out := Zeros(rows, rows)
 
 	for i := 0; i < rows; i++ {
-		sim.Set(i, i, 1.0)
+		out.Set(i, i, 1.0)
 	}
 
 	for i := 0; i < rows; i++ {
@@ -43,12 +40,12 @@ func PearsonRho_S(data *DenseMatrix) *DenseMatrix {
 				syy += y - ymean
 				sxy += (x - xmean) * (y - ymean)
 			}
-			s := sxy / math.Sqrt(sxx*syy)
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := sxy / math.Sqrt(sxx*syy)
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }
 
 // Pearson's Φ similarity matrix
@@ -56,19 +53,18 @@ func PearsonRho_S(data *DenseMatrix) *DenseMatrix {
 // !!! CHECK against L&L 1998 !!!
 func PearsonPhiBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
-		sim        *DenseMatrix
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.Rows()
-	sim = Zeros(rows, rows)
+	out := Zeros(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			s := (a*d - b*c) / math.Sqrt((a+b)*(a+c)*(d+b)*(d+c))
-			sim.Set(i, j, s)
-			sim.Set(j, i, s)
+			v := (a*d - b*c) / math.Sqrt((a+b)*(a+c)*(d+b)*(d+c))
+			out.Set(i, j, v)
+			out.Set(j, i, v)
 		}
 	}
-	return sim
+	return out
 }
