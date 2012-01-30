@@ -6,6 +6,10 @@
 
 package eco
 
+import (
+	. "gomatrix.googlecode.com/hg/matrix"
+)
+
 func RusselRaoBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
@@ -16,7 +20,7 @@ func RusselRaoBool_S(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			s := a / (a + b + c + d)
+			v := a / (a + b + c + d)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}

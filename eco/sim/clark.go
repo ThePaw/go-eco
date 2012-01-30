@@ -4,12 +4,13 @@ package eco
 
 import (
 	. "gomatrix.googlecode.com/hg/matrix"
+	"math"
 )
 
 // Clark matrix, count or interval data
 // Clark (1952)
 // Legendre & Legendre (1998): 283, eq. 7.51 (D11 index)
-func Whittaker_D(data *DenseMatrix) *DenseMatrix {
+func Clark_D(data *DenseMatrix) *DenseMatrix {
 	rows := data.Rows()
 	cols := data.Cols()
 	out := Zeros(rows, rows)

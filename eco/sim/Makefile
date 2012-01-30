@@ -1,6 +1,6 @@
 include $(GOROOT)/src/Make.inc
 
-TARG=go-eco.googlecode.com/hg/eco
+TARG=XXX
 
 include GOFILES
 

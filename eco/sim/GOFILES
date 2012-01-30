@@ -9,7 +9,9 @@ GOFILES=\
      chao.go\
      chebychev.go\
      chisquare.go\
+     chord.go\
      circle_product.go\
+     clark.go\
      co-co-gaston.go\
      cody.go\
      cosine.go\
@@ -21,8 +23,10 @@ GOFILES=\
      euclid.go\
      eyraud.go\
      fager.go\
+     faith.go\
      forbes.go\
      fossum.go\
+     geodesic.go\
      gower.go\
      hamann.go\
      hamming.go\
@@ -52,11 +56,13 @@ GOFILES=\
      pattern_diff.go\
      pearson.go\
      peirce.go\
+     raup-crick.go\
      renkonen.go\
      robinson.go\
      rogers.go\
      routledge.go\
      ruggiero.go\
+     russel-rao.go\
      ruzicka.go\
      shannon.go\
      shape_diff.go\
@@ -68,6 +74,7 @@ GOFILES=\
      sorensen.go\
      sorgenfrei.go\
      spearman.go\
+     steinhaus.go\
      stiles.go\
      taxonomic.go\
      variance.go\
@@ -76,5 +83,3 @@ GOFILES=\
      williams.go\
      wilson-shmida.go\
      yule.go\
-     raup-crick.go\
-
