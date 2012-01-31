@@ -8,6 +8,19 @@ import (
 	"os"
 )
 
+type Vector struct {
+	A []float64 // data
+	L int       // length
+}
+
+func NewVector(length int) (v *Vector) {
+	v = new(Vector)
+	v.L = length
+	v.A = make([]float64, length)
+	return v
+}
+
+
 func ReadMatrix() *DenseMatrix {
 	var (
 		rows, cols int

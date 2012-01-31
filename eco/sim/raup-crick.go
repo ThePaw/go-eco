@@ -136,7 +136,7 @@ func RaupCrick1_S(data *matrix.DenseMatrix) *matrix.DenseMatrix {
 // Raup & Crick (1979): 1219
 // This is the final version of their similarity index.
 func RaupCrick2_S(data *matrix.DenseMatrix, p []float64) *matrix.DenseMatrix {
-	const iter int = 1e5
+	const iter int = 1e3
 
 	rows := data.Rows()
 	cols := data.Cols()
@@ -187,6 +187,10 @@ func RaupCrick2_S(data *matrix.DenseMatrix, p []float64) *matrix.DenseMatrix {
 					k_obs++
 				}
 			}
+				for l := 0; l < cols; l++ {
+					k[l] = 0
+				}				
+
 
 			// accumulate counts for k_exp
 			for l := 0; l < iter; l++ {
@@ -241,20 +245,16 @@ func RaupCrick2_S(data *matrix.DenseMatrix, p []float64) *matrix.DenseMatrix {
 				k[k_exp]++ // add it to histogram
 			} // end of iterations
 
-			// turn k to PMF
-			for l := 0; l < len(k); l++ {
-				k[l] /= iter // ? iter == sum k[l], I hope
-			}
 
 			// sim = CDF(k_obs - 1) + PDF(k_obs)/2
-			p := 0.0
+			prob := 0.0
 			for l := 0; l < k_obs; l++ {
-				p += float64(k[l])
+				prob += float64(k[l])/float64(iter)
 			}
-			p += float64(k[k_obs]) / 2
+			prob += float64(k[k_obs]) / (2 * float64(iter))
 
-			out.Set(i, j, p)
-			out.Set(j, i, p)
+			out.Set(i, j, prob)
+			out.Set(j, i, prob)
 
 		}
 	}
