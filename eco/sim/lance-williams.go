@@ -22,7 +22,7 @@ func LanceWilliamsBool_D(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			v := (b+c) / (2 * (a+b+c))
+			v := (b + c) / (2 * (a + b + c))
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}

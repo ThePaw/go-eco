@@ -54,11 +54,10 @@ func BrayCurtisBool_D(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			v := (b+c) / (2.0 * (a+b+c)) // ???
+			v := (b + c) / (2.0 * (a + b + c)) // ???
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
 	}
 	return out
 }
-

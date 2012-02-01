@@ -107,4 +107,14 @@ m <- sim(b, method = "soerensen")
 y <-as.matrix(m)
 write(y, file = "foo", ncolumns = 6, append = FALSE, sep = ",")
 
+## Ruggiero
+library(vegan)
+b <- read.csv("bin_big.csv", header = FALSE, sep = ",")
+m <- designdist(b, method = "a / (a + c)", abcd = TRUE)
+y <-as.matrix(m)
+
+library("simba") 
+# b <- read.csv("bin_big.csv", header = FALSE, sep = ",")
+m <- sim(b, method = "ruggiero")
+y <-as.matrix(m)
 

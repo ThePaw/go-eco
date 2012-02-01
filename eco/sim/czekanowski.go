@@ -24,9 +24,9 @@ func Czekanowski1_D(data *DenseMatrix) *DenseMatrix {
 			for k := 0; k < cols; k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
-				sum += math.Abs(x-y)
+				sum += math.Abs(x - y)
 			}
-			v := sum/float64(cols)
+			v := sum / float64(cols)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -64,5 +64,3 @@ func Czekanowski2_D(data *DenseMatrix) *DenseMatrix {
 	}
 	return out
 }
-
-

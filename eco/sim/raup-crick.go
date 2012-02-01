@@ -187,10 +187,9 @@ func RaupCrick2_S(data *matrix.DenseMatrix, p []float64) *matrix.DenseMatrix {
 					k_obs++
 				}
 			}
-				for l := 0; l < cols; l++ {
-					k[l] = 0
-				}				
-
+			for l := 0; l < cols; l++ {
+				k[l] = 0
+			}
 
 			// accumulate counts for k_exp
 			for l := 0; l < iter; l++ {
@@ -199,7 +198,7 @@ func RaupCrick2_S(data *matrix.DenseMatrix, p []float64) *matrix.DenseMatrix {
 				nSp := 0
 				for m := 0; m < cols; m++ {
 					a[m] = 0
-				}				
+				}
 			L1:
 				for {
 					// draw from categorical ditribution
@@ -219,7 +218,7 @@ func RaupCrick2_S(data *matrix.DenseMatrix, p []float64) *matrix.DenseMatrix {
 				nSp = 0
 				for m := 0; m < cols; m++ {
 					b[m] = 0
-				}				
+				}
 			L2:
 				for {
 					// draw from categorical ditribution
@@ -245,11 +244,10 @@ func RaupCrick2_S(data *matrix.DenseMatrix, p []float64) *matrix.DenseMatrix {
 				k[k_exp]++ // add it to histogram
 			} // end of iterations
 
-
 			// sim = CDF(k_obs - 1) + PDF(k_obs)/2
 			prob := 0.0
 			for l := 0; l < k_obs; l++ {
-				prob += float64(k[l])/float64(iter)
+				prob += float64(k[l]) / float64(iter)
 			}
 			prob += float64(k[k_obs]) / (2 * float64(iter))
 

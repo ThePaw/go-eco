@@ -8,6 +8,7 @@ import (
 )
 
 // Sørensen similarity matrix, for boolean data
+// Legendre & Legendre (1998): 256, eq. 7.11  (S8 index)
 func SorensenBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
@@ -19,26 +20,6 @@ func SorensenBool_S(data *DenseMatrix) *DenseMatrix {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
 			v := 2 * a / (2*a + b + c)
-			out.Set(i, j, v)
-			out.Set(j, i, v)
-		}
-	}
-	return out
-}
-
-// S9 similarity matrix, for boolean data
-// Legendre & Legendre (1998): 257, eq. 7.12
-func S9Bool_S(data *DenseMatrix) *DenseMatrix {
-	var (
-		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
-	)
-
-	rows := data.Rows()
-	out := Zeros(rows, rows)
-	for i := 0; i < rows; i++ {
-		for j := i; j < rows; j++ {
-			a, b, c, _ = getABCD(data, i, j)
-			v := 3 * a / (3*a + b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -71,6 +52,7 @@ func SorensenBool_D(data *DenseMatrix) *DenseMatrix {
 	}
 	return out
 }
+
 /*
 // Sørensen distance matrix, for quantitative data
 func Sorensen_D(data *DenseMatrix) *DenseMatrix {

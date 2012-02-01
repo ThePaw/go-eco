@@ -33,4 +33,3 @@ func Chebychev_D(data *DenseMatrix) *DenseMatrix {
 	}
 	return out
 }
-

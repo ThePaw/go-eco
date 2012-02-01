@@ -37,4 +37,3 @@ func Renkonen_D(data *DenseMatrix) *DenseMatrix {
 	}
 	return out
 }
-

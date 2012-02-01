@@ -20,7 +20,7 @@ func AverageSqBool_D(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			v := (b + c) / (a+b+c+d)
+			v := (b + c) / (a + b + c + d)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}

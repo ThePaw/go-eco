@@ -29,4 +29,3 @@ func StilesBool_S(data *DenseMatrix) *DenseMatrix {
 	}
 	return out
 }
-

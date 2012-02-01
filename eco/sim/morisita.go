@@ -55,4 +55,3 @@ func Morisita_D(data *DenseMatrix) *DenseMatrix {
 	}
 	return out
 }
-

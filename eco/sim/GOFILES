@@ -40,6 +40,7 @@ GOFILES=\
      lamont.go\
      lance-williams.go\
      lande.go\
+     legendre-1998.go\
      legendre.go\
      lennon.go\
      maarel.go\

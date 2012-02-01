@@ -133,14 +133,13 @@ func GowerBool_D(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			v := (b+c) / (a+b+c+d)
+			v := (b + c) / (a + b + c + d)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
 	}
 	return out
 }
-			
 
 // Citation needed
 func GowerZBool_D(data *DenseMatrix) *DenseMatrix {

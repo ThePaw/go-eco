@@ -25,14 +25,13 @@ func Clark_D(data *DenseMatrix) *DenseMatrix {
 			for k := 0; k < cols; k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
-				t:= (x-y)/(x+y)
-				sum += t*t
+				t := (x - y) / (x + y)
+				sum += t * t
 			}
-			v := math.Sqrt(sum/float64(cols))
+			v := math.Sqrt(sum / float64(cols))
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
 	}
 	return out
 }
-

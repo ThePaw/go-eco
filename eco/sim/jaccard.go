@@ -5,7 +5,8 @@ package eco
 import (
 	. "gomatrix.googlecode.com/hg/matrix"
 )
-
+// Jaccard similarity matrix
+// Legendre & Legendre 1998: 256, eq. 7.10 (S7 index)
 func JaccardBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
@@ -23,4 +24,3 @@ func JaccardBool_S(data *DenseMatrix) *DenseMatrix {
 	}
 	return out
 }
-

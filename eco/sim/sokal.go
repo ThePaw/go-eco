@@ -123,7 +123,7 @@ func SokalSneath6Bool_S(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			v := (a*d) / math.Sqrt((a+b)*(a + c)*(d + b)*(d + c))
+			v := (a * d) / math.Sqrt((a+b)*(a+c)*(d+b)*(d+c))
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -143,7 +143,7 @@ func SokalSneath7Bool_S(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			v := ((2*a)+(2*d)) / (a+d+(a+b+c+d))
+			v := ((2 * a) + (2 * d)) / (a + d + (a + b + c + d))
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -163,7 +163,7 @@ func SokalSneath8Bool_S(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			v := ((2*a)+(2*d)) / (a+d+(a+b+c+d))
+			v := ((2 * a) + (2 * d)) / (a + d + (a + b + c + d))
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -190,5 +190,3 @@ func SokalSneath9Bool_S(data *DenseMatrix) *DenseMatrix {
 	}
 	return out
 }
-
-

@@ -33,5 +33,3 @@ func Minkowski_D(power int, data *DenseMatrix) *DenseMatrix {
 	}
 	return out
 }
-
-

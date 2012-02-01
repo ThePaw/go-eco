@@ -10,6 +10,8 @@ import (
 	. "gomatrix.googlecode.com/hg/matrix"
 )
 
+// Russell-Rao similarity matrix 
+// Legendre & Legendre (1998): 257, eq. 7.14 (S11 index)
 func RusselRaoBool_S(data *DenseMatrix) *DenseMatrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
@@ -27,5 +29,3 @@ func RusselRaoBool_S(data *DenseMatrix) *DenseMatrix {
 	}
 	return out
 }
-
-

@@ -66,4 +66,3 @@ func TaxonomicSc_D(data *DenseMatrix) *DenseMatrix {
 	}
 	return out
 }
-

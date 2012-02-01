@@ -105,12 +105,12 @@ func MountfordBool_S(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-if (a*(b+c) + (2 * b * c)) != 0 {
-			v = 2 * a / (a*(b+c) + (2 * b * c))
-} else {
-			v = 2 * a / (a*(b+c) + (2 * b * c))
+			if (a*(b+c) + (2 * b * c)) != 0 {
+				v = 2 * a / (a*(b+c) + (2 * b * c))
+			} else {
+				v = 2 * a / (a*(b+c) + (2 * b * c))
 
-}
+			}
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}

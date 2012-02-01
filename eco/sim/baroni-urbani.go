@@ -57,4 +57,3 @@ func BaroniUrbaniBool_D(data *DenseMatrix) *DenseMatrix {
 	}
 	return out
 }
-

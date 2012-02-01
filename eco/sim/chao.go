@@ -14,7 +14,7 @@ import (
 
 // Chao distance matrix
 func Chao_D(data *DenseMatrix) *DenseMatrix {
-	var v   float64
+	var v float64
 
 	rows := data.Rows()
 	cols := data.Cols()
@@ -105,5 +105,3 @@ func Chao_D(data *DenseMatrix) *DenseMatrix {
 	}
 	return out
 }
-
-

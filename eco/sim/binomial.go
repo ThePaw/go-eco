@@ -55,11 +55,10 @@ func BinomialBool_D(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
 			_, b, c, _ = getABCD(data, i, j)
-			v := math.Log(2.0) * (b+c)
+			v := math.Log(2.0) * (b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
 	}
 	return out
 }
-

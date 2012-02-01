@@ -1,6 +1,6 @@
 < $GOROOT/src/9bootstrap.mk
 
-TARG=XXX
+TARG=go-eco.googlecode.com/hg/eco/sim
 
 < GOFILES
 

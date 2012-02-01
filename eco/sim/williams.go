@@ -38,8 +38,8 @@ func Williams2Bool_D(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-//			v := (2*b*c + 1) / (math.Pow(a+b+c, 2) - (a + b + c))
-			v := ((b*c)+1) / ((((a+b+c)*(a+b+c)) - (a+b+c)) / 2)
+			//			v := (2*b*c + 1) / (math.Pow(a+b+c, 2) - (a + b + c))
+			v := ((b * c) + 1) / ((((a + b + c) * (a + b + c)) - (a + b + c)) / 2)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}

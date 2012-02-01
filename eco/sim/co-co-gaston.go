@@ -18,7 +18,7 @@ func CoCoGastonBool_D(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = getABCD(data, i, j)
-			v := (b+c)/(a+b+c)
+			v := (b + c) / (a + b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}

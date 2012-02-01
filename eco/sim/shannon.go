@@ -23,7 +23,7 @@ func ShannonBool_D(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
 			_, b, c, _ = getABCD(data, i, j)
-			v := 2.0 * (b+c) * math.Log(2.0)
+			v := 2.0 * (b + c) * math.Log(2.0)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}

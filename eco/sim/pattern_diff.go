@@ -22,8 +22,8 @@ func PatternDiffBool_D(data *DenseMatrix) *DenseMatrix {
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
 			a, b, c, d = getABCD(data, i, j)
-			p:=(a+b+c+d)
-			v := (b*c) / (p*p)
+			p := (a + b + c + d)
+			v := (b * c) / (p * p)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}

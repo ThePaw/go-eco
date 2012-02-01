@@ -3,8 +3,8 @@
 package eco
 
 import (
-	"math"
 	. "gomatrix.googlecode.com/hg/matrix"
+	"math"
 )
 
 // Whittaker dissimilarity matrix, boolean data
@@ -49,17 +49,16 @@ func Whittaker_D(data *DenseMatrix) *DenseMatrix {
 				sumX += x
 				sumY += y
 			}
-			sum:=0.0
+			sum := 0.0
 			for k := 0; k < cols; k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
-				sum += math.Abs(x / sumX - y / sumY)
+				sum += math.Abs(x/sumX - y/sumY)
 			}
-			v := sum/2
+			v := sum / 2
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
 	}
 	return out
 }
-

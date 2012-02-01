@@ -103,12 +103,10 @@ func Kulczynski_S(data *DenseMatrix) *DenseMatrix {
 				sumX += x
 				sumY += x
 			}
-			v := 0.5*(sumMin/sumX+sumMin/sumY)
+			v := 0.5 * (sumMin/sumX + sumMin/sumY)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
 	}
 	return out
 }
-
-

@@ -1,8 +1,10 @@
+// Auxiliary functions
+
 package eco
 
 import (
 	"fmt"
-//	"encoding/csv"
+	//	"encoding/csv"
 	. "gomatrix.googlecode.com/hg/matrix"
 	"math"
 	"os"
@@ -19,7 +21,6 @@ func NewVector(length int) (v *Vector) {
 	v.A = make([]float64, length)
 	return v
 }
-
 
 func ReadMatrix() *DenseMatrix {
 	var (
@@ -131,6 +132,7 @@ L:
 	}
 	return
 }
+
 // Calculates A, B, J, and P values from two rows of boolean data matrix, "quadratic variant". 
 // See R:vegan:vegdist
 // "quadratic" terms are J = sum(x*y), A = sum(x^2), B = sum(y^2)
@@ -206,7 +208,7 @@ func getABJPbool(data *DenseMatrix, i, j int) (aa, bb, jj, pp float64) {
 }
 
 // Calculates similarity matrix from the distance matrix. 
-func sFromD(dis *DenseMatrix, which int) *DenseMatrix {
+func SFromD(dis *DenseMatrix, which int) *DenseMatrix {
 	rows := dis.Rows()
 	out := Zeros(rows, rows)
 
@@ -214,9 +216,9 @@ func sFromD(dis *DenseMatrix, which int) *DenseMatrix {
 		for j := 0; j < rows; j++ {
 			v := dis.Get(i, j)
 			switch {
-			case which == 0:
+			case which == 0:	// D is from [0, 1]
 				v = 1 - v
-			case which == 1:
+			case which == 1:	// D is from [0, +inf]
 				v = 1 / (v + 1)
 			}
 			out.Set(i, j, v)
@@ -226,7 +228,7 @@ func sFromD(dis *DenseMatrix, which int) *DenseMatrix {
 }
 
 // Calculates distance matrix from the similarity matrix
-func dFromS(sim *DenseMatrix, which int) *DenseMatrix {
+func DFromS(sim *DenseMatrix, which int) *DenseMatrix {
 	rows := sim.Rows()
 	out := Zeros(rows, rows)
 
@@ -234,9 +236,13 @@ func dFromS(sim *DenseMatrix, which int) *DenseMatrix {
 		for j := 0; j < rows; j++ {
 			v := sim.Get(i, j)
 			switch {
-			case which == 0:
+			case which == 0:	// S is from [0, 1]
 				v = 1 - v
-			case which == 1:
+			case which == 1:	// S is from [0, 1]
+				v = math.Sqrt(1 - v)
+			case which == 2:	// S is from [0, 1]
+				v = math.Sqrt(1 - v*v)
+			case which == 3:	// S is from [0, +inf]
 				v = 1/v - 1
 			}
 			out.Set(i, j, v)

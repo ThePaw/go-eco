@@ -32,12 +32,10 @@ func Steinhaus_S(data *DenseMatrix) *DenseMatrix {
 				sumY += y
 				sumMin += math.Min(x, y)
 			}
-			v := 2*sumMin/(sumX+sumY)
+			v := 2 * sumMin / (sumX + sumY)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
 	}
 	return out
 }
-
-
