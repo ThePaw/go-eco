@@ -23,7 +23,7 @@ import (
 // Algorithm from R:vegan
 // phyper(k, m, size-m, n) == Hypergeometric_CDF_At(size, m, n, k)
 
-func RaupCrick_D(data *matrix.DenseMatrix) *matrix.DenseMatrix {
+func RaupCrickBoolBool_D(data *matrix.DenseMatrix) *matrix.DenseMatrix {
 	var (
 		v                          float64
 		aaa, bbb, jjj, t1, t2, sim int64
@@ -90,7 +90,7 @@ func probK(a, b, n, k int64) float64 {
 // Raup & Crick (1979): 1217, eq. 4
 // This is the naive version of their similarity index;
 // for final version, use the algorithm described on page 1219
-func RaupCrick1_S(data *matrix.DenseMatrix) *matrix.DenseMatrix {
+func RaupCrickBool1_S(data *matrix.DenseMatrix) *matrix.DenseMatrix {
 	var a, b, n int64
 
 	rows := data.Rows()
@@ -135,7 +135,7 @@ func RaupCrick1_S(data *matrix.DenseMatrix) *matrix.DenseMatrix {
 // Raup - Crick similarity matrix #2
 // Raup & Crick (1979): 1219
 // This is the final version of their similarity index.
-func RaupCrick2_S(data *matrix.DenseMatrix, p []float64) *matrix.DenseMatrix {
+func RaupCrickBool2_S(data *matrix.DenseMatrix, p []float64) *matrix.DenseMatrix {
 	const iter int = 1e3
 
 	rows := data.Rows()

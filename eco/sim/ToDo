@@ -1,6 +1,8 @@
 ToDo:
+pkg = sim
 Is "LandeBool_D" diss.??
 tests against R:simba
+test of RC against PAST
 remaining sim's from L&L
 # Binomial_D == Millar_D: test it
 check for ties

@@ -54,7 +54,8 @@ Yule, G. U. (1912) On the methods of measuring association between two attribute
 
 
 ######## 
-References
+References to add:
+
 Baroni-Urbani C, Buser MW (1976) Similarity of binary data. Syst
 Zool 25:251-259
 Bray JR, Curtis JT (1957) An ordination of the upland forest com-
@@ -111,5 +112,22 @@ changes. Smithsonian Press, Washington (in press)
 Wolda H, Fisk FW (1981) Seasonality of tropical insects II. Blattaria
 (cockroaches) from the seasonal tropics of Panama. J Anita Ecol
 (in press)
-Received November 3, 1980
+Anderson, M.J. and Millar, R.B. (2004). Spatial variation and effects of habitat on temperate reef fish assemblages in northeastern New Zealand. Journal of Experimental Marine Biology and Ecology 305, 191–221.
+
+Chao, A., Chazdon, R. L., Colwell, R. K. and Shen, T. (2005). A new statistical approach for assessing similarity of species composition with incidence and abundance data. Ecology Letters 8, 148–159.
+
+Faith, D. P, Minchin, P. R. and Belbin, L. (1987). Compositional dissimilarity as a robust measure of ecological distance. Vegetatio 69, 57–68.
+
+Krebs, C. J. (1999). Ecological Methodology. Addison Wesley Longman.
+
+Legendre, P, & Legendre, L. (1998) Numerical Ecology. 2nd English Edition. Elsevier.
+
+Mountford, M. D. (1962). An index of similarity and its application to classification problems. In: P.W.Murphy (ed.), Progress in Soil Zoology, 43–50. Butterworths.
+
+Wolda, H. (1981). Similarity indices, sample size and diversity. Oecologia 50, 296–302.
+
+Braun-Blanquet, J., 1932. Plant Sociology: The Study of Plant Communities. McGraw Hill, New York, 439 pp.
+Shi, G. R. 1993. Multivariate data analysis in palaeoecology and palaeobiogeography – a review. Palaeogeography, Palaeoclimatology, Palaeoecology 105: 199–234.
+Magurran, A. E. 2004. Measuring Biological Diversity. Oxford, Blackwell.
+
 

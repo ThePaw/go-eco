@@ -4,6 +4,7 @@ GOFILES=\
      average_sq.go\
      baroni-urbani.go\
      binomial.go\
+     braun-blanquet.go\
      bray-curtis.go\
      canberra.go\
      chao.go\

@@ -9,7 +9,7 @@ package eco
 func Richness(data *Matrix) *Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(cols)
+	out := NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		r := 0.0

@@ -99,12 +99,48 @@ func warnIfNotBool(data *DenseMatrix) {
 				if x-newX > eps {
 					warning = true
 				}
+				if newX != 0 {
+					newX = 1
+				}
 			}
 			data.Set(i, j, newX) // truncate data, anyway
 		}
 	}
 	if warning {
-		fmt.Fprint(os.Stderr, "warning: data are 0/1, however, treated as boolean: 0 == false, otherwise true\n")
+		fmt.Fprint(os.Stderr, "warning: data are not 0/1, however, will be treated as boolean: 0 == false, otherwise true\n")
+	}
+	return
+
+}
+
+func warnIfNotCounts(data *DenseMatrix) {
+	rows := data.Rows()
+	cols := data.Cols()
+	eps := 1e-3
+	warning := false
+	warning2 := true
+
+	for i := 0; i < rows; i++ {
+		for j := 0; j < cols; j++ {
+			x := data.Get(i, j)
+			newX := math.Floor(data.Get(i, j))
+			if !warning {
+				if x-newX > eps {
+					warning = true
+				}
+			}
+			if x != 0 &&  x != 0 {
+				warning2 = false
+			}
+			data.Set(i, j, newX) // truncate data, anyway
+		}
+	}
+	if warning2 {
+		fmt.Fprint(os.Stderr, "warning: data seem to be boolean, not counts as required\n")
+	}
+
+	if warning {
+		fmt.Fprint(os.Stderr, "warning: data are not counts, will be truncated to integers\n")
 	}
 	return
 
