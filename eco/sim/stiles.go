@@ -1,24 +1,24 @@
 // Stiles similarity matrix
 // Stiles (1946)
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
 // Stiles similarity matrix
-func StilesBool_S(data *DenseMatrix) *DenseMatrix {
+func StilesBool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
+	rows := data.R
+	out := NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, d = getABCD(data, i, j)
+			a, b, c, d = GetABCD(data, i, j)
 			t1 := a + b + c + d
 			t2 := math.Abs(a*d - b*c)
 			t3 := (a + b) * (a + c) * (b + d) * (c + d)

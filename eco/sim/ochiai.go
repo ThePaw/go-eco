@@ -1,26 +1,26 @@
 // Ochiai distance and similarity
 // Ochiai (1957)
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
 // Ochiai similarity matrix
 // Ochiai (1957)
 // Legendre & Legendre (1998): 258, eq. 7.17 (S14 index)
-func OchiaiBool_S(data *DenseMatrix) *DenseMatrix {
+func OchiaiBool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
+	rows := data.R
+	out := NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, _ = getABCD(data, i, j)
+			a, b, c, _ = GetABCD(data, i, j)
 			v := a / math.Sqrt((a+b)*(a+c))
 			out.Set(i, j, v)
 			out.Set(j, i, v)
@@ -30,14 +30,14 @@ func OchiaiBool_S(data *DenseMatrix) *DenseMatrix {
 }
 
 // Ochiai distance matrix, for boolean data (according to R: vegan)
-func OchiaiBool_D(data *DenseMatrix) *DenseMatrix {
+func OchiaiBool_D(data *Matrix) *Matrix {
 	var (
 		aa, bb, jj float64
 	)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
-	warnIfNotBool(data)
+	rows := data.R
+	out := NewMatrix(rows, rows)
+	WarnIfNotBool(data)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -45,7 +45,7 @@ func OchiaiBool_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			aa, bb, jj, _ = getABJPbool(data, i, j)
+			aa, bb, jj, _ = GetABJPbool(data, i, j)
 			// 1-J/sqrt(A*B)
 			v := 1.0 - jj/math.Sqrt(aa*bb)
 			out.Set(i, j, v)

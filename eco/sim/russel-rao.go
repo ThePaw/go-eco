@@ -4,24 +4,24 @@
 // Gower & Legendre (1986), Russell/Rao in Ellis et al. (1993)
 // Legendre & Legendre (1998): 257, eq. 7.14, S11
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
 // Russell-Rao similarity matrix 
 // Legendre & Legendre (1998): 257, eq. 7.14 (S11 index)
-func RusselRaoBool_S(data *DenseMatrix) *DenseMatrix {
+func RusselRaoBool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
+	rows := data.R
+	out := NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, d = getABCD(data, i, j)
+			a, b, c, d = GetABCD(data, i, j)
 			v := a / (a + b + c + d)
 			out.Set(i, j, v)
 			out.Set(j, i, v)

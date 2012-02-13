@@ -1,8 +1,9 @@
 // Atkinson inequality coefficient matrix
-package eco
+package div
 
 import (
 	"math"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
 func Atkinson(data *Matrix, epsilon float64) *Vector {

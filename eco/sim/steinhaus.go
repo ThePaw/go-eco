@@ -3,18 +3,18 @@
 // Legendre & Legendre (1998): 265, eq. 7.24 (S17 index)
 // for count or interval data
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
 // Steinhaus similarity matrix
-func Steinhaus_S(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+func Steinhaus_S(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

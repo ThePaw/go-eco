@@ -1,19 +1,19 @@
 // Clark dissimilarity
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
 // Clark matrix, count or interval data
 // Clark (1952)
 // Legendre & Legendre (1998): 283, eq. 7.51 (D11 index)
-func Clark_D(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+func Clark_D(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

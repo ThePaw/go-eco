@@ -1,15 +1,15 @@
 // Pearson??? rho correlations as similarity matrix ???????
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
-func SpearmanRho_S(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
-	ranks := Zeros(rows, cols)
+func SpearmanRho_S(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
+	ranks := NewMatrix(rows, cols)
 
 	// ToDo: check for ties
 

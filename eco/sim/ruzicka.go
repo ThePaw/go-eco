@@ -1,20 +1,20 @@
 // Růžička distance and similarity
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
 // Růžička distance matrix
-func Ruzicka_D(data *DenseMatrix) *DenseMatrix {
+func Ruzicka_D(data *Matrix) *Matrix {
 	var (
 		aa, bb, jj float64
-		out        *DenseMatrix
+		out        *Matrix
 	)
 
-	rows := data.Rows()
-	out = Zeros(rows, rows)
+	rows := data.R
+	out = NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -22,7 +22,7 @@ func Ruzicka_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			aa, bb, jj, _ = getABJPmin(data, i, j)
+			aa, bb, jj, _ = GetABJPmin(data, i, j)
 			// (A+B-2*J)/(A+B-J)
 			v := (aa + bb - 2*jj) / (aa + bb - jj)
 			out.Set(i, j, v)

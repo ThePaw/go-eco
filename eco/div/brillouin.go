@@ -1,9 +1,10 @@
 // Brillouin diversity matrix
-package eco
+package div
 
 import (
-	"go-fn.googlecode.com/hg/fn"
 	"math"
+	"go-fn.googlecode.com/hg/fn"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
 // Brillouin diversity

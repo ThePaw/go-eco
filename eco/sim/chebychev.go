@@ -1,18 +1,18 @@
 // Chebychev distance
 // Chebychev distance is a special case of the Minkowski metric, where p = ∞
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	. "math"
 )
 
 // Chebychev distance matrix
-func Chebychev_D(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+func Chebychev_D(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

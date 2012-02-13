@@ -1,16 +1,16 @@
 // Horn-Morisita similarity matrix
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
 // Horn-Morisita similarity matrix, from R:vegan
-func HornMorisita_S(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+func HornMorisita_S(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
@@ -43,10 +43,10 @@ func HornMorisita_S(data *DenseMatrix) *DenseMatrix {
 }
 
 // Morisita-Horn similarity matrix, from R:fossil
-func MorisitaHorn2_S(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+func MorisitaHorn2_S(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {

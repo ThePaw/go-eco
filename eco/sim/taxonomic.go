@@ -2,18 +2,18 @@
 // Dij = [ Σ ( Xki – Xkj )^2 / N] ^(1/2)
 // Sneath, PHA & RR Sokal 1973 Numerical Taxonomy: the principles and practice of numerical classification. WH Freeman and Co., San Francisco.
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	. "math"
 )
 
 // Taxonomic distance matrix
-func Taxonomic_D(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows) // square distance matrix row vs. row
+func Taxonomic_D(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows) // square distance matrix row vs. row
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -41,9 +41,9 @@ func Taxonomic_D(data *DenseMatrix) *DenseMatrix {
 }
 
 // Scaled taxonomic distance matrix
-func TaxonomicSc_D(data *DenseMatrix) *DenseMatrix {
+func TaxonomicSc_D(data *Matrix) *Matrix {
 	out := Taxonomic_D(data)
-	rows := data.Rows()
+	rows := data.R
 
 	// find maximum value
 	max := 0.0

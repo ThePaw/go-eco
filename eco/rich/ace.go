@@ -1,10 +1,11 @@
 // Abundance - based Coverage Estimator
 
-package eco
+package rich
 
 import (
-	"go-fn.googlecode.com/hg/fn"
+//	"go-fn.googlecode.com/hg/fn"
 	"math"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
 // Computes the extrapolated species richness of a population using the Abundance - based Coverage Estimator
@@ -15,14 +16,17 @@ func ACE(data *Matrix) *Vector {
 	cols := data.C
 	out := NewVector(rows)
 
-	warnIfNotCounts()
+	WarnIfNotCounts(data)
 
 	for i := 0; i < rows; i++ {
-		r := 0.0
+					nr := 0.0
+					sr := 0.0
+					f1 := 0.0
+					sa := 0.0
+
 		for j := 0; j < cols; j++ {
 			x := data.Get(i, j)
 			if x > 0 {
-				count++
 				if x<=10 {
 					nr += x
 					sr++
@@ -34,19 +38,19 @@ func ACE(data *Matrix) *Vector {
 				}
 			}
 		}
-		ca = 1-f1/nr
+		ca := 1-f1/nr
 		sumf := 0.0
-		for j := 1; j <= 10; j++ {
+		for j := 0; j < 10; j++ {
 			length := 0.0
 			x := data.Get(i, j)
 			for k := 0; k <cols; k++ {
-				if x==j {
+				if x== float64(j+1) {
 					length++
 				}
 			}
-			sumf += j*length
+			sumf += float64(j)*length
 		}
-		g2a = math.Max((sr/ca)*(sumf/(nr*(nr-1)))-1,0)
+		g2a := math.Max((sr/ca)*(sumf/(nr*(nr-1)))-1,0)
 		ace := sa + sr/ca + (f1/ca)*g2a
 		out.Set(i, ace)
 	}
@@ -61,14 +65,17 @@ func ICE(data *Matrix) *Vector {
 	cols := data.C
 	out := NewVector(rows)
 
-	warnIfNotBool()
+	WarnIfNotBool(data)
 
 	for i := 0; i < rows; i++ {
-		r := 0.0
+					nr := 0.0
+					sr := 0.0
+					f1 := 0.0
+					sa := 0.0
+
 		for j := 0; j < cols; j++ {
 			x := data.Get(i, j)
 			if x > 0 {
-				count++
 				if x<=10 {
 					nr += x
 					sr++
@@ -80,22 +87,23 @@ func ICE(data *Matrix) *Vector {
 				}
 			}
 		}
-		ca = 1-f1/nr
+		ca := 1-f1/nr
 		sumf := 0.0
-		for j := 1; j <= 10; j++ {
+		for j := 0; j < 10; j++ {
 			length := 0.0
 			x := data.Get(i, j)
 			for k := 0; k <cols; k++ {
-				if x==j {
+				if x== float64(j+1) {
 					length++
 				}
 			}
-			sumf += j*length
+			sumf += float64(j)*length
 		}
-		g2a = math.Max((sr/ca)*(sumf/(nr*(nr-1)))-1,0)
+		g2a := math.Max((sr/ca)*(sumf/(nr*(nr-1)))-1,0)
 		ice := sa + sr/ca + (f1/ca)*g2a
 		out.Set(i, ice)
 	}
 	return out
 }
+
 

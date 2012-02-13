@@ -2,18 +2,18 @@
 // In N dimensions, the Euclidean distance between two points p and q is √(∑i=1N (pi-qi)²) where pi (or qi) is the coordinate of p (or q) in dimension i.
 // Similarity is 1.00/(d+1), so that it is in [0, 1]
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
 // Euclidean distance matrix, float data
-func Euclid_D(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+func Euclid_D(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -36,11 +36,11 @@ func Euclid_D(data *DenseMatrix) *DenseMatrix {
 }
 
 // Mean Euclidean distance matrix
-func MeanEuclid_D(data *DenseMatrix) *DenseMatrix {
+func MeanEuclid_D(data *Matrix) *Matrix {
 	out := Euclid_D(data)
-	rows := out.Rows()
+	rows := out.R
 	for i := 0; i < rows; i++ {
-		for j := i + 1; j < out.Cols(); j++ {
+		for j := i + 1; j < out.C; j++ {
 			v := out.Get(i, j) / float64(rows)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
@@ -50,14 +50,14 @@ func MeanEuclid_D(data *DenseMatrix) *DenseMatrix {
 }
 
 // Mean Censored Euclidean distance matrix
-func MeanCensoredEuclid_D(data *DenseMatrix) *DenseMatrix {
+func MeanCensoredEuclid_D(data *Matrix) *Matrix {
 	var (
-		out *DenseMatrix
+		out *Matrix
 	)
 
-	rows := data.Rows()
-	cols := data.Cols()
-	out = Zeros(rows, rows)
+	rows := data.R
+	cols := data.C
+	out = NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -84,16 +84,16 @@ func MeanCensoredEuclid_D(data *DenseMatrix) *DenseMatrix {
 }
 
 // Squared Boolean Euclidean dissimilarity matrix
-func EuclidSqBool_D(data *DenseMatrix) *DenseMatrix {
+func EuclidSqBool_D(data *Matrix) *Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
+	rows := data.R
+	out := NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, d = getABCD(data, i, j)
+			a, b, c, d = GetABCD(data, i, j)
 			v := (b + c) / (a + b + c + d)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
@@ -104,9 +104,9 @@ func EuclidSqBool_D(data *DenseMatrix) *DenseMatrix {
 
 // Boolean Euclidean dissimilarity matrix
 // Mean Euclidean in Ellis et al. (1993)
-func EuclidBool_D(data *DenseMatrix) *DenseMatrix {
+func EuclidBool_D(data *Matrix) *Matrix {
 	out := EuclidSqBool_D(data)
-	rows := data.Rows()
+	rows := data.R
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
 			v := math.Sqrt(out.Get(i, j))

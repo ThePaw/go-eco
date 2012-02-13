@@ -1,9 +1,9 @@
 // Mountford dissimilarity and similarity
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	. "math"
 )
 
@@ -27,16 +27,16 @@ func mount_der(theta, j, a, b float64) float64 {
 // one of the communities could be a subset of other, and the dissimilarity is 0 meaning that non-identical objects may be regarded 
 // as similar and the index is non-metric. The Mountford index is in the range 0 ... log(2), but the dissimilarities are divided by log(2) 
 // so that the results will be in the conventional range 0 ... 1. 
-func Mountford_D(data *DenseMatrix) *DenseMatrix {
+func Mountford_D(data *Matrix) *Matrix {
 	const (
 		maxit = 20
 		ε     = 1e-12
 		tol   = 1e-5
 	)
 
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -95,16 +95,16 @@ func Mountford_D(data *DenseMatrix) *DenseMatrix {
 }
 
 // Mountford similarity matrix, for boolean data
-func MountfordBool_S(data *DenseMatrix) *DenseMatrix {
+func MountfordBool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c, v float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
+	rows := data.R
+	out := NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, _ = getABCD(data, i, j)
+			a, b, c, _ = GetABCD(data, i, j)
 			if (a*(b+c) + (2 * b * c)) != 0 {
 				v = 2 * a / (a*(b+c) + (2 * b * c))
 			} else {

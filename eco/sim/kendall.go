@@ -3,17 +3,17 @@
 // The Kendall τ coefficient is defined as:
 // tau = number of concordant pairs- number of discordant pairs) / (n*(n-1)/2)
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
-func KendallTau_S(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
-	ranks := Zeros(rows, rows)
+func KendallTau_S(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
+	ranks := NewMatrix(rows, rows)
 
 	// ToDo: check for ties
 

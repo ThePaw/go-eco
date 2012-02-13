@@ -1,12 +1,12 @@
 GOFILES=\
      arrhenius.go\
-     aux_fn.go\
      average_sq.go\
      baroni-urbani.go\
      binomial.go\
      braun-blanquet.go\
      bray-curtis.go\
      canberra.go\
+     canonical.go\
      chao.go\
      chebychev.go\
      chisquare.go\

@@ -5,21 +5,21 @@
 // fail with unfortunate pairs of species occurring only once.
 // Morisita (1959)
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
 // Morisita distance matrix
 // Morisita (1959)
-func Morisita_D(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+func Morisita_D(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	// check whether data are integers; if not, truncate them
-	truncData(data)
+	TruncData(data)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

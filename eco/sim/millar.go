@@ -1,12 +1,12 @@
 // Millar distance and similarity
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
 // Millar distance matrix == Binomial distance
-func Millar_D(data *DenseMatrix) *DenseMatrix {
+func Millar_D(data *Matrix) *Matrix {
 	return Binomial_D(data)
 }

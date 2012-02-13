@@ -1,18 +1,18 @@
 // Czekanowski dissimilarity
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
 // Czekanowski dissimilarity matrix #1
 // Czekanowski (1909)
 // Legendre & Legendre (1998): 282, eq. 7.46 (D8 index)
-func Czekanowski1_D(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+func Czekanowski1_D(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -36,10 +36,10 @@ func Czekanowski1_D(data *DenseMatrix) *DenseMatrix {
 
 // Czekanowski dissimilarity matrix #2
 // Reference needed !
-func Czekanowski2_D(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+func Czekanowski2_D(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 1.0)

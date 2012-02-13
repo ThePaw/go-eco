@@ -2,9 +2,21 @@ HornMorisitaBool_D	==	BrayCurtisBool_D
 ManhattanBool_D		==	EuclidSqBool_D
 CanberraBool_D		==	GowerZBool_D
 Millar_D		==	Binomial_D
-quantitative version of the Sørensen index is also known as Czekanowski index
+quantitative version of the Sørensen index is also known as Czekanowski index:
 CzekanowskiBool_S	==	SørensenBool_S 
 
 
+
+Jaccard index (1901) == S3 coefficient of Gower & Legendre == s1 of R:ade4:dist.binary
+Simple matching coefficient of Sokal & Michener (1958) == S4 coefficient of Gower & Legendre == s2 of R:ade4:dist.binary
+Sokal & Sneath(1963) == S5 coefficient of Gower & Legendre == s3 of R:ade4:dist.binary
+Rogers & Tanimoto (1960) == S6 coefficient of Gower & Legendre == s4 of R:ade4:dist.binary
+Dice (1945) == Sorensen (1948) == S7 coefficient of Gower & Legendre == s5 of R:ade4:dist.binary
+Hamann coefficient == S9 index of Gower & Legendre (1986) == s6 of R:ade4:dist.binary
+Ochiai (1957) == S12 coefficient of Gower & Legendre == s7 of R:ade4:dist.binary
+Sokal & Sneath (1963) == S13 coefficient of Gower & Legendre == s8 of R:ade4:dist.binary
+Phi of Pearson == S14 coefficient of Gower & Legendre == s9 of R:ade4:dist.binary
+Legendre1Bool_S == S2 coefficient of Gower & Legendre == s10 of R:ade4:dist.binary == S11 Legendre & Legendre (1998)
+Euclidean_D == D1 of R:ade4:dist.quant (Canonical)
 
 

@@ -4,18 +4,18 @@
 // Binomial index is derived from Binomial deviance under null hypothesis that the two compared communities are equal. It should be able to handle variable sample sizes. The index does not have a fixed upper limit, but can vary among sites with no shared species. For further discussion, see Anderson & Millar (2004). 
 // Anderson, M.J. and Millar, R.B. (2004). Spatial variation and effects of habitat on temperate reef fish assemblages in northeastern New Zealand. Journal of Experimental Marine Biology and Ecology 305, 191–221. 
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
 // Binomial distance matrix
-func Binomial_D(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+func Binomial_D(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -38,15 +38,15 @@ func Binomial_D(data *DenseMatrix) *DenseMatrix {
 	return out
 }
 
-func BinomialBool_D(data *DenseMatrix) *DenseMatrix {
+func BinomialBool_D(data *Matrix) *Matrix {
 	var (
 		b, c float64
 	)
 
-	warnIfNotBool(data)
+	WarnIfNotBool(data)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
+	rows := data.R
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -54,7 +54,7 @@ func BinomialBool_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			_, b, c, _ = getABCD(data, i, j)
+			_, b, c, _ = GetABCD(data, i, j)
 			v := math.Log(2.0) * (b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)

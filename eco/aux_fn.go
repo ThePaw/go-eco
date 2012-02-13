@@ -5,11 +5,10 @@ package eco
 import (
 	"fmt"
 	//	"encoding/csv"
-	. "gomatrix.googlecode.com/hg/matrix"
 	"math"
 	"os"
 )
-
+/*
 type Vector struct {
 	A []float64 // data
 	L int       // length
@@ -21,18 +20,19 @@ func NewVector(length int) (v *Vector) {
 	v.A = make([]float64, length)
 	return v
 }
+*/
 
-func ReadMatrix() *DenseMatrix {
+func ReadMatrix() *Matrix {
 	var (
 		rows, cols int
 		x          float64
-		data       *DenseMatrix
+		data       *Matrix
 	)
 
 	fmt.Scanf("%d", &rows)
 	fmt.Scanf("%d", &cols)
 
-	data = Zeros(rows, cols)
+	data = NewMatrix(rows, cols)
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < cols; j++ {
 			fmt.Scanf("%f", &x)
@@ -44,11 +44,11 @@ func ReadMatrix() *DenseMatrix {
 
 /*
 // Reads CSV from stdin and dumps it back to stdout.
-func ReadMatrixCSV() *DenseMatrix {
+func ReadMatrixCSV() *Matrix {
 	var (
 		rows, cols int
 		x          float64
-		data       *DenseMatrix
+		data       *Matrix
 	)
 
         table, err := csv.ReadAll(os.Stdin)
@@ -60,9 +60,9 @@ func ReadMatrixCSV() *DenseMatrix {
 }
 */
 
-func truncData(data *DenseMatrix) {
-	rows := data.Rows()
-	cols := data.Cols()
+func TruncData(data *Matrix) {
+	rows := data.R
+	cols := data.C
 	eps := 1e-3
 	warning := false
 
@@ -85,9 +85,9 @@ func truncData(data *DenseMatrix) {
 
 }
 
-func warnIfNotBool(data *DenseMatrix) {
-	rows := data.Rows()
-	cols := data.Cols()
+func WarnIfNotBool(data *Matrix) {
+	rows := data.R
+	cols := data.C
 	eps := 1e-3
 	warning := false
 
@@ -113,9 +113,9 @@ func warnIfNotBool(data *DenseMatrix) {
 
 }
 
-func warnIfNotCounts(data *DenseMatrix) {
-	rows := data.Rows()
-	cols := data.Cols()
+func WarnIfNotCounts(data *Matrix) {
+	rows := data.R
+	cols := data.C
 	eps := 1e-3
 	warning := false
 	warning2 := true
@@ -146,9 +146,9 @@ func warnIfNotCounts(data *DenseMatrix) {
 
 }
 
-func warnIfDblZeros(data *DenseMatrix) {
-	rows := data.Rows()
-	cols := data.Cols()
+func WarnIfDblNewMatrix(data *Matrix) {
+	rows := data.R
+	cols := data.C
 	warning := false
 L:
 	for j := 0; j < cols; j++ {
@@ -172,8 +172,8 @@ L:
 // Calculates A, B, J, and P values from two rows of boolean data matrix, "quadratic variant". 
 // See R:vegan:vegdist
 // "quadratic" terms are J = sum(x*y), A = sum(x^2), B = sum(y^2)
-func getABJPquad(data *DenseMatrix, i, j int) (aa, bb, jj, pp float64) {
-	cols := data.Cols()
+func GetABJPquad(data *Matrix, i, j int) (aa, bb, jj, pp float64) {
+	cols := data.C
 
 	jj = 0.0
 	aa = 0.0
@@ -192,8 +192,8 @@ func getABJPquad(data *DenseMatrix, i, j int) (aa, bb, jj, pp float64) {
 // Calculates A, B, J, and P values from two rows of boolean data matrix, "minimum variant". 
 // See R:vegan:vegdist
 // "minimum" terms are J = sum(min(x,y)), A = sum(x) and B = sum(y)
-func getABJPmin(data *DenseMatrix, i, j int) (aa, bb, jj, pp float64) {
-	cols := data.Cols()
+func GetABJPmin(data *Matrix, i, j int) (aa, bb, jj, pp float64) {
+	cols := data.C
 
 	jj = 0.0
 	aa = 0.0
@@ -211,8 +211,8 @@ func getABJPmin(data *DenseMatrix, i, j int) (aa, bb, jj, pp float64) {
 
 // Calculates A, B, J, and P values from two rows of boolean data matrix. 
 // See R:vegan:vegdist
-func getABJPbool(data *DenseMatrix, i, j int) (aa, bb, jj, pp float64) {
-	cols := data.Cols()
+func GetABJPbool(data *Matrix, i, j int) (aa, bb, jj, pp float64) {
+	cols := data.C
 
 	jj = 0.0
 	t1 := 0
@@ -244,9 +244,9 @@ func getABJPbool(data *DenseMatrix, i, j int) (aa, bb, jj, pp float64) {
 }
 
 // Calculates similarity matrix from the distance matrix. 
-func SFromD(dis *DenseMatrix, which int) *DenseMatrix {
-	rows := dis.Rows()
-	out := Zeros(rows, rows)
+func SFromD(dis *Matrix, which int) *Matrix {
+	rows := dis.R
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		for j := 0; j < rows; j++ {
@@ -264,9 +264,9 @@ func SFromD(dis *DenseMatrix, which int) *DenseMatrix {
 }
 
 // Calculates distance matrix from the similarity matrix
-func DFromS(sim *DenseMatrix, which int) *DenseMatrix {
-	rows := sim.Rows()
-	out := Zeros(rows, rows)
+func DFromS(sim *Matrix, which int) *Matrix {
+	rows := sim.R
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		for j := 0; j < rows; j++ {
@@ -288,9 +288,9 @@ func DFromS(sim *DenseMatrix, which int) *DenseMatrix {
 }
 
 // recalculates data matrix to proportions. 
-func recalcToProp(data *DenseMatrix) int {
-	rows := data.Rows()
-	cols := data.Cols()
+func RecalcToProp(data *Matrix) int {
+	rows := data.R
+	cols := data.C
 	// calculate row sums (sum of all abundances of all species in the sample)
 	for i := 0; i < rows; i++ {
 		rowSum := 0.0
@@ -308,10 +308,10 @@ func recalcToProp(data *DenseMatrix) int {
 
 // For boolean data, calculates a, b, c, d values of the contingency table. 
 // To be use for calculation of similarity indices. 
-func getABCD(data *DenseMatrix, row1, row2 int) (a, b, c, d float64) {
-	cols := data.Cols()
+func GetABCD(data *Matrix, row1, row2 int) (a, b, c, d float64) {
+	cols := data.C
 
-	warnIfNotBool(data)
+	WarnIfNotBool(data)
 
 	a = 0
 	b = 0

@@ -1,5 +1,6 @@
 // Simpson diversity matrix
-package eco
+package div
+import	. "go-eco.googlecode.com/hg/eco"
 
 // Simpson index matrix
 // The Simpson index was introduced in 1949 by Edward H. Simpson to measure the degree of concentration when individuals are classified into types.[6] 

@@ -2,9 +2,7 @@ GOFILES=\
      atkinson.go\
      berger-parker.go\
      brillouin.go\
-     matrix.go\
      renyi.go\
-     richness.go\
      shannon.go\
      simpson.go\
      true.go\

@@ -5,22 +5,22 @@
 // Chao, A., Chazdon, R. L., Colwell, R. K. and Shen, T. (2005). A new statistical approach for assessing similarity of species composition with incidence and abundance data. Ecology Letters 8, 148–159. 
 // Similarity is 1.00-v
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
 // Chao distance matrix
-func Chao_D(data *DenseMatrix) *DenseMatrix {
+func Chao_D(data *Matrix) *Matrix {
 	var v float64
 
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 	// check whether data are integers; if not, truncate them
-	truncData(data)
+	TruncData(data)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

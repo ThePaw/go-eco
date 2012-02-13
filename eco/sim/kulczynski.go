@@ -2,25 +2,25 @@
 // Kulczynski (1928)
 // Oosting (1956), Southwood (1978)
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	. "math"
 )
 
 // Kulczynski similarity matrix #1
 // Legendre & Legendre (1998): 257, eq. 7.15 (S12 index)
-func Kulczynski1Bool_S(data *DenseMatrix) *DenseMatrix {
+func Kulczynski1Bool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
+	rows := data.R
+	out := NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, _ = getABCD(data, i, j)
+			a, b, c, _ = GetABCD(data, i, j)
 			v := a / (b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
@@ -30,16 +30,16 @@ func Kulczynski1Bool_S(data *DenseMatrix) *DenseMatrix {
 }
 
 // Kulczynski similarity matrix #2
-func Kulczynski2Bool_S(data *DenseMatrix) *DenseMatrix {
+func Kulczynski2Bool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
+	rows := data.R
+	out := NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, _ = getABCD(data, i, j)
+			a, b, c, _ = GetABCD(data, i, j)
 			v := ((a / 2) * ((2 * a) + b + c)) / ((a + b) * (a + c))
 			out.Set(i, j, v)
 			out.Set(j, i, v)
@@ -49,10 +49,10 @@ func Kulczynski2Bool_S(data *DenseMatrix) *DenseMatrix {
 }
 
 // Kulczynski distance matrix
-func Kulczynski_D(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+func Kulczynski_D(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -82,10 +82,10 @@ func Kulczynski_D(data *DenseMatrix) *DenseMatrix {
 // Legendre & Legendre (1998): 265, eq. 7.25 (S18 index)
 // for count or interval data
 
-func Kulczynski_S(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+func Kulczynski_S(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

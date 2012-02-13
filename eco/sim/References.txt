@@ -130,4 +130,5 @@ Braun-Blanquet, J., 1932. Plant Sociology: The Study of Plant Communities. McGra
 Shi, G. R. 1993. Multivariate data analysis in palaeoecology and palaeobiogeography – a review. Palaeogeography, Palaeoclimatology, Palaeoecology 105: 199–234.
 Magurran, A. E. 2004. Measuring Biological Diversity. Oxford, Blackwell.
 
+Gower, J.C. and Legendre, P. (1986) Metric and Euclidean properties of dissimilarity coefficients. Journal of Classification, 3, 5–48.
 

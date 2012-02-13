@@ -1,24 +1,24 @@
 // Whittaker dissimilarity
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
 // Whittaker dissimilarity matrix, boolean data
 // Whittaker (1960), Magurran (1988)
-func WhittakerBool_D(data *DenseMatrix) *DenseMatrix {
+func WhittakerBool_D(data *Matrix) *Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
+	rows := data.R
+	out := NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, _ = getABCD(data, i, j)
+			a, b, c, _ = GetABCD(data, i, j)
 			v := ((a + b + c) / ((2*a + b + c) / 2)) - 1
 			out.Set(i, j, v)
 			out.Set(j, i, v)
@@ -30,10 +30,10 @@ func WhittakerBool_D(data *DenseMatrix) *DenseMatrix {
 // Whittaker distance matrix, count or interval data
 // Whittaker (1952)
 // Legendre & Legendre (1998): 282, eq. 7.47 (D9 index)
-func Whittaker_D(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+func Whittaker_D(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

@@ -4,23 +4,23 @@
 // The A below is not the area (which cancels out), but number of
 // species in one of the sites, as defined in designdist().
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
 	"math"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
 // Arrhenius distance matrix, for boolean data
-func ArrheniusBool_D(data *DenseMatrix) *DenseMatrix {
+func ArrheniusBool_D(data *Matrix) *Matrix {
 	var (
 		aa, bb, jj float64
-		out        *DenseMatrix
+		out        *Matrix
 	)
 
-	rows := data.Rows()
-	out = Zeros(rows, rows)
-	warnIfNotBool(data)
+	rows := data.R
+	out = NewMatrix(rows, rows)
+	WarnIfNotBool(data)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -28,7 +28,7 @@ func ArrheniusBool_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			aa, bb, jj, _ = getABJPbool(data, i, j)
+			aa, bb, jj, _ = GetABJPbool(data, i, j)
 			// (log(A+B-J)-log(A+B)+log(2))/log(2)
 			v := (math.Log(aa+bb-jj) - math.Log(aa+bb) + math.Log(2)) / math.Log(2)
 			out.Set(i, j, v)

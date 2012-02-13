@@ -1,8 +1,9 @@
 // True diversity matrix
-package eco
+package div
 
 import (
 	"math"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
 // True diversity, or the effective number of types, refers to the number of equally-abundant types needed for the average proportional abundance of the types to equal that observed in the dataset of interest

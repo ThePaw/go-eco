@@ -1,0 +1,4 @@
+GOFILES=\
+     ace.go\
+     chao.go\
+     richness.go\

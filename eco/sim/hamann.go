@@ -1,26 +1,29 @@
 // Hamann similarity matrix
 // Holley JW, Guilford JP 1964 A note on the G index of agreement. Educational and Psychological Measurement, 24(7):749-753.
-// Legendre & Legendre 1998: 256, eq. 7.7. 
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
 // Hamann similarity matrix
-func HamannBool_S(data *DenseMatrix) *DenseMatrix {
+// Legendre & Legendre 1998: 256, eq. 7.7. 
+// S9 index of Gower & Legendre (1986)
+// S6 index of R:ade4:dist.binary
+
+func HamannBool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
-	warnIfNotBool(data)
+	WarnIfNotBool(data)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
+	rows := data.R
+	out := NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, d = getABCD(data, i, j)
+			a, b, c, d = GetABCD(data, i, j)
 			v := (a + d - b - c) / (a + b + c + d)
 			out.Set(i, j, v)
 			out.Set(j, i, v)

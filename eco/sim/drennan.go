@@ -4,18 +4,18 @@
 // Drennan, R.D. 1976 A refinement of chronological seriation using nonmetric
 // multidimensional scaling. American antiquity, 41: 290-302.
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
 // Drennan distance matrix
-func Drennan_D(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	percent := Zeros(rows, cols) // percentages
-	out := Zeros(rows, rows)     // distances
+func Drennan_D(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	percent := NewMatrix(rows, cols) // percentages
+	out := NewMatrix(rows, rows)     // distances
 
 	for i := 0; i < rows; i++ {
 		rowsum := 0.0

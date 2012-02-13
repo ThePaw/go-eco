@@ -1,21 +1,21 @@
 // Cosine complement distance
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
 // Cosine complement distance matrix, for boolean data
-func CosineBool_D(data *DenseMatrix) *DenseMatrix {
+func CosineBool_D(data *Matrix) *Matrix {
 	var (
 		aa, bb, jj float64
-		out        *DenseMatrix
+		out        *Matrix
 	)
 
-	rows := data.Rows()
-	out = Zeros(rows, rows)
+	rows := data.R
+	out = NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -23,7 +23,7 @@ func CosineBool_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			aa, bb, jj, _ = getABJPquad(data, i, j)
+			aa, bb, jj, _ = GetABJPquad(data, i, j)
 			// 1-J/sqrt(A*B)
 			v := 1.0 - jj/math.Sqrt(aa*bb)
 			out.Set(i, j, v)
@@ -46,10 +46,10 @@ func CosineBool_D(data *DenseMatrix) *DenseMatrix {
 // the use of the cosine (or Ochiai coefficient):
 // cos=OS=sigma(k)Y(ki)Y(kj)/sqrt{[sigma(k)(Y(ki)^2)][sigma(k)(Y(kj))^2)]}"
 // <-- this is obviously for disance between data->cols, not data->rows (++pac). 
-func Cosine_D(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+func Cosine_D(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

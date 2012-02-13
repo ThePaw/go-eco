@@ -2,16 +2,16 @@
 // Hamming distance between two strings  of equal length is the number of positions at which the corresponding symbols are different. Put another way, it measures the minimum number of substitutions required to change one string into the other, or the number of errors that transformed one string into the other.
 // For a fixed length n, the Hamming distance is a metric on the vector space of the words of that length.
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
-func hamming_D(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+func hamming_D(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -37,13 +37,13 @@ func hamming_D(data *DenseMatrix) *DenseMatrix {
 }
 
 // Hamming distance matrix, for boolean data
-func HammingBool_D(data *DenseMatrix) *DenseMatrix {
-	warnIfNotBool(data)
+func HammingBool_D(data *Matrix) *Matrix {
+	WarnIfNotBool(data)
 	return hamming_D(data)
 }
 
 // Hamming distance matrix, for categorical data
-func HammingCat_D(data *DenseMatrix) *DenseMatrix {
+func HammingCat_D(data *Matrix) *Matrix {
 	//	checkIfCat(data)
 	return hamming_D(data)
 }

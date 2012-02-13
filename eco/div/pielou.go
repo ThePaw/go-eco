@@ -1,9 +1,11 @@
 // Pielou's evenness (J)
 
-package eco
+package div
 
 import (
 	"math"
+	. "go-eco.googlecode.com/hg/eco"
+	. "go-eco.googlecode.com/hg/eco/rich"
 )
 
 func Pielou(data *Matrix, base byte, corr bool) *Vector {

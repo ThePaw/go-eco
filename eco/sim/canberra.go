@@ -1,18 +1,18 @@
 // Canberra distance and similarity
 // Lance G. N. and Williams W. T. (1967) Mixed data classificatory programs. 1. Agglomerative systems. Aust. Comput. J. 1, 82-85. 
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	. "math"
 )
 
 // Canberra distance matrix
-func Canberra_D(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows) // square distance matrix row vs. row
+func Canberra_D(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows) // square distance matrix row vs. row
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -35,10 +35,10 @@ func Canberra_D(data *DenseMatrix) *DenseMatrix {
 
 // Scaled Canberra distance matrix
 // Reference needed!
-func CanberraSc_D(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows) // square distance matrix row vs. row
+func CanberraSc_D(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows) // square distance matrix row vs. row
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -65,7 +65,7 @@ func CanberraSc_D(data *DenseMatrix) *DenseMatrix {
 	return out
 }
 
-func CanberraBool_D(data *DenseMatrix) *DenseMatrix {
+func CanberraBool_D(data *Matrix) *Matrix {
 	//same as GowerZBool()
 	return GowerZBool_D(data)
 }

@@ -1,8 +1,9 @@
 // Shannon diversity matrix
-package eco
+package div
 
 import (
 	"math"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
 func Shannon(data *Matrix, base byte, corr bool) *Vector {

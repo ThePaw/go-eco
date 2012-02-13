@@ -1,19 +1,19 @@
 // Manhattan distance
 // Also known as rectilinear distance, Minkowski's L1 distance, taxicab metric, or city-block distance (metric). 
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	. "math"
 )
 
 // Manhattan distance
 // Legendre & Legendre (1998): 282, eq. 7.45 (D7 index)
-func Manhattan_D(data *DenseMatrix) *DenseMatrix {
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+func Manhattan_D(data *Matrix) *Matrix {
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -35,16 +35,16 @@ func Manhattan_D(data *DenseMatrix) *DenseMatrix {
 }
 
 // Boolean Manhattan dissimilarity
-func ManhattanBool_D(data *DenseMatrix) *DenseMatrix {
+func ManhattanBool_D(data *Matrix) *Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
+	rows := data.R
+	out := NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, d = getABCD(data, i, j)
+			a, b, c, d = GetABCD(data, i, j)
 			v := (b + c) / (a + b + c + d)
 			out.Set(i, j, v)
 			out.Set(j, i, v)

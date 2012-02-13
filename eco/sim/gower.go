@@ -10,20 +10,20 @@ Gower, J. C. (1971), “A general coefficient of similarity and some of its prop
 Kaufman, L. and Rousseeuw, P.J. (1990), Finding Groups in Data: An Introduction to Cluster Analysis. Wiley, New York. 
 */
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	. "math"
 )
 
 // Gower distance for interval-scaled variables
-func Gower_D(data *DenseMatrix) *DenseMatrix {
+func Gower_D(data *Matrix) *Matrix {
 	const missing float64 = -999 //code for missing values
 
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -65,12 +65,12 @@ func Gower_D(data *DenseMatrix) *DenseMatrix {
 // Gower distance for ordered variables
 // If kr == true, the extension of the Gower's dissimilarity measure proposed by Kaufman and Rousseeuw (1990) is used. 
 // Otherwise, the original Gower's (1971) dissimilarity is considered. 
-func GowerOrd_D(data *DenseMatrix, kr bool) *DenseMatrix {
+func GowerOrd_D(data *Matrix, kr bool) *Matrix {
 	const missing float64 = -999 //code for missing values
 
-	rows := data.Rows()
-	cols := data.Cols()
-	out := Zeros(rows, rows)
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -116,15 +116,15 @@ func GowerOrd_D(data *DenseMatrix, kr bool) *DenseMatrix {
 }
 
 // Gower distance for boolean data
-func GowerBool_D(data *DenseMatrix) *DenseMatrix {
+func GowerBool_D(data *Matrix) *Matrix {
 	var (
 		a, b, c, d float64
 	)
 
-	warnIfNotBool(data)
+	WarnIfNotBool(data)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
+	rows := data.R
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -132,7 +132,7 @@ func GowerBool_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			a, b, c, d = getABCD(data, i, j)
+			a, b, c, d = GetABCD(data, i, j)
 			v := (b + c) / (a + b + c + d)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
@@ -142,14 +142,14 @@ func GowerBool_D(data *DenseMatrix) *DenseMatrix {
 }
 
 // Citation needed
-func GowerZBool_D(data *DenseMatrix) *DenseMatrix {
+func GowerZBool_D(data *Matrix) *Matrix {
 	var (
 		a, b, c, _ float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
-	warnIfNotBool(data)
+	rows := data.R
+	out := NewMatrix(rows, rows)
+	WarnIfNotBool(data)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -157,7 +157,7 @@ func GowerZBool_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			a, b, c, _ = getABCD(data, i, j)
+			a, b, c, _ = GetABCD(data, i, j)
 			v := (b + c) / (a + b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
@@ -168,16 +168,16 @@ func GowerZBool_D(data *DenseMatrix) *DenseMatrix {
 
 // Gower similarity for boolean data
 // Gower & Legendre (1986)
-func GowerBool_S(data *DenseMatrix) *DenseMatrix {
+func GowerBool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
+	rows := data.R
+	out := NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, d = getABCD(data, i, j)
+			a, b, c, d = GetABCD(data, i, j)
 			v := (a - (b + c) + d) / (a + b + c + d)
 			out.Set(i, j, v)
 			out.Set(j, i, v)

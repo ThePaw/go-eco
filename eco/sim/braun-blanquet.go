@@ -1,27 +1,27 @@
 // Braun–Blanquet similarity matrix
 // Braun-Blanquet 1932; Magurran 2004.
 
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
 // Braun–Blanquet similarity
-func BraunBlanquetBool_S(data *DenseMatrix) *DenseMatrix {
+func BraunBlanquetBool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c float64
 	)
 
-	warnIfNotBool(data)
+	WarnIfNotBool(data)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
+	rows := data.R
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, _ = getABCD(data, i, j)
+			a, b, c, _ = GetABCD(data, i, j)
 			v := a/math.Max(b+a, c+a)
 			out.Set(i, j, v)
 			out.Set(j, i, v)

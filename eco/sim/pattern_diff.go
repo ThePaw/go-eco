@@ -1,19 +1,19 @@
 // Pattern difference distance matrix
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
-func PatternDiffBool_D(data *DenseMatrix) *DenseMatrix {
+func PatternDiffBool_D(data *Matrix) *Matrix {
 	var (
 		a, b, c, d float64
 	)
 
-	warnIfNotBool(data)
+	WarnIfNotBool(data)
 
-	rows := data.Rows()
-	out := Zeros(rows, rows)
+	rows := data.R
+	out := NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -21,7 +21,7 @@ func PatternDiffBool_D(data *DenseMatrix) *DenseMatrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			a, b, c, d = getABCD(data, i, j)
+			a, b, c, d = GetABCD(data, i, j)
 			p := (a + b + c + d)
 			v := (b * c) / (p * p)
 			out.Set(i, j, v)

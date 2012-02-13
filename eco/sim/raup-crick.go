@@ -1,12 +1,12 @@
 // Raup - Crick distance and similarity
 // Raup & Crick (1979)
 
-package eco
+package sim
 
 import (
 	"go-fn.googlecode.com/hg/fn"
-	"gomatrix.googlecode.com/hg/matrix"
-	"gostat.googlecode.com/hg/stat"
+	. "go-eco.googlecode.com/hg/eco"
+	"gostat.googlecode.com/hg/stat/prob"
 	"math"
 )
 
@@ -23,17 +23,17 @@ import (
 // Algorithm from R:vegan
 // phyper(k, m, size-m, n) == Hypergeometric_CDF_At(size, m, n, k)
 
-func RaupCrickBoolBool_D(data *matrix.DenseMatrix) *matrix.DenseMatrix {
+func RaupCrickBoolBool_D(data *Matrix) *Matrix {
 	var (
 		v                          float64
 		aaa, bbb, jjj, t1, t2, sim int64
 	)
 
-	rows := data.Rows()
-	cols := data.Cols()
-	out := matrix.Zeros(rows, rows)
-	warnIfNotBool(data)
-	warnIfDblZeros(data)
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
+	WarnIfNotBool(data)
+	WarnIfDblNewMatrix(data)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -71,7 +71,7 @@ func RaupCrickBoolBool_D(data *matrix.DenseMatrix) *matrix.DenseMatrix {
 			//	v = 1 - phyper(jjj, aaa, float64(count) - aaa, bbb, 1, 0);
 
 			//fmt.Println("hyper: ", cols, aaa, bbb, jjj)
-			v = 1.0 - stat.Hypergeometric_CDF_At(int64(cols), aaa, bbb, jjj)
+			v = 1.0 - pdf.Hypergeometric_CDF_At(int64(cols), aaa, bbb, jjj)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -90,14 +90,14 @@ func probK(a, b, n, k int64) float64 {
 // Raup & Crick (1979): 1217, eq. 4
 // This is the naive version of their similarity index;
 // for final version, use the algorithm described on page 1219
-func RaupCrickBool1_S(data *matrix.DenseMatrix) *matrix.DenseMatrix {
+func RaupCrickBool1_S(data *Matrix) *Matrix {
 	var a, b, n int64
 
-	rows := data.Rows()
-	cols := data.Cols()
-	out := matrix.Zeros(rows, rows)
-	warnIfNotBool(data)
-	warnIfDblZeros(data)
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
+	WarnIfNotBool(data)
+	WarnIfDblNewMatrix(data)
 
 	n = int64(cols)
 	for i := 0; i < rows; i++ {
@@ -135,14 +135,14 @@ func RaupCrickBool1_S(data *matrix.DenseMatrix) *matrix.DenseMatrix {
 // Raup - Crick similarity matrix #2
 // Raup & Crick (1979): 1219
 // This is the final version of their similarity index.
-func RaupCrickBool2_S(data *matrix.DenseMatrix, p []float64) *matrix.DenseMatrix {
+func RaupCrickBool2_S(data *Matrix, p []float64) *Matrix {
 	const iter int = 1e3
 
-	rows := data.Rows()
-	cols := data.Cols()
-	out := matrix.Zeros(rows, rows)
-	warnIfNotBool(data)
-	warnIfDblZeros(data)
+	rows := data.R
+	cols := data.C
+	out := NewMatrix(rows, rows)
+	WarnIfNotBool(data)
+	WarnIfDblNewMatrix(data)
 
 	a := make([]int, cols)
 	b := make([]int, cols)
@@ -202,7 +202,7 @@ func RaupCrickBool2_S(data *matrix.DenseMatrix, p []float64) *matrix.DenseMatrix
 			L1:
 				for {
 					// draw from categorical ditribution
-					cat := stat.NextChoice(p)
+					cat := pdf.NextChoice(p)
 					// add the species to assemblage, if new
 					if a[cat] == 0 {
 						a[cat] = 1
@@ -222,7 +222,7 @@ func RaupCrickBool2_S(data *matrix.DenseMatrix, p []float64) *matrix.DenseMatrix
 			L2:
 				for {
 					// draw from categorical ditribution
-					cat := stat.NextChoice(p)
+					cat := pdf.NextChoice(p)
 					// add the species to assemblage, if new
 					if b[cat] == 0 {
 						b[cat] = 1

@@ -1,24 +1,24 @@
-package eco
+package sim
 
 import (
-	. "gomatrix.googlecode.com/hg/matrix"
+	. "go-eco.googlecode.com/hg/eco"
 )
 
-func SizeDiffBool_D(data *DenseMatrix) *DenseMatrix {
+func SizeDiffBool_D(data *Matrix) *Matrix {
 	var (
-		out        *DenseMatrix
+		out        *Matrix
 		a, b, c, d int64
 	)
 
-	rows := data.Rows()
-	cols := data.Cols()
-	out = Zeros(rows, rows)
+	rows := data.R
+	cols := data.C
+	out = NewMatrix(rows, rows)
 	a = 0
 	b = 0
 	c = 0
 	d = 0
 
-	warnIfNotBool(data)
+	WarnIfNotBool(data)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
