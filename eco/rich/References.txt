@@ -1,4 +1,40 @@
 Chao, A. 1984. Non-parametric estimation of the number of classes in a population. Scandinavian Journal of Statistics 11: 265-270.
 Chao, A. 1987. Estimating the Population Size for Capture-Recapture Data with Unequal Catchability. Biometrics 43: 783-791.
 Robert K. Colwell, Anne Chao, Nicholas J. Gotelli, Shang-Yi Lin, Chang Xuan Mao, Robin L. Chazdon,  and John T. Longino 2012: Models and estimators linking individual-based and sample-based rarefaction, extrapolation and comparison of assemblages J Plant Ecol (2012) 5(1): 3-21 doi:10.1093/jpe/rtr044.
-
+Brewer, A., & M. Williamson. 1994. A new relationship for rarefaction. Biodiversity and Conservation 3:373-379.
+Bunge, J., & M. Fitzpatrick. 1993. Estimating the number of species: A review. Journal of the American Statistical Association 88, 364-373.
+Burnham, K.P. & W.S. Overton. 1978. Estimation of the size of a closed population when capture probabilities vary among animals. Biometrika 65, 623-633.
+Burnham, K.P. & W.S. Overton. 1979. Robust estimation of population size when capture probabilities vary among animals. Ecology 60, 927-936.
+Butler, B. J., & R. L. Chazdon. 1998. Species richness, spatial variation, and abundance of the soil seed bank of a secondary tropical rain forest. Biotropica 30:214-222.
+Chao, A. 1984. Non-parametric estimation of the number of classes in a population. Scandinavian Journal of Statistics 11, 265-270.
+Chao, A. 1987. Estimating the population size for capture-recapture data with unequal catchability. Biometrics 43, 783-791.
+Chao, A. 2005. Species richness estimation, Pages 7909-7916 in N. Balakrishnan, C. B. Read, and B. Vidakovic, eds. Encyclopedia of Statistical Sciences. New York, Wiley.
+Chao, A., R. L. Chazdon, R. K. Colwell, and T.-J. Shen. 2005. A new statistical approach for assessing compositional similarity based on incidence and abundance data. Ecology Letters 8:148-159.
+Chao, A., R. L. Chazdon, R. K. Colwell, and T.-J. Shen. 2006. Abundance-based similarity indices and their estimation when there are unseen species in samples. Biometrics 62, 361-371.
+Chao, A., W.-H. Hwang, Y.-C. Chen, and C.-Y. Kuo. 2000. Estimating the number of shared species in two communities. Statistica Sinica 10:227-246.
+Chao, A. & S.-M Lee. 1992 Estimating the number of classes via sample coverage. Journal of the American Statistical Association 87, 210-217.
+Chao, A., M.-C. Ma, & M. C. K. Yang. 1993. Stopping rules and estimation for recapture debugging with unequal failure rates. Biometrika 80, 193-201.
+Chazdon, R. L., R. K. Colwell, J. S. Denslow, & M. R. Guariguata. 1998. Statistical methods for estimating species richness of woody regeneration in primary and secondary rain forests of NE Costa Rica. Pp. 285-309 in F. Dallmeier and J. A. Comiskey, eds. Forest biodiversity research, monitoring and modeling: Conceptual background and Old World case studies. Parthenon Publishing, Paris.
+Chen, Y.-C., W.-H. Hwang, A. Chao, & C.-Y. Kuo. 1995. Estimating the number of common species. Analysis of the number of common bird species in Ke-Yar Stream and Chung-Kang Stream. (In Chinese with English abstract.) Journal of the Chinese Statistical Association 33, 373-393.
+Coleman, B.D. 1981. On random placement and species-area relations. Mathematical Biosciences 54, 191-215.
+Coleman, B.D., Mares, M.A., Willig, M.R. & Hsieh, Y.-H. 1982. Randomness, area, and species richness. Ecology 63, 1121-1133.
+Colwell, R. K. 2006. Biota: The biodiversity database manager, Version 2. Sinauer Associates, Sunderland, MA.
+Colwell, R. K., & J. A. Coddington. 1994. Estimating terrestrial biodiversity through extrapolation. Philosophical Transactions of the Royal Society (Series B) 345, 101-118. 
+Colwell, R. K., C. X. Mao, & J. Chang. 2004. Interpolating, extrapolating, and comparing incidence-based species accumulation curves. Ecology 85, 2717-2727.
+Gotelli, N., & R. K. Colwell. 2001. Quantifying biodiversity: Procedures and pitfalls in the measurement and comparison of species richness. Ecology Letters 4 , 379-391.
+Hayek, L. C., & M. A. Buzas. 1996. Surveying natural populations. Columbia University Press, NY.
+Heck, K.L., Jr., van Belle, G. & Simberloff, D. 1975. Explicit calculation of the rarefaction diversity measurement and the determination of sufficient sample size. Ecology 56, 1459-1461.
+Heltshe, J. & Forrester, N.E. 1983 . Estimating species richness using the jackknife procedure. Biometrics 39, 1-11.
+Jost, L. 2006. Entropy and diversity. Oikos 113:363.
+Jost, L. 2007. Partitioning diversity into independent alpha and beta components. Ecology 88:2427-2439.
+Lee, S.-M., and A. Chao. 1994. Estimating population size via sample coverage for closed capture-recapture models. Biometrics 50, 88-97.
+Mao, C. X., R. K. Colwell, and J. Chang. 2005. Estimating species accumulation curves using mixtures. Biometrics 61:433–441.
+Magurran, A. E. 1988. Ecological diversity and its measurement. Princeton University Press, Princeton, N. J.
+Magurran, A. E. 2004. Measuring biological diversity. Blackwell.
+Palmer, M.W. 1991. Estimating species richness: The second-order jackknife reconsidered. Ecology 72, 1512-1513.
+Raaijmakers, J. G. W. 1987. Statistical analysis of the Michaelis-Menten equation. Biometrics 43, 793-803.
+Savitch, Walter J. 1992. Turbo Pascal : an introduction to the art and science of programming. 3rd ed. Benjamin/Cummings, Redwood City, Calif.
+Smith, E.P. & van Belle, G. 1984. Nonparametric estimation of species richness. Biometrics 40, 119-129.
+Soberón, J., & J. Llorente. 1993. The use of species accumulation functions for the prediction of species richness. Conservation Biology 7 , 480-488.
+Ugland, K. I., J. S. Gray, & K. E. Ellingsen. 2003. The species-accumulation curve and estimation of species richness. Journal of Animal Ecology 72 , 888-897.
+Walther, B. A., and J. L. Moore. 2005. The concepts of bias, precision and accuracy, and their use in testing the performance of species richness estimators, with a literature review of estimator performance. Ecography 28, 815-829.

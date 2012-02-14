@@ -93,7 +93,7 @@ Zoology. Butterworths, London, pp. 43-50
 Morisita M (1959) Measuring of interspecific association and simi-
 larity between communities. Mem Fac Sci Kyushu Univ, Ser E,
 Bio., 3:65-80
-Renkonen O (1938) Statistisch-/Skologische Untersuchungen tiber die
+Renkonen O (1938) Statistisch-Okologische Untersuchungen uber die
 terrestische Kfiferwelt der finnischen Bruchmoore. An Zool Soc
 Zool-Bot Fenn Vanamo 6:1-231
 Sorensen TA (1948) A method of establishing groups of equal ampli-
@@ -131,4 +131,5 @@ Shi, G. R. 1993. Multivariate data analysis in palaeoecology and palaeobiogeogra
 Magurran, A. E. 2004. Measuring Biological Diversity. Oxford, Blackwell.
 
 Gower, J.C. and Legendre, P. (1986) Metric and Euclidean properties of dissimilarity coefficients. Journal of Classification, 3, 5–48.
+Chao, A., Chazdon, R. L., Colwell, R. K. and Shen, T. (2005). A new statistical approach for assessing similarity of species composition with incidence and abundance data. Ecology Letters 8, 148–159. 
 
