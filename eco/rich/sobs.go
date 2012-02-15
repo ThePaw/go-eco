@@ -7,7 +7,8 @@ import	. "go-eco.googlecode.com/hg/eco"
 // in the corresponding species list. Richness is a simple measure, so it has been a popular diversity index in ecology, where abundance data are often not available for the datasets of interest. 
 // Because richness does not take the abundances of the types into account, it is not the same thing as diversity, which does take abundances into account. 
 // However, if true diversity is calculated with q = 0, the effective number of types (0D) equals the actual number of types (R).[2][4]
-func Richness(data *Matrix) *Vector {
+// This function returns a vector consisting of number of species actually observed in every row of the data matrix.
+func SObs(data *Matrix) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)

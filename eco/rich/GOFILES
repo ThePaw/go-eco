@@ -1,4 +1,6 @@
 GOFILES=\
      ace.go\
+     bootstrap.go\
      chao.go\
-     richness.go\
+     jackknife.go\
+     sobs.go\

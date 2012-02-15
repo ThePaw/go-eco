@@ -85,6 +85,55 @@ func TruncData(data *Matrix) {
 
 }
 
+// Convert matrix to 0/1 values
+func ToBool(data *Matrix) {
+	rows := data.R
+	cols := data.C
+	warning := false
+
+	for i := 0; i < rows; i++ {
+		for j := 0; j < cols; j++ {
+			x := data.Get(i, j)
+			if ! (x == 0 || x == 1) {	// if needed, convert to 0/1
+				warning = true
+				if x != 0 {
+					data.Set(i, j, 1)
+				}
+			}
+		}
+	}
+	if warning {
+		fmt.Fprint(os.Stderr, "warning: data are not 0/1, however, will be treated as boolean: 0 == false, otherwise true\n")
+	}
+	return
+}
+
+// Convert matrix to counts
+func ToCounts(data *Matrix) {
+	rows := data.R
+	cols := data.C
+	warning := false
+
+	for i := 0; i < rows; i++ {
+		for j := 0; j < cols; j++ {
+			x := data.Get(i, j)
+			newX := math.Floor(x)
+			if x != newX {	// if needed, convert to integers
+				warning = true
+				if newX < 0 {
+					newX = 0
+				}
+				data.Set(i, j, newX)
+			}
+		}
+	}
+	if warning {
+		fmt.Fprint(os.Stderr, "warning: data are not counts, will be trtruncated to integers\n")
+	}
+	return
+}
+
+
 func WarnIfNotBool(data *Matrix) {
 	rows := data.R
 	cols := data.C

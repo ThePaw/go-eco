@@ -1,1 +1,4 @@
-other S estimators EstimateS, fossil
+# other S estimators EstimateS, fossil
+WarnIfNot[Bool|Counts] > To[Bool|Counts] in all pkgs
+metric, euclid from R:labdsv
+
