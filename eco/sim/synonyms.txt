@@ -18,5 +18,6 @@ Sokal & Sneath (1963) == S13 coefficient of Gower & Legendre == s8 of R:ade4:dis
 Phi of Pearson == S14 coefficient of Gower & Legendre == s9 of R:ade4:dist.binary
 Legendre1Bool_S == S2 coefficient of Gower & Legendre == s10 of R:ade4:dist.binary == S11 Legendre & Legendre (1998)
 Euclidean_D == D1 of R:ade4:dist.quant (Canonical)
+Stander == Cosine
 
 

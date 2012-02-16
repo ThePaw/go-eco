@@ -1,4 +1,5 @@
 // Roberts similarity
+// Roberts 1986
 // Algorithm inspired by R:labdsv
 
 package sim
