@@ -1,6 +1,7 @@
 ToDo:
-chao.jaccard, chao.sorenson from R:fossil
-pkg = sim
+Gower from R:labdsv
+#chao.jaccard, chao.sorenson from R:fossil
+#pkg = sim
 Is "LandeBool_D" diss.??
 tests against R:simba
 test of RC against PAST

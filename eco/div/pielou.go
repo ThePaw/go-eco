@@ -8,16 +8,16 @@ import (
 	. "go-eco.googlecode.com/hg/eco/rich"
 )
 
-func Pielou(data *Matrix, base byte, corr bool) *Vector {
+func Pielou_E(data *Matrix, base byte, corr bool) *Vector {
 	rows := data.R
 	cols := data.C
 	hh := Shannon(data, base, corr)
-	ss := Richness(data)
+	ss := SObs(data)
 	j := NewVector(cols)
 
 	for i := 0; i < rows; i++ {
-s:=ss.Get(i)
-h:=hh.Get(i)
+		s:=ss.Get(i)
+		h:=hh.Get(i)
 		j.Set(i, h/math.Log(s))
 	}
 	return j

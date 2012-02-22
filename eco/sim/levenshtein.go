@@ -1,7 +1,14 @@
 // Levenshtein distance
-// Levenshtein VI (1966). "Binary codes capable of correcting deletions, insertions, and reversals". Soviet Physics Doklady 10: 707–10. http://www.scribd.com/doc/18654513/levenshtein?secret_password=1aycnw239qw4jqjtsm34#full.
+// Levenshtein VI (1966). "Binary codes capable of correcting deletions, insertions, and reversals". Soviet Physics Doklady 10: 707–10. 
 
 /*
+Computing the Levenshtein distance is based on the observation that if we reserve a matrix to hold the Levenshtein distances between all prefixes of the first string and all prefixes of the second, then we can compute the values in the matrix by flood filling the matrix, and thus find the distance between the two full strings as the last value computed.
+
+This algorithm, an example of bottom-up dynamic programming, is discussed, with variants, in the 1974 article The String-to-string correction problem by Robert A. Wagner and Michael J. Fischer.
+
+A straightforward implementation, as pseudocode for a function LevenshteinDistance that takes two strings, s of length m, and t of length n, and returns the Levenshtein distance between them:
+
+
 
 int LevenshteinDistance(char s[1..m], char t[1..n])
 {

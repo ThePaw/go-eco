@@ -1,4 +1,6 @@
 // Simpson diversity matrix
+// Simpson, E H. 1949. Measurement of diversity. Nature 163:688
+
 package div
 import	. "go-eco.googlecode.com/hg/eco"
 

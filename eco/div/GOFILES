@@ -2,7 +2,13 @@ GOFILES=\
      atkinson.go\
      berger-parker.go\
      brillouin.go\
+     camargo.go\
+     margalef.go\
+     mcintosh.go\
+     menhinick.go\
+     pielou.go\
      renyi.go\
      shannon.go\
      simpson.go\
+     smith-wilson.go\
      true.go\

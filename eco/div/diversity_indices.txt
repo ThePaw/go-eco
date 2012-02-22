@@ -1,0 +1,61 @@
+Shannon Diversity Index
+This index is an index applied to biological systems by derived from a mathematical formula used in
+communication area by Shannon in 1948 (Mandaville 2002). It’s the most preferred index among the
+other diversity indices. The index values are between 0.0 – 5.0. Results are generally between 1.5 –
+3.5, and it exceeds 4.5 very rarely. The values above 3.0 indicate that the structure of habitat is stable
+and balanced; the values under 1.0 indicate that there are pollution and degradation of habitat
+structure.
+H’ = -Σ [ (ni / N) x (ln ni / N) ]
+H’: Shannon Diversity Index
+ni : Number of individuals belonging to i species
+N : Total number of individuals
+
+
+Simpson Diversity Index
+It’s a diversity indices derived by Simpson in 1949 (Mandaville 2002). Simpson index values (∆) are
+between 0 – 1. But while calculating, final result is subtracted from 1 to correct the inverse proportion.
+1 - ∆ = [ Σ ni (ni -1) ] / N (N-1)
+∆ : Simpson Diversity Index
+ni : Number of individuals belonging to i species
+N : Total number of individuals
+
+
+Margalef Diversity Index
+It has no limit value and it shows a variation depending upon the number of species. Thus, it’s used for
+comparison the sites (Kocataş 1992).
+d = (S-1) / ln N
+d : Margalef Diversity Index
+S : Total number of species
+N : Total number of individuals
+
+
+McIntosh Diversity Index
+It was suggested by McIntosh in 1967. The values are between 0 – 1. When the value is getting closer
+to 1, it means that the organisms in a community are homogeneously distributed (McIntosh 1967).
+Mc = [ N - √(∑ni2) ] / [ N - √N ]
+Mc : McIntosh Diversity Index
+ni : Number of individuals belonging to i species
+N : Total number of individuals
+
+
+Pielou Evenness Index
+It was derived from Shannon index by Pielou in 1966. The ratio of the observed value of Shannon
+index to the maximum value gives the Pielou Evenness Index result. The values are between 0 – 1.
+When the value is getting closer to 1, it means that the individuals are distributed equally (Pielou
+1966).
+J’ = H’ / H’max
+J’ : Pielou evenness index
+H’ : The observed value of Shannon index
+H’max : lnS
+S : Total number of species
+
+
+McIntosh Evenness Index
+It was derived from McIntosh index. The values are between 0 – 1. When the value is getting closer to
+1, it means that the individuals are distributed equally (Heip and Engels 1974).
+Mc E = [ N - √(∑ni2) ] / [ N – (N /√S) ]
+Mc E : McIntosh evenness index
+ni: Number of individuals belonging to i species
+S: Total number of species
+N: Total number of individuals
+
