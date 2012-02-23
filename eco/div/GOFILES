@@ -11,4 +11,5 @@ GOFILES=\
      shannon.go\
      simpson.go\
      smith-wilson.go\
+     theil.go\
      true.go\

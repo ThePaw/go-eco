@@ -12,7 +12,7 @@ import (
 func Menhinick_D(data *Matrix) *Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(cols)
+	out := NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		n := 0.0	// total number of all individuals in the sample

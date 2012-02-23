@@ -12,7 +12,7 @@ import (
 func McIntosh_D(data *Matrix) *Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(cols)
+	out := NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		n := 0.0	// total number of all individuals in the sample
@@ -33,7 +33,7 @@ func McIntosh_D(data *Matrix) *Vector {
 func McIntosh_E(data *Matrix) *Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(cols)
+	out := NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		s := 0.0		// number of species

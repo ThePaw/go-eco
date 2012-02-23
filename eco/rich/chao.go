@@ -4,6 +4,7 @@
 package rich
 
 import (
+	"math"
 	. "go-eco.googlecode.com/hg/eco"
 )
 
@@ -341,16 +342,15 @@ func ChaoBoolCorrVar(data *Matrix) *Vector {
 
 // Computes the 95% confidence interval of the Chao species estimator (13)
 // Chao 1984, 1987
-func ChaoCI(sObs, chao, var *Vector) (lo, high *Vector) {
+func ChaoCI(sObs, chao, variance *Vector) (lo, hi *Vector) {
 	cols := sObs.L
-	if chao.L != cols || var.L != cols {
+	if chao.L != cols || variance.L != cols {
 		panic("bad data: unequal lengths")
 	}
-	out := NewVector(rows)
 	for i := 0; i < cols; i++ {
 		s := sObs.Get(i)
 		c := chao.Get(i)
-		v := var.Get(i)
+		v := variance.Get(i)
 		t := c - s
 		k := math.Exp(1.96*math.Sqrt(math.Log(1+(v/(t*t)))))
 		lo.Set(i, s+t/k)

@@ -15,7 +15,7 @@ func Brillouin(data *Matrix) *Vector {
 	var tot int64
 	rows := data.R
 	cols := data.C
-	div := NewVector(cols)
+	div := NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		tot = 0 // total number of all individuals in the sample

@@ -11,7 +11,7 @@ import (
 func Margalef_D(data *Matrix) *Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(cols)
+	out := NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		s := 0.0		// number of species

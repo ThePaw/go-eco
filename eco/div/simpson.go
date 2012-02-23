@@ -26,7 +26,7 @@ import	. "go-eco.googlecode.com/hg/eco"
 func Simpson_Lambda(data *Matrix, small bool) *Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(cols)
+	out := NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		λ := 0.0
@@ -79,7 +79,7 @@ func Simpson(data *Matrix, which byte, small bool) *Vector {
 func Simpson_E(data *Matrix, which byte, small bool) *Vector {
 	div := Simpson(data, which, small)
 
-	equ := NewVector(cols)
+	equ := NewVector(rows)
 
 	rows := div.R
 	for i := 0; i < rows; i++ {

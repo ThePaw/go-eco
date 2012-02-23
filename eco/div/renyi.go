@@ -15,7 +15,7 @@ import (
 func Renyi(data *Matrix, q float64) *Vector {
 	rows := data.R
 	cols := data.C
-	div := NewVector(cols)
+	div := NewVector(rows)
 	for i := 0; i < rows; i++ {
 		sum := 0.0
 		tot := 0.0 // total number of all individuals in the sample

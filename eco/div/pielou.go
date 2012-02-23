@@ -10,10 +10,9 @@ import (
 
 func Pielou_E(data *Matrix, base byte, corr bool) *Vector {
 	rows := data.R
-	cols := data.C
 	hh := Shannon(data, base, corr)
 	ss := SObs(data)
-	j := NewVector(cols)
+	j := NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		s:=ss.Get(i)

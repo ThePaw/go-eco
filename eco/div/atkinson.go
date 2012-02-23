@@ -9,7 +9,7 @@ import (
 func Atkinson(data *Matrix, epsilon float64) *Vector {
 	rows := data.R
 	cols := data.C
-	div := NewVector(cols)
+	div := NewVector(rows)
 
 	//check params
 	if epsilon <= 0 || epsilon > 1 {

@@ -10,7 +10,7 @@ func Shannon(data *Matrix, base byte, corr bool) *Vector {
 	var log float64
 	rows := data.R
 	cols := data.C
-	div := NewVector(cols)
+	div := NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		h := 0.0

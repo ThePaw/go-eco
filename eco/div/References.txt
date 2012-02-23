@@ -77,4 +77,32 @@ Washington, H.G.  (1984). Diversity, biotic and similarity indices. A review wit
 Whittaker, R.H. (1960) Vegetation of Siskiyou mountains, Oregon and California. Ecological Monographs 30, 279–338.
 Williams, C. B. 1964 Patterns in the balance of nature. London: Academic Press.
 Wilson, M. V.& Shmida, A. (1984). Measuring beta diversity with presence/absence data. J. Ecol. 72, 1055-1064.
+Bedeian AG, Mossholder KW (2000) On the use of the coefficient of variation as a measure of diversity. Organ Res Method 3:285–297.
+Gorelick R, Bertram SM (2010) Multi-way multi-group segregation and diversity indices. PLoS One 5:e10912 (online) 
+Hoffmann S, Hoffmann A (2008) Is there “true” diversity? Ecol Econ 65:203–205.
+Jost L (2006) Entropy and diversity. Oikos 113:363–375.
+Moreno CE, Rodríguez P (2011) Do we have a consistent terminology for species diversity? Back to basics and toward a unifying framework. Oecologia. doi:10.1007/s00442-011-2125-7.
+Rao CR (1982) Diversity and dissimilarity coefficients: a unified approach. Theor Popul Biol 21:24–43.
+Tuomisto H (2010) A consistent terminology for quantifying species diversity? Yes, it does exist. Oecologia 164:853–860.
+Anderson, M.J., Crist, T.O., Chase, J.M., Vellend, M., Inouye, B.D., Freestone, A.L., Sanders, N.J., Cornell, H.V., Comita, L.S., Davies, K.F., Harrison, S.P., Kraft, N.J.B., Stegen, J.C. & Swenson, N.G. (2011) Navigating the multiple meanings of β diversity: a roadmap for the practicing ecologist. Ecology Letters, 14, 19–28. 
+Atmar, W. & Patterson, B.D. (1993) The measure of order and disorder in the distribution of species in fragmented habitat. Oecologia, 96, 373–382. 
+Baselga, A. (2007) Disentangling distance decay of similarity from richness gradients: response to Soininen et al. 2007. Ecography, 30, 838–841. 
+Veech, Joseph A., and Thomas O. Crist. 2010. Toward a unified view of diversity partitioning. Ecology 91:1988–1992. http://dx.doi.org/10.1890/09-1140.1
+Harrison, Susan, Mark Vellend, and Ellen I. Damschen. 2011. ‘Structured' beta diversity increases with climatic productivity in a classic dataset. Ecosphere 2:art11. http://dx.doi.org/10.1890/ES10-00095.1
+Wilson, M. V., and A. Shmida. 1984. Measuring beta diversity with presence/absence data. Journal of Ecology 72:1055–1064.
+Vellend, M. 2001. Do commonly used indices of beta diversity measure species turnover? Journal of Vegetation Science 12:545–552.
+Veech, J. A., and T. O. Crist. 2010. Toward a unified view of diversity partitioning. Ecology 91:1988–1992.
+Tuomisto, H. 2010. A diversity of beta diversities: straightening up a concept gone awry. Part 2. Quantifying beta diversity and related phenomena. Ecography 33:23–45.
+Soininen, J., J. J. Lennon, and H. Hillebrand. 2007. A multivariate analysis of beta-diversity across organisms and environments. Ecology 88:2830–2838.
+Ricotta, C. 2010. On beta diversity decomposition: trouble shared is not trouble halved. Ecology 91:1981–1983.
+Ricotta, C. 2008. Computing additive beta-diversity from presence and absence scores: a critique and alternative parameters. Theoretical Population Biology 73:244–249.
+MacArthur, R. H. 1965. Patterns of species diversity. Biological Reviews 40:510–533.
+Loreau, M. 2000. Are communities saturated? On the relationship between alpha, beta and gamma diversity. Ecology Letters 3:73–76.
+Legendre, P., D. Borcard, and P. R. Peres-Neto. 2005. Analyzing beta diversity: partitioning the spatial variation of community composition data. Ecological Monographs 75:435–450.
+Jost, L. 2010. Independence of alpha and beta diversities. Ecology 91:1969–1974.
+Jost, L. 2007. Partitioning diversity into independent alpha and beta components. Ecology 88:2427–2439.
+Gotelli, N. J., and R. K. Colwell. 2001. Quantifying biodiversity: procedures and pitfalls in the measurement and comparison of species richness. Ecology Letters 4:379–391.
+Gering, J. C., and T. O. Crist. 2002. The alpha-beta-regional relationship: providing new insights into local-regional patterns of species richness and scale dependence of species diversity components. Ecology Letters 5:433–444.
+Crist, T. O., J. A. Veech, J. C. Gering, and K. S. Summerville. 2003. Partitioning species diversity across landscapes and regions: a hierarchical analysis of alpha, beta, and gamma diversity. American Naturalist 162:734–743.
+Anderson, M. J., K. E. Ellingsen, and B. H. McArdle. 2006. Multivariate dispersion as a measure of beta diversity. Ecology Letters 9:683–693.
 
