@@ -1,0 +1,170 @@
+Distances:
+> #######################################################
+
+Identical rows 
+
+> #######################################################
+> #######################################################
+> 
+> sim(b, method = "whittaker")
+
+  0
+> sim(b, method = "lande")
+
+  0
+> sim(b, method = "wilsonshmida")
+
+  0
+> sim(b, method = "cocogaston")
+
+  0
+> sim(b, method = "magurran")
+
+  0
+> sim(b, method = "harrison")
+
+  0
+> sim(b, method = "cody")
+
+  0
+> sim(b, method = "williams")
+
+  0
+> sim(b, method = "williams2")
+
+  0.0006493506
+> sim(b, method = "harte")
+
+  0
+> sim(b, method = "simpson")
+
+  0
+> sim(b, method = "lennon")
+
+  0
+> sim(b, method = "weiher")
+
+  0
+
+> sim(b, method = "lennon2")
+
+  0
+> sim(b, method = "rout1ledge")
+
+  0
+> sim(b, method = "rout2ledge")
+
+  -8.881784e-16
+> sim(b, method = "rout3ledge")
+
+  -8.881784e-16
+> sim(b, method = "sokal1")
+
+  1
+> sim(b, method = "dice")
+
+  1
+> sim(b, method = "kulcz1insky")
+
+  Inf
+> sim(b, method = "kulcz2insky")
+
+  1
+> sim(b, method = "mcconnagh")
+
+  1
+> sim(b, method = "manhattan")
+
+  0
+> sim(b, method = "simplematching")
+
+  1
+> sim(b, method = "margaleff")
+
+  1.785714
+> sim(b, method = "pearson")
+
+  1
+> sim(b, method = "roger")
+
+  1
+> sim(b, method = "baroni")
+
+  1
+> sim(b, method = "dennis")
+
+  4.4
+> sim(b, method = "fossum")
+
+  -25
+> sim(b, method = "gower")
+
+  1
+> sim(b, method = "legendre")
+
+  0.56
+> sim(b, method = "sokal2")
+
+  1
+> sim(b, method = "sokal3")
+
+  1
+> sim(b, method = "sokal4")
+
+  Inf
+> sim(b, method = "stiles")
+
+  4.564168
+> sim(b, method = "yule")
+
+  1
+> sim(b, method = "michael")
+
+  0.9856
+> sim(b, method = "hamann")
+
+  1
+> sim(b, method = "forbes")
+
+  1
+> sim(b, method = "chisquare")
+
+  100
+> sim(b, method = "peirce")
+
+  1
+> sim(b, method = "eyraud")
+
+  -0.0005073052
+> sim(b, method = "simpson2")
+
+  1
+> sim(b, method = "legendre2")
+
+  1
+> sim(b, method = "fager")
+
+  0.9331847
+> sim(b, method = "maarel")
+
+  1
+> sim(b, method = "lamont")
+
+  0.5
+> sim(b, method = "johnson")
+
+  Inf
+> sim(b, method = "sorgenfrei")
+
+  1
+> sim(b, method = "johnson2")
+
+  2
+> sim(b, method = "euclidean")
+
+  0
+> sim(b, method = "divergence")
+
+  0
+> 
+

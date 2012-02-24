@@ -21,7 +21,8 @@ func TriIneq(dist *Matrix) int {
 			lng := x
 			lng = math.Max(lng, y)
 			lng = math.Max(lng, z)
-			if lng>(x+y+z-lng)) ineq++
+			if lng > x+y+z-lng{
+				ineq++
 			}
 		}
 	}

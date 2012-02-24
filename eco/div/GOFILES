@@ -3,11 +3,14 @@ GOFILES=\
      berger-parker.go\
      brillouin.go\
      camargo.go\
+     gini.go\
+     kolm.go\
      margalef.go\
      mcintosh.go\
      menhinick.go\
      pielou.go\
      renyi.go\
+     ricci-schutz.go\
      shannon.go\
      simpson.go\
      smith-wilson.go\
