@@ -3,8 +3,8 @@
 package div
 
 import (
-	"math"
 	. "go-eco.googlecode.com/hg/eco"
+	"math"
 )
 
 // Margalef's D  diversity index
@@ -14,8 +14,8 @@ func Margalef_D(data *Matrix) *Vector {
 	out := NewVector(rows)
 
 	for i := 0; i < rows; i++ {
-		s := 0.0		// number of species
-		n := 0.0	// total number of all individuals in the sample
+		s := 0.0 // number of species
+		n := 0.0 // total number of all individuals in the sample
 		for j := 0; j < cols; j++ {
 			x := data.Get(i, j)
 			n += x
@@ -23,9 +23,8 @@ func Margalef_D(data *Matrix) *Vector {
 				s++
 			}
 		}
-		v:=(s-1)/math.Log(n)
+		v := (s - 1) / math.Log(n)
 		out.Set(i, v)
 	}
 	return out
 }
-

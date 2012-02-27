@@ -27,18 +27,16 @@ func Camargo_E(data *Matrix) *Vector {
 			x := data.Get(i, j)
 			data.Set(i, j, x/sumX)
 		}
-		
-		v:= 0.0
+
+		v := 0.0
 		for j := 0; j < cols; j++ {
-			for k := j+1; k < cols; k++ {
+			for k := j + 1; k < cols; k++ {
 				pj := data.Get(i, j)
 				pk := data.Get(i, k)
-				v += (pj-pk)/sumX
+				v += (pj - pk) / sumX
 			}
 		}
 		out.Set(i, v)
 	}
 	return out
 }
-
-

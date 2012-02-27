@@ -2,9 +2,9 @@
 package div
 
 import (
-	"math"
-	"go-fn.googlecode.com/hg/fn"
 	. "go-eco.googlecode.com/hg/eco"
+	"go-fn.googlecode.com/hg/fn"
+	"math"
 )
 
 // Brillouin diversity

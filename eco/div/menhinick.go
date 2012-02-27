@@ -3,8 +3,8 @@
 package div
 
 import (
-	"math"
 	. "go-eco.googlecode.com/hg/eco"
+	"math"
 )
 
 // Menhinick diversity index
@@ -15,8 +15,8 @@ func Menhinick_D(data *Matrix) *Vector {
 	out := NewVector(rows)
 
 	for i := 0; i < rows; i++ {
-		n := 0.0	// total number of all individuals in the sample
-		s := 0.0	// number of species
+		n := 0.0 // total number of all individuals in the sample
+		s := 0.0 // number of species
 		for j := 0; j < cols; j++ {
 			x := data.Get(i, j)
 			if x > 0.0 {
@@ -24,9 +24,8 @@ func Menhinick_D(data *Matrix) *Vector {
 				n += x
 			}
 		}
-		v:= s/math.Sqrt(n);
+		v := s / math.Sqrt(n)
 		out.Set(i, v)
 	}
 	return out
 }
-

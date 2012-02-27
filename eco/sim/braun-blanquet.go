@@ -22,11 +22,10 @@ func BraunBlanquetBool_S(data *Matrix) *Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = GetABCD(data, i, j)
-			v := a/math.Max(b+a, c+a)
+			v := a / math.Max(b+a, c+a)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
 	}
 	return out
 }
-

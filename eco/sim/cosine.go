@@ -74,4 +74,3 @@ func Cosine_D(data *Matrix) *Matrix {
 	}
 	return out
 }
-

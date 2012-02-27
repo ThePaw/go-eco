@@ -14,8 +14,7 @@ func BootS(data *Matrix) *Vector {
 	cols := data.C
 	p := NewVector(cols)
 	out := NewVector(rows)
-	m:= float64(rows)
-
+	m := float64(rows)
 
 	ToBool(data)
 
@@ -31,7 +30,6 @@ func BootS(data *Matrix) *Vector {
 		p.Set(i, sObs/m)
 	}
 
-
 	// estimator
 	for i := 0; i < rows; i++ {
 		q1 := 0.0
@@ -43,7 +41,7 @@ func BootS(data *Matrix) *Vector {
 			if x > 0 {
 				sObs++
 				add := 1 - p.Get(j)
-				for k := 0; k < rows-1; k++ {	// power term
+				for k := 0; k < rows-1; k++ { // power term
 					add *= add
 				}
 				sum += add
@@ -59,5 +57,3 @@ func BootS(data *Matrix) *Vector {
 	}
 	return out
 }
-
-

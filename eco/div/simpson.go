@@ -2,7 +2,8 @@
 // Simpson, E H. 1949. Measurement of diversity. Nature 163:688
 
 package div
-import	. "go-eco.googlecode.com/hg/eco"
+
+import . "go-eco.googlecode.com/hg/eco"
 
 // Simpson index matrix
 // The Simpson index was introduced in 1949 by Edward H. Simpson to measure the degree of concentration when individuals are classified into types.[6] 

@@ -11,6 +11,7 @@ import (
 // Returns 0 if holds, or positive integer = number of violations
 func TriIneq(dist *Matrix) int {
 	n := dist.R
+	ineq := 0
 	for i := 0; i < n-2; i++ {
 		for j := i + 1; j < n-1; j++ {
 			for k := j + 1; j < n; j++ {
@@ -18,14 +19,14 @@ func TriIneq(dist *Matrix) int {
 				y := dist.Get(k, i)
 				z := dist.Get(k, j)
 
-			lng := x
-			lng = math.Max(lng, y)
-			lng = math.Max(lng, z)
-			if lng > x+y+z-lng{
-				ineq++
+				lng := x
+				lng = math.Max(lng, y)
+				lng = math.Max(lng, z)
+				if lng > x+y+z-lng {
+					ineq++
+				}
 			}
 		}
 	}
 	return ineq
 }
-

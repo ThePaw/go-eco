@@ -303,7 +303,7 @@ func ChaoSorensen_S(data *Matrix) *Matrix {
 			if u == 0 && v == 0 {
 				c = 0
 			} else {
-				c = (2*u*v)/(u+v)
+				c = (2 * u * v) / (u + v)
 			}
 			out.Set(i, j, c)
 			out.Set(j, i, c)

@@ -5,6 +5,7 @@ package sim
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
+
 // Jaccard similarity matrix
 // Legendre & Legendre 1998: 256, eq. 7.10 (S7 index)
 func JaccardBool_S(data *Matrix) *Matrix {

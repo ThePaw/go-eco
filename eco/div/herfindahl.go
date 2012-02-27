@@ -1,4 +1,4 @@
-// Ricci-Schutz inequality index (also called Pietra’s measure)
+// Herfindahl index of concentration
 
 package div
 
@@ -7,40 +7,38 @@ import (
 	"math"
 )
 
-// Ricci-Schutz inequality index
+// Herfindahl index of concentration
 // F A Cowell: Measurement of Inequality, 2000, in A B Atkinson & F Bourguignon (Eds): Handbook of Income Distribution. Amsterdam.
 // F A Cowell: Measuring Inequality, 1995 Prentice Hall/Harvester Wheatshef.
-// Marshall & Olkin: Inequalities: Theory of Majorization and Its Applications, New York 1979 (Academic Press).
-// Algorithm inspired by R:ineq
-func RicciSchutz_D(data *Matrix) *Vector {
+// M Hall & N Tidemann: Measures of Concentration, 1967, JASA 62, 162-168.
+func Herfindahl_D(data *Matrix, m float64) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)
 
 	for i := 0; i < rows; i++ {
-		s := 0.0 // number of species
+		s := 0.0    // number of species
+		sumX := 0.0 // total number of all individuals in the sample
 
-		// calculate mean
-		meanX := 0.0
 		for j := 0; j < cols; j++ {
 			x := data.Get(i, j)
 			if x > 0.0 {
 				s++
-				meanX += x
+				sumX += x
 			}
 		}
-		meanX /= s
 
-		// calculate mean difference
-		meanD := 0.0
+		v := 0.0
 		for j := 0; j < cols; j++ {
 			x := data.Get(i, j)
 			if x > 0.0 {
-				meanD += math.Abs(x - meanX)
+				y := x / sumX
+				y = math.Pow(y, m+1)
+				y = x * math.Log(y)
+				v += y
 			}
 		}
-		meanD /= s
-		v := meanD / (2 * meanX)
+		v = math.Pow(v, 1/s)
 		out.Set(i, v)
 	}
 	return out

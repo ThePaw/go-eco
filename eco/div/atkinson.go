@@ -2,8 +2,8 @@
 package div
 
 import (
-	"math"
 	. "go-eco.googlecode.com/hg/eco"
+	"math"
 )
 
 func Atkinson(data *Matrix, epsilon float64) *Vector {

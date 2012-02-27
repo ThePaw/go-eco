@@ -12,13 +12,13 @@ import (
 // F A Cowell: Measuring Inequality, 1995 Prentice Hall/Harvester Wheatshef.
 // Marshall & Olkin: Inequalities: Theory of Majorization and Its Applications, New York 1979 (Academic Press).
 // Algorithm inspired by R:ineq
-func Kolm_D(data *Matrix,  m float64) *Vector {
+func Kolm_D(data *Matrix, m float64) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)
 
 	for i := 0; i < rows; i++ {
-		s := 0.0    // number of species
+		s := 0.0 // number of species
 
 		// calculate mean and mean log
 		meanX := 0.0
@@ -36,14 +36,13 @@ func Kolm_D(data *Matrix,  m float64) *Vector {
 		for j := 0; j < cols; j++ {
 			x := data.Get(i, j)
 			if x > 0.0 {
-				mean2 += math.Exp(m*(meanX-x))
+				mean2 += math.Exp(m * (meanX - x))
 			}
 		}
 		mean2 /= s
 
-		v := math.Log(mean2)/m
+		v := math.Log(mean2) / m
 		out.Set(i, v)
 	}
 	return out
 }
-

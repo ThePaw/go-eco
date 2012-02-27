@@ -13,7 +13,7 @@ func Jack1S(data *Matrix) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)
-	m:= float64(rows)
+	m := float64(rows)
 
 	ToBool(data)
 
@@ -41,7 +41,7 @@ func Jack2S(data *Matrix) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)
-	m:= float64(rows)
+	m := float64(rows)
 
 	ToBool(data)
 
@@ -60,12 +60,11 @@ func Jack2S(data *Matrix) *Vector {
 				}
 			}
 		}
-		a := q1*(2*m-3)/m
-		b := q2*(m-2)*(m-2) / (m*(m-1))
+		a := q1 * (2*m - 3) / m
+		b := q2 * (m - 2) * (m - 2) / (m * (m - 1))
 
-		v := sObs + a-b
+		v := sObs + a - b
 		out.Set(i, v)
 	}
 	return out
 }
-

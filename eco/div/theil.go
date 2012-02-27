@@ -14,7 +14,7 @@ import (
 // F A Cowell: Measuring Inequality, 1995 Prentice Hall/Harvester Wheatshef.
 // Marshall & Olkin: Inequalities: Theory of Majorization and Its Applications, New York 1979 (Academic Press).
 // Algorithm inspired by R:ineq
-func Theil_D(data *Matrix,  m int64) *Vector {
+func Theil_D(data *Matrix, m int64) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)
@@ -60,13 +60,13 @@ func Theil_D(data *Matrix,  m int64) *Vector {
 // Theil L inequality index TL
 // TL is also known as the MLD (mean log deviation) because it gives the standard deviation of ln(x)
 // http://en.wikipedia.org/wiki/Theil_index
-func TheilL_D(data *Matrix,  m int64) *Vector {
+func TheilL_D(data *Matrix, m int64) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)
 
 	for i := 0; i < rows; i++ {
-		s := 0.0    // number of species
+		s := 0.0 // number of species
 		// calculate mean and mean log
 		meanX := 0.0
 		for j := 0; j < cols; j++ {
@@ -79,13 +79,13 @@ func TheilL_D(data *Matrix,  m int64) *Vector {
 		meanX /= s
 
 		v := 0.0
-			for j := 0; j < cols; j++ {
-				x := data.Get(i, j)
-				if x > 0.0 {
-					v += meanX/x
-				}
+		for j := 0; j < cols; j++ {
+			x := data.Get(i, j)
+			if x > 0.0 {
+				v += meanX / x
 			}
-			v /= s
+		}
+		v /= s
 		out.Set(i, v)
 	}
 	return out
@@ -94,7 +94,7 @@ func TheilL_D(data *Matrix,  m int64) *Vector {
 // Theil S inequality index (symmetric) TS
 // Sometimes the average of TT and TL  is used, which has the advantage of being "symmetric" like the Gini, Hoover, and Coulter indices. "Symmetric" means it gives the same result for x as it does for 1/x
 // http://en.wikipedia.org/wiki/Theil_index
-func TheilS_D(data *Matrix,  m int64) *Vector {
+func TheilS_D(data *Matrix, m int64) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)
@@ -115,16 +115,14 @@ func TheilS_D(data *Matrix,  m int64) *Vector {
 		meanX = sumX / s
 
 		v := 0.0
-			for j := 0; j < cols; j++ {
-				x := data.Get(i, j)
-				if x > 0.0 {
-					v += (x/meanX-1)*math.Log(x)
-				}
+		for j := 0; j < cols; j++ {
+			x := data.Get(i, j)
+			if x > 0.0 {
+				v += (x/meanX - 1) * math.Log(x)
 			}
-			v /= 2*s
+		}
+		v /= 2 * s
 		out.Set(i, v)
 	}
 	return out
 }
-
-

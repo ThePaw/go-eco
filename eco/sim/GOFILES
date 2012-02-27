@@ -44,6 +44,7 @@ GOFILES=\
      legendre-1998.go\
      legendre.go\
      lennon.go\
+     levenshtein.go\
      maarel.go\
      magurran.go\
      manhattan.go\
@@ -60,6 +61,7 @@ GOFILES=\
      peirce.go\
      raup-crick.go\
      renkonen.go\
+     roberts.go\
      robinson.go\
      rogers.go\
      routledge.go\
@@ -79,6 +81,7 @@ GOFILES=\
      steinhaus.go\
      stiles.go\
      taxonomic.go\
+     tri_ineq.go\
      variance.go\
      weiher.go\
      whittaker.go\

@@ -2,8 +2,8 @@
 package div
 
 import (
-	"math"
 	. "go-eco.googlecode.com/hg/eco"
+	"math"
 )
 
 // The Berger-Parker index equals the maximum p[i] value in the dataset, i.e. the proportional abundance of the most abundant type.

@@ -4,8 +4,8 @@
 package rich
 
 import (
-	"math"
 	. "go-eco.googlecode.com/hg/eco"
+	"math"
 )
 
 // Estimators ...
@@ -352,11 +352,9 @@ func ChaoCI(sObs, chao, variance *Vector) (lo, hi *Vector) {
 		c := chao.Get(i)
 		v := variance.Get(i)
 		t := c - s
-		k := math.Exp(1.96*math.Sqrt(math.Log(1+(v/(t*t)))))
+		k := math.Exp(1.96 * math.Sqrt(math.Log(1+(v/(t*t)))))
 		lo.Set(i, s+t/k)
 		hi.Set(i, s+t*k)
 	}
 	return
 }
-
-

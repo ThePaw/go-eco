@@ -7,8 +7,8 @@
 package sim
 
 import (
-	"math"
 	. "go-eco.googlecode.com/hg/eco"
+	"math"
 )
 
 // Arrhenius distance matrix, for boolean data

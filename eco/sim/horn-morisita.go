@@ -30,8 +30,8 @@ func HornMorisita_S(data *Matrix) *Matrix {
 				λy += y * y
 			}
 
-			v := 2*sumXY/(λx/sumX/sumX + λy/sumY/sumY)/sumX/sumY
-//			2*sim/(sq1/t1/t1 + sq2/t2/t2)/t1/t2
+			v := 2 * sumXY / (λx/sumX/sumX + λy/sumY/sumY) / sumX / sumY
+			//			2*sim/(sq1/t1/t1 + sq2/t2/t2)/t1/t2
 			if v < 0 {
 				v = 0.0
 			}
@@ -65,9 +65,9 @@ func MorisitaHorn2_S(data *Matrix) *Matrix {
 				sumXX += x * x
 				sumYY += y * y
 			}
-			da := sumXX/sumX*sumX
-			db := sumYY/sumY*sumY
-			v := 2*sumXY/((da+db)*sumX*sumY)
+			da := sumXX / sumX * sumX
+			db := sumYY / sumY * sumY
+			v := 2 * sumXY / ((da + db) * sumX * sumY)
 			if v < 0 {
 				v = 0.0
 			}
@@ -77,4 +77,3 @@ func MorisitaHorn2_S(data *Matrix) *Matrix {
 	}
 	return out
 }
-

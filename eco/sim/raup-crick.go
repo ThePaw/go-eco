@@ -4,8 +4,8 @@
 package sim
 
 import (
-	"go-fn.googlecode.com/hg/fn"
 	. "go-eco.googlecode.com/hg/eco"
+	"go-fn.googlecode.com/hg/fn"
 	"gostat.googlecode.com/hg/stat/prob"
 	"math"
 )

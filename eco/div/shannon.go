@@ -2,8 +2,8 @@
 package div
 
 import (
-	"math"
 	. "go-eco.googlecode.com/hg/eco"
+	"math"
 )
 
 func Shannon(data *Matrix, base byte, corr bool) *Vector {

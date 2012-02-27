@@ -74,8 +74,6 @@ func S9(data *Matrix) *Matrix {
 	return out
 }
 
-
-
 // S10 matrix
 // Legendre & Legendre 1998: 255, eq. 7.13 (S10 index)
 func S10(data *Matrix) *Matrix {
@@ -114,17 +112,8 @@ func S14(data *Matrix) *Matrix {
 // Legendre & Legendre (1998): 261, eq. 7.21 (S16 index)
 // TO BE IMPLEMENTED
 
-
-
-
-
-
-
-
-
 // S26 matrix
 // Legendre & Legendre (1998): 258, eq. 7.18 (S26 index)
 func S26(data *Matrix) *Matrix {
 	return FaithBool_S(data)
 }
-

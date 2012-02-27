@@ -3,9 +3,9 @@
 package div
 
 import (
-	"math"
 	. "go-eco.googlecode.com/hg/eco"
 	. "go-eco.googlecode.com/hg/eco/rich"
+	"math"
 )
 
 func Pielou_E(data *Matrix, base byte, corr bool) *Vector {
@@ -15,8 +15,8 @@ func Pielou_E(data *Matrix, base byte, corr bool) *Vector {
 	j := NewVector(rows)
 
 	for i := 0; i < rows; i++ {
-		s:=ss.Get(i)
-		h:=hh.Get(i)
+		s := ss.Get(i)
+		h := hh.Get(i)
 		j.Set(i, h/math.Log(s))
 	}
 	return j

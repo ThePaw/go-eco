@@ -2,8 +2,8 @@
 package div
 
 import (
-	"math"
 	. "go-eco.googlecode.com/hg/eco"
+	"math"
 )
 
 // The Rényi entropy is a generalization of the Shannon entropy to other values of q than unity. It can be expressed:

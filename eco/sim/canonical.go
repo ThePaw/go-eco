@@ -30,5 +30,3 @@ func Canonical_D(data *Matrix) *Matrix {
 	}
 	return out
 }
-
-

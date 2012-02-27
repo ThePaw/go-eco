@@ -28,14 +28,13 @@ func Roberts_S(data *Matrix) *Matrix {
 				y := data.Get(j, k)
 				min := math.Min(x, y)
 				max := math.Max(x, y)
-				numer += (x + y) * (min/max)
+				numer += (x + y) * (min / max)
 				denom += x + y
 			}
-			v := numer/denom
+			v := numer / denom
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
 	}
 	return out
 }
-
