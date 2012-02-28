@@ -7,6 +7,7 @@ GOFILES=\
      foster.go\
      gini.go\
      herfindahl.go\
+     koleff.go\
      kolm.go\
      margalef.go\
      mcintosh.go\
