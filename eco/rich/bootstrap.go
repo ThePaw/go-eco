@@ -7,8 +7,8 @@ import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
-// First-order jackknife estimator of species richness for boolean (= incidence, presence-absence) data
-// Burnham and Overton 1978,1979; Heltshe and Forrester 1983
+// Bootstrap estimator of species richness (incidence-based)
+// Smith and van Belle 1984
 func BootS(data *Matrix) *Vector {
 	rows := data.R
 	cols := data.C
