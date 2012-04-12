@@ -1,12 +1,21 @@
 // Coenocline modeller
+
+/* To do:
+Poisson / clustered optima placing 
+implement HOF model
+rewrite Beta model to generate 'u', not 'lo'
+enable Pareto and Yule models when ready
+*/
+
+
 package main
 
 import (
 	"flag"
-	"os"
 	"sort"
 	"fmt"
 	. "go-eco.googlecode.com/hg/eco"
+	. "gostat.googlecode.com/hg/stat/prob"
 	"math"
 	"math/rand"
 )
@@ -62,10 +71,10 @@ func gauss(x, u, t, c float64) (y float64) {
 	// c	 maximum
 	// x	 point at which the function is evaluated
 	//return c * math.Exp(-0.5*(x-u)*(x-u)/(t*t))
-	rrr:=2*2.326348	// 1% tails of Z
+	tails:=2*2.326348	// 1% tails of Z
 	maxZ := 0.3989423	// value of Z at 0 (=mean=mode)
 	x -= u
-	x *= rrr/t
+	x *= tails/t
 	y=(c/maxZ)/math.Sqrt(2*math.Pi)*math.Exp(-x*x/2)
 	return
 }
@@ -85,6 +94,7 @@ func beta(k, a, b, alpha, gamma, x float64) (y float64) {
 }
 
 // Solve k from the maximum height of the response function
+// thanks to Jari Oksanen, I think
 func ksol(a, b, alpha, gamma, height float64) (k float64) {
 	t1 := b - a
 	t4 := t1 / (alpha + gamma)
@@ -93,7 +103,8 @@ func ksol(a, b, alpha, gamma, height float64) (k float64) {
 	return height / t6 / t11
 }
 
-//	 For Beta-Binomial sampling model: Estimates the parameters a,b of beta distribution from expected proportion (pi), binomial denominator (m), and shape parameter (tau2). Solution (hopefully correct) of Exercise 4.17 of McCullagh & Nelder 1989, helped by Moore, Appl Stat 36, 8-14; 1987.
+// For Beta-Binomial sampling model: Estimates the parameters a,b of beta distribution from expected proportion (pi), binomial denominator (m), and shape parameter (tau2). Solution (hopefully correct) of Exercise 4.17 of McCullagh & Nelder 1989, helped by Moore, Appl Stat 36, 8-14; 1987.
+// thanks to Jari Oksanen, I think
 func betapara(pi, m, tau2 float64) (a, b float64) {
 	t1 := tau2 * m
 	t2 := t1 - m - tau2 + 1
@@ -104,10 +115,12 @@ func betapara(pi, m, tau2 float64) (a, b float64) {
 	return
 }
 
-func Coenocline(model, nSpec, nSamp int, randomSpacing bool, abumax, tmax, alphamax, gammamax float64) (out *Matrix) {
+func Coenocline(model, nSpec, nSamp, abuModel int, aa, ba float64, tModel int, at, bt float64, randomSpacing bool, abumax, tmax, alphamax, gammamax float64) (out *Matrix) {
 	var lo float64
 	out = NewMatrix(nSamp, nSpec)
 	points := generate_points(nSamp, randomSpacing)
+	rngA := rndFn(abuModel, aa, ba)
+	rngT := rndFn(tModel, at, bt)
 	if model < 0 || model > 2 {
 		model = 0
 	}
@@ -115,12 +128,12 @@ func Coenocline(model, nSpec, nSamp int, randomSpacing bool, abumax, tmax, alpha
 	case model == 0: // Gaussian
 		for j := 0; j < nSpec; j++ {
 			u := rand.Float64()          // optimum (point on the gradient)
-			t := tmax * rand.Float64()   // tolerance (range of acceptable gradient values)
+			t := tmax * rngT()   // tolerance (range of acceptable gradient values)
 			for t < 2/float64(nSamp) { // if tolerance is too small, generate new value
 				t = tmax * rand.Float64()
 			}
 
-			c := abumax * rand.Float64() // max abundance
+			c := abumax * rngA()	// species' max abundance
 			for i := 0; i < nSamp; i++ {
 				x := points[i]
 				y := gauss(x, u, t, c)
@@ -129,14 +142,14 @@ func Coenocline(model, nSpec, nSamp int, randomSpacing bool, abumax, tmax, alpha
 		}
 	case model == 1: // Beta		
 		for j := 0; j < nSpec; j++ {
-			t := tmax * rand.Float64()   // tolerance (range of acceptable gradient values)
+			t := tmax * rngT()   // tolerance (range of acceptable gradient values)
 			for t < 2/float64(nSamp) { // if tolerance is too small, generate new value
 				t = tmax * rand.Float64()
 			}
 			lo := rand.Float64()   // lower end
 			hi := lo + t   // upper end
 
-			c := abumax * rand.Float64()       // species' max abundance
+			c := abumax * rngA()	// species' max abundance
 			alpha := alphamax * rand.Float64() // shape parameters alpha, gamma
 			gamma := gammamax * rand.Float64()
 			k := ksol(lo, hi, alpha, gamma, c)
@@ -148,12 +161,12 @@ func Coenocline(model, nSpec, nSamp int, randomSpacing bool, abumax, tmax, alpha
 		}
 	case model == 2: // Triangular
 		for j := 0; j < nSpec; j++ {
-			t := tmax * rand.Float64()   // tolerance (range of acceptable gradient values)
+			t := tmax * rngT()   // tolerance (range of acceptable gradient values)
 			for t < 2/float64(nSamp) { // if tolerance is too small, generate new value
 				t = tmax * rand.Float64()
 			}
 
-			c := abumax * rand.Float64() // species' max abundance
+			c := abumax * rngA()	// species' max abundance
 			e := rand.Float64()          // excentricity
 			lo = rand.Float64()   // lower end
 
@@ -173,14 +186,41 @@ func Coenocline(model, nSpec, nSamp int, randomSpacing bool, abumax, tmax, alpha
 	return
 }
 
+// Random variable generator
+func rndFn(which int, a, b float64) func() (x float64) {
+	return func() (x float64) {
+		switch {
+		case which == 0:	// flat
+			x = rand.Float64()
+		case which == 1:	// Gaussian
+			x = NextNormal(a, b)
+		case which == 2:	// Beta
+			x = NextBeta(a, b)
+/* to be implemented (in stat/prob):
+		case which == 2:	// Pareto
+			x = NextPareto(a, b)
+		case which == 3:	// Yule
+			x = NextYule(a, b)
+*/
+		}
+		return
+	}
+}
+
+
 // Main
 func main() {
-	const EXIT_SUCCESS = 0
 	help := flag.Bool("h", false, "Coenocline modeller\nUsage: coenocline -m [0|1|2] [-rsxya]")
 	model := flag.Int("m", 0, "Response function: 0 = Gaussian, 1 = Beta, 2 = Triangular")
 	randomSpacing := flag.Bool("r", false, "true if spacing of samples along the gradient is random")
 	nSpec := flag.Int("x", 20, "number of species")
 	nSamp := flag.Int("y", 30, "number of samples")
+	abuModel := flag.Int("abuModel", 0, "model of distribution of abundances")
+	aa := flag.Float64("aa", 0, "scale param of distribution of abundances")
+	ba := flag.Float64("ba", 0, "shape param of distribution of abundances")
+	tolModel := flag.Int("tolModel", 0, "model of distribution of tolerances")
+	at := flag.Float64("at", 0, "scale param of distribution of tolerances")
+	bt := flag.Float64("bt", 0, "shape param of distribution of tolerances")
 	//	seed := flag.Int64("s", 0, "random number seed")
 	abumax := flag.Float64("a", 100.0, "maximum abundance")
 	tmax := flag.Float64("tmax", 0.3, "maximum t")
@@ -191,16 +231,16 @@ func main() {
 
 	if *help {
 		flag.PrintDefaults()
-		os.Exit(EXIT_SUCCESS)
-	}
-	mtx := Coenocline(*model, *nSpec, *nSamp, *randomSpacing, *abumax, *tmax, *alphamax, *gammamax)
-	for i := 0; i < *nSamp; i++ {
-		for j := 0; j < *nSpec; j++ {
-			fmt.Print(mtx.Get(i, j), ",")
+	} else {
+		mtx := Coenocline(*model, *nSpec, *nSamp, *abuModel, *aa, *ba, *tolModel, *at, *bt, *randomSpacing, *abumax, *tmax, *alphamax, *gammamax)
+		for i := 0; i < *nSamp; i++ {
+			for j := 0; j < *nSpec; j++ {
+				fmt.Print(mtx.Get(i, j), ",")
+			}
+			fmt.Println()
 		}
-		fmt.Println()
 	}
-//	fmt.Println("PARAMS: ", *model, *nSpec, *nSamp, *randomSpacing, *abumax, *tmax, *alphamax, *gammamax)
-
 }
+
+
 
