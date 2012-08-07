@@ -1,2 +1,3 @@
 GOFILES=\
      coenocline.go\
+     main.go\

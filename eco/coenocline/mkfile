@@ -1,0 +1,10 @@
+< $GOROOT/src/9bootstrap.mk
+
+TARG=ccline
+
+GOFILES=\
+	main.go\
+	coenocline.go\
+
+< $GOROOT/src/Make.cmd
+

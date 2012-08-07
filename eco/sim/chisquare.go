@@ -1,13 +1,14 @@
-// Chi - Squared similarity matrix
-// Yule & Kendall (1950)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Chi - Squared similarity matrix
+// Yule & Kendall (1950)
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
-// Chi - Squared similarity matrix
+// ChiSquaredBool_S returns Chi - Squared similarity matrix for boolean data. 
 func ChiSquaredBool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

@@ -1,15 +1,16 @@
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
+package sim
 // Chord distance
 // Orloci (1967b)
 // Legendre & Legendre (1998): 279, eq. 7.37 (D3 index)
-
-package sim
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
-// Chord distance matrix, float data
+// Chord_D returns a Chord distance matrix for floating-point data. 
 func Chord_D(data *Matrix) *Matrix {
 	rows := data.R
 	cols := data.C

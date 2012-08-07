@@ -1,7 +1,8 @@
-// Baroni-Urbani and Buser (dis)similarity matrix
-// Baroni-Urbani & Buser (1976), Wolda (1981)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Baroni-Urbani and Buser (dis)similarity matrix
+// Baroni-Urbani & Buser (1976), Wolda (1981)
 
 import (
 	. "go-eco.googlecode.com/hg/eco"

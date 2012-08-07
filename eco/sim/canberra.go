@@ -1,14 +1,15 @@
-// Canberra distance and similarity
-// Lance G. N. and Williams W. T. (1967) Mixed data classificatory programs. 1. Agglomerative systems. Aust. Comput. J. 1, 82-85. 
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Canberra distance and similarity
+// Lance G. N. and Williams W. T. (1967) Mixed data classificatory programs. 1. Agglomerative systems. Aust. Comput. J. 1, 82-85. 
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 	. "math"
 )
 
-// Canberra distance matrix
+// Canberra_D returns a Canberra distance matrix. 
 func Canberra_D(data *Matrix) *Matrix {
 	rows := data.R
 	cols := data.C
@@ -33,9 +34,9 @@ func Canberra_D(data *Matrix) *Matrix {
 	return out
 }
 
-// Scaled Canberra distance matrix
-// Reference needed!
+// CanberraSc_D returns a Scaled Canberra distance matrix. 
 func CanberraSc_D(data *Matrix) *Matrix {
+// Reference needed!
 	rows := data.R
 	cols := data.C
 	out := NewMatrix(rows, rows) // square distance matrix row vs. row
@@ -65,6 +66,7 @@ func CanberraSc_D(data *Matrix) *Matrix {
 	return out
 }
 
+// CanberraBool_D returns a Canberra distance matrix for boolean data. It equals to GowerZBool.
 func CanberraBool_D(data *Matrix) *Matrix {
 	//same as GowerZBool()
 	return GowerZBool_D(data)

@@ -1,7 +1,8 @@
-// Canonical distance
-// == Euclidean
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Canonical distance
+// == Euclidean
 
 import (
 	. "go-eco.googlecode.com/hg/eco"

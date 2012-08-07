@@ -1,16 +1,17 @@
-// Clark dissimilarity
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Clark dissimilarity
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
-// Clark matrix, count or interval data
+// Clark_D returns Clark dissimilarity matrix for count or interval data. 
+func Clark_D(data *Matrix) *Matrix {
 // Clark (1952)
 // Legendre & Legendre (1998): 283, eq. 7.51 (D11 index)
-func Clark_D(data *Matrix) *Matrix {
 	rows := data.R
 	cols := data.C
 	out := NewMatrix(rows, rows)

@@ -1,14 +1,15 @@
-// Chebychev distance
-// Chebychev distance is a special case of the Minkowski metric, where p = ∞
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Chebychev distance
+// Chebychev distance is a special case of the Minkowski metric, where p = ∞
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 	. "math"
 )
 
-// Chebychev distance matrix
+// Chebychev_D returns Chebychev distance matrix, which is a special case of the Minkowski metric, where p = ∞.
 func Chebychev_D(data *Matrix) *Matrix {
 	rows := data.R
 	cols := data.C

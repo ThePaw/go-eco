@@ -1,8 +1,9 @@
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
+package sim
 // Bray–Curtis distance
 // d[jk] = (sum abs(x[ij]-x[ik])/(sum (x[ij]+x[ik]))
 // Bray JR, Curtis JT (1957) An ordination of the upland forest communities in southern Wisconsin. Ecol. Monogr. 27:325-349.
-
-package sim
 
 import (
 	. "go-eco.googlecode.com/hg/eco"

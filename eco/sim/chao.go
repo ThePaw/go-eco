@@ -1,20 +1,21 @@
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
+package sim
 // Chao distance
 // Chao's index (Ecol. Lett. 8, 148-159; 2005) tries to take into
 // account the number of unseen shared species using Chao's method for
 // estimating the number of unseen species.
 // Chao, A., Chazdon, R. L., Colwell, R. K. and Shen, T. (2005). A new statistical approach for assessing similarity of species composition with incidence and abundance data. Ecology Letters 8, 148–159. 
 
-package sim
-
 import (
 	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
-// Chao distance matrix
+// Chao_D returns Chao distance matrix. 
+func Chao_D(data *Matrix) *Matrix {
 // Chao et al. (2005)
 // Algorithm inspired by R:vegan
-func Chao_D(data *Matrix) *Matrix {
 	var v float64
 
 	rows := data.R
