@@ -2,11 +2,7 @@
 
 package sim
 
-// Arrhenius dissimilarity: the value of z in the species-area model
-// S = c*A^z when combining two sites of equal areas, where S is the
-// number of species, A is the area, and c and z are model parameters.
-// The A below is not the area (which cancels out), but number of
-// species in one of the sites, as defined in designdist().
+// Arrhenius dissimilarity
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
@@ -15,6 +11,11 @@ import (
 
 // Arrhenius distance matrix, for boolean data
 func ArrheniusBool_D(data *Matrix) *Matrix {
+	// Arrhenius dissimilarity: the value of z in the species-area model
+	// S = c*A^z when combining two sites of equal areas, where S is the
+	// number of species, A is the area, and c and z are model parameters.
+	// The A below is not the area (which cancels out), but number of
+	// species in one of the sites, as defined in designdist().
 	var (
 		aa, bb, jj float64
 		out        *Matrix
