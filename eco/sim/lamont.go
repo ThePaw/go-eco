@@ -1,13 +1,14 @@
-// Lamont similarity matrix
-// Lamont and Grant (1979)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Lamont similarity matrix
+// Lamont and Grant (1979)
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
-// Lamont similarity matrix
+// LamontBool_S returns a Lamont similarity matrix for boolean data. 
 func LamontBool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

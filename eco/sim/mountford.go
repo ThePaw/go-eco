@@ -1,6 +1,7 @@
-// Mountford dissimilarity and similarity
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Mountford dissimilarity and similarity
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
@@ -15,7 +16,8 @@ func mount_der(theta, j, a, b float64) float64 {
 	return a*Exp(theta*a) + b*Exp(theta*b) - (a+b-j)*Exp(theta*(a+b-j))
 }
 
-// Mountford distance matrix
+// Mountford_D returns a Mountford distance matrix for floating-point data. 
+func Mountford_D(data *Matrix) *Matrix {
 // Mountford index is defined as M = 1/α where α is the parameter of Fisher's logseries 
 // assuming that the compared communities are samples from the same community. 
 // The index M is found as the positive root of equation exp(a*M) + exp(b*M) = 1 + exp((a+b-j)*M), 
@@ -27,7 +29,6 @@ func mount_der(theta, j, a, b float64) float64 {
 // one of the communities could be a subset of other, and the dissimilarity is 0 meaning that non-identical objects may be regarded 
 // as similar and the index is non-metric. The Mountford index is in the range 0 ... log(2), but the dissimilarities are divided by log(2) 
 // so that the results will be in the conventional range 0 ... 1. 
-func Mountford_D(data *Matrix) *Matrix {
 	const (
 		maxit = 20
 		ε     = 1e-12
@@ -94,7 +95,7 @@ func Mountford_D(data *Matrix) *Matrix {
 	return out
 }
 
-// Mountford similarity matrix, for boolean data
+// MountfordBool_S returns a Mountford similarity matrix for boolean data. 
 func MountfordBool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c, v float64 // these are actually counts, but float64 simplifies the formulas

@@ -1,14 +1,15 @@
-// Geodesic distance
-// Legendre & Legendre (1998): 280, eq. 7.39 (D4 index)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Geodesic distance
+// Legendre & Legendre (1998): 280, eq. 7.39 (D4 index)
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
-// Geodesic distance matrix, float data
+// Geodesic_D returns a Geodesic distance matrix for floating-point data. 
 func Geodesic_D(data *Matrix) *Matrix {
 	rows := data.R
 	cols := data.C

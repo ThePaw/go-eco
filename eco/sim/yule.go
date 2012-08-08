@@ -1,13 +1,15 @@
-// Yule similarity matrix
-// Legendre & Legendre 1998: 256, eq. 7.8. 
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Yule similarity matrix
+// Legendre & Legendre 1998: 256, eq. 7.8. 
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
 // Yule similarity matrix
+// YuleBool_S returns a Yule similarity matrix for boolean data. 
 func YuleBool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

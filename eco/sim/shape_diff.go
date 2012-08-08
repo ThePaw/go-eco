@@ -1,11 +1,13 @@
-// Shape difference distance matrix
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Shape difference distance matrix
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
+// ShapeDiffBool_D returns a Shape difference distance matrix for boolean data. 
 func ShapeDiffBool_D(data *Matrix) *Matrix {
 	var (
 		a, b, c, d float64

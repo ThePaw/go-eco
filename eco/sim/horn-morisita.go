@@ -1,13 +1,15 @@
-// Horn-Morisita similarity matrix
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Horn-Morisita similarity matrix
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
-// Horn-Morisita similarity matrix, from R:vegan
+// HornMorisita_S returns a Horn-Morisita similarity matrix for floating-point data. 
 func HornMorisita_S(data *Matrix) *Matrix {
+//  From R:vegan
 	rows := data.R
 	cols := data.C
 	out := NewMatrix(rows, rows)

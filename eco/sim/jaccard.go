@@ -1,13 +1,14 @@
-// Jaccard similarity matrix
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Jaccard similarity matrix
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
-// Jaccard similarity matrix
-// Legendre & Legendre 1998: 256, eq. 7.10 (S7 index)
+// JaccardBool_S returns a Jaccard similarity matrix for boolean data. 
+// Legendre & Legendre 1998: 256, eq. 7.10 (S7 index). 
 func JaccardBool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

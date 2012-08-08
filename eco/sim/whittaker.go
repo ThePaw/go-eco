@@ -1,13 +1,14 @@
-// Whittaker dissimilarity
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Whittaker dissimilarity
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
-// Whittaker dissimilarity matrix, boolean data
+// WhittakerBool_D returns a Whittaker dissimilarity matrix for boolean data. 
 // Whittaker (1960), Magurran (1988)
 func WhittakerBool_D(data *Matrix) *Matrix {
 	var (
@@ -27,9 +28,9 @@ func WhittakerBool_D(data *Matrix) *Matrix {
 	return out
 }
 
-// Whittaker distance matrix, count or interval data
-// Whittaker (1952)
-// Legendre & Legendre (1998): 282, eq. 7.47 (D9 index)
+// Whittaker_D returns a Whittaker distance matrix for count or interval data. 
+// Whittaker (1952); 
+// Legendre & Legendre (1998): 282, eq. 7.47 (D9 index). 
 func Whittaker_D(data *Matrix) *Matrix {
 	rows := data.R
 	cols := data.C

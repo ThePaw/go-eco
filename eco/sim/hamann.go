@@ -1,18 +1,19 @@
-// Hamann similarity matrix
-// Holley JW, Guilford JP 1964 A note on the G index of agreement. Educational and Psychological Measurement, 24(7):749-753.
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Hamann similarity matrix
+// Holley JW, Guilford JP 1964 A note on the G index of agreement. Educational and Psychological Measurement, 24(7):749-753.
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
-// Hamann similarity matrix
+
+// HamannBool_S returns a Hamann similarity matrix for boolean data.
+func HamannBool_S(data *Matrix) *Matrix {
 // Legendre & Legendre 1998: 256, eq. 7.7. 
 // S9 index of Gower & Legendre (1986)
 // S6 index of R:ade4:dist.binary
-
-func HamannBool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)

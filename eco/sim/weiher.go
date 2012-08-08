@@ -1,13 +1,15 @@
-// Weiher dissimilarity matrix
-// Weiher & Boylen (1994)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Weiher dissimilarity matrix
+// Weiher & Boylen (1994)
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
-// Weiher dissimilarity matrix
+// WeiherBool_D returns a Weiher dissimilarity matrix for boolean data. 
+// Weiher & Boylen (1994)
 func WeiherBool_D(data *Matrix) *Matrix {
 	var (
 		b, c float64 // these are actually counts, but float64 simplifies the formulas

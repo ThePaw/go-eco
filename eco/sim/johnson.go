@@ -1,14 +1,15 @@
-// Johnson similarity matrix
-// Johnson (1971), Johnson (1967)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Johnson similarity matrix
+// Johnson (1971), Johnson (1967)
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
-// Johnson similarity matrix #1
-// Johnson (1971)
+// Johnson1Bool_S returns a Johnson similarity matrix #1 for boolean data. 
+// Johnson (1971). 
 func Johnson1Bool_S(data *Matrix) *Matrix {
 	var (
 		a, b float64 // these are actually counts, but float64 simplifies the formulas
@@ -27,7 +28,7 @@ func Johnson1Bool_S(data *Matrix) *Matrix {
 	return out
 }
 
-// Johnson similarity matrix #2
+// Johnson2Bool_S returns a Johnson similarity matrix #2 for boolean data. 
 // Johnson (1967)
 func Johnson2Bool_S(data *Matrix) *Matrix {
 	var (

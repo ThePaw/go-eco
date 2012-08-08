@@ -1,13 +1,14 @@
-// Fossum similarity matrix
-// Holliday et al. (2002), Ellis et al. (1993)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Fossum similarity matrix
+// Holliday et al. (2002), Ellis et al. (1993)
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
-// Fossum similarity matrix
+// FossumBool_S returns a Fossum similarity matrix for boolean data.
 func FossumBool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

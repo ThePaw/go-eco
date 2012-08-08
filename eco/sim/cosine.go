@@ -1,14 +1,16 @@
-// Cosine complement distance
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Cosine complement distance
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
-// Cosine complement distance matrix, for boolean data
+// CosineBool_D returns a Cosine complement distance matrix for boolean data.
 func CosineBool_D(data *Matrix) *Matrix {
+//references needed!
 	var (
 		aa, bb, jj float64
 		out        *Matrix
@@ -33,6 +35,8 @@ func CosineBool_D(data *Matrix) *Matrix {
 	return out
 }
 
+// Cosine_D returns a Cosine complementdistance matrix for floating-point data. 
+func Cosine_D(data *Matrix) *Matrix {
 // Cosine distance matrix
 // Algorithm taken from: Carbonell, J.G.& al. 1997 Translingual Information
 // Retrieval: A comparative evaluation. IJCAI'97. See also Salton, G. 1989
@@ -46,7 +50,6 @@ func CosineBool_D(data *Matrix) *Matrix {
 // the use of the cosine (or Ochiai coefficient):
 // cos=OS=sigma(k)Y(ki)Y(kj)/sqrt{[sigma(k)(Y(ki)^2)][sigma(k)(Y(kj))^2)]}"
 // <-- this is obviously for disance between data->cols, not data->rows (++pac). 
-func Cosine_D(data *Matrix) *Matrix {
 	rows := data.R
 	cols := data.C
 	out := NewMatrix(rows, rows)

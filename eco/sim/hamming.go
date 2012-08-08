@@ -8,6 +8,7 @@ import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
+// Hamming_D returns a Hamming distance matrix. 
 func hamming_D(data *Matrix) *Matrix {
 	rows := data.R
 	cols := data.C
@@ -36,13 +37,13 @@ func hamming_D(data *Matrix) *Matrix {
 	return out
 }
 
-// Hamming distance matrix, for boolean data
+// HammingBool_D returns a Hamming distance matrix for boolean data.
 func HammingBool_D(data *Matrix) *Matrix {
 	WarnIfNotBool(data)
 	return hamming_D(data)
 }
 
-// Hamming distance matrix, for categorical data
+// HammingCat_D returns a Hamming distance matrix for categorical data.
 func HammingCat_D(data *Matrix) *Matrix {
 	//	checkIfCat(data)
 	return hamming_D(data)

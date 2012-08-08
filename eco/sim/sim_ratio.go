@@ -1,10 +1,13 @@
-// Similarity ratio matrix
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 package sim
+// Similarity ratio matrix
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
+// SimRatio_S returns a Similarity ratio similarity matrix for floating-point data. 
 func SimRatio_S(data *Matrix) *Matrix {
 	rows := data.R
 	cols := data.C

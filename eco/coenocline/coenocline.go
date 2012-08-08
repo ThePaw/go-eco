@@ -124,7 +124,6 @@ func betaSRF(opt, tol, max, α, γ, x float64) (y float64) {
 	// solve lo, hi
 /////gnuplot> f(x)=k*(x-l)**a * (h-x)**g
 
-.......
 	// Return zero if x is not in (lo,hi)
 	if x <= lo || x >= hi {
 		y = 0

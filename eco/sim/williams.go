@@ -1,14 +1,16 @@
-// Williams dissimilarity matrix
-// Williams (1996), Koleff et al. (2003)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Williams dissimilarity matrix
+// Williams (1996), Koleff et al. (2003)
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
-// Williams dissimilarity matrix #1
+// Williams1Bool_D returns a Williams dissimilarity matrix #1 for boolean data. 
+// Williams (1996), Koleff et al. (2003)
 func Williams1Bool_D(data *Matrix) *Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
@@ -27,7 +29,8 @@ func Williams1Bool_D(data *Matrix) *Matrix {
 	return out
 }
 
-// Williams dissimilarity matrix #2
+// Williams2Bool_D returns a Williams dissimilarity matrix #2 for boolean data. 
+// Williams (1996), Koleff et al. (2003)
 func Williams2Bool_D(data *Matrix) *Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

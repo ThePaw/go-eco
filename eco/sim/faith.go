@@ -1,15 +1,15 @@
-// Faith similarity
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Faith similarity
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
-// Faith similarity matrix
-// Faith (1983)
-// Legendre & Legendre (1998): 258, eq. 7.18 (S26 index)
+// FaithBool_S returns a Faith similarity matrix for boolean data  (S26 index in Legendre & Legendre, 1998). 
 func FaithBool_S(data *Matrix) *Matrix {
+// Faith (1983)
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)

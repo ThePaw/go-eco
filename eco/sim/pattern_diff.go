@@ -1,10 +1,13 @@
-// Pattern difference distance matrix
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 package sim
+// Pattern difference distance matrix
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
+// PatternDiffBool_D returns a Pattern difference distance matrix for boolean data. 
 func PatternDiffBool_D(data *Matrix) *Matrix {
 	var (
 		a, b, c, d float64

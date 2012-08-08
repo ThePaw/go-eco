@@ -1,3 +1,6 @@
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
+package sim
 // Morisita distance and similarity
 // d[jk] = 1 - 2*sum(x[ij]*x[ik])/((lambda[j]+lambda[k]) * sum(x[ij])*sum(x[ik]))
 // where lambda[j] = sum(x[ij]*(x[ij]-1))/sum(x[ij])*sum(x[ij]-1)
@@ -5,13 +8,11 @@
 // fail with unfortunate pairs of species occurring only once.
 // Morisita (1959)
 
-package sim
-
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
-// Morisita distance matrix
+// Morisita_D returns a Morisita distance matrix for floating-point data. 
 // Morisita (1959)
 func Morisita_D(data *Matrix) *Matrix {
 	rows := data.R

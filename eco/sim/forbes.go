@@ -1,14 +1,15 @@
-// Forbes similarity matrix
-// Forbes (1925), Shi (1993)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Forbes similarity matrix
+// Forbes (1925), Shi (1993)
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
-// Forbes similarity matrix
+// ForbesBool_S returns a Forbes similarity matrix for boolean data.
 func ForbesBool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

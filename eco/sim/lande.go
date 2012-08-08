@@ -1,12 +1,14 @@
-// Lande dissimilarity
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Lande dissimilarity
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
 // Lande dissimilarity matrix
+// LandeBool_D returns a Lande dissimilarity matrix for boolean data. 
 func LandeBool_D(data *Matrix) *Matrix {
 	var (
 		b, c float64 // these are actually counts, but float64 simplifies the formulas

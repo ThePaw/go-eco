@@ -1,12 +1,13 @@
-// Wilson - Shmida dissimilarity
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Wilson - Shmida dissimilarity
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
-// Wilson - Shmida dissimilarity matrix
+// WilsonShmidaBool_D returns a Wilson - Shmida dissimilarity matrix for boolean data. 
 func WilsonShmidaBool_D(data *Matrix) *Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

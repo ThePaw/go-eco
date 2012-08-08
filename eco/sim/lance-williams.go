@@ -1,10 +1,13 @@
-// Lance-Williams similarity
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 package sim
+// Lance-Williams distance
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
+// LanceWilliamsBool_D returns a Lance-Williams distance matrix for boolean data. 
 func LanceWilliamsBool_D(data *Matrix) *Matrix {
 	var (
 		a, b, c float64

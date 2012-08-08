@@ -1,13 +1,14 @@
-// Cody dissimilarity matrix
-// Cody (1993)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Cody dissimilarity matrix
+// Cody (1993)
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
-// Cody dissimilarity matrix
+// CodyBool_D returns a Cody dissimilarity matrix for boolean data.
 func CodyBool_D(data *Matrix) *Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

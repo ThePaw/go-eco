@@ -1,15 +1,17 @@
-// Czekanowski dissimilarity
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 package sim
+// Czekanowski dissimilarity
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
-// Czekanowski dissimilarity matrix #1
+// Czekanowski1_D returns a Czekanowski dissimilarity matrix #1 (D8 index in Legendre & Legendre, 1998)
+func Czekanowski1_D(data *Matrix) *Matrix {
 // Czekanowski (1909)
 // Legendre & Legendre (1998): 282, eq. 7.46 (D8 index)
-func Czekanowski1_D(data *Matrix) *Matrix {
 	rows := data.R
 	cols := data.C
 	out := NewMatrix(rows, rows)
@@ -34,9 +36,9 @@ func Czekanowski1_D(data *Matrix) *Matrix {
 	return out
 }
 
-// Czekanowski dissimilarity matrix #2
-// Reference needed !
+// Czekanowski2_D returns a Czekanowski dissimilarity matrix #2 for floating-point data. 
 func Czekanowski2_D(data *Matrix) *Matrix {
+// Reference needed !
 	rows := data.R
 	cols := data.C
 	out := NewMatrix(rows, rows)

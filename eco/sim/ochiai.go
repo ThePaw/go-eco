@@ -1,16 +1,17 @@
-// Ochiai distance and similarity
-// Ochiai (1957)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+// Ochiai distance and similarity
+// Ochiai (1957)
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
-// Ochiai similarity matrix
-// Ochiai (1957)
-// Legendre & Legendre (1998): 258, eq. 7.17 (S14 index)
+// OchiaiBool_S returns a Ochiai similarity matrix for boolean data. 
+// Ochiai (1957); 
+// Legendre & Legendre (1998): 258, eq. 7.17 (S14 index). 
 func OchiaiBool_S(data *Matrix) *Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
@@ -29,7 +30,8 @@ func OchiaiBool_S(data *Matrix) *Matrix {
 	return out
 }
 
-// Ochiai distance matrix, for boolean data (according to R: vegan)
+// OchiaiBool_D returns a Ochiai distance matrix for boolean data. 
+// According to R: vegan. 
 func OchiaiBool_D(data *Matrix) *Matrix {
 	var (
 		aa, bb, jj float64
