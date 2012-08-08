@@ -1,11 +1,11 @@
-package sim
+package div
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 func check(x, y float64) bool {
-	const acc float64 = 1e-4 // accuracy
+	const acc float64 = 1e-2 // accuracy
 	var z float64
 	if x/y > 1.00 {
 		z = y / x
@@ -109,47 +109,3 @@ func GetCatData() *Matrix {
 	}
 	return data
 }
-
-// Get count data matrix
-func GetCounts() *Matrix {
-	var (
-		data *Matrix
-	)
-	rows := 3
-	cols := 26
-	arr := [...]float64{4,5,1,1,2,0,0,1,3,0,8,45,23,0,5,1,1,2,0,0,1,0,0,8,43,0,
-0,8,2,0,0,1,45,23,0,5,1,1,2,0,0,4,5,1,1,0,3,1,0,0,8,45,
-1,1,2,0,0,1,0,0,8,45,0,0,0,1,3,0,8,45,23,4,5,1,1,2,5,0}
-
-
-	data = NewMatrix(rows, cols)
-	for i := 0; i < rows; i++ {
-		for j := 0; j < cols; j++ {
-			data.Set(i, j, arr[i*cols+j])
-		}
-	}
-	return data
-}
-
-// Get count data matrix #2
-func GetCounts2() *Matrix {
-	var (
-		data *Matrix
-	)
-	rows := 2
-	cols := 8
-	arr := [...]float64{1,0,4,3,5,0,0,7,
-2,1,3,0,0,1,0,6}
-
-
-
-	data = NewMatrix(rows, cols)
-	for i := 0; i < rows; i++ {
-		for j := 0; j < cols; j++ {
-			data.Set(i, j, arr[i*cols+j])
-		}
-	}
-	return data
-}
-
-

@@ -5,7 +5,7 @@
 package sim
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // Hamming_D returns a Hamming distance matrix. 

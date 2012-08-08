@@ -13,7 +13,7 @@ package sim
 // Kaufman, L. and Rousseeuw, P.J. (1990), Finding Groups in Data: An Introduction to Cluster Analysis. Wiley, New York. 
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 	. "math"
 )
 

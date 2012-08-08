@@ -6,7 +6,7 @@ package sim
 // Legendre & Legendre 1998: 256, eq. 7.8. 
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // Yule similarity matrix

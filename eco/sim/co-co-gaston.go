@@ -6,7 +6,7 @@ package sim
 // Colwell & Coddington (1948), Gaston et al. (2001)
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // CoCoGastonBool_D returns Colwell - Coddington - Gaston et al.  dissimilarity matrix for boolean data.

@@ -6,7 +6,7 @@ package sim
 // Cody (1993)
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // CodyBool_D returns a Cody dissimilarity matrix for boolean data.

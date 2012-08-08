@@ -6,7 +6,7 @@ package sim
 // Forbes (1925), Shi (1993)
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 	"math"
 )
 

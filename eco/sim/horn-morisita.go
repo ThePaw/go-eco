@@ -5,7 +5,7 @@ package sim
 // Horn-Morisita similarity matrix
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // HornMorisita_S returns a Horn-Morisita similarity matrix for floating-point data. 

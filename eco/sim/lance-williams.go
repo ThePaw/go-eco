@@ -5,7 +5,7 @@ package sim
 // Lance-Williams distance
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // LanceWilliamsBool_D returns a Lance-Williams distance matrix for boolean data. 

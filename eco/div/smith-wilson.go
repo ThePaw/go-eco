@@ -4,8 +4,8 @@
 package div
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
-	. "go-eco.googlecode.com/hg/eco/rich"
+	. "code.google.com/p/go-eco/eco"
+	. "code.google.com/p/go-eco/eco/rich"
 	"math"
 )
 

@@ -4,7 +4,7 @@
 package sim
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // Rogers - Tanimoto similarity matrix

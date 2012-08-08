@@ -3,7 +3,7 @@
 package sim
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // S1 matrix

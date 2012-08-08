@@ -5,7 +5,7 @@ package sim
 // Shannon distance matrix
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 	"math"
 )
 

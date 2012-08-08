@@ -4,7 +4,7 @@
 package rich
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // First-order jackknife estimator of species richness for boolean (= incidence, presence-absence) data

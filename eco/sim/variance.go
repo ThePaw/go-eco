@@ -1,7 +1,7 @@
 package sim
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 func VarianceBool_D(data *Matrix) *Matrix {

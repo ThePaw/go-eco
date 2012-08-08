@@ -7,7 +7,7 @@ package sim
 // Oosting (1956), Southwood (1978)
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 	. "math"
 )
 

@@ -5,7 +5,7 @@ package sim
 // Lande dissimilarity
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // Lande dissimilarity matrix

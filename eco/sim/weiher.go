@@ -6,7 +6,7 @@ package sim
 // Weiher & Boylen (1994)
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // WeiherBool_D returns a Weiher dissimilarity matrix for boolean data. 

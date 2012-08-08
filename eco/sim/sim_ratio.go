@@ -5,7 +5,7 @@ package sim
 // Similarity ratio matrix
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // SimRatio_S returns a Similarity ratio similarity matrix for floating-point data. 

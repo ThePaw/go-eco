@@ -6,7 +6,7 @@ package sim
 // Holley JW, Guilford JP 1964 A note on the G index of agreement. Educational and Psychological Measurement, 24(7):749-753.
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // HamannBool_S returns a Hamann similarity matrix for boolean data.

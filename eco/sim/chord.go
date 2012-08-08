@@ -7,7 +7,7 @@ package sim
 // Legendre & Legendre (1998): 279, eq. 7.37 (D3 index)
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 	"math"
 )
 

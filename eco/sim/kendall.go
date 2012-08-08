@@ -8,7 +8,7 @@ package sim
 // tau = number of concordant pairs- number of discordant pairs) / (n*(n-1)/2)
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // KendallTau_S returns a Kendall tau correlations as similarity matrix for floating-point data. 

@@ -6,7 +6,7 @@ package sim
 // Chebychev distance is a special case of the Minkowski metric, where p = ∞
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 	. "math"
 )
 

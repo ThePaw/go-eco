@@ -1,7 +1,7 @@
 // Species richness vector
 package rich
 
-import . "go-eco.googlecode.com/hg/eco"
+import . "code.google.com/p/go-eco/eco"
 
 // Species richness vector
 // Richness R simply quantifies how many different types the dataset of interest contains. For example, species richness (usually notated S) of a dataset is the number of different species 

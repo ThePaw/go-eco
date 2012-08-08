@@ -6,7 +6,7 @@ package sim
 // Holliday et al. (2002), Ellis et al. (1993)
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // FossumBool_S returns a Fossum similarity matrix for boolean data.

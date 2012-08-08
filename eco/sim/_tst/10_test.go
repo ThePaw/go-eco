@@ -2,7 +2,7 @@ package sim
 
 import (
 	"fmt"
-	mtx "go-eco.googlecode.com/hg/eco"
+	mtx "code.google.com/p/go-eco/eco"
 	"testing"
 )
 

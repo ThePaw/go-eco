@@ -6,7 +6,7 @@ package sim
 // Dice (1945), Wolda (1981)
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 	"math"
 )
 

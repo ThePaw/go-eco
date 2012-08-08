@@ -4,7 +4,7 @@ package rich
 
 import (
 	//	"go-fn.googlecode.com/hg/fn"
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 	"math"
 )
 

@@ -5,7 +5,7 @@ package sim
 // Faith similarity
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // FaithBool_S returns a Faith similarity matrix for boolean data  (S26 index in Legendre & Legendre, 1998). 

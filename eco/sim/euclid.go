@@ -7,7 +7,7 @@ package sim
 // Similarity is 1.00/(d+1), so that it is in [0, 1]
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 	"math"
 )
 

@@ -5,7 +5,7 @@ package sim
 // Pattern difference distance matrix
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // PatternDiffBool_D returns a Pattern difference distance matrix for boolean data. 

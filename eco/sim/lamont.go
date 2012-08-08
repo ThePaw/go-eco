@@ -6,7 +6,7 @@ package sim
 // Lamont and Grant (1979)
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // LamontBool_S returns a Lamont similarity matrix for boolean data. 

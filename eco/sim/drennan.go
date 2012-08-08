@@ -9,7 +9,7 @@ package sim
 // multidimensional scaling. American antiquity, 41: 290-302.
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // Drennan_D returns a Drennan distance matrix for floating-point data. 

@@ -6,7 +6,7 @@ package sim
 // Johnson (1971), Johnson (1967)
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // Johnson1Bool_S returns a Johnson similarity matrix #1 for boolean data. 

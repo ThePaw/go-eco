@@ -2,7 +2,7 @@
 package sim
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // SpearmanRho_S returns a Spearman's ρ (rho)  similarity matrix for floating-point data. 

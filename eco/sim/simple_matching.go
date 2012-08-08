@@ -7,7 +7,7 @@ package sim
 // Legendre & Legendre 1998: 255, eq. 7.1 (S1 index). 
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // SimpleMatchingBool_S returns a Simple matching coefficient (also called Sokal - Michener) similarity matrix for boolean data. 

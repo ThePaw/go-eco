@@ -5,7 +5,7 @@ package sim
 // Shape difference distance matrix
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // ShapeDiffBool_D returns a Shape difference distance matrix for boolean data. 

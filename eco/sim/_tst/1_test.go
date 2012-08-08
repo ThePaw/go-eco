@@ -3,7 +3,7 @@ package sim
 import (
 	"testing"
 	//	"fmt"
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // test against known values

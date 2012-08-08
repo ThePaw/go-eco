@@ -2,38 +2,23 @@ package sim
 
 import (
 	"fmt"
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 	"testing"
 )
-
-// Get boolean data matrix of two identical rows
-func GetBoolIdent() *Matrix {
-	var (
-		data *Matrix
-	)
-	rows := 2
-	cols := 100
-	arr := [...]float64{1,0,0,1,0,1,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,0,0,0,0,0,1,0,0,1,0,1,0,1,1,1,1,0,1,0,0,0,0,1,0,1,1,0,1,1,1,1,1,1,0,1,1,1,1,0,1,0,0,1,0,0,1,1,1,1,1,1,0,1,0,1,
-1,0,0,1,0,1,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,0,0,0,0,0,1,0,0,1,0,1,0,1,1,1,1,0,1,0,0,0,0,1,0,1,1,0,1,1,1,1,1,1,0,1,1,1,1,0,1,0,0,1,0,0,1,1,1,1,1,1,0,1,0,1}
-
-	data = NewMatrix(rows, cols)
-	for i := 0; i < rows; i++ {
-		for j := 0; j < cols; j++ {
-			data.Set(i, j, arr[i*cols+j])
-		}
-	}
-	return data
-}
 
 
 // Test of two identical rows
 func TestIdent(t *testing.T) {
-	fmt.Println("### Values of similarity indices for identical samples")
+	fmt.Println("Values of sim/dis indices for identical samples")
 	var (
 		data, out *Matrix
 		x float64
 	)
 	data = GetBoolIdent()
+
+	out = WhittakerBool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Whittaker: ", x)
 
 	out = MountfordBool_S(data)
 	x = out.Get(0, 1)
@@ -42,6 +27,14 @@ func TestIdent(t *testing.T) {
 	out = YuleBool_S(data)
 	x = out.Get(0, 1)
 	fmt.Println("Yule: ", x)
+
+	out = WilsonShmidaBool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("WilsonShmida: ", x)
+
+	out = CoCoGastonBool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("CoCoGaston: ", x)
 
 	out = OchiaiBool_S(data)
 	x = out.Get(0, 1)
@@ -54,6 +47,18 @@ func TestIdent(t *testing.T) {
 	out = SorensenBool_S(data)
 	x = out.Get(0, 1)
 	fmt.Println("Sorensen: ", x)
+
+	out = Williams1Bool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Williams1: ", x)
+
+	out = Williams2Bool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Williams2: ", x)
+
+	out = WeiherBool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Weiher: ", x)
 
 	out = StilesBool_S(data)
 	x = out.Get(0, 1)
@@ -83,6 +88,10 @@ func TestIdent(t *testing.T) {
 	x = out.Get(0, 1)
 	fmt.Println("SokalSneath5: ", x)
 
+	out = Simpson1Bool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Simpson1: ", x)
+
 	out = Simpson2Bool_S(data)
 	x = out.Get(0, 1)
 	fmt.Println("Simpson2: ", x)
@@ -94,6 +103,18 @@ func TestIdent(t *testing.T) {
 	out = RuggieroBool_S(data)
 	x = out.Get(0, 1)
 	fmt.Println("Ruggiero: ", x)
+
+	out = Routledge1Bool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Routledge1: ", x)
+
+	out = Routledge2Bool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Routledge2: ", x)
+
+	out = Routledge3Bool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Routledge3: ", x)
 
 	out = RogersTanimotoBool_S(data)
 	x = out.Get(0, 1)
@@ -115,9 +136,25 @@ func TestIdent(t *testing.T) {
 	x = out.Get(0, 1)
 	fmt.Println("Margaleff: ", x)
 
+	out = ManhattanBool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Manhattan: ", x)
+
+	out = MagurranBool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Magurran: ", x)
+
 	out = MaarelBool_S(data)
 	x = out.Get(0, 1)
 	fmt.Println("Maarel: ", x)
+
+	out = Lennon1Bool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Lennon1: ", x)
+
+	out = Lennon2Bool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Lennon2: ", x)
 
 	out = Legendre1Bool_S(data)
 	x = out.Get(0, 1)
@@ -126,6 +163,10 @@ func TestIdent(t *testing.T) {
 	out = Legendre2Bool_S(data)
 	x = out.Get(0, 1)
 	fmt.Println("Legendre2: ", x)
+
+	out = LandeBool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Lande: ", x)
 
 	out = LamontBool_S(data)
 	x = out.Get(0, 1)
@@ -147,6 +188,14 @@ func TestIdent(t *testing.T) {
 	x = out.Get(0, 1)
 	fmt.Println("Johnson2: ", x)
 
+	out = HarteBool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Harte: ", x)
+
+	out = HarrisonBool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Harrison: ", x)
+
 	out = HamannBool_S(data)
 	x = out.Get(0, 1)
 	fmt.Println("Hamann: ", x)
@@ -163,6 +212,18 @@ func TestIdent(t *testing.T) {
 	x = out.Get(0, 1)
 	fmt.Println("Forbes: ", x)
 
+	out = EyraudBool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Eyraud: ", x)
+
+	out = EuclidBool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Euclid: ", x)
+
+	out = DivergenceBool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Divergence: ", x)
+
 	out = DiceBool_S(data)
 	x = out.Get(0, 1)
 	fmt.Println("Dice: ", x)
@@ -170,6 +231,10 @@ func TestIdent(t *testing.T) {
 	out = DennisBool_S(data)
 	x = out.Get(0, 1)
 	fmt.Println("Dennis: ", x)
+
+	out = CodyBool_S(data)
+	x = out.Get(0, 1)
+	fmt.Println("Cody: ", x)
 
 	out = ChiSquaredBool_S(data)
 	x = out.Get(0, 1)
@@ -191,95 +256,6 @@ func TestIdent(t *testing.T) {
 	out = FagerBool_S(data)
 	x = out.Get(0, 1)
 	fmt.Println("Fager: ", x)
-
-
-	fmt.Println("### Values of dissimilarity indices for identical samples")
-
-	out = WhittakerBool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Whittaker: ", x)
-
-	out = WilsonShmidaBool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("WilsonShmida: ", x)
-
-	out = CoCoGastonBool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("CoCoGaston: ", x)
-
-	out = Williams1Bool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Williams1: ", x)
-
-	out = Williams2Bool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Williams2: ", x)
-
-	out = WeiherBool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Weiher: ", x)
-
-	out = Simpson1Bool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Simpson1: ", x)
-
-	out = Routledge1Bool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Routledge1: ", x)
-
-	out = Routledge2Bool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Routledge2: ", x)
-
-	out = Routledge3Bool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Routledge3: ", x)
-
-	out = ManhattanBool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Manhattan: ", x)
-
-	out = MagurranBool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Magurran: ", x)
-
-	out = Lennon1Bool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Lennon1: ", x)
-
-	out = Lennon2Bool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Lennon2: ", x)
-
-	out = LandeBool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Lande: ", x)
-
-	out = HarteBool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Harte: ", x)
-
-	out = HarrisonBool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Harrison: ", x)
-
-	out = EyraudBool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Eyraud: ", x)
-
-	out = EuclidBool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Euclid: ", x)
-
-	out = DivergenceBool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Divergence: ", x)
-
-	out = CodyBool_D(data)
-	x = out.Get(0, 1)
-	fmt.Println("Cody: ", x)
-
-
 }
 
 

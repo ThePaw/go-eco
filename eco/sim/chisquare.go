@@ -6,7 +6,7 @@ package sim
 // Yule & Kendall (1950)
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // ChiSquaredBool_S returns Chi - Squared similarity matrix for boolean data. 

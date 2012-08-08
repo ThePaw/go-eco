@@ -6,7 +6,7 @@ package sim
 // Ellis et al. (1993)
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 	"math"
 )
 

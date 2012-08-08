@@ -5,7 +5,7 @@ package sim
 // Jaccard similarity matrix
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // JaccardBool_S returns a Jaccard similarity matrix for boolean data. 

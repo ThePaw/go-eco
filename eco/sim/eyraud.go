@@ -7,7 +7,7 @@ package sim
 // Warning: it gives values near zero for both identical, and complementary data!!! STRANGE!
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // EyraudBool_D returns a Eyraud dissimilarity matrix for boolean data.

@@ -5,7 +5,7 @@ package sim
 // Pearson rho correlations as similarity matrix
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 	"math"
 )
 

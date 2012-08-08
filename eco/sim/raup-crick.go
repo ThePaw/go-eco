@@ -6,7 +6,7 @@ package sim
 // Raup & Crick (1979). 
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 	"go-fn.googlecode.com/hg/fn"
 	. "gostat.googlecode.com/hg/stat/prob"
 	"math"

@@ -5,7 +5,7 @@ package sim
 // Wilson - Shmida dissimilarity
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // WilsonShmidaBool_D returns a Wilson - Shmida dissimilarity matrix for boolean data. 

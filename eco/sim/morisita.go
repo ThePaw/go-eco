@@ -10,7 +10,7 @@ package sim
 // Morisita (1959)
 
 import (
-	. "go-eco.googlecode.com/hg/eco"
+	. "code.google.com/p/go-eco/eco"
 )
 
 // Morisita_D returns a Morisita distance matrix for floating-point data. 
