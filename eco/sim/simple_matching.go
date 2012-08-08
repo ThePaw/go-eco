@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Simple matching coefficient similarity matrix. 
 // Sokal RR, Michener CD 1958 A statistical method for evaluating systematic relationship. University of Kansas Science Bulletin, 38:1409-1438. 
 // Legendre & Legendre 1998: 255, eq. 7.1 (S1 index). 

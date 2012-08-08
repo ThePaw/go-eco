@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Colwell - Coddington - Gaston dissimilarity
 // Colwell & Coddington (1948), Gaston et al. (2001)
 

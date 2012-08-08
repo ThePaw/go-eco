@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Kendall tau correlations as similarity matrix
 // Let (x1, y1), (x2, y2), …, (xn, yn) be a set of joint observations from two random variables X and Y respectively, such that all the values of (xi) and (yi) are unique. Any pair of observations (xi, yi) and (xj, yj) are said to be concordant if the ranks for both elements agree: that is, if both xi > xj and yi > yj or if both xi < xj and yi < yj. They are said to be discordant, if xi > xj and yi < yj or if xi < xj and yi > yj. If xi = xj or yi = yj, the pair is neither concordant nor discordant.
 // The Kendall τ coefficient is defined as:

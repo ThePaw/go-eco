@@ -1,10 +1,11 @@
-// Pearson??? rho correlations as similarity matrix ???????
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 package sim
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 )
 
+// SpearmanRho_S returns a Spearman's ρ (rho)  similarity matrix for floating-point data. 
 func SpearmanRho_S(data *Matrix) *Matrix {
 	rows := data.R
 	cols := data.C

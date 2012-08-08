@@ -1,29 +1,39 @@
-// Raup - Crick distance and similarity
-// Raup & Crick (1979)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Raup - Crick distance and similarity. 
+// Raup & Crick (1979). 
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 	"go-fn.googlecode.com/hg/fn"
-	"gostat.googlecode.com/hg/stat/prob"
+	. "gostat.googlecode.com/hg/stat/prob"
 	"math"
 )
 
-// Raup - Crick distance matrix for presence-absence data
-// Raup - Crick distance is a probabilistic index based on presence/absence data. It is defined as 1 - prob(j), 
-// or based on the probability of observing at least j species in shared in compared communities. 
-// Legendre & Legendre (1998) suggest using simulations to assess the probability, but the current function uses analytic result 
-// from hypergeometric distribution instead. This probability (and the index) is dependent on the number of species missing in both sites, 
-// and adding all-zero species to the data or removing missing species from the data will influence the index. 
-// The probability (and the index) may be almost zero or almost one for a wide range of parameter values. 
-// The index is nonmetric: two communities with no shared species may have a dissimilarity slightly below one, 
-// and two identical communities may have dissimilarity slightly above zero. 
-// Compared to other metrics for p/a data, Raup-Crick seems to be very robust for small samples.
-// Algorithm from R:vegan
-// phyper(k, m, size-m, n) == Hypergeometric_CDF_At(size, m, n, k)
+func probK(a, b, n, k int64) float64 {
+	logNum1 := fn.LnFactBig(b) - (fn.LnFactBig(b-k) + fn.LnFactBig(k))
+	logNum2 := fn.LnFactBig(n-b) - (fn.LnFactBig(n-b-a+k) + fn.LnFactBig(a-k))
+	logDen := fn.LnFactBig(n) - (fn.LnFactBig(n-a) + fn.LnFactBig(a))
+	return math.Exp(logNum1 + logNum2 - logDen)
+}
 
-func RaupCrickBoolBool_D(data *Matrix) *Matrix {
+// RaupCrickBool_D returns a Raup - Crick distance matrix for boolean data. 
+// Algorithm from R:vegan. 
+func RaupCrickBool_D(data *Matrix) *Matrix {
+	// Raup - Crick distance is a probabilistic index based on presence/absence data. It is defined as 1 - prob(j), 
+	// or based on the probability of observing at least j species in shared in compared communities. 
+	// Legendre & Legendre (1998) suggest using simulations to assess the probability, but the current function uses analytic result 
+	// from hypergeometric distribution instead. This probability (and the index) is dependent on the number of species missing in both sites, 
+	// and adding all-zero species to the data or removing missing species from the data will influence the index. 
+	// The probability (and the index) may be almost zero or almost one for a wide range of parameter values. 
+	// The index is nonmetric: two communities with no shared species may have a dissimilarity slightly below one, 
+	// and two identical communities may have dissimilarity slightly above zero. 
+	// Compared to other metrics for p/a data, Raup-Crick seems to be very robust for small samples.
+	// Algorithm from R:vegan
+	// phyper(k, m, size-m, n) == Hypergeometric_CDF_At(size, m, n, k)
+
 	var (
 		v                          float64
 		aaa, bbb, jjj, t1, t2, sim int64
@@ -71,7 +81,7 @@ func RaupCrickBoolBool_D(data *Matrix) *Matrix {
 			//	v = 1 - phyper(jjj, aaa, float64(count) - aaa, bbb, 1, 0);
 
 			//fmt.Println("hyper: ", cols, aaa, bbb, jjj)
-			v = 1.0 - pdf.Hypergeometric_CDF_At(int64(cols), aaa, bbb, jjj)
+			v = 1.0 - Hypergeometric_CDF_At(int64(cols), aaa, bbb, jjj)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -79,14 +89,7 @@ func RaupCrickBoolBool_D(data *Matrix) *Matrix {
 	return out
 }
 
-func probK(a, b, n, k int64) float64 {
-	logNum1 := fn.LnFactBig(b) - (fn.LnFactBig(b-k) + fn.LnFactBig(k))
-	logNum2 := fn.LnFactBig(n-b) - (fn.LnFactBig(n-b-a+k) + fn.LnFactBig(a-k))
-	logDen := fn.LnFactBig(n) - (fn.LnFactBig(n-a) + fn.LnFactBig(a))
-	return math.Exp(logNum1 + logNum2 - logDen)
-}
-
-// Raup - Crick similarity matrix #1
+// RaupCrickBool1_S returns a Raup - Crick similarity matrix #1 for boolean data. 
 // Raup & Crick (1979): 1217, eq. 4
 // This is the naive version of their similarity index;
 // for final version, use the algorithm described on page 1219
@@ -132,11 +135,11 @@ func RaupCrickBool1_S(data *Matrix) *Matrix {
 	return out
 }
 
-// Raup - Crick similarity matrix #2
-// Raup & Crick (1979): 1219
-// This is the final version of their similarity index.
+// RaupCrickBool2_S returns a Raup - Crick similarity matrix #2 for boolean data. 
+// Raup & Crick (1979): 1219. 
+// This is the final version of their similarity index. 
 func RaupCrickBool2_S(data *Matrix, p []float64) *Matrix {
-	const iter int = 1e3
+	const iter int = 1e3 // number of iterations, adjust according to speed
 
 	rows := data.R
 	cols := data.C
@@ -202,7 +205,7 @@ func RaupCrickBool2_S(data *Matrix, p []float64) *Matrix {
 			L1:
 				for {
 					// draw from categorical ditribution
-					cat := pdf.NextChoice(p)
+					cat := NextChoice(p)
 					// add the species to assemblage, if new
 					if a[cat] == 0 {
 						a[cat] = 1
@@ -222,7 +225,7 @@ func RaupCrickBool2_S(data *Matrix, p []float64) *Matrix {
 			L2:
 				for {
 					// draw from categorical ditribution
-					cat := pdf.NextChoice(p)
+					cat := NextChoice(p)
 					// add the species to assemblage, if new
 					if b[cat] == 0 {
 						b[cat] = 1

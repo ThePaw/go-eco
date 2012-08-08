@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Kulczynski similarity and distance matrix
 // Kulczynski (1928)
 // Oosting (1956), Southwood (1978)

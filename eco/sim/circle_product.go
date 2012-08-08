@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Circle product similarity
 // Marquardt, W.H. 1978 Archaeological seriation. In: Schiffer, M.B.(ed.)
 // Advances in Archaeological Method and Theory. Academic Press, N.Y., p.281.

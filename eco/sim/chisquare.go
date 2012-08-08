@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Chi - Squared similarity matrix
 // Yule & Kendall (1950)
 

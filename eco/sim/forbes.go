@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Forbes similarity matrix
 // Forbes (1925), Shi (1993)
 

@@ -1,11 +1,15 @@
-// Shannon similarity matrix
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 package sim
+
+// Shannon distance matrix
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
+// ShannonBool_D returns a Shannon distance matrix for boolean data. 
 func ShannonBool_D(data *Matrix) *Matrix {
 	var (
 		b, c float64

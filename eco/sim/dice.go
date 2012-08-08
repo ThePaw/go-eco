@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Dice's similarity and dissimilarity matrix
 // Dice (1945), Wolda (1981)
 
@@ -8,6 +9,7 @@ import (
 	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
+
 // DiceBool_S returns a Dice's similarity matrix for boolean data.
 func DiceBool_S(data *Matrix) *Matrix {
 	var (
@@ -29,10 +31,10 @@ func DiceBool_S(data *Matrix) *Matrix {
 
 // DiceBool_D returns a Dice's dissimilarity matrix for boolean data.
 func DiceBool_D(data *Matrix) *Matrix {
-// Dice's dissimilarity
-// it is not a proper distance metric as it does not possess the property of triangle inequality
-// Dice = 2*Jaccard / (1 + Jaccard)
-// Formula from R:vegan 
+	// Dice's dissimilarity
+	// it is not a proper distance metric as it does not possess the property of triangle inequality
+	// Dice = 2*Jaccard / (1 + Jaccard)
+	// Formula from R:vegan 
 	var (
 		aa, bb, jj float64
 		out        *Matrix

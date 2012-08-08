@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Mountford dissimilarity and similarity
 
 import (
@@ -18,17 +19,17 @@ func mount_der(theta, j, a, b float64) float64 {
 
 // Mountford_D returns a Mountford distance matrix for floating-point data. 
 func Mountford_D(data *Matrix) *Matrix {
-// Mountford index is defined as M = 1/α where α is the parameter of Fisher's logseries 
-// assuming that the compared communities are samples from the same community. 
-// The index M is found as the positive root of equation exp(a*M) + exp(b*M) = 1 + exp((a+b-j)*M), 
-// where j is the number of species occurring in both communities, and a and b are the number of species 
-// in each separate community (so the index uses presence–absence information). 
-// Mountford index is usually misrepresented in the literature: indeed Mountford (1962) suggested 
-// an approximation to be used as starting value in iterations, but the proper index is defined as the root of the equation above. 
-// The function solves M with the Newton method. Please note that if either a or b are equal to j, 
-// one of the communities could be a subset of other, and the dissimilarity is 0 meaning that non-identical objects may be regarded 
-// as similar and the index is non-metric. The Mountford index is in the range 0 ... log(2), but the dissimilarities are divided by log(2) 
-// so that the results will be in the conventional range 0 ... 1. 
+	// Mountford index is defined as M = 1/α where α is the parameter of Fisher's logseries 
+	// assuming that the compared communities are samples from the same community. 
+	// The index M is found as the positive root of equation exp(a*M) + exp(b*M) = 1 + exp((a+b-j)*M), 
+	// where j is the number of species occurring in both communities, and a and b are the number of species 
+	// in each separate community (so the index uses presence–absence information). 
+	// Mountford index is usually misrepresented in the literature: indeed Mountford (1962) suggested 
+	// an approximation to be used as starting value in iterations, but the proper index is defined as the root of the equation above. 
+	// The function solves M with the Newton method. Please note that if either a or b are equal to j, 
+	// one of the communities could be a subset of other, and the dissimilarity is 0 meaning that non-identical objects may be regarded 
+	// as similar and the index is non-metric. The Mountford index is in the range 0 ... log(2), but the dissimilarities are divided by log(2) 
+	// so that the results will be in the conventional range 0 ... 1. 
 	const (
 		maxit = 20
 		ε     = 1e-12

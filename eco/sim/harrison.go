@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Harrison dissimilarity matrix
 // Harrison et al. (1992), Koleff et al. (2003)
 

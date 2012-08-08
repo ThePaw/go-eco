@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Cosine complement distance
 
 import (
@@ -10,7 +11,7 @@ import (
 
 // CosineBool_D returns a Cosine complement distance matrix for boolean data.
 func CosineBool_D(data *Matrix) *Matrix {
-//references needed!
+	//references needed!
 	var (
 		aa, bb, jj float64
 		out        *Matrix
@@ -37,19 +38,19 @@ func CosineBool_D(data *Matrix) *Matrix {
 
 // Cosine_D returns a Cosine complementdistance matrix for floating-point data. 
 func Cosine_D(data *Matrix) *Matrix {
-// Cosine distance matrix
-// Algorithm taken from: Carbonell, J.G.& al. 1997 Translingual Information
-// Retrieval: A comparative evaluation. IJCAI'97. See also Salton, G. 1989
-// Automatic text processing: The transformation, Analysis, and retrieval of
-// information by computer. Addison-Wesley, Reading, Pennsylvania.
-// Jongman, et. al., 1995, page 178)--"More emphasis is given to qualitative
-// aspects by not considering a site as point but as a vector.Understandably,
-// the direction of this vector tells us something about the relative
-// abundances of species. The similarity of two sites can be expressed as some 
-// function of the angle between the vector of these sites. Quite common is
-// the use of the cosine (or Ochiai coefficient):
-// cos=OS=sigma(k)Y(ki)Y(kj)/sqrt{[sigma(k)(Y(ki)^2)][sigma(k)(Y(kj))^2)]}"
-// <-- this is obviously for disance between data->cols, not data->rows (++pac). 
+	// Cosine distance matrix
+	// Algorithm taken from: Carbonell, J.G.& al. 1997 Translingual Information
+	// Retrieval: A comparative evaluation. IJCAI'97. See also Salton, G. 1989
+	// Automatic text processing: The transformation, Analysis, and retrieval of
+	// information by computer. Addison-Wesley, Reading, Pennsylvania.
+	// Jongman, et. al., 1995, page 178)--"More emphasis is given to qualitative
+	// aspects by not considering a site as point but as a vector.Understandably,
+	// the direction of this vector tells us something about the relative
+	// abundances of species. The similarity of two sites can be expressed as some 
+	// function of the angle between the vector of these sites. Quite common is
+	// the use of the cosine (or Ochiai coefficient):
+	// cos=OS=sigma(k)Y(ki)Y(kj)/sqrt{[sigma(k)(Y(ki)^2)][sigma(k)(Y(kj))^2)]}"
+	// <-- this is obviously for disance between data->cols, not data->rows (++pac). 
 	rows := data.R
 	cols := data.C
 	out := NewMatrix(rows, rows)

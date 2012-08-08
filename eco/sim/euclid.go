@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Euclidean distance and similarity
 // In N dimensions, the Euclidean distance between two points p and q is √(∑i=1N (pi-qi)²) where pi (or qi) is the coordinate of p (or q) in dimension i.
 // Similarity is 1.00/(d+1), so that it is in [0, 1]
@@ -106,8 +107,8 @@ func EuclidSqBool_D(data *Matrix) *Matrix {
 
 // EuclidBool_D returns a Boolean Euclidean dissimilarity matrix for boolean data.
 func EuclidBool_D(data *Matrix) *Matrix {
-// Boolean Euclidean dissimilarity matrix
-// Mean Euclidean in Ellis et al. (1993)
+	// Boolean Euclidean dissimilarity matrix
+	// Mean Euclidean in Ellis et al. (1993)
 	out := EuclidSqBool_D(data)
 	rows := data.R
 	for i := 0; i < rows; i++ {

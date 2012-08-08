@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Williams dissimilarity matrix
 // Williams (1996), Koleff et al. (2003)
 

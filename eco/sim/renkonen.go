@@ -1,12 +1,15 @@
-// Renkonen dissimilarity and similarity matrix
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 package sim
+
+// Renkonen dissimilarity matrix
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
-// Renkonen dissimilarity
+// Renkonen_D returns a Renkonen dissimilarity matrix for floating-point data. 
 func Renkonen_D(data *Matrix) *Matrix {
 
 	// recalculate data to proportions

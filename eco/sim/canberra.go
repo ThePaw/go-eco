@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Canberra distance and similarity
 // Lance G. N. and Williams W. T. (1967) Mixed data classificatory programs. 1. Agglomerative systems. Aust. Comput. J. 1, 82-85. 
 
@@ -36,7 +37,7 @@ func Canberra_D(data *Matrix) *Matrix {
 
 // CanberraSc_D returns a Scaled Canberra distance matrix. 
 func CanberraSc_D(data *Matrix) *Matrix {
-// Reference needed!
+	// Reference needed!
 	rows := data.R
 	cols := data.C
 	out := NewMatrix(rows, rows) // square distance matrix row vs. row

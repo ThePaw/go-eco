@@ -1,12 +1,15 @@
-// Pearson rho correlations as similarity matrix
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 package sim
+
+// Pearson rho correlations as similarity matrix
 
 import (
 	. "go-eco.googlecode.com/hg/eco"
 	"math"
 )
 
-// Pearson's ρ (rho) similarity matrix
+// PearsonRho_S returns a Pearson's ρ (rho)  similarity matrix for floating-point data. 
 func PearsonRho_S(data *Matrix) *Matrix {
 	rows := data.R
 	cols := data.C
@@ -48,10 +51,10 @@ func PearsonRho_S(data *Matrix) *Matrix {
 	return out
 }
 
-// Pearson's Φ similarity matrix
-// Phi of Pearson, Gower & Legendre (1986), Yule (1912)
-// !!! CHECK against L&L 1998 !!!
+// PearsonPhiBool_S returns a Pearson's Φ  similarity matrix for boolean data. 
+// Phi of Pearson, Gower & Legendre (1986), Yule (1912).
 func PearsonPhiBool_S(data *Matrix) *Matrix {
+	// !!! CHECK against L&L 1998 !!!
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)

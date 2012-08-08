@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Divergence dissimilarity matrix
 // Ellis et al. (1993)
 
@@ -11,8 +12,8 @@ import (
 
 // DivergenceBool_D returns a Divergence dissimilarity matrix for boolean data.
 func DivergenceBool_D(data *Matrix) *Matrix {
-// Divergence dissimilarity matrix
-// Ellis et al. (1993)
+	// Divergence dissimilarity matrix
+	// Ellis et al. (1993)
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)

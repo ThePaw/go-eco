@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Johnson similarity matrix
 // Johnson (1971), Johnson (1967)
 

@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Dennis similarity matrix
 // Holliday et al. (2002), Ellis et al. (1993)
 

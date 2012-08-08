@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Eyraud dissimilarity matrix
 // Eyraud (1936) in Shi (1993)
 // Warning: it gives values near zero for both identical, and complementary data!!! STRANGE!

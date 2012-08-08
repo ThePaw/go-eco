@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Chord distance
 // Orloci (1967b)
 // Legendre & Legendre (1998): 279, eq. 7.37 (D3 index)

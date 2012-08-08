@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Chebychev distance
 // Chebychev distance is a special case of the Minkowski metric, where p = ∞
 

@@ -9,7 +9,7 @@ import (
 
 // FagerBool_S returns a Fager similarity matrix for boolean data.
 func FagerBool_S(data *Matrix) *Matrix {
-// Fager (1957), Shi (1993)
+	// Fager (1957), Shi (1993)
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)

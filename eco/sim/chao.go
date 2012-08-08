@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Chao distance
 // Chao's index (Ecol. Lett. 8, 148-159; 2005) tries to take into
 // account the number of unseen shared species using Chao's method for
@@ -14,8 +15,8 @@ import (
 
 // Chao_D returns Chao distance matrix. 
 func Chao_D(data *Matrix) *Matrix {
-// Chao et al. (2005)
-// Algorithm inspired by R:vegan
+	// Chao et al. (2005)
+	// Algorithm inspired by R:vegan
 	var v float64
 
 	rows := data.R

@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Geodesic distance
 // Legendre & Legendre (1998): 280, eq. 7.39 (D4 index)
 

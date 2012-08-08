@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Arrhenius dissimilarity: the value of z in the species-area model
 // S = c*A^z when combining two sites of equal areas, where S is the
 // number of species, A is the area, and c and z are model parameters.

@@ -1,6 +1,7 @@
 // Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
 // Gower distance and similarity
 // Gower is like Manhattan, but data are standardized to range 0..1
 // for rows and distance is divided by the number of pairs with both non-missing values. 
@@ -63,8 +64,8 @@ func Gower_D(data *Matrix) *Matrix {
 
 // GowerOrd_D returns a Gower distance matrix for rank ordered variables. 
 func GowerOrd_D(data *Matrix, kr bool) *Matrix {
-// If kr == true, the extension of the Gower's dissimilarity measure proposed by Kaufman and Rousseeuw (1990) is used. 
-// Otherwise, the original Gower's (1971) dissimilarity is considered. 
+	// If kr == true, the extension of the Gower's dissimilarity measure proposed by Kaufman and Rousseeuw (1990) is used. 
+	// Otherwise, the original Gower's (1971) dissimilarity is considered. 
 	const missing float64 = -999 //code for missing values
 
 	rows := data.R
@@ -142,7 +143,7 @@ func GowerBool_D(data *Matrix) *Matrix {
 
 // GowerZBool_D returns a Gower-Z distance matrix for boolean data.
 func GowerZBool_D(data *Matrix) *Matrix {
-// Citation needed
+	// Citation needed
 	var (
 		a, b, c, _ float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -168,7 +169,7 @@ func GowerZBool_D(data *Matrix) *Matrix {
 
 // GowerBool_S returns a Gower similarity matrix for boolean data.
 func GowerBool_S(data *Matrix) *Matrix {
-// Gower & Legendre (1986)
+	// Gower & Legendre (1986)
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
