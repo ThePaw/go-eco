@@ -1,6 +1,8 @@
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
+package sim
 // Levenshtein distance
 // Levenshtein VI (1966). "Binary codes capable of correcting deletions, insertions, and reversals". Soviet Physics Doklady 10: 707–10. 
-package sim
 
 /*
 Computing the Levenshtein distance is based on the observation that if we reserve a matrix to hold the Levenshtein distances between all prefixes of the first string and all prefixes of the second, then we can compute the values in the matrix by flood filling the matrix, and thus find the distance between the two full strings as the last value computed.
