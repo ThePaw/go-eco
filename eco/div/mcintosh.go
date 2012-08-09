@@ -3,13 +3,13 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // McIntosh D  diversity index
 // McIntosh 1967
-func McIntosh_D(data *Matrix) *Vector {
+func McIntosh_D(data *aux.Matrix) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)
@@ -30,7 +30,7 @@ func McIntosh_D(data *Matrix) *Vector {
 }
 
 // McIntosh E  equitability index
-func McIntosh_E(data *Matrix) *Vector {
+func McIntosh_E(data *aux.Matrix) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)

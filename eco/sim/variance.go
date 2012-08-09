@@ -1,24 +1,24 @@
 package sim
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
-func VarianceBool_D(data *Matrix) *Matrix {
+func VarianceBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
-		out        *Matrix
+		out        *aux.Matrix
 		a, b, c, d int64
 	)
 
 	rows := data.R
 	cols := data.C
-	out = NewMatrix(rows, rows)
+	out = aux.NewMatrix(rows, rows)
 	a = 0
 	b = 0
 	c = 0
 	d = 0
 
-	WarnIfNotBool(data)
+	aux.WarnIfNotBool(data)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

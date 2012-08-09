@@ -1,7 +1,7 @@
 package rich
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 func check(x, y float64) bool {

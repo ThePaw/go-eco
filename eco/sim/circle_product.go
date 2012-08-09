@@ -10,15 +10,15 @@ package sim
 // sciences. Edinburgh University Press, pp. 215-252. 
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	. "math"
 )
 
 // CircleProduct_S returns a Circle product similarity matrix. 
-func CircleProduct_S(data *Matrix) *Matrix {
+func CircleProduct_S(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 1.0)

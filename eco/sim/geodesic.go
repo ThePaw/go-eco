@@ -6,15 +6,15 @@ package sim
 // Legendre & Legendre (1998): 280, eq. 7.39 (D4 index)
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // Geodesic_D returns a Geodesic distance matrix for floating-point data. 
-func Geodesic_D(data *Matrix) *Matrix {
+func Geodesic_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

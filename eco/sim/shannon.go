@@ -5,20 +5,20 @@ package sim
 // Shannon distance matrix
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // ShannonBool_D returns a Shannon distance matrix for boolean data. 
-func ShannonBool_D(data *Matrix) *Matrix {
+func ShannonBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		b, c float64
 	)
 
-	WarnIfNotBool(data)
+	aux.WarnIfNotBool(data)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -26,7 +26,7 @@ func ShannonBool_D(data *Matrix) *Matrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			_, b, c, _ = GetABCD(data, i, j)
+			_, b, c, _ = aux.GetABCD(data, i, j)
 			v := 2.0 * (b + c) * math.Log(2.0)
 			out.Set(i, j, v)
 			out.Set(j, i, v)

@@ -10,18 +10,18 @@ package sim
 // Morisita (1959)
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 // Morisita_D returns a Morisita distance matrix for floating-point data. 
 // Morisita (1959)
-func Morisita_D(data *Matrix) *Matrix {
+func Morisita_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	// check whether data are integers; if not, truncate them
-	TruncData(data)
+	aux.TruncData(data)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

@@ -7,15 +7,15 @@ package sim
 // Legendre & Legendre (1998): 279, eq. 7.37 (D3 index)
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // Chord_D returns a Chord distance matrix for floating-point data. 
-func Chord_D(data *Matrix) *Matrix {
+func Chord_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

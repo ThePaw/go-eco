@@ -2,11 +2,11 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-func Atkinson(data *Matrix, epsilon float64) *Vector {
+func Atkinson(data *aux.Matrix, epsilon float64) *Vector {
 	rows := data.R
 	cols := data.C
 	div := NewVector(rows)

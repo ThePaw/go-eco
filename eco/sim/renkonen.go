@@ -5,19 +5,19 @@ package sim
 // Renkonen dissimilarity matrix
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // Renkonen_D returns a Renkonen dissimilarity matrix for floating-point data. 
-func Renkonen_D(data *Matrix) *Matrix {
+func Renkonen_D(data *aux.Matrix) *aux.Matrix {
 
 	// recalculate data to proportions
-	RecalcToProp(data)
+	aux.RecalcToProp(data)
 
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 1.0)

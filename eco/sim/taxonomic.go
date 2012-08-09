@@ -5,15 +5,15 @@
 package sim
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	. "math"
 )
 
 // Taxonomic distance matrix
-func Taxonomic_D(data *Matrix) *Matrix {
+func Taxonomic_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows) // square distance matrix row vs. row
+	out := aux.NewMatrix(rows, rows) // square distance matrix row vs. row
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -41,7 +41,7 @@ func Taxonomic_D(data *Matrix) *Matrix {
 }
 
 // Scaled taxonomic distance matrix
-func TaxonomicSc_D(data *Matrix) *Matrix {
+func TaxonomicSc_D(data *aux.Matrix) *aux.Matrix {
 	out := Taxonomic_D(data)
 	rows := data.R
 

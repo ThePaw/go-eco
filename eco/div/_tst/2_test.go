@@ -3,7 +3,7 @@ package div
 import (
 	"fmt"
 	"testing"
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 // Koleff1 test against R:vegan:betadist

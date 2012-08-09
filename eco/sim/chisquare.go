@@ -6,20 +6,20 @@ package sim
 // Yule & Kendall (1950)
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 // ChiSquaredBool_S returns Chi - Squared similarity matrix for boolean data. 
-func ChiSquaredBool_S(data *Matrix) *Matrix {
+func ChiSquaredBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, d = GetABCD(data, i, j)
+			a, b, c, d = aux.GetABCD(data, i, j)
 			t1 := a + b + c + d
 			t2 := (a*d - b*c)
 			t3 := (a + b) * (a + c) * (b + d) * (c + d)

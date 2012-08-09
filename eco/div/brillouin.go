@@ -2,8 +2,8 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
-	"go-fn.googlecode.com/hg/fn"
+	"code.google.com/p/go-eco/eco/aux"
+	"code.google.com/p/go-fn/fn"
 	"math"
 )
 
@@ -11,7 +11,7 @@ import (
 // Peet RK 1974 The Measurement of Species Diversity. Annual Review of Ecology and Systematics, 5: 293.
 // If heterogeneity  is equated with uncertainty, Shannon-Weaver is a biased indicator validnonly for an infinite sample. 
 // The correct formulation for the finite sample is given by the Brillouin formula.
-func Brillouin(data *Matrix) *Vector {
+func Brillouin(data *aux.Matrix) *Vector {
 	var tot int64
 	rows := data.R
 	cols := data.C

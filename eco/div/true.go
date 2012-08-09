@@ -2,7 +2,7 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
@@ -16,7 +16,7 @@ import (
 // The above equation is often written in the equivalent form:[1][2]
 //    {}^q\!D=\left ( {\sum_{i=1}^R p_i^q} \right )^{1/(1-q)}
 // The term inside the parentheses is called the basic sum. Some popular diversity indices correspond to the basic sum as calculated with different values of q.[2]
-func True(data *Matrix, q float64) *Vector {
+func True(data *aux.Matrix, q float64) *Vector {
 	rows := data.R
 	cols := data.C
 	div := NewVector(cols)

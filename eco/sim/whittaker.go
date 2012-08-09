@@ -5,22 +5,22 @@ package sim
 // Whittaker dissimilarity
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // WhittakerBool_D returns a Whittaker dissimilarity matrix for boolean data. 
 // Whittaker (1960), Magurran (1988)
-func WhittakerBool_D(data *Matrix) *Matrix {
+func WhittakerBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, _ = GetABCD(data, i, j)
+			a, b, c, _ = aux.GetABCD(data, i, j)
 			v := ((a + b + c) / ((2*a + b + c) / 2)) - 1
 			out.Set(i, j, v)
 			out.Set(j, i, v)
@@ -32,10 +32,10 @@ func WhittakerBool_D(data *Matrix) *Matrix {
 // Whittaker_D returns a Whittaker distance matrix for count or interval data. 
 // Whittaker (1952); 
 // Legendre & Legendre (1998): 282, eq. 7.47 (D9 index). 
-func Whittaker_D(data *Matrix) *Matrix {
+func Whittaker_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

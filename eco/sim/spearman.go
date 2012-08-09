@@ -2,15 +2,15 @@
 package sim
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 // SpearmanRho_S returns a Spearman's ρ (rho)  similarity matrix for floating-point data. 
-func SpearmanRho_S(data *Matrix) *Matrix {
+func SpearmanRho_S(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
-	ranks := NewMatrix(rows, cols)
+	out := aux.NewMatrix(rows, rows)
+	ranks := aux.NewMatrix(rows, cols)
 
 	// ToDo: check for ties
 

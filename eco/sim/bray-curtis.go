@@ -7,15 +7,15 @@ package sim
 // Bray JR, Curtis JT (1957) An ordination of the upland forest communities in southern Wisconsin. Ecol. Monogr. 27:325-349.
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	. "math"
 )
 
 // Bray–Curtis distance matrix
-func BrayCurtis_D(data *Matrix) *Matrix {
+func BrayCurtis_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -39,15 +39,15 @@ func BrayCurtis_D(data *Matrix) *Matrix {
 	return out
 }
 
-func BrayCurtisBool_D(data *Matrix) *Matrix {
+func BrayCurtisBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64
 	)
 
-	WarnIfNotBool(data)
+	aux.WarnIfNotBool(data)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -55,7 +55,7 @@ func BrayCurtisBool_D(data *Matrix) *Matrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			a, b, c, _ = GetABCD(data, i, j)
+			a, b, c, _ = aux.GetABCD(data, i, j)
 			v := (b + c) / (2.0 * (a + b + c)) // ???
 			out.Set(i, j, v)
 			out.Set(j, i, v)

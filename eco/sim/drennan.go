@@ -9,15 +9,15 @@ package sim
 // multidimensional scaling. American antiquity, 41: 290-302.
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 // Drennan_D returns a Drennan distance matrix for floating-point data. 
-func Drennan_D(data *Matrix) *Matrix {
+func Drennan_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	percent := NewMatrix(rows, cols) // percentages
-	out := NewMatrix(rows, rows)     // distances
+	percent := aux.NewMatrix(rows, cols) // percentages
+	out := aux.NewMatrix(rows, rows)     // distances
 
 	for i := 0; i < rows; i++ {
 		rowsum := 0.0

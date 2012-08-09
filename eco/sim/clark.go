@@ -5,17 +5,17 @@ package sim
 // Clark dissimilarity
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // Clark_D returns Clark dissimilarity matrix for count or interval data. 
-func Clark_D(data *Matrix) *Matrix {
+func Clark_D(data *aux.Matrix) *aux.Matrix {
 	// Clark (1952)
 	// Legendre & Legendre (1998): 283, eq. 7.51 (D11 index)
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

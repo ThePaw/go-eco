@@ -3,13 +3,13 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // Menhinick diversity index
 // Menhinick 1967
-func Menhinick_D(data *Matrix) *Vector {
+func Menhinick_D(data *aux.Matrix) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)

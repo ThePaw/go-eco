@@ -5,14 +5,14 @@
 package sim
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 // Hamming_D returns a Hamming distance matrix. 
-func hamming_D(data *Matrix) *Matrix {
+func hamming_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -38,13 +38,13 @@ func hamming_D(data *Matrix) *Matrix {
 }
 
 // HammingBool_D returns a Hamming distance matrix for boolean data.
-func HammingBool_D(data *Matrix) *Matrix {
-	WarnIfNotBool(data)
+func HammingBool_D(data *aux.Matrix) *aux.Matrix {
+	aux.WarnIfNotBool(data)
 	return hamming_D(data)
 }
 
 // HammingCat_D returns a Hamming distance matrix for categorical data.
-func HammingCat_D(data *Matrix) *Matrix {
+func HammingCat_D(data *aux.Matrix) *aux.Matrix {
 	//	checkIfCat(data)
 	return hamming_D(data)
 }

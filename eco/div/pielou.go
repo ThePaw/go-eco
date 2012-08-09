@@ -3,12 +3,12 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	. "code.google.com/p/go-eco/eco/rich"
 	"math"
 )
 
-func Pielou_E(data *Matrix, base byte, corr bool) *Vector {
+func Pielou_E(data *aux.Matrix, base byte, corr bool) *Vector {
 	rows := data.R
 	hh := Shannon(data, base, corr)
 	ss := SObs(data)

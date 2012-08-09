@@ -4,20 +4,20 @@
 package sim
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 // Ruggiero similarity matrix
-func RuggieroBool_S(data *Matrix) *Matrix {
+func RuggieroBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, _, c, _ = GetABCD(data, i, j)
+			a, _, c, _ = aux.GetABCD(data, i, j)
 			v := a / (a + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)

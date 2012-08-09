@@ -3,20 +3,20 @@
 package rich
 
 import (
-	//	"go-fn.googlecode.com/hg/fn"
-	. "code.google.com/p/go-eco/eco"
+	//	"code.google.com/p/go-fn/fn"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // Computes the extrapolated species richness of a population using the Abundance - based Coverage Estimator
 // Returns a vector of values representing a minimum number of species present in each assemblage if the entire population was censused.
 // Colwell K et al.  (2012)
-func ACE(data *Matrix) *Vector {
+func ACE(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
-	WarnIfNotCounts(data)
+	aux.WarnIfNotCounts(data)
 
 	for i := 0; i < rows; i++ {
 		nr := 0.0
@@ -60,12 +60,12 @@ func ACE(data *Matrix) *Vector {
 // Computes the extrapolated species richness of a population using the Incidence - based Coverage Estimator
 // Returns a vector of values representing a minimum number of species present in each assemblage if the entire population was censused.
 // Colwell K et al.  (2012)
-func ICE(data *Matrix) *Vector {
+func ICE(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
-	WarnIfNotBool(data)
+	aux.WarnIfNotBool(data)
 
 	for i := 0; i < rows; i++ {
 		nr := 0.0

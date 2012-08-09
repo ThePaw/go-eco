@@ -3,12 +3,12 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // Margalef's D  diversity index
-func Margalef_D(data *Matrix) *Vector {
+func Margalef_D(data *aux.Matrix) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)

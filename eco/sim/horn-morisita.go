@@ -5,15 +5,15 @@ package sim
 // Horn-Morisita similarity matrix
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 // HornMorisita_S returns a Horn-Morisita similarity matrix for floating-point data. 
-func HornMorisita_S(data *Matrix) *Matrix {
+func HornMorisita_S(data *aux.Matrix) *aux.Matrix {
 	//  From R:vegan
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
@@ -46,10 +46,10 @@ func HornMorisita_S(data *Matrix) *Matrix {
 }
 
 // Morisita-Horn similarity matrix, from R:fossil
-func MorisitaHorn2_S(data *Matrix) *Matrix {
+func MorisitaHorn2_S(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {

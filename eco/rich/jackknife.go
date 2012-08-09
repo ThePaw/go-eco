@@ -4,18 +4,18 @@
 package rich
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 // First-order jackknife estimator of species richness for boolean (= incidence, presence-absence) data
 // Burnham and Overton 1978,1979; Heltshe and Forrester 1983
-func Jack1S(data *Matrix) *Vector {
+func Jack1S(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 	m := float64(rows)
 
-	ToBool(data)
+	aux.ToBool(data)
 
 	for i := 0; i < rows; i++ {
 		q1 := 0.0
@@ -37,13 +37,13 @@ func Jack1S(data *Matrix) *Vector {
 
 // Second-order jackknife estimator of species richness for boolean (= incidence, presence-absence) data
 // Smith and van Belle 1984
-func Jack2S(data *Matrix) *Vector {
+func Jack2S(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 	m := float64(rows)
 
-	ToBool(data)
+	aux.ToBool(data)
 
 	for i := 0; i < rows; i++ {
 		q1 := 0.0

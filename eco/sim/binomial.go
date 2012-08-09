@@ -9,15 +9,15 @@ package sim
 // Anderson, M.J. and Millar, R.B. (2004). Spatial variation and effects of habitat on temperate reef fish assemblages in northeastern New Zealand. Journal of Experimental Marine Biology and Ecology 305, 191–221. 
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // Binomial distance matrix
-func Binomial_D(data *Matrix) *Matrix {
+func Binomial_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -40,15 +40,15 @@ func Binomial_D(data *Matrix) *Matrix {
 	return out
 }
 
-func BinomialBool_D(data *Matrix) *Matrix {
+func BinomialBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		b, c float64
 	)
 
-	WarnIfNotBool(data)
+	aux.WarnIfNotBool(data)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -56,7 +56,7 @@ func BinomialBool_D(data *Matrix) *Matrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			_, b, c, _ = GetABCD(data, i, j)
+			_, b, c, _ = aux.GetABCD(data, i, j)
 			v := math.Log(2.0) * (b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)

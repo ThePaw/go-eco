@@ -2,7 +2,7 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
@@ -12,7 +12,7 @@ import (
 //    {}^qH = \log {1 \over \sqrt[q-1]{{\sum_{i=1}^R p_i p_i^{q-1}}}} = \log({}^q\!D)
 //This means that taking the logarithm of true diversity based on any value of q gives the Rényi entropy corresponding to the same value of q.
 
-func Renyi(data *Matrix, q float64) *Vector {
+func Renyi(data *aux.Matrix, q float64) *Vector {
 	rows := data.R
 	cols := data.C
 	div := NewVector(rows)

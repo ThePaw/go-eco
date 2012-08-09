@@ -3,7 +3,7 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"sort"
 )
 
@@ -13,7 +13,7 @@ import (
 // Marshall & Olkin: Inequalities: Theory of Majorization and Its Applications, New York 1979 (Academic Press).
 // In some cases, Gini coefficient can be computed without direct reference to the Lorenz curve. For example, 
 // for a population uniform on the values xi, i = 1 to s, indexed in non-decreasing order ( xi ≤ xi+1).
-func Gini_D(data *Matrix) *Vector {
+func Gini_D(data *aux.Matrix) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)

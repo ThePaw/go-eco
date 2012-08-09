@@ -3,7 +3,7 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"sort"
 )
 
@@ -22,7 +22,7 @@ Xu, K. (1998) "The statistical inference for the Sen-Shorrocks-Thon index of pov
 Xu, K. and L. Osberg (2001) "How to decompose the Sen-Shorrocks-Thon poverty index? A practitioner's Guide," Journal of Income Distribution
 */
 
-func SST_D(data *Matrix, k float64) *Vector {
+func SST_D(data *aux.Matrix, k float64) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)

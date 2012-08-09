@@ -3,13 +3,13 @@
 package sim
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // Test of triangular inequality for distance matrix
 // Returns 0 if holds, or positive integer = number of violations
-func TriIneq(dist *Matrix) int {
+func TriIneq(dist *aux.Matrix) int {
 	n := dist.R
 	ineq := 0
 	for i := 0; i < n-2; i++ {

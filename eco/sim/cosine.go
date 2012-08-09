@@ -5,20 +5,20 @@ package sim
 // Cosine complement distance
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // CosineBool_D returns a Cosine complement distance matrix for boolean data.
-func CosineBool_D(data *Matrix) *Matrix {
+func CosineBool_D(data *aux.Matrix) *aux.Matrix {
 	//references needed!
 	var (
 		aa, bb, jj float64
-		out        *Matrix
+		out        *aux.Matrix
 	)
 
 	rows := data.R
-	out = NewMatrix(rows, rows)
+	out = aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -26,7 +26,7 @@ func CosineBool_D(data *Matrix) *Matrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			aa, bb, jj, _ = GetABJPquad(data, i, j)
+			aa, bb, jj, _ = aux.GetABJPquad(data, i, j)
 			// 1-J/sqrt(A*B)
 			v := 1.0 - jj/math.Sqrt(aa*bb)
 			out.Set(i, j, v)
@@ -37,7 +37,7 @@ func CosineBool_D(data *Matrix) *Matrix {
 }
 
 // Cosine_D returns a Cosine complementdistance matrix for floating-point data. 
-func Cosine_D(data *Matrix) *Matrix {
+func Cosine_D(data *aux.Matrix) *aux.Matrix {
 	// Cosine distance matrix
 	// Algorithm taken from: Carbonell, J.G.& al. 1997 Translingual Information
 	// Retrieval: A comparative evaluation. IJCAI'97. See also Salton, G. 1989
@@ -53,7 +53,7 @@ func Cosine_D(data *Matrix) *Matrix {
 	// <-- this is obviously for disance between data->cols, not data->rows (++pac). 
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

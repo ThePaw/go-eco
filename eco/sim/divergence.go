@@ -6,12 +6,12 @@ package sim
 // Ellis et al. (1993)
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // DivergenceBool_D returns a Divergence dissimilarity matrix for boolean data.
-func DivergenceBool_D(data *Matrix) *Matrix {
+func DivergenceBool_D(data *aux.Matrix) *aux.Matrix {
 	// Divergence dissimilarity matrix
 	// Ellis et al. (1993)
 	var (
@@ -19,10 +19,10 @@ func DivergenceBool_D(data *Matrix) *Matrix {
 	)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, d = GetABCD(data, i, j)
+			a, b, c, d = aux.GetABCD(data, i, j)
 			v := (math.Sqrt(b+c) / math.Sqrt(a+b+c+d))
 			out.Set(i, j, v)
 			out.Set(j, i, v)

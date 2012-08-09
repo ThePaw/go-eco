@@ -4,21 +4,21 @@
 package sim
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 // Sørensen similarity matrix, for boolean data
 // Legendre & Legendre (1998): 256, eq. 7.11  (S8 index)
-func SorensenBool_S(data *Matrix) *Matrix {
+func SorensenBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, _ = GetABCD(data, i, j)
+			a, b, c, _ = aux.GetABCD(data, i, j)
 			v := 2 * a / (2*a + b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
@@ -28,14 +28,14 @@ func SorensenBool_S(data *Matrix) *Matrix {
 }
 
 // Sørensen distance matrix, for boolean data
-func SorensenBool_D(data *Matrix) *Matrix {
+func SorensenBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		aa, bb, jj float64
 	)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
-	WarnIfNotBool(data)
+	out := aux.NewMatrix(rows, rows)
+	aux.WarnIfNotBool(data)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -43,7 +43,7 @@ func SorensenBool_D(data *Matrix) *Matrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			aa, bb, jj, _ = GetABJPbool(data, i, j)
+			aa, bb, jj, _ = aux.GetABJPbool(data, i, j)
 			// (A+B-2*J)/(A+B)
 			v := (aa + bb - 2*jj) / (aa + bb)
 			out.Set(i, j, v)
@@ -55,7 +55,7 @@ func SorensenBool_D(data *Matrix) *Matrix {
 
 /*
 // Sørensen distance matrix, for quantitative data
-func Sorensen_D(data *Matrix) *Matrix {
+func Sorensen_D(data *aux.Matrix) *aux.Matrix {
 	return Czekanowski_D(data)
 }
 */

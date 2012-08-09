@@ -3,7 +3,7 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
@@ -12,7 +12,7 @@ import (
 // F A Cowell: Measuring Inequality, 1995 Prentice Hall/Harvester Wheatshef.
 // Marshall & Olkin: Inequalities: Theory of Majorization and Its Applications, New York 1979 (Academic Press).
 // Algorithm inspired by R:ineq
-func Kolm_D(data *Matrix, m float64) *Vector {
+func Kolm_D(data *aux.Matrix, m float64) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)

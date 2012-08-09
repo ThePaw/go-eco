@@ -7,15 +7,15 @@ package sim
 // Similarity is 1.00/(d+1), so that it is in [0, 1]
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // Euclid_D returns an Euclidean distance matrix for floating-point data. 
-func Euclid_D(data *Matrix) *Matrix {
+func Euclid_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -38,7 +38,7 @@ func Euclid_D(data *Matrix) *Matrix {
 }
 
 // MeanEuclid_D returns a Mean Euclidean distance matrix for floating-point data. 
-func MeanEuclid_D(data *Matrix) *Matrix {
+func MeanEuclid_D(data *aux.Matrix) *aux.Matrix {
 	out := Euclid_D(data)
 	rows := out.R
 	for i := 0; i < rows; i++ {
@@ -52,14 +52,14 @@ func MeanEuclid_D(data *Matrix) *Matrix {
 }
 
 // MeanCensoredEuclid_D returns a Mean Censored Euclidean distance matrix for floating-point data. 
-func MeanCensoredEuclid_D(data *Matrix) *Matrix {
+func MeanCensoredEuclid_D(data *aux.Matrix) *aux.Matrix {
 	var (
-		out *Matrix
+		out *aux.Matrix
 	)
 
 	rows := data.R
 	cols := data.C
-	out = NewMatrix(rows, rows)
+	out = aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -87,16 +87,16 @@ func MeanCensoredEuclid_D(data *Matrix) *Matrix {
 
 // Squared Boolean Euclidean dissimilarity matrix
 // EuclidSqBool_D returns a Squared Euclidean distance matrix for boolean data.
-func EuclidSqBool_D(data *Matrix) *Matrix {
+func EuclidSqBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, d = GetABCD(data, i, j)
+			a, b, c, d = aux.GetABCD(data, i, j)
 			v := (b + c) / (a + b + c + d)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
@@ -106,7 +106,7 @@ func EuclidSqBool_D(data *Matrix) *Matrix {
 }
 
 // EuclidBool_D returns a Boolean Euclidean dissimilarity matrix for boolean data.
-func EuclidBool_D(data *Matrix) *Matrix {
+func EuclidBool_D(data *aux.Matrix) *aux.Matrix {
 	// Boolean Euclidean dissimilarity matrix
 	// Mean Euclidean in Ellis et al. (1993)
 	out := EuclidSqBool_D(data)

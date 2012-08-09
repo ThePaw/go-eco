@@ -5,17 +5,17 @@ package sim
 // Czekanowski dissimilarity
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // Czekanowski1_D returns a Czekanowski dissimilarity matrix #1 (D8 index in Legendre & Legendre, 1998)
-func Czekanowski1_D(data *Matrix) *Matrix {
+func Czekanowski1_D(data *aux.Matrix) *aux.Matrix {
 	// Czekanowski (1909)
 	// Legendre & Legendre (1998): 282, eq. 7.46 (D8 index)
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -38,11 +38,11 @@ func Czekanowski1_D(data *Matrix) *Matrix {
 }
 
 // Czekanowski2_D returns a Czekanowski dissimilarity matrix #2 for floating-point data. 
-func Czekanowski2_D(data *Matrix) *Matrix {
+func Czekanowski2_D(data *aux.Matrix) *aux.Matrix {
 	// Reference needed !
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 1.0)

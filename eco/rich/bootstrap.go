@@ -4,19 +4,19 @@
 package rich
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 // Bootstrap estimator of species richness (incidence-based)
 // Smith and van Belle 1984
-func BootS(data *Matrix) *Vector {
+func BootS(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	p := NewVector(cols)
-	out := NewVector(rows)
+	p := aux.NewVector(cols)
+	out := aux.NewVector(rows)
 	m := float64(rows)
 
-	ToBool(data)
+	aux.ToBool(data)
 
 	// proportions
 	for i := 0; i < rows; i++ {

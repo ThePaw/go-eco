@@ -4,7 +4,7 @@
 package rich
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
@@ -12,12 +12,12 @@ import (
 
 // Computes the Chao species estimator for abundance data, classical formula
 // Chao 1984, 1987
-func ChaoS(data *Matrix) *Vector {
+func ChaoS(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
-	ToCounts(data)
+	aux.ToCounts(data)
 
 	for i := 0; i < rows; i++ {
 		s0 := 0.0
@@ -43,13 +43,13 @@ func ChaoS(data *Matrix) *Vector {
 
 // Computes the Chao species estimator for abundance data, auto-corrected for bias when classical returns NaN
 // Chao 1984, 1987
-func ChaoAutoS(data *Matrix) *Vector {
+func ChaoAutoS(data *aux.Matrix) *aux.Vector {
 	var v float64
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
-	ToCounts(data)
+	aux.ToCounts(data)
 
 	for i := 0; i < rows; i++ {
 		s0 := 0.0
@@ -79,12 +79,12 @@ func ChaoAutoS(data *Matrix) *Vector {
 
 // Computes the bias-corrected Chao species estimator for abundance data
 // Chao 1984, 1987
-func ChaoCorrS(data *Matrix) *Vector {
+func ChaoCorrS(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
-	ToCounts(data)
+	aux.ToCounts(data)
 
 	for i := 0; i < rows; i++ {
 		s0 := 0.0
@@ -110,12 +110,12 @@ func ChaoCorrS(data *Matrix) *Vector {
 
 // Computes the Chao species estimator for boolean (presence-absence) data, classical version
 // Chao 1984, 1987
-func ChaoBoolS(data *Matrix) *Vector {
+func ChaoBoolS(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
-	ToBool(data)
+	aux.ToBool(data)
 
 	for i := 0; i < rows; i++ {
 		s0 := 0.0
@@ -141,13 +141,13 @@ func ChaoBoolS(data *Matrix) *Vector {
 
 // Computes the Chao species estimator for boolean (presence-absence) data, auto-corrected for bias when classical returns NaN
 // Chao 1984, 1987
-func ChaoAutoBoolS(data *Matrix) *Vector {
+func ChaoAutoBoolS(data *aux.Matrix) *aux.Vector {
 	var v float64
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
-	ToBool(data)
+	aux.ToBool(data)
 
 	for i := 0; i < rows; i++ {
 		s0 := 0.0
@@ -177,12 +177,12 @@ func ChaoAutoBoolS(data *Matrix) *Vector {
 
 // Computes the bias-corrected  Chao species estimator for boolean (presence-absence) data
 // Chao 1984, 1987
-func ChaoCorrBoolS(data *Matrix) *Vector {
+func ChaoCorrBoolS(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
-	ToBool(data)
+	aux.ToBool(data)
 
 	for i := 0; i < rows; i++ {
 		s0 := 0.0
@@ -210,12 +210,12 @@ func ChaoCorrBoolS(data *Matrix) *Vector {
 
 // Computes the variance of the Chao species estimator for abundance (count) data, classical formula
 // Chao 1984, 1987
-func ChaoVar(data *Matrix) *Vector {
+func ChaoVar(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
-	ToCounts(data)
+	aux.ToCounts(data)
 
 	for i := 0; i < rows; i++ {
 		f1 := 0.0
@@ -243,12 +243,12 @@ func ChaoVar(data *Matrix) *Vector {
 
 // Computes the variance of the bias-corrected Chao species estimator for abundance (count) data
 // Chao 1984, 1987
-func ChaoCorrVar(data *Matrix) *Vector {
+func ChaoCorrVar(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
-	ToCounts(data)
+	aux.ToCounts(data)
 
 	for i := 0; i < rows; i++ {
 		f1 := 0.0
@@ -275,12 +275,12 @@ func ChaoCorrVar(data *Matrix) *Vector {
 
 // Computes the variance of the Chao species estimator for boolean (presence-absence) data, classical version
 // Chao 1984, 1987
-func ChaoBoolVar(data *Matrix) *Vector {
+func ChaoBoolVar(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
-	ToBool(data)
+	aux.ToBool(data)
 
 	for i := 0; i < rows; i++ {
 		q1 := 0.0
@@ -308,12 +308,12 @@ func ChaoBoolVar(data *Matrix) *Vector {
 
 // Computes the variance of the Chao species estimator for boolean (presence-absence) data, bias-corrected version
 // Chao 1984, 1987
-func ChaoBoolCorrVar(data *Matrix) *Vector {
+func ChaoBoolCorrVar(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
-	ToBool(data)
+	aux.ToBool(data)
 
 	for i := 0; i < rows; i++ {
 		q1 := 0.0
@@ -342,7 +342,7 @@ func ChaoBoolCorrVar(data *Matrix) *Vector {
 
 // Computes the 95% confidence interval of the Chao species estimator (13)
 // Chao 1984, 1987
-func ChaoCI(sObs, chao, variance *Vector) (lo, hi *Vector) {
+func ChaoCI(sObs, chao, variance *aux.Vector) (lo, hi *aux.Vector) {
 	cols := sObs.L
 	if chao.L != cols || variance.L != cols {
 		panic("bad data: unequal lengths")

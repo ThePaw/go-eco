@@ -13,17 +13,17 @@ package sim
 // Kaufman, L. and Rousseeuw, P.J. (1990), Finding Groups in Data: An Introduction to Cluster Analysis. Wiley, New York. 
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	. "math"
 )
 
 // Gower_D returns a Gower distance matrix for floating-point data. 
-func Gower_D(data *Matrix) *Matrix {
+func Gower_D(data *aux.Matrix) *aux.Matrix {
 	const missing float64 = -999 //code for missing values
 
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -63,14 +63,14 @@ func Gower_D(data *Matrix) *Matrix {
 }
 
 // GowerOrd_D returns a Gower distance matrix for rank ordered variables. 
-func GowerOrd_D(data *Matrix, kr bool) *Matrix {
+func GowerOrd_D(data *aux.Matrix, kr bool) *aux.Matrix {
 	// If kr == true, the extension of the Gower's dissimilarity measure proposed by Kaufman and Rousseeuw (1990) is used. 
 	// Otherwise, the original Gower's (1971) dissimilarity is considered. 
 	const missing float64 = -999 //code for missing values
 
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -116,15 +116,15 @@ func GowerOrd_D(data *Matrix, kr bool) *Matrix {
 }
 
 // GowerBool_D returns a Gower distance matrix for boolean data.
-func GowerBool_D(data *Matrix) *Matrix {
+func GowerBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, d float64
 	)
 
-	WarnIfNotBool(data)
+	aux.WarnIfNotBool(data)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -132,7 +132,7 @@ func GowerBool_D(data *Matrix) *Matrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			a, b, c, d = GetABCD(data, i, j)
+			a, b, c, d = aux.GetABCD(data, i, j)
 			v := (b + c) / (a + b + c + d)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
@@ -142,15 +142,15 @@ func GowerBool_D(data *Matrix) *Matrix {
 }
 
 // GowerZBool_D returns a Gower-Z distance matrix for boolean data.
-func GowerZBool_D(data *Matrix) *Matrix {
+func GowerZBool_D(data *aux.Matrix) *aux.Matrix {
 	// Citation needed
 	var (
 		a, b, c, _ float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
-	WarnIfNotBool(data)
+	out := aux.NewMatrix(rows, rows)
+	aux.WarnIfNotBool(data)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -158,7 +158,7 @@ func GowerZBool_D(data *Matrix) *Matrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			a, b, c, _ = GetABCD(data, i, j)
+			a, b, c, _ = aux.GetABCD(data, i, j)
 			v := (b + c) / (a + b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
@@ -168,17 +168,17 @@ func GowerZBool_D(data *Matrix) *Matrix {
 }
 
 // GowerBool_S returns a Gower similarity matrix for boolean data.
-func GowerBool_S(data *Matrix) *Matrix {
+func GowerBool_S(data *aux.Matrix) *aux.Matrix {
 	// Gower & Legendre (1986)
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, d = GetABCD(data, i, j)
+			a, b, c, d = aux.GetABCD(data, i, j)
 			v := (a - (b + c) + d) / (a + b + c + d)
 			out.Set(i, j, v)
 			out.Set(j, i, v)

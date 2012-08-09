@@ -6,9 +6,10 @@ package sim
 // Raup & Crick (1979). 
 
 import (
-	. "code.google.com/p/go-eco/eco"
-	"go-fn.googlecode.com/hg/fn"
-	. "gostat.googlecode.com/hg/stat/prob"
+	"code.google.com/p/go-eco/eco/aux"
+	"code.google.com/p/go-fn/fn"
+	"code.google.com/p/prob/dst"
+//	. "gostat.googlecode.com/hg/stat/prob"
 	"math"
 )
 
@@ -81,7 +82,7 @@ func RaupCrickBool_D(data *Matrix) *Matrix {
 			//	v = 1 - phyper(jjj, aaa, float64(count) - aaa, bbb, 1, 0);
 
 			//fmt.Println("hyper: ", cols, aaa, bbb, jjj)
-			v = 1.0 - Hypergeometric_CDF_At(int64(cols), aaa, bbb, jjj)
+			v = 1.0 - dst.Hypergeometric_CDF_At(int64(cols), aaa, bbb, jjj)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}

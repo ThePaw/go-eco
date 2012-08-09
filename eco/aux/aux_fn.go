@@ -1,6 +1,6 @@
 // Auxiliary functions
 
-package eco
+package aux
 
 import (
 	"fmt"

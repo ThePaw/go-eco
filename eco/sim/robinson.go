@@ -3,15 +3,15 @@
 package sim
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	. "math"
 )
 
-func robinson_S(data *Matrix) *Matrix {
+func robinson_S(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(data.R, data.R) // square similarity matrix row vs. row
-	percent := NewMatrix(data.R, data.C)
+	out := aux.NewMatrix(data.R, data.R) // square similarity matrix row vs. row
+	percent := aux.NewMatrix(data.R, data.C)
 
 	// Set diagonal to 200
 	for i := 0; i < data.R; i++ {

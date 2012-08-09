@@ -2,11 +2,11 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-func Shannon(data *Matrix, base byte, corr bool) *Vector {
+func Shannon(data *aux.Matrix, base byte, corr bool) *Vector {
 	var log float64
 	rows := data.R
 	cols := data.C

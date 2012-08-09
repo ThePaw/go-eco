@@ -3,7 +3,7 @@
 
 package div
 
-import . "code.google.com/p/go-eco/eco"
+import "code.google.com/p/go-eco/eco/aux"
 
 // Simpson index matrix
 // The Simpson index was introduced in 1949 by Edward H. Simpson to measure the degree of concentration when individuals are classified into types.[6] 
@@ -24,7 +24,7 @@ import . "code.google.com/p/go-eco/eco"
 // λ obtains small values in datasets of high diversity and large values in datasets of low diversity. This is counterintuitive behavior for a diversity index, 
 // so often such transformations of λ that increase with increasing diversity have been used instead. The most popular of such indices have been the inverse Simpson index (1/λ) and the Gini-Simpson index (1 - λ).[1][2] 
 // Both of these have also been called the Simpson index in the ecological literature, so care is needed to avoid accidentally comparing the different indices as if they were the same.
-func Simpson_Lambda(data *Matrix, small bool) *Vector {
+func Simpson_Lambda(data *aux.Matrix, small bool) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)
@@ -55,7 +55,7 @@ func Simpson_Lambda(data *Matrix, small bool) *Vector {
 }
 
 // Simpson diversity matrix
-func Simpson(data *Matrix, which byte, small bool) *Vector {
+func Simpson(data *aux.Matrix, which byte, small bool) *Vector {
 	var d float64
 	rows := data.R
 	div := Simpson_Lambda(data, small)
@@ -77,7 +77,7 @@ func Simpson(data *Matrix, which byte, small bool) *Vector {
 
 /*
 // Simpson equitability matrix
-func Simpson_E(data *Matrix, which byte, small bool) *Vector {
+func Simpson_E(data *aux.Matrix, which byte, small bool) *Vector {
 	div := Simpson(data, which, small)
 
 	equ := NewVector(rows)

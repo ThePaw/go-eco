@@ -5,7 +5,7 @@ package sim
 // Mountford dissimilarity and similarity
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	. "math"
 )
 
@@ -18,7 +18,7 @@ func mount_der(theta, j, a, b float64) float64 {
 }
 
 // Mountford_D returns a Mountford distance matrix for floating-point data. 
-func Mountford_D(data *Matrix) *Matrix {
+func Mountford_D(data *aux.Matrix) *aux.Matrix {
 	// Mountford index is defined as M = 1/α where α is the parameter of Fisher's logseries 
 	// assuming that the compared communities are samples from the same community. 
 	// The index M is found as the positive root of equation exp(a*M) + exp(b*M) = 1 + exp((a+b-j)*M), 
@@ -38,7 +38,7 @@ func Mountford_D(data *Matrix) *Matrix {
 
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -97,16 +97,16 @@ func Mountford_D(data *Matrix) *Matrix {
 }
 
 // MountfordBool_S returns a Mountford similarity matrix for boolean data. 
-func MountfordBool_S(data *Matrix) *Matrix {
+func MountfordBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, v float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, _ = GetABCD(data, i, j)
+			a, b, c, _ = aux.GetABCD(data, i, j)
 			if (a*(b+c) + (2 * b * c)) != 0 {
 				v = 2 * a / (a*(b+c) + (2 * b * c))
 			} else {

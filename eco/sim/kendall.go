@@ -8,15 +8,15 @@ package sim
 // tau = number of concordant pairs- number of discordant pairs) / (n*(n-1)/2)
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 // KendallTau_S returns a Kendall tau correlations as similarity matrix for floating-point data. 
-func KendallTau_S(data *Matrix) *Matrix {
+func KendallTau_S(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
-	ranks := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
+	ranks := aux.NewMatrix(rows, rows)
 
 	// ToDo: check for ties
 

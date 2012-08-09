@@ -6,15 +6,15 @@ package sim
 // Lance G. N. and Williams W. T. (1967) Mixed data classificatory programs. 1. Agglomerative systems. Aust. Comput. J. 1, 82-85. 
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	. "math"
 )
 
 // Canberra_D returns a Canberra distance matrix. 
-func Canberra_D(data *Matrix) *Matrix {
+func Canberra_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows) // square distance matrix row vs. row
+	out := aux.NewMatrix(rows, rows) // square distance matrix row vs. row
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -36,11 +36,11 @@ func Canberra_D(data *Matrix) *Matrix {
 }
 
 // CanberraSc_D returns a Scaled Canberra distance matrix. 
-func CanberraSc_D(data *Matrix) *Matrix {
+func CanberraSc_D(data *aux.Matrix) *aux.Matrix {
 	// Reference needed!
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows) // square distance matrix row vs. row
+	out := aux.NewMatrix(rows, rows) // square distance matrix row vs. row
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -68,7 +68,7 @@ func CanberraSc_D(data *Matrix) *Matrix {
 }
 
 // CanberraBool_D returns a Canberra distance matrix for boolean data. It equals to GowerZBool.
-func CanberraBool_D(data *Matrix) *Matrix {
+func CanberraBool_D(data *aux.Matrix) *aux.Matrix {
 	//same as GowerZBool()
 	return GowerZBool_D(data)
 }

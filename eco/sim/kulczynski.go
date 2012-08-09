@@ -7,22 +7,22 @@ package sim
 // Oosting (1956), Southwood (1978)
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	. "math"
 )
 
 // Kulczynski1Bool_S returns a Kulczynski similarity matrix #1 for boolean data. 
 // Legendre & Legendre (1998): 257, eq. 7.15 (S12 index). 
-func Kulczynski1Bool_S(data *Matrix) *Matrix {
+func Kulczynski1Bool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, _ = GetABCD(data, i, j)
+			a, b, c, _ = aux.GetABCD(data, i, j)
 			v := a / (b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
@@ -32,16 +32,16 @@ func Kulczynski1Bool_S(data *Matrix) *Matrix {
 }
 
 // Kulczynski2Bool_S returns a Kulczynski similarity matrix #2 for boolean data. 
-func Kulczynski2Bool_S(data *Matrix) *Matrix {
+func Kulczynski2Bool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, _ = GetABCD(data, i, j)
+			a, b, c, _ = aux.GetABCD(data, i, j)
 			v := ((a / 2) * ((2 * a) + b + c)) / ((a + b) * (a + c))
 			out.Set(i, j, v)
 			out.Set(j, i, v)
@@ -51,10 +51,10 @@ func Kulczynski2Bool_S(data *Matrix) *Matrix {
 }
 
 // Kulczynski_D returns a Kulczynski distance matrix for floating-point data. 
-func Kulczynski_D(data *Matrix) *Matrix {
+func Kulczynski_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -82,10 +82,10 @@ func Kulczynski_D(data *Matrix) *Matrix {
 
 // Kulczynski_S returns a Kulczynski similarity matrix for  for count or interval data. 
 // Legendre & Legendre (1998): 265, eq. 7.25 (S18 index). 
-func Kulczynski_S(data *Matrix) *Matrix {
+func Kulczynski_S(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

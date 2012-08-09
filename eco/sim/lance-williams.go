@@ -5,19 +5,19 @@ package sim
 // Lance-Williams distance
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 // LanceWilliamsBool_D returns a Lance-Williams distance matrix for boolean data. 
-func LanceWilliamsBool_D(data *Matrix) *Matrix {
+func LanceWilliamsBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64
 	)
 
-	WarnIfNotBool(data)
+	aux.WarnIfNotBool(data)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -25,7 +25,7 @@ func LanceWilliamsBool_D(data *Matrix) *Matrix {
 
 	for i := 0; i < rows; i++ {
 		for j := i + 1; j < rows; j++ {
-			a, b, c, _ = GetABCD(data, i, j)
+			a, b, c, _ = aux.GetABCD(data, i, j)
 			v := (b + c) / (2 * (a + b + c))
 			out.Set(i, j, v)
 			out.Set(j, i, v)

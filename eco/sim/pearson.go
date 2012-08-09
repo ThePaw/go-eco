@@ -5,15 +5,15 @@ package sim
 // Pearson rho correlations as similarity matrix
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // PearsonRho_S returns a Pearson's ρ (rho)  similarity matrix for floating-point data. 
-func PearsonRho_S(data *Matrix) *Matrix {
+func PearsonRho_S(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 1.0)
@@ -53,17 +53,17 @@ func PearsonRho_S(data *Matrix) *Matrix {
 
 // PearsonPhiBool_S returns a Pearson's Φ  similarity matrix for boolean data. 
 // Phi of Pearson, Gower & Legendre (1986), Yule (1912).
-func PearsonPhiBool_S(data *Matrix) *Matrix {
+func PearsonPhiBool_S(data *aux.Matrix) *aux.Matrix {
 	// !!! CHECK against L&L 1998 !!!
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
 
 	rows := data.R
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
-			a, b, c, d = GetABCD(data, i, j)
+			a, b, c, d = aux.GetABCD(data, i, j)
 			v := (a*d - b*c) / math.Sqrt((a+b)*(a+c)*(d+b)*(d+c))
 			out.Set(i, j, v)
 			out.Set(j, i, v)

@@ -4,14 +4,14 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	. "code.google.com/p/go-eco/eco/rich"
 	"math"
 )
 
 // Smith and Wilson's evenness index 1-D 
 // needs to be verified !
-func SmithWilson1_E(data *Matrix, which byte, small bool) *Vector {
+func SmithWilson1_E(data *aux.Matrix, which byte, small bool) *Vector {
 	rows := data.R
 	cols := data.C
 	dd := Simpson(data, which, small)
@@ -28,7 +28,7 @@ func SmithWilson1_E(data *Matrix, which byte, small bool) *Vector {
 }
 
 // Smith and Wilson's evenness index B
-func SmithWilson2_E(data *Matrix) *Vector {
+func SmithWilson2_E(data *aux.Matrix) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(cols)

@@ -3,7 +3,7 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
@@ -12,7 +12,7 @@ import (
 // F A Cowell: Measuring Inequality, 1995 Prentice Hall/Harvester Wheatshef.
 // Marshall & Olkin: Inequalities: Theory of Majorization and Its Applications, New York 1979 (Academic Press).
 // Algorithm inspired by R:ineq
-func VarCoeff_D(data *Matrix) *Vector {
+func VarCoeff_D(data *aux.Matrix) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)
@@ -45,7 +45,7 @@ func VarCoeff_D(data *Matrix) *Vector {
 // F A Cowell: Measuring Inequality, 1995 Prentice Hall/Harvester Wheatshef.
 // Marshall & Olkin: Inequalities: Theory of Majorization and Its Applications, New York 1979 (Academic Press).
 // Algorithm inspired by R:ineq
-func VarCoeffSmp_D(data *Matrix) *Vector {
+func VarCoeffSmp_D(data *aux.Matrix) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)
@@ -74,7 +74,7 @@ func VarCoeffSmp_D(data *Matrix) *Vector {
 }
 
 // Squared coefficient of variation, for population
-func VarCoeffSq_D(data *Matrix) *Vector {
+func VarCoeffSq_D(data *aux.Matrix) *Vector {
 	rows := data.R
 	out := NewVector(rows)
 	vc := VarCoeff_D(data)
@@ -88,7 +88,7 @@ func VarCoeffSq_D(data *Matrix) *Vector {
 }
 
 // Squared coefficient of variation, for saample
-func VarCoeffSqSmp_D(data *Matrix) *Vector {
+func VarCoeffSqSmp_D(data *aux.Matrix) *Vector {
 	rows := data.R
 	out := NewVector(rows)
 	vc := VarCoeffSmp_D(data)

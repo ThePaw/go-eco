@@ -9,22 +9,22 @@ package sim
 // Chao, A., Chazdon, R. L., Colwell, R. K. and Shen, T. (2005). A new statistical approach for assessing similarity of species composition with incidence and abundance data. Ecology Letters 8, 148–159. 
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // Chao_D returns Chao distance matrix. 
-func Chao_D(data *Matrix) *Matrix {
+func Chao_D(data *aux.Matrix) *aux.Matrix {
 	// Chao et al. (2005)
 	// Algorithm inspired by R:vegan
 	var v float64
 
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 	// check whether data are integers; if not, truncate them
-	WarnIfNotCounts(data)
-	TruncData(data)
+	aux.WarnIfNotCounts(data)
+	aux.TruncData(data)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)
@@ -138,14 +138,14 @@ function(x,y)
 // Chao’s Jaccard shared species estimators for use with incomplete datasets
 // Chao et al. (2005)
 // Algorithm inspired by R:fossil
-func ChaoJaccard_S(data *Matrix) *Matrix {
+func ChaoJaccard_S(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	// check whether data are integers; if not, truncate them
-	WarnIfNotCounts(data)
-	TruncData(data)
+	aux.WarnIfNotCounts(data)
+	aux.TruncData(data)
 	c := 0.0
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
@@ -228,14 +228,14 @@ func ChaoJaccard_S(data *Matrix) *Matrix {
 // Chao’s Sorensen shared species estimators for use with incomplete datasets
 // Chao et al. (2005)
 // Algorithm inspired by R:fossil
-func ChaoSorensen_S(data *Matrix) *Matrix {
+func ChaoSorensen_S(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	// check whether data are integers; if not, truncate them
-	WarnIfNotCounts(data)
-	TruncData(data)
+	aux.WarnIfNotCounts(data)
+	aux.TruncData(data)
 	c := 0.0
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {

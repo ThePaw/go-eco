@@ -5,14 +5,14 @@ package sim
 // Similarity ratio matrix
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 // SimRatio_S returns a Similarity ratio similarity matrix for floating-point data. 
-func SimRatio_S(data *Matrix) *Matrix {
+func SimRatio_S(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
-	out := NewMatrix(rows, rows)
+	out := aux.NewMatrix(rows, rows)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 1.0)

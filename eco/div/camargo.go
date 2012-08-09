@@ -5,12 +5,12 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 // Camargo E equitability (evenness)
 // Camargo 1992b, 1993a, 1995
-func Camargo_E(data *Matrix) *Vector {
+func Camargo_E(data *aux.Matrix) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)

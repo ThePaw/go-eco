@@ -3,7 +3,7 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"sort"
 )
 
@@ -11,7 +11,7 @@ import (
 // F A Cowell: Measurement of Inequality, 2000, in A B Atkinson & F Bourguignon (Eds): Handbook of Income Distribution. Amsterdam.
 // F A Cowell: Measuring Inequality, 1995 Prentice Hall/Harvester Wheatshef.
 // M Hall & N Tidemann: Measures of Concentration, 1967, JASA 62, 162-168.
-func Rosenbluth_D(data *Matrix) *Vector {
+func Rosenbluth_D(data *aux.Matrix) *Vector {
 	rows := data.R
 	cols := data.C
 	out := NewVector(rows)

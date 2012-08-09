@@ -5,7 +5,7 @@ package sim
 
 import (
 	"fmt"
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"testing"
 )
 

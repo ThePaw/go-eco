@@ -2,13 +2,13 @@
 package div
 
 import (
-	. "code.google.com/p/go-eco/eco"
+	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
 // The Berger-Parker index equals the maximum p[i] value in the dataset, i.e. the proportional abundance of the most abundant type.
 // This corresponds to the weighted generalized mean of the p[i] values when q approaches infinity, and hence equals the inverse of true diversity of order infinity, 1/∞D.
-func BergerParkerDiv(data *Matrix) *Vector {
+func BergerParkerDiv(data *aux.Matrix) *Vector {
 	rows := data.R
 	cols := data.C
 	div := NewVector(rows)
