@@ -34,7 +34,6 @@ func NewMatrix(rows, cols int) (m *Matrix) {
 	return m
 }
 
-
 func (m Matrix) Get(i int, j int) float64 {
 	return m.A[i*m.C+j]
 }

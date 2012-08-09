@@ -134,6 +134,7 @@ function(x,y)
   return(c.j)
 }
 */
+
 // Chao - Jaccard similarity matrix
 // Chao’s Jaccard shared species estimators for use with incomplete datasets
 // Chao et al. (2005)

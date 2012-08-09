@@ -8,6 +8,7 @@ import (
 	"math"
 	"os"
 )
+
 /*
 type Vector struct {
 	A []float64 // data
@@ -94,7 +95,7 @@ func ToBool(data *Matrix) {
 	for i := 0; i < rows; i++ {
 		for j := 0; j < cols; j++ {
 			x := data.Get(i, j)
-			if ! (x == 0 || x == 1) {	// if needed, convert to 0/1
+			if !(x == 0 || x == 1) { // if needed, convert to 0/1
 				warning = true
 				if x != 0 {
 					data.Set(i, j, 1)
@@ -118,7 +119,7 @@ func ToCounts(data *Matrix) {
 		for j := 0; j < cols; j++ {
 			x := data.Get(i, j)
 			newX := math.Floor(x)
-			if x != newX {	// if needed, convert to integers
+			if x != newX { // if needed, convert to integers
 				warning = true
 				if newX < 0 {
 					newX = 0
@@ -132,7 +133,6 @@ func ToCounts(data *Matrix) {
 	}
 	return
 }
-
 
 func WarnIfNotBool(data *Matrix) {
 	rows := data.R
@@ -178,7 +178,7 @@ func WarnIfNotCounts(data *Matrix) {
 					warning = true
 				}
 			}
-			if x != 0 &&  x != 0 {
+			if x != 0 && x != 0 {
 				warning2 = false
 			}
 			data.Set(i, j, newX) // truncate data, anyway
@@ -301,9 +301,9 @@ func SFromD(dis *Matrix, which int) *Matrix {
 		for j := 0; j < rows; j++ {
 			v := dis.Get(i, j)
 			switch {
-			case which == 0:	// D is from [0, 1]
+			case which == 0: // D is from [0, 1]
 				v = 1 - v
-			case which == 1:	// D is from [0, +inf]
+			case which == 1: // D is from [0, +inf]
 				v = 1 / (v + 1)
 			}
 			out.Set(i, j, v)
@@ -321,13 +321,13 @@ func DFromS(sim *Matrix, which int) *Matrix {
 		for j := 0; j < rows; j++ {
 			v := sim.Get(i, j)
 			switch {
-			case which == 0:	// S is from [0, 1]
+			case which == 0: // S is from [0, 1]
 				v = 1 - v
-			case which == 1:	// S is from [0, 1]
+			case which == 1: // S is from [0, 1]
 				v = math.Sqrt(1 - v)
-			case which == 2:	// S is from [0, 1]
+			case which == 2: // S is from [0, 1]
 				v = math.Sqrt(1 - v*v)
-			case which == 3:	// S is from [0, +inf]
+			case which == 3: // S is from [0, +inf]
 				v = 1/v - 1
 			}
 			out.Set(i, j, v)

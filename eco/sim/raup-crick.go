@@ -9,7 +9,7 @@ import (
 	"code.google.com/p/go-eco/eco/aux"
 	"code.google.com/p/go-fn/fn"
 	"code.google.com/p/prob/dst"
-//	. "gostat.googlecode.com/hg/stat/prob"
+	//	. "gostat.googlecode.com/hg/stat/prob"
 	"math"
 )
 

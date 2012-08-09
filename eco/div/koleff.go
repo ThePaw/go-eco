@@ -19,7 +19,7 @@ func Koleff1Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = aux.GetABCD(data, i, j)
-			v := (b+c)/(2*a+b+c)
+			v := (b + c) / (2*a + b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -38,7 +38,7 @@ func Koleff3Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			_, b, _, _ = aux.GetABCD(data, i, j)
-			v := (b+c)/2
+			v := (b + c) / 2
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -57,7 +57,7 @@ func Koleff4Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			_, b, c, _ = aux.GetABCD(data, i, j)
-			v := b+c
+			v := b + c
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -76,7 +76,7 @@ func Koleff5Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = aux.GetABCD(data, i, j)
-			v := 2*b*c/((a+b+c)*(a+b+c)-2*b*c)
+			v := 2 * b * c / ((a+b+c)*(a+b+c) - 2*b*c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -95,7 +95,7 @@ func Koleff6Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = aux.GetABCD(data, i, j)
-			v := math.Log(2*a+b+c)-2*a*math.Log(2)/(2*a+b+c)-((a+b)*math.Log(a+b)+(a+c)*math.Log(a+c))/(2*a+b+c)
+			v := math.Log(2*a+b+c) - 2*a*math.Log(2)/(2*a+b+c) - ((a+b)*math.Log(a+b)+(a+c)*math.Log(a+c))/(2*a+b+c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -114,7 +114,7 @@ func Koleff7Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = aux.GetABCD(data, i, j)
-			v := math.Exp(math.Log(2*a+b+c)-2*a*math.Log(2)/(2*a+b+c)-((a+b)*math.Log(a+b)+(a+c)*math.Log(a+c))/(2*a+b+c))-1
+			v := math.Exp(math.Log(2*a+b+c)-2*a*math.Log(2)/(2*a+b+c)-((a+b)*math.Log(a+b)+(a+c)*math.Log(a+c))/(2*a+b+c)) - 1
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -133,7 +133,7 @@ func Koleff10Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = aux.GetABCD(data, i, j)
-			v := a/(a+b+c)
+			v := a / (a + b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -152,7 +152,7 @@ func Koleff11Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = aux.GetABCD(data, i, j)
-			v := 2*a/(2*a+b+c)
+			v := 2 * a / (2*a + b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -171,7 +171,7 @@ func Koleff12Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = aux.GetABCD(data, i, j)
-			v := (2*a+b+c)*(b+c)/(a+b+c)
+			v := (2*a + b + c) * (b + c) / (a + b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -190,7 +190,7 @@ func Koleff13Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = aux.GetABCD(data, i, j)
-			v := math.Min(b,c)/(math.Max(b,c)+a)
+			v := math.Min(b, c) / (math.Max(b, c) + a)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -209,7 +209,7 @@ func Koleff14Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = aux.GetABCD(data, i, j)
-			v := (a*c+a*b+2*b*c)/(2*(a+b)*(a+c))
+			v := (a*c + a*b + 2*b*c) / (2 * (a + b) * (a + c))
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -228,7 +228,7 @@ func Koleff15Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = aux.GetABCD(data, i, j)
-			v := (b+c)/(a+b+c)
+			v := (b + c) / (a + b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -247,7 +247,7 @@ func Koleff17Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = aux.GetABCD(data, i, j)
-			v := math.Min(b,c)/(a+b+c)
+			v := math.Min(b, c) / (a + b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -266,7 +266,7 @@ func Koleff18Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			_, b, c, _ = aux.GetABCD(data, i, j)
-			v := (b+c)/2
+			v := (b + c) / 2
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -285,7 +285,7 @@ func Koleff19Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = aux.GetABCD(data, i, j)
-			v := 2*(b*c+1)/((a+b+c)*(a+b+c)+(a+b+c))
+			v := 2 * (b*c + 1) / ((a+b+c)*(a+b+c) + (a + b + c))
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -304,7 +304,7 @@ func Koleff21Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, _, c, _ = aux.GetABCD(data, i, j)
-			v := a/(a+c)
+			v := a / (a + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -323,7 +323,7 @@ func Koleff22Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = aux.GetABCD(data, i, j)
-			v := math.Min(b,c)/(math.Min(b,c)+a)
+			v := math.Min(b, c) / (math.Min(b, c) + a)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -342,7 +342,7 @@ func Koleff23Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = aux.GetABCD(data, i, j)
-			v := 2*math.Abs(b-c)/(2*a+b+c)
+			v := 2 * math.Abs(b-c) / (2*a + b + c)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -361,12 +361,10 @@ func Koleff24Beta(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = aux.GetABCD(data, i, j)
-			v := (math.Log(2)-math.Log(2*a+b+c)+math.Log(a+b+c))/math.Log(2)
+			v := (math.Log(2) - math.Log(2*a+b+c) + math.Log(a+b+c)) / math.Log(2)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
 	}
 	return out
 }
-
-
