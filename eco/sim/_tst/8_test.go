@@ -1,12 +1,11 @@
 package sim
 
 import (
-	"fmt"
 	mtx "code.google.com/p/go-eco/eco"
+	"fmt"
 
 	"testing"
 )
-
 
 // Ruggiero test against R:vegan, big data
 func TestRuggiero(t *testing.T) {

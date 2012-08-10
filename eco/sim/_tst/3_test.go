@@ -1,18 +1,17 @@
 package sim
 
 import (
-	"fmt"
 	"code.google.com/p/go-eco/eco/aux"
+	"fmt"
 	"testing"
 )
-
 
 // Test of two identical rows
 func TestIdent(t *testing.T) {
 	fmt.Println("Values of sim/dis indices for identical samples")
 	var (
 		data, out *Matrix
-		x float64
+		x         float64
 	)
 	data = GetBoolIdent()
 
@@ -240,7 +239,7 @@ func TestIdent(t *testing.T) {
 	x = out.Get(0, 1)
 	fmt.Println("ChiSquared: ", x)
 
-/* not implementyed yet
+	/* not implementyed yet
 	out = BrayCurtisBool_S(data)
 	x = out.Get(0, 1)
 	fmt.Println("BrayCurtis: ", x)
@@ -248,7 +247,7 @@ func TestIdent(t *testing.T) {
 	out = BinomialBool_S(data)
 	x = out.Get(0, 1)
 	fmt.Println("Binomial: ", x)
-*/
+	*/
 	out = BaroniUrbaniBool_S(data)
 	x = out.Get(0, 1)
 	fmt.Println("BaroniUrbani: ", x)
@@ -257,7 +256,3 @@ func TestIdent(t *testing.T) {
 	x = out.Get(0, 1)
 	fmt.Println("Fager: ", x)
 }
-
-
-
-

@@ -44,7 +44,7 @@ func RaupCrickBool_D(data *Matrix) *Matrix {
 	cols := data.C
 	out := NewMatrix(rows, rows)
 	WarnIfNotBool(data)
-	WarnIfDblNewMatrix(data)
+	WarnIfEmptySpecies(data)
 
 	for i := 0; i < rows; i++ {
 		out.Set(i, i, 0.0)

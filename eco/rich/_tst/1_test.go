@@ -5,7 +5,6 @@ import (
 	"testing"
 )
 
-
 // Chao test against R:fossil
 func TestChao(t *testing.T) {
 	fmt.Println("Chao test against R:fossil")
@@ -44,7 +43,6 @@ func TestChaoBool(t *testing.T) {
 	}
 }
 
-
 // ACE test against R:fossil
 func TestACE(t *testing.T) {
 	fmt.Println("ACE test against R:fossil")
@@ -64,7 +62,6 @@ func TestACE(t *testing.T) {
 	}
 }
 
-
 // ICE test against R:fossil
 func TestICE(t *testing.T) {
 	fmt.Println("ICE test against R:fossil")
@@ -83,5 +80,3 @@ func TestICE(t *testing.T) {
 		}
 	}
 }
-
-

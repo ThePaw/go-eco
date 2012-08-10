@@ -9,20 +9,7 @@ import (
 	"os"
 )
 
-/*
-type Vector struct {
-	A []float64 // data
-	L int       // length
-}
-
-func NewVector(length int) (v *Vector) {
-	v = new(Vector)
-	v.L = length
-	v.A = make([]float64, length)
-	return v
-}
-*/
-
+// ReadMatrix reads stdin into a float64 matrix. Number of rows and columns must be given first. 
 func ReadMatrix() *Matrix {
 	var (
 		rows, cols int
@@ -43,24 +30,7 @@ func ReadMatrix() *Matrix {
 	return data
 }
 
-/*
-// Reads CSV from stdin and dumps it back to stdout.
-func ReadMatrixCSV() *Matrix {
-	var (
-		rows, cols int
-		x          float64
-		data       *Matrix
-	)
-
-        table, err := csv.ReadAll(os.Stdin)
-        if err != nil {
-                panic(err.String())
-        }
-        // turn table to matrix... to be implemented
-	return data
-}
-*/
-
+// TruncData truncates float64 data to integer values, with warning if there were data substantially different from their truncated counterparts. 
 func TruncData(data *Matrix) {
 	rows := data.R
 	cols := data.C
@@ -86,7 +56,7 @@ func TruncData(data *Matrix) {
 
 }
 
-// Convert matrix to 0/1 values
+// ToBool converts matrix to 0/1 values. 
 func ToBool(data *Matrix) {
 	rows := data.R
 	cols := data.C
@@ -109,7 +79,7 @@ func ToBool(data *Matrix) {
 	return
 }
 
-// Convert matrix to counts
+// ToCounts converts matrix to counts (truncates to integer values >= 0).
 func ToCounts(data *Matrix) {
 	rows := data.R
 	cols := data.C
@@ -134,6 +104,7 @@ func ToCounts(data *Matrix) {
 	return
 }
 
+// WarnIfNotBool issues a warning on stderr when data are not boolean.
 func WarnIfNotBool(data *Matrix) {
 	rows := data.R
 	cols := data.C
@@ -162,6 +133,7 @@ func WarnIfNotBool(data *Matrix) {
 
 }
 
+// WarnIfNotCounts issues a warning on stderr when data are not counts. 
 func WarnIfNotCounts(data *Matrix) {
 	rows := data.R
 	cols := data.C
@@ -195,7 +167,8 @@ func WarnIfNotCounts(data *Matrix) {
 
 }
 
-func WarnIfDblNewMatrix(data *Matrix) {
+// WarnIfEmptySpecies issues a warning on stderr when data contain columns with zeros only. 
+func WarnIfEmptySpecies(data *Matrix) {
 	rows := data.R
 	cols := data.C
 	warning := false
@@ -218,10 +191,10 @@ L:
 	return
 }
 
-// Calculates A, B, J, and P values from two rows of boolean data matrix, "quadratic variant". 
-// See R:vegan:vegdist
-// "quadratic" terms are J = sum(x*y), A = sum(x^2), B = sum(y^2)
+// GetABJPquad calculates A, B, J, and P values from two rows of boolean data matrix, "quadratic variant". 
 func GetABJPquad(data *Matrix, i, j int) (aa, bb, jj, pp float64) {
+	// See R:vegan:vegdist
+	// "quadratic" terms are J = sum(x*y), A = sum(x^2), B = sum(y^2)
 	cols := data.C
 
 	jj = 0.0
@@ -238,10 +211,10 @@ func GetABJPquad(data *Matrix, i, j int) (aa, bb, jj, pp float64) {
 	return
 }
 
-// Calculates A, B, J, and P values from two rows of boolean data matrix, "minimum variant". 
-// See R:vegan:vegdist
-// "minimum" terms are J = sum(min(x,y)), A = sum(x) and B = sum(y)
+// GetABJPmin calculates A, B, J, and P values from two rows of boolean data matrix, "minimum variant". 
 func GetABJPmin(data *Matrix, i, j int) (aa, bb, jj, pp float64) {
+	// See R:vegan:vegdist
+	// "minimum" terms are J = sum(min(x,y)), A = sum(x) and B = sum(y)
 	cols := data.C
 
 	jj = 0.0
@@ -258,9 +231,9 @@ func GetABJPmin(data *Matrix, i, j int) (aa, bb, jj, pp float64) {
 	return
 }
 
-// Calculates A, B, J, and P values from two rows of boolean data matrix. 
-// See R:vegan:vegdist
+// GetABJPbool calculates A, B, J, and P values from two rows of boolean data matrix. 
 func GetABJPbool(data *Matrix, i, j int) (aa, bb, jj, pp float64) {
+	// See R:vegan:vegdist
 	cols := data.C
 
 	jj = 0.0
@@ -292,7 +265,7 @@ func GetABJPbool(data *Matrix, i, j int) (aa, bb, jj, pp float64) {
 	return
 }
 
-// Calculates similarity matrix from the distance matrix. 
+// SFromD calculates similarity matrix from the distance matrix. 
 func SFromD(dis *Matrix, which int) *Matrix {
 	rows := dis.R
 	out := NewMatrix(rows, rows)
@@ -312,7 +285,7 @@ func SFromD(dis *Matrix, which int) *Matrix {
 	return out
 }
 
-// Calculates distance matrix from the similarity matrix
+// DFromS calculates distance (dissimilarity) matrix from the similarity matrix. 
 func DFromS(sim *Matrix, which int) *Matrix {
 	rows := sim.R
 	out := NewMatrix(rows, rows)
@@ -336,7 +309,7 @@ func DFromS(sim *Matrix, which int) *Matrix {
 	return out
 }
 
-// recalculates data matrix to proportions. 
+// RecalcToProp recalculates data matrix to proportions, in place. 
 func RecalcToProp(data *Matrix) int {
 	rows := data.R
 	cols := data.C
@@ -355,8 +328,8 @@ func RecalcToProp(data *Matrix) int {
 	return 0
 }
 
-// For boolean data, calculates a, b, c, d values of the contingency table. 
-// To be use for calculation of similarity indices. 
+// GetABCD calculates a, b, c, d values of the contingency table, boolean data. 
+// To be used for calculation of similarity indices. 
 func GetABCD(data *Matrix, row1, row2 int) (a, b, c, d float64) {
 	cols := data.C
 

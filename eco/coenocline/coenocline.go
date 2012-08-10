@@ -8,21 +8,20 @@ write manpage
 write publication ;-)
 */
 
-
 package main
 
 import (
-	"sort"
 	. "gostat.googlecode.com/hg/stat/prob"
 	"math"
 	"math/rand"
+	"sort"
 )
 
 // generate sampling points along the gradient
 func generate_points(k int, spacing byte) (arr []float64) {
-	const offset=0.2
+	const offset = 0.2
 	arr = make([]float64, k)
-	switch spacing { 
+	switch spacing {
 	default: // regular spacing
 		for i := 0; i < k; i++ {
 			arr[i] = float64(i) / float64(k-1)
@@ -35,7 +34,7 @@ func generate_points(k int, spacing byte) (arr []float64) {
 		}
 		sort.Float64s(arr) // sort in increasing order
 	case 2: // exponential random spacing (spacing at points of a Poisson process)
-		λ := 1/k
+		λ := 1 / k
 		arr[0] = 0
 		for i := 1; i < k; i++ {
 			arr[i] = arr[i-1] + NextExp(float64(λ))
@@ -47,10 +46,11 @@ func generate_points(k int, spacing byte) (arr []float64) {
 	}
 	// now shrink it to be in some distance from the gradient's ends [0..1]
 	for i := 0; i < k; i++ {
-		arr[i] = arr[i]*(1-2*offset) + offset	// sampling starts at 'offset' and ends at '1-offset'
+		arr[i] = arr[i]*(1-2*offset) + offset // sampling starts at 'offset' and ends at '1-offset'
 	}
 	return
 }
+
 /*
 // Triangular response function of a taxon on a gradient. 
 func triang(x, max, exc, opt, tol float64) (y float64) {
@@ -73,27 +73,27 @@ func triang(x, max, exc, opt, tol float64) (y float64) {
 
 // Triangular response function of a taxon on a gradient. 
 func triangSRF(opt, tol, max, exc, x float64) (y float64) {
-		// x	 point on the gradient
-		// max	 amplitude, maximum abundance
-		// exc	 excentricity = left-right; is zero if symmetric, -1 or +1 if extremely asymmetric
-		// opt	 modus, position of max. abundance on the gradient
-		// tol	 tolerance, range of nonzero values of abundance
+	// x	 point on the gradient
+	// max	 amplitude, maximum abundance
+	// exc	 excentricity = left-right; is zero if symmetric, -1 or +1 if extremely asymmetric
+	// opt	 modus, position of max. abundance on the gradient
+	// tol	 tolerance, range of nonzero values of abundance
 
-		// exc = left-right; tol = left-right; thus:
-	right := (tol-exc)/2	// segment above optimum
-	left := exc+right	// segment below optimum
-	lo := opt - left		// lower tolerance bound
-	hi := opt + right	// lower tolerance bound
+	// exc = left-right; tol = left-right; thus:
+	right := (tol - exc) / 2 // segment above optimum
+	left := exc + right      // segment below optimum
+	lo := opt - left         // lower tolerance bound
+	hi := opt + right        // lower tolerance bound
 
 	if x <= lo || x >= hi {
 		y = 0
 
 	} else if x <= opt {
-		a := max/left
-		y = a*(x-lo)
-	} else {	// x > opt
-		a := -max/right
-		y = a*(x-opt)
+		a := max / left
+		y = a * (x - lo)
+	} else { // x > opt
+		a := -max / right
+		y = a * (x - opt)
 	}
 	return
 }
@@ -104,11 +104,11 @@ func gaussSRF(opt, tol, max, x float64) (y float64) {
 	// opt	 optimum
 	// tol	 tolerance (fraction of gradient length)
 	// max	 maximum abundance = modus = mean
-	spanZ:=2*2.326348	// span between 2% (arbitrarily chosen) tails of Z distribution
-	maxZ := 0.3989423	// value of Z at 0 (=mean=mode)
+	spanZ := 2 * 2.326348 // span between 2% (arbitrarily chosen) tails of Z distribution
+	maxZ := 0.3989423     // value of Z at 0 (=mean=mode)
 	x -= opt
-	x *= spanZ/tol
-	y=(max/maxZ)/math.Sqrt(2*math.Pi)*math.Exp(-x*x/2)
+	x *= spanZ / tol
+	y = (max / maxZ) / math.Sqrt(2*math.Pi) * math.Exp(-x*x/2)
 	return
 }
 
@@ -122,7 +122,7 @@ func gaussSRF(opt, tol, max, x float64) (y float64) {
 func betaSRF(opt, tol, max, α, γ, x float64) (y float64) {
 	// opt is where first derivative is zero
 	// solve lo, hi
-/////gnuplot> f(x)=k*(x-l)**a * (h-x)**g
+	/////gnuplot> f(x)=k*(x-l)**a * (h-x)**g
 
 	// Return zero if x is not in (lo,hi)
 	if x <= lo || x >= hi {
@@ -136,7 +136,6 @@ func betaSRF(opt, tol, max, α, γ, x float64) (y float64) {
 	}
 	return
 }
-
 
 // Solve k from the maximum height of the response function
 // thanks to Jari Oksanen, betasimu.c
@@ -152,18 +151,19 @@ func kSolve(tol, max, α, γ float64) (k float64) {
 func hof(a, b, c, d, m, x float64, which byte) (y float64) {
 	switch which {
 	case 1: // model I
-		y = m/(1+math.Exp(a))
+		y = m / (1 + math.Exp(a))
 	case 2: // model II
-		y = m/(1+math.Exp(a+b*x))
+		y = m / (1 + math.Exp(a+b*x))
 	case 3: // model III
-		y = m/((1+math.Exp(a+b*x)) * (1+math.Exp(c)))
+		y = m / ((1 + math.Exp(a+b*x)) * (1 + math.Exp(c)))
 	case 4: // model IV
-		y = m/((1+math.Exp(a+b*x)) * (1+math.Exp(c-b*x)))
+		y = m / ((1 + math.Exp(a+b*x)) * (1 + math.Exp(c-b*x)))
 	case 5: // model IV
-		y = m/((1+math.Exp(a+b*x)) * (1+math.Exp(c+d*x)))
+		y = m / ((1 + math.Exp(a+b*x)) * (1 + math.Exp(c+d*x)))
 	}
 	return
 }
+
 /*
 
 // SRF model
@@ -271,36 +271,33 @@ func Coenocline(nSpec, nSamp int, srfModel, optModel, abuModel, tolModel, spacin
 func rndFn(which byte, a, b, c float64) func() (x float64) {
 	return func() (x float64) {
 		switch {
-		case which == 0:	// flat
+		case which == 0: // flat
 			x = rand.Float64()
-		case which == 1:	// Gaussian
+		case which == 1: // Gaussian
 			x = NextNormal(a, b)
-		case which == 2:	// Beta
+		case which == 2: // Beta
 			x = NextBeta(a, b)
-		case which == 3:	// single-parameter Pareto
+		case which == 3: // single-parameter Pareto
 			x = NextParetoSing(a, b)
-		case which == 3:	// Pareto I
+		case which == 3: // Pareto I
 			x = NextPareto(a)
-		case which == 3:	// Pareto II
+		case which == 3: // Pareto II
 			x = NextParetoII(a, b)
-		case which == 3:	// Pareto III
+		case which == 3: // Pareto III
 			x = NextParetoIII(a, b)
-		case which == 3:	// Pareto IV
+		case which == 3: // Pareto IV
 			x = NextParetoIV(a, b)
-		case which == 4:	// Generalized Pareto
+		case which == 4: // Generalized Pareto
 			x = NextParetoG(a, b, c)
-		case which == 3:	// tapered Pareto
+		case which == 3: // tapered Pareto
 			x = NextParetoTap(a, b)
-		case which == 5:	// Yule
+		case which == 5: // Yule
 			x = NextYule(a)
-		case which == 6:	// Planck
+		case which == 6: // Planck
 			x = NextPlanck(a, b)
-		case which == 7:	// Zeta
+		case which == 7: // Zeta
 			x = NextZeta(a)
 		}
 		return
 	}
 }
-
-
-

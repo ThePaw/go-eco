@@ -25,10 +25,9 @@ func GetCounts() *Matrix {
 	)
 	rows := 2
 	cols := 13
-	arr := [...]float64{4,5,1,1,2,0,0,1,3,0,8,45,23,
-4,5,0,0,2,0,0,0,3,0,8,45,23,
-0,5,1,1,2,0,0,1,0,0,8,45,0}
-
+	arr := [...]float64{4, 5, 1, 1, 2, 0, 0, 1, 3, 0, 8, 45, 23,
+		4, 5, 0, 0, 2, 0, 0, 0, 3, 0, 8, 45, 23,
+		0, 5, 1, 1, 2, 0, 0, 1, 0, 0, 8, 45, 0}
 
 	data = NewMatrix(rows, cols)
 	for i := 0; i < rows; i++ {
@@ -38,8 +37,6 @@ func GetCounts() *Matrix {
 	}
 	return data
 }
-
-
 
 // Get boolean data matrix
 func GetBoolData() *Matrix {
@@ -132,5 +129,3 @@ func GetCatData() *Matrix {
 	}
 	return data
 }
-
-

@@ -2,11 +2,12 @@ package sim
 
 import (
 	"fmt"
-//	"code.google.com/p/go-eco/eco/aux"
+	//	"code.google.com/p/go-eco/eco/aux"
 	"testing"
 )
+
 func TestHornMorisitaBool(t *testing.T) {
-// HornMorisitaBool test 1 vs.2 
+	// HornMorisitaBool test 1 vs.2 
 	fmt.Println("HornMorisitaBool test 1 vs.2 ")
 	data := GetBoolData2()
 	out1 := HornMorisita_S(data)
@@ -24,5 +25,3 @@ func TestHornMorisitaBool(t *testing.T) {
 		}
 	}
 }
-
-

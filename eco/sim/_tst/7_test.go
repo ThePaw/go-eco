@@ -1,12 +1,11 @@
 package sim
 
 import (
-	"fmt"
 	mtx "code.google.com/p/go-eco/eco"
+	"fmt"
 
 	"testing"
 )
-
 
 // Raup-Crick1 test against R:vegan, smaller data
 func TestRaupCrick1(t *testing.T) {
@@ -37,7 +36,7 @@ func TestRaupCrick1(t *testing.T) {
 	// check
 	for i := 0; i < rows; i++ {
 		for j := 0; j < rows; j++ {
-			if i != j && ! check(1-out.Get(i, j), known.Get(i, j)) {
+			if i != j && !check(1-out.Get(i, j), known.Get(i, j)) {
 				t.Error()
 				fmt.Println(1-out.Get(i, j), known.Get(i, j))
 			}
@@ -78,7 +77,7 @@ func TestRaupCrick2Bool(t *testing.T) {
 	// check
 	for i := 0; i < rows; i++ {
 		for j := 0; j < rows; j++ {
-			if i != j && ! check(1-out.Get(i, j), known.Get(i, j)) {
+			if i != j && !check(1-out.Get(i, j), known.Get(i, j)) {
 				t.Error()
 				fmt.Println(1-out.Get(i, j), known.Get(i, j))
 			}
@@ -86,5 +85,3 @@ func TestRaupCrick2Bool(t *testing.T) {
 		}
 	}
 }
-
-

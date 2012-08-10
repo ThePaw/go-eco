@@ -1,8 +1,8 @@
 package sim
 
 import (
-	"fmt"
 	"code.google.com/p/go-eco/eco/aux"
+	"fmt"
 	"testing"
 )
 
@@ -13,9 +13,9 @@ func TestChaoJaccard(t *testing.T) {
 	out := ChaoJaccard_S(data)
 
 	//known values
-	dist := [...]float64{1,0.8399285,0.7548488,
-0.8399285,1,1,
-0.7548488,1,1}
+	dist := [...]float64{1, 0.8399285, 0.7548488,
+		0.8399285, 1, 1,
+		0.7548488, 1, 1}
 
 	rows := data.R
 	known := NewMatrix(rows, rows)
@@ -43,7 +43,7 @@ func TestChaoJaccard2(t *testing.T) {
 	out := ChaoJaccard_S(data)
 
 	//known values
-	dist := [...]float64{1,0.6866585,0.6866585,1}
+	dist := [...]float64{1, 0.6866585, 0.6866585, 1}
 
 	rows := data.R
 	known := NewMatrix(rows, rows)
@@ -71,9 +71,9 @@ func TestChaoSorensen(t *testing.T) {
 	out := ChaoSorensen_S(data)
 
 	//known values
-	dist := [...]float64{1,0.9129781,0.8602875,
-0.9129781,1,1,
-0.8602875,1,1}
+	dist := [...]float64{1, 0.9129781, 0.8602875,
+		0.9129781, 1, 1,
+		0.8602875, 1, 1}
 
 	rows := data.R
 	known := NewMatrix(rows, rows)
@@ -93,5 +93,3 @@ func TestChaoSorensen(t *testing.T) {
 		}
 	}
 }
-
-
