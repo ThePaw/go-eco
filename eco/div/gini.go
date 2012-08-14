@@ -1,22 +1,24 @@
-// Gini inequality index
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package div
+
+// Gini inequality index
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"sort"
 )
 
-// Gini inequality index
-// F A Cowell: Measurement of Inequality, 2000, in A B Atkinson & F Bourguignon (Eds): Handbook of Income Distribution. Amsterdam.
-// F A Cowell: Measuring Inequality, 1995 Prentice Hall/Harvester Wheatshef.
-// Marshall & Olkin: Inequalities: Theory of Majorization and Its Applications, New York 1979 (Academic Press).
+// GiniIneq returns vector of Gini inequalities. 
+// F A Cowell: Measurement of Inequality, 2000, in A B Atkinson & F Bourguignon (Eds): Handbook of Income Distribution. Amsterdam. 
+// F A Cowell: Measuring Inequality, 1995 Prentice Hall/Harvester Wheatshef. 
+// Marshall & Olkin: Inequalities: Theory of Majorization and Its Applications, New York 1979 (Academic Press). 
 // In some cases, Gini coefficient can be computed without direct reference to the Lorenz curve. For example, 
-// for a population uniform on the values xi, i = 1 to s, indexed in non-decreasing order ( xi ≤ xi+1).
-func Gini_D(data *aux.Matrix) *Vector {
+// for a population uniform on the values xi, i = 1 to s, indexed in non-decreasing order ( xi ≤ xi+1). 
+func GiniIneq(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		// unload data row to slice

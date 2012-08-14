@@ -3,7 +3,6 @@
 package sim
 
 // Dice's similarity and dissimilarity matrix
-// Dice (1945), Wolda (1981)
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
@@ -11,6 +10,7 @@ import (
 )
 
 // DiceBool_S returns a Dice's similarity matrix for boolean data.
+// Dice (1945), Wolda (1981). 
 func DiceBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

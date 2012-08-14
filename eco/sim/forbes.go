@@ -3,14 +3,14 @@
 package sim
 
 // Forbes similarity matrix
-// Forbes (1925), Shi (1993)
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-// ForbesBool_S returns a Forbes similarity matrix for boolean data.
+// ForbesBool_S returns a Forbes similarity matrix for boolean data. 
+// Forbes (1925), Shi (1993). 
 func ForbesBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

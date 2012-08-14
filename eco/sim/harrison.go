@@ -3,7 +3,6 @@
 package sim
 
 // Harrison dissimilarity matrix
-// Harrison et al. (1992), Koleff et al. (2003)
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
@@ -11,6 +10,7 @@ import (
 )
 
 // HarrisonBool_D returns a Harrison dissimilarity matrix for boolean data.
+// Harrison et al. (1992), Koleff et al. (2003). 
 func HarrisonBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

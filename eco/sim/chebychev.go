@@ -10,7 +10,8 @@ import (
 	. "math"
 )
 
-// Chebychev_D returns Chebychev distance matrix, which is a special case of the Minkowski metric, where p = ∞.
+// Chebychev_D returns Chebychev distance matrix for floating-point data. 
+// Chebychev distance is a special case of the Minkowski metric, where p = ∞.
 func Chebychev_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C

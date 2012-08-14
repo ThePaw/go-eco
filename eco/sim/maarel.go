@@ -1,13 +1,15 @@
-// Maarel similarity matrix
-// van der Maarel (1969)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Maarel similarity. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Maarel similarity matrix
+// MaarelBool_S returns a Maarel similarity matrix for boolean data. 
+// van der Maarel (1969). 
 func MaarelBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

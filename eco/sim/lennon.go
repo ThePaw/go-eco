@@ -1,14 +1,16 @@
-// Lennon dissimilarity matrix
-// Lennon et al. (2001), Koleff et al. (2003)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Lennon dissimilarity matrix
+// Lennon et al. (2001), Koleff et al. (2003)
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-// Lennon dissimilarity matrix #1
+// Lennon1Bool_D returns a Lennon dissimilarity matrix #1 for boolean data. 
 func Lennon1Bool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
@@ -27,7 +29,7 @@ func Lennon1Bool_D(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// Lennon dissimilarity matrix #2
+// Lennon2Bool_D returns a Lennon dissimilarity matrix #2 for boolean data. 
 func Lennon2Bool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

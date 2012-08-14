@@ -14,7 +14,7 @@ import (
 )
 
 // Morisita_D returns a Morisita distance matrix for floating-point data. 
-// Morisita (1959)
+// Morisita (1959). 
 func Morisita_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C

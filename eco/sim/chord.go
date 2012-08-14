@@ -3,8 +3,6 @@
 package sim
 
 // Chord distance
-// Orloci (1967b)
-// Legendre & Legendre (1998): 279, eq. 7.37 (D3 index)
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
@@ -12,6 +10,8 @@ import (
 )
 
 // Chord_D returns a Chord distance matrix for floating-point data. 
+// Orloci (1967b); 
+// Legendre & Legendre (1998): 279, eq. 7.37 (D3 index). 
 func Chord_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C

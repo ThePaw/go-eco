@@ -7,14 +7,14 @@ import (
 	"sort"
 )
 
-// Rosenbluth index of concentration
+// RosenbluthIneq returns vector of Rosenbluth indices of concentration. 
 // F A Cowell: Measurement of Inequality, 2000, in A B Atkinson & F Bourguignon (Eds): Handbook of Income Distribution. Amsterdam.
 // F A Cowell: Measuring Inequality, 1995 Prentice Hall/Harvester Wheatshef.
 // M Hall & N Tidemann: Measures of Concentration, 1967, JASA 62, 162-168.
-func Rosenbluth_D(data *aux.Matrix) *Vector {
+func RosenbluthIneq(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		// unload data row to slice

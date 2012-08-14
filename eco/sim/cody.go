@@ -3,13 +3,13 @@
 package sim
 
 // Cody dissimilarity matrix
-// Cody (1993)
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
 // CodyBool_D returns a Cody dissimilarity matrix for boolean data.
+// Cody (1993). 
 func CodyBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

@@ -1,19 +1,21 @@
-// Foster index of poverty
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package div
+
+// Foster index of poverty. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-// Foster index of poverty
+// FosterIneq returns vector of Foster indices of poverty. 
 // Foster, J. E. (1984). On Economic Poverty: A Survey of Aggregate Measures. Advances in Econometrics, 3, 215–251.
 // Zheng, B. (1997). Aggregate Poverty Measures. Journal of Economic Surveys, 11, 123–162.
-func Foster_D(data *aux.Matrix, k, parameter float64) *Vector {
+func FosterIneq(data *aux.Matrix, k, parameter float64) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		n := 0.0

@@ -1,14 +1,16 @@
-// Minkowski distance
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Minkowski distance
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	. "math"
 )
 
-// Minkowski distance matrix
-// Legendre & Legendre (1998): 281, eq. 7.44 (D6 index)
+// Minkowski_D returns a Minkowski distance matrix for floating-point data. 
+// Legendre & Legendre (1998): 281, eq. 7.44 (D6 index). 
 func Minkowski_D(power int, data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C

@@ -1,19 +1,21 @@
-// Camargo E equitability (evenness)
-// Camargo, J. A. 1992b. New diversity index for assessing structural alterations in aquatic communities. - Bull. Environ. Contam. Toxicol. 48: 428-434.
-// Camargo, J. A. 1993a. Must dominance increase with the number of subordinate species in competitive interactions? - J. Theor. Biol. 161: 537-542.
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package div
+
+// Camargo E equitability (evenness). 
+// Camargo, J. A. 1992b. New diversity index for assessing structural alterations in aquatic communities. - Bull. Environ. Contam. Toxicol. 48: 428-434. 
+// Camargo, J. A. 1993a. Must dominance increase with the number of subordinate species in competitive interactions? - J. Theor. Biol. 161: 537-542. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Camargo E equitability (evenness)
-// Camargo 1992b, 1993a, 1995
-func Camargo_E(data *aux.Matrix) *Vector {
+// CamargoEq returns vector of Camargo equitabilities. 
+// Camargo 1992b, 1993a, 1995. 
+func CamargoEq(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		sumX := 0.0 // total number of all individuals in the sample

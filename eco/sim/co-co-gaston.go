@@ -3,13 +3,13 @@
 package sim
 
 // Colwell - Coddington - Gaston dissimilarity
-// Colwell & Coddington (1948), Gaston et al. (2001)
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
 // CoCoGastonBool_D returns Colwell - Coddington - Gaston et al.  dissimilarity matrix for boolean data.
+// Colwell & Coddington (1948), Gaston et al. (2001). 
 func CoCoGastonBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

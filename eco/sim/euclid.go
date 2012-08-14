@@ -4,7 +4,7 @@ package sim
 
 // Euclidean distance and similarity
 // In N dimensions, the Euclidean distance between two points p and q is √(∑i=1N (pi-qi)²) where pi (or qi) is the coordinate of p (or q) in dimension i.
-// Similarity is 1.00/(d+1), so that it is in [0, 1]
+// Similarity is 1.00/(d+1), so that it is in [0, 1]. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"

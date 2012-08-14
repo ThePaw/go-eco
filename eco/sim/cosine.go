@@ -36,14 +36,15 @@ func CosineBool_D(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// Cosine_D returns a Cosine complementdistance matrix for floating-point data. 
+// Cosine_D returns a Cosine complement distance matrix for floating-point data. 
+// Carbonell, J.G.& al. 1997 Translingual Information Retrieval: A comparative evaluation. IJCAI'97. 
 func Cosine_D(data *aux.Matrix) *aux.Matrix {
 	// Cosine distance matrix
 	// Algorithm taken from: Carbonell, J.G.& al. 1997 Translingual Information
 	// Retrieval: A comparative evaluation. IJCAI'97. See also Salton, G. 1989
-	// Automatic text processing: The transformation, Analysis, and retrieval of
+	// Automatic text processing: The transformation, analysis, and retrieval of
 	// information by computer. Addison-Wesley, Reading, Pennsylvania.
-	// Jongman, et. al., 1995, page 178)--"More emphasis is given to qualitative
+	// Jongman, et. al., 1995, page 178 --"More emphasis is given to qualitative
 	// aspects by not considering a site as point but as a vector.Understandably,
 	// the direction of this vector tells us something about the relative
 	// abundances of species. The similarity of two sites can be expressed as some 

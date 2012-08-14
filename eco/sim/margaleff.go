@@ -1,13 +1,15 @@
-// Margaleff similarity matrix
-// Clifford & Stevenson (1975)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Margaleff similarity matrix
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Margaleff similarity matrix
+// MargaleffBool_S returns a Margaleff similarity matrix for boolean data. 
+// Clifford & Stevenson (1975). 
 func MargaleffBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

@@ -1,17 +1,19 @@
-// Margalef's D  diversity index
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package div
+
+// Margalef's D  diversity index
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-// Margalef's D  diversity index
-func Margalef_D(data *aux.Matrix) *Vector {
+// MargalefDiv returns vector of Margalef diversities. 
+func MargalefDiv(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		s := 0.0 // number of species

@@ -1,13 +1,15 @@
-// Sorgenfrei similarity matrix
-// Sorgenfrei (1959)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Sorgenfrei similarity matrix
+// Sorgenfrei (1959)
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Sorgenfrei similarity matrix
+// SorgenfreiBool_S returns a Sorgenfrei similarity matrix for boolean data. 
 func SorgenfreiBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

@@ -13,7 +13,7 @@ import (
 	"math"
 )
 
-// Binomial distance matrix
+// Binomial_D returns a Binomial distance matrix for floating-point data. 
 func Binomial_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
@@ -40,6 +40,7 @@ func Binomial_D(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
+// BinomialBool_D returns a Binomial distance matrix for boolean data. 
 func BinomialBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		b, c float64

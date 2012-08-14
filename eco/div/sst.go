@@ -1,13 +1,15 @@
-// Sen-Shorrocks-Thon index of poverty
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package div
+
+// Sen-Shorrocks-Thon index of poverty
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"sort"
 )
 
-// Sen-Shorrocks-Thon index of poverty
+// Sen-Shorrocks-Thon index of poverty. 
 // A poverty index proposed by Shorrocks (1995) based on the pioneering work of Sen (1976). 
 // It has also received the name of modified Sen index in Shorrocks (1995) and Sen (1997). 
 // As noted by Zheng (1997), this index is identical to the limit of Thon's modified Sen index (Thon, 1979 and 1983).
@@ -22,10 +24,11 @@ Xu, K. (1998) "The statistical inference for the Sen-Shorrocks-Thon index of pov
 Xu, K. and L. Osberg (2001) "How to decompose the Sen-Shorrocks-Thon poverty index? A practitioner's Guide," Journal of Income Distribution
 */
 
-func SST_D(data *aux.Matrix, k float64) *Vector {
+// SSTIneq returns vector of Sen-Shorrocks-Thon indices of poverty. 
+func SSTIneq(data *aux.Matrix, k float64) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		// unload data row to slice
@@ -55,15 +58,3 @@ func SST_D(data *aux.Matrix, k float64) *Vector {
 	}
 	return out
 }
-
-/*
-SST <- function(x, k)
-{
-  x2 <- sort(x[x < k])
-  n <- length(x)
-  q <- length(x2)
-  if(q < 1) 0 else {
-    sum((2 * n - 2 * 1:q + 1) * (k - x2)/k)/n^2
-  }
-}
-*/

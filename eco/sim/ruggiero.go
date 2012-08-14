@@ -1,13 +1,15 @@
-// Ruggiero similarity matrix
-// Ruggiero et al. (1998), Koleff et al. (2003)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Ruggiero similarity matrix
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Ruggiero similarity matrix
+// RuggieroBool_S returns a Ruggiero similarity matrix for boolean data. 
+// Ruggiero et al. (1998), Koleff et al. (2003). 
 func RuggieroBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, c float64 // these are actually counts, but float64 simplifies the formulas

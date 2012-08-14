@@ -32,8 +32,8 @@ func OchiaiBool_S(data *aux.Matrix) *aux.Matrix {
 }
 
 // OchiaiBool_D returns a Ochiai distance matrix for boolean data. 
-// According to R: vegan. 
 func OchiaiBool_D(data *aux.Matrix) *aux.Matrix {
+// According to R: vegan. 
 	var (
 		aa, bb, jj float64
 	)

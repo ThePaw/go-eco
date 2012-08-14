@@ -9,7 +9,7 @@ import (
 	"math"
 )
 
-// Czekanowski1_D returns a Czekanowski dissimilarity matrix #1 (D8 index in Legendre & Legendre, 1998)
+// Czekanowski1_D returns a Czekanowski dissimilarity matrix #1 (D8 index in Legendre & Legendre, 1998), for floating-point data. 
 func Czekanowski1_D(data *aux.Matrix) *aux.Matrix {
 	// Czekanowski (1909)
 	// Legendre & Legendre (1998): 282, eq. 7.46 (D8 index)

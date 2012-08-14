@@ -3,14 +3,13 @@
 package sim
 
 // Yule similarity matrix
-// Legendre & Legendre 1998: 256, eq. 7.8. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Yule similarity matrix
 // YuleBool_S returns a Yule similarity matrix for boolean data. 
+// Legendre & Legendre 1998: 256, eq. 7.8. 
 func YuleBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

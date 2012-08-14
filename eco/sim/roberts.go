@@ -1,6 +1,6 @@
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 // Roberts similarity
-// Roberts 1986
-// Algorithm inspired by R:labdsv
 
 package sim
 
@@ -9,8 +9,10 @@ import (
 	"math"
 )
 
-// Roberts similarity matrix, float data
+// Roberts_S returns a Roberts similarity matrix for floating-point data. 
+// Roberts 1986. 
 func Roberts_S(data *aux.Matrix) *aux.Matrix {
+// Algorithm inspired by R:labdsv. 
 	rows := data.R
 	cols := data.C
 	out := aux.NewMatrix(rows, rows)

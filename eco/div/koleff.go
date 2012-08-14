@@ -1,15 +1,18 @@
-// Beta diversity indices from Koleff, Gaston & Lennon (2003)
-// Koleff, P., Gaston, K.J. and Lennon, J.J. (2003) Measuring beta diversity for presence-absence data. Journal of Animal Ecology 72, 367–382.
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package div
+
+// Beta diversity indices from Koleff, Gaston & Lennon (2003). 
+// Koleff, P., Gaston, K.J. and Lennon, J.J. (2003) Measuring beta diversity for presence-absence data. Journal of Animal Ecology 72, 367–382. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-// β1 = β2 = β8 = β9 = β20 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff1Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff1Div returns vector of Koleff β1 diversities. 
+// β1 = β2 = β8 = β9 = β20 diversity index from Koleff, Gaston & Lennon (2003). 
+func Koleff1Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -27,8 +30,9 @@ func Koleff1Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β3 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff3Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff3Div returns vector of Koleff β3 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff3Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -46,8 +50,9 @@ func Koleff3Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β4 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff4Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff4Div returns vector of Koleff β4 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff4Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -65,8 +70,9 @@ func Koleff4Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β5 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff5Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff5Div returns vector of Koleff β5 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff5Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -84,8 +90,9 @@ func Koleff5Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β6 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff6Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff6Div returns vector of Koleff β6 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff6Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -103,8 +110,9 @@ func Koleff6Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β7 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff7Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff7Div returns vector of Koleff β7 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff7Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -122,8 +130,9 @@ func Koleff7Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β10 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff10Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff10Div returns vector of Koleff β10 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff10Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -141,8 +150,9 @@ func Koleff10Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β11 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff11Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff11Div returns vector of Koleff β11 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff11Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -160,8 +170,9 @@ func Koleff11Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β12 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff12Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff12Div returns vector of Koleff β12 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff12Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -179,8 +190,9 @@ func Koleff12Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β13 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff13Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff13Div returns vector of Koleff β13 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff13Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -198,8 +210,9 @@ func Koleff13Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β14 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff14Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff14Div returns vector of Koleff β14 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff14Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -217,8 +230,10 @@ func Koleff14Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β15 = β16 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff15Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff15Div returns vector of Koleff β15 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+// β15 = β16
+func Koleff15Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -236,8 +251,9 @@ func Koleff15Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β17 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff17Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff17Div returns vector of Koleff β17 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff17Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -255,8 +271,9 @@ func Koleff17Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β18 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff18Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff18Div returns vector of Koleff β18 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff18Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -274,8 +291,9 @@ func Koleff18Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β19 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff19Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff19Div returns vector of Koleff β19 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff19Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -293,8 +311,9 @@ func Koleff19Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β21 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff21Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff21Div returns vector of Koleff β21 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff21Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -312,8 +331,9 @@ func Koleff21Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β22 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff22Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff22Div returns vector of Koleff β22 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff22Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -331,8 +351,9 @@ func Koleff22Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β23 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff23Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff23Div returns vector of Koleff β23 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff23Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -350,8 +371,9 @@ func Koleff23Beta(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// β24 diversity index from Koleff, Gaston & Lennon (2003)
-func Koleff24Beta(data *aux.Matrix) *aux.Matrix {
+// Koleff24Div returns vector of Koleff β24 diversities. 
+// Koleff, Gaston & Lennon (2003). 
+func Koleff24Div(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)

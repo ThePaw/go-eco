@@ -1,4 +1,6 @@
-// Watts index of poverty
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
+// Watts index of poverty. 
 
 package div
 
@@ -7,13 +9,13 @@ import (
 	"math"
 )
 
-// Watts index of poverty
+// WattsIneq returns vector of Watts indices of poverty. 
 // Foster, J. E. (1984). On Economic Poverty: A Survey of Aggregate Measures. Advances in Econometrics, 3, 215–251.
 // Zheng, B. (1997). Aggregate Poverty Measures. Journal of Economic Surveys, 11, 123–162.
-func Watts_D(data *aux.Matrix, k float64) *Vector {
+func WattsIneq(data *aux.Matrix, k float64) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		n := 0.0

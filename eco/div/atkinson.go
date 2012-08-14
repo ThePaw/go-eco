@@ -1,15 +1,19 @@
-// Atkinson inequality coefficient matrix
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 package div
+
+// Atkinson inequality coefficient. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-func Atkinson(data *aux.Matrix, epsilon float64) *Vector {
+// Atkinson returns a vector of Atkinson inequality coefficients for floating-point data. 
+func AtkinsonIneq(data *aux.Matrix, epsilon float64) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	div := NewVector(rows)
+	div := aux.NewVector(rows)
 
 	//check params
 	if epsilon <= 0 || epsilon > 1 {

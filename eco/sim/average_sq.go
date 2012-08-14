@@ -8,7 +8,7 @@ import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Squared average distance
+// AverageSqBool_D returns a Squared average distance matrix for boolean data. 
 func AverageSqBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

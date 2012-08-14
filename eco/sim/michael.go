@@ -1,13 +1,15 @@
-// Michael similarity matrix
-// Michael (1920), Shi (1993)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Michael similarity matrix
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Michael similarity matrix
+// MichaelBool_S returns a Michael distance matrix, for boolean data
+// Michael (1920), Shi (1993). 
 func MichaelBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

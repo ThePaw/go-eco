@@ -1,13 +1,16 @@
-// Magurran dissimilarity matrix
-// Magurran (1988)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Magurran dissimilarity. 
+// Magurran (1988). 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Magurran dissimilarity matrix
+// MagurranBool_D returns a Magurran dissimilarity matrix for boolean data. 
+// Magurran (1988). 
 func MagurranBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

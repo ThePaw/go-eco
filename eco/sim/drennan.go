@@ -3,16 +3,16 @@
 package sim
 
 // Drennan distance and similarity
-// Marquardt, W.H. 1978 Archaeological seriation. In: Schiffer, M.B.(ed.)
-// Advances in Archaeological Method and Theory. Academic Press, N.Y., p.284.
-// Drennan, R.D. 1976 A refinement of chronological seriation using nonmetric
-// multidimensional scaling. American antiquity, 41: 290-302.
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
 // Drennan_D returns a Drennan distance matrix for floating-point data. 
+// Drennan, R.D. 1976 A refinement of chronological seriation using nonmetric 
+// multidimensional scaling. American antiquity, 41: 290-302. 
+// Marquardt, W.H. 1978 Archaeological seriation. In: Schiffer, M.B.(ed.) 
+// Advances in Archaeological Method and Theory. Academic Press, N.Y., p.284. 
 func Drennan_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C

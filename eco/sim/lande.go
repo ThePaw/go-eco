@@ -8,7 +8,6 @@ import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Lande dissimilarity matrix
 // LandeBool_D returns a Lande dissimilarity matrix for boolean data. 
 func LandeBool_D(data *aux.Matrix) *aux.Matrix {
 	var (

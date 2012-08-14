@@ -9,7 +9,7 @@ import (
 	"math"
 )
 
-// Arrhenius distance matrix, for boolean data
+// ArrheniusBool_D returns an Arrhenius distance matrix, for boolean data
 func ArrheniusBool_D(data *aux.Matrix) *aux.Matrix {
 	// Arrhenius dissimilarity: the value of z in the species-area model
 	// S = c*A^z when combining two sites of equal areas, where S is the

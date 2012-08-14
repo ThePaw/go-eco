@@ -1,13 +1,15 @@
-// Harte dissimilarity matrix
-// Harte & Kinzig (1997), Koleff et al. (2003)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Harte dissimilarity matrix
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Harte dissimilarity matrix
+// HarteBool_D returns a Harte dissimilarity matrix for floating-point data. 
+// Harte & Kinzig (1997), Koleff et al. (2003)
 func HarteBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

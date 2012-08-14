@@ -10,7 +10,7 @@ import (
 	. "math"
 )
 
-// Canberra_D returns a Canberra distance matrix. 
+// Canberra_D returns a Canberra distance matrix for floating-point data. 
 func Canberra_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
@@ -35,7 +35,7 @@ func Canberra_D(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// CanberraSc_D returns a Scaled Canberra distance matrix. 
+// CanberraSc_D returns a Scaled Canberra distance matrix for floating-point data. 
 func CanberraSc_D(data *aux.Matrix) *aux.Matrix {
 	// Reference needed!
 	rows := data.R

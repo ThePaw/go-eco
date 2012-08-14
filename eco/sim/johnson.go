@@ -30,7 +30,7 @@ func Johnson1Bool_S(data *aux.Matrix) *aux.Matrix {
 }
 
 // Johnson2Bool_S returns a Johnson similarity matrix #2 for boolean data. 
-// Johnson (1967)
+// Johnson (1967). 
 func Johnson2Bool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

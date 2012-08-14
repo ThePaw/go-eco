@@ -1,13 +1,15 @@
-// McConnagh similarity matrix
-// Hubalek (1982)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// McConnagh similarity matrix
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// McConnagh similarity matrix
+// McConnaghBool_S returns a McConnagh similarity matrix for boolean data. 
+// Hubalek (1982). 
 func McConnaghBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

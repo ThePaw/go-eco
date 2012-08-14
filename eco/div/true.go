@@ -1,5 +1,8 @@
-// True diversity matrix
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 package div
+
+// True diversity. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
@@ -16,10 +19,12 @@ import (
 // The above equation is often written in the equivalent form:[1][2]
 //    {}^q\!D=\left ( {\sum_{i=1}^R p_i^q} \right )^{1/(1-q)}
 // The term inside the parentheses is called the basic sum. Some popular diversity indices correspond to the basic sum as calculated with different values of q.[2]
-func True(data *aux.Matrix, q float64) *Vector {
+
+// TrueDiv returns vector of True diversities. 
+func TrueDiv(data *aux.Matrix, q float64) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	div := NewVector(cols)
+	div := aux.NewVector(cols)
 
 	for i := 0; i < rows; i++ {
 		sum := 0.0
@@ -45,8 +50,8 @@ func True(data *aux.Matrix, q float64) *Vector {
 // q == 1 --> geometric
 // q == 2 --> arithmetic
 
-// Harmonic mean
-func harmonicMean(data *Vector) float64 {
+// harmonicMean returns the harmonic mean of a vector. 
+func harmonicMean(data *aux.Vector) float64 {
 	n := data.L
 	sum := 0.0
 	for i := 0; i < n; i++ {
@@ -55,8 +60,8 @@ func harmonicMean(data *Vector) float64 {
 	return sum / float64(n)
 }
 
-// Geometric mean
-func geomMean(data *Vector) float64 {
+// geomMean returns the geometric mean of a vector. 
+func geomMean(data *aux.Vector) float64 {
 	n := data.L
 	sum := 0.0
 	for i := 0; i < n; i++ {
@@ -65,8 +70,8 @@ func geomMean(data *Vector) float64 {
 	return math.Exp(sum / float64(n))
 }
 
-// Arithmetic mean
-func arithMean(data *Vector) float64 {
+// arithMean returns the arithmetic mean of a vector. 
+func arithMean(data *aux.Vector) float64 {
 	n := data.L
 	sum := 0.0
 	for i := 0; i < n; i++ {
@@ -75,8 +80,8 @@ func arithMean(data *Vector) float64 {
 	return sum / float64(n)
 }
 
-// Generalized mean
-func genMean(data *Vector, p float64) float64 {
+// genMean returns the generalized mean of a vector. 
+func genMean(data *aux.Vector, p float64) float64 {
 	n := data.L
 	sum := 0.0
 	for i := 0; i < n; i++ {

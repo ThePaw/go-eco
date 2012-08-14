@@ -11,7 +11,7 @@ import (
 	. "math"
 )
 
-// Bray–Curtis distance matrix
+// BrayCurtis_D returns a Bray–Curtis distance matrix for floating-point data. 
 func BrayCurtis_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
@@ -39,6 +39,7 @@ func BrayCurtis_D(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
+// BrayCurtisBool_D returns a Bray–Curtis distance matrix for boolean data. 
 func BrayCurtisBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64

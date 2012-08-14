@@ -1,15 +1,17 @@
-// Manhattan distance
-// Also known as rectilinear distance, Minkowski's L1 distance, taxicab metric, or city-block distance (metric). 
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Manhattan distance
+// Also known as rectilinear distance, Minkowski's L1 distance, taxicab metric, or city-block distance (metric). 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	. "math"
 )
 
-// Manhattan distance
-// Legendre & Legendre (1998): 282, eq. 7.45 (D7 index)
+// Manhattan_D returns a Manhattan distance matrix for floating-point data. 
+// Legendre & Legendre (1998): 282, eq. 7.45 (D7 index). 
 func Manhattan_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
@@ -34,7 +36,7 @@ func Manhattan_D(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// Boolean Manhattan dissimilarity
+// ManhattanBool_D returns a Boolean Manhattan dissimilarity matrix for boolean data. 
 func ManhattanBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

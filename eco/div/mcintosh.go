@@ -1,18 +1,20 @@
-// McIntosh diversity and equitability
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package div
+
+// McIntosh diversity D and equitability E
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-// McIntosh D  diversity index
-// McIntosh 1967
-func McIntosh_D(data *aux.Matrix) *Vector {
+// McIntoshDiv returns vector of McIntosh diversities. 
+// McIntosh 1967. 
+func McIntoshDiv(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		n := 0.0 // total number of all individuals in the sample
@@ -29,11 +31,12 @@ func McIntosh_D(data *aux.Matrix) *Vector {
 	return out
 }
 
-// McIntosh E  equitability index
-func McIntosh_E(data *aux.Matrix) *Vector {
+// McIntoshEq returns vector of McIntosh E equitabilities. 
+// McIntosh 1967. 
+func McIntoshEq(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		s := 0.0 // number of species

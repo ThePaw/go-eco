@@ -1,21 +1,23 @@
-// Coefficient of variation
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package div
+
+// Coefficient of variation. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-// Coefficient of variation, for population
+// VarCoeffIneq returns vector of Coefficient of variation for population. 
 // F A Cowell: Measurement of Inequality, 2000, in A B Atkinson & F Bourguignon (Eds): Handbook of Income Distribution. Amsterdam.
 // F A Cowell: Measuring Inequality, 1995 Prentice Hall/Harvester Wheatshef.
 // Marshall & Olkin: Inequalities: Theory of Majorization and Its Applications, New York 1979 (Academic Press).
-// Algorithm inspired by R:ineq
-func VarCoeff_D(data *aux.Matrix) *Vector {
+func VarCoeffIneq(data *aux.Matrix) *aux.Vector {
+	// Algorithm inspired by R:ineq. 
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		// calculate mean and variance
@@ -40,15 +42,15 @@ func VarCoeff_D(data *aux.Matrix) *Vector {
 	return out
 }
 
-// Coefficient of variation, for sample
+// VarCoeffSmpIneq returns vector of Coefficient of variation for sample. 
 // F A Cowell: Measurement of Inequality, 2000, in A B Atkinson & F Bourguignon (Eds): Handbook of Income Distribution. Amsterdam.
 // F A Cowell: Measuring Inequality, 1995 Prentice Hall/Harvester Wheatshef.
 // Marshall & Olkin: Inequalities: Theory of Majorization and Its Applications, New York 1979 (Academic Press).
 // Algorithm inspired by R:ineq
-func VarCoeffSmp_D(data *aux.Matrix) *Vector {
+func VarCoeffSmpIneq(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		// calculate mean and variance
@@ -73,10 +75,10 @@ func VarCoeffSmp_D(data *aux.Matrix) *Vector {
 	return out
 }
 
-// Squared coefficient of variation, for population
-func VarCoeffSq_D(data *aux.Matrix) *Vector {
+// VarCoeffSqIneq returns vector of Squared coefficient of variation for population. 
+func VarCoeffSqIneq(data *aux.Matrix) *aux.Vector {
 	rows := data.R
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 	vc := VarCoeff_D(data)
 
 	for i := 0; i < rows; i++ {
@@ -87,10 +89,10 @@ func VarCoeffSq_D(data *aux.Matrix) *Vector {
 	return out
 }
 
-// Squared coefficient of variation, for saample
-func VarCoeffSqSmp_D(data *aux.Matrix) *Vector {
+// VarCoeffSqSmpIneq returns vector of Squared coefficient of variation for sample. 
+func VarCoeffSqSmpIneq(data *aux.Matrix) *aux.Vector {
 	rows := data.R
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 	vc := VarCoeffSmp_D(data)
 
 	for i := 0; i < rows; i++ {

@@ -1,18 +1,20 @@
-// Menhinick diversity and equitability
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package div
+
+// Menhinick diversity and equitability
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-// Menhinick diversity index
+// MenhinickDiv returns vector of Menhinick diversities. 
 // Menhinick 1967
-func Menhinick_D(data *aux.Matrix) *Vector {
+func MenhinickDiv(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		n := 0.0 // total number of all individuals in the sample

@@ -1,5 +1,9 @@
-// Brillouin diversity matrix
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 package div
+
+// Brillouin diversity. 
+// Peet RK 1974 The Measurement of Species Diversity. Annual Review of Ecology and Systematics, 5: 293.
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
@@ -7,15 +11,15 @@ import (
 	"math"
 )
 
-// Brillouin diversity
-// Peet RK 1974 The Measurement of Species Diversity. Annual Review of Ecology and Systematics, 5: 293.
-// If heterogeneity  is equated with uncertainty, Shannon-Weaver is a biased indicator validnonly for an infinite sample. 
-// The correct formulation for the finite sample is given by the Brillouin formula.
-func Brillouin(data *aux.Matrix) *Vector {
+// BrillouinDiv returns a vector of Brillouin diversities. 
+// If heterogeneity  is equated with uncertainty, Shannon-Weaver is a biased indicator valid only for an infinite sample. 
+// The correct formulation for the finite sample is given by the Brillouin formula. 
+// Peet (1974). 
+func BrillouinDiv(data *aux.Matrix) *aux.Vector {
 	var tot int64
 	rows := data.R
 	cols := data.C
-	div := NewVector(rows)
+	div := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		tot = 0 // total number of all individuals in the sample

@@ -1,14 +1,17 @@
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
+
+package sim
+
 // Hamming distance and similarity
 // Hamming distance between two strings  of equal length is the number of positions at which the corresponding symbols are different. Put another way, it measures the minimum number of substitutions required to change one string into the other, or the number of errors that transformed one string into the other.
 // For a fixed length n, the Hamming distance is a metric on the vector space of the words of that length.
-
-package sim
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Hamming_D returns a Hamming distance matrix. 
+// hamming_D returns a Hamming distance matrix. 
 func hamming_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C

@@ -11,7 +11,7 @@ import (
 )
 
 // Williams1Bool_D returns a Williams dissimilarity matrix #1 for boolean data. 
-// Williams (1996), Koleff et al. (2003)
+// Williams (1996), Koleff et al. (2003). 
 func Williams1Bool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
@@ -31,7 +31,7 @@ func Williams1Bool_D(data *aux.Matrix) *aux.Matrix {
 }
 
 // Williams2Bool_D returns a Williams dissimilarity matrix #2 for boolean data. 
-// Williams (1996), Koleff et al. (2003)
+// Williams (1996), Koleff et al. (2003). 
 func Williams2Bool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

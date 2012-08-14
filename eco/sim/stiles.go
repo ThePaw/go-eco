@@ -1,14 +1,15 @@
-// Stiles similarity matrix
-// Stiles (1946)
-
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 package sim
+
+// Stiles similarity. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-// Stiles similarity matrix
+// StilesBool_S returns a Stiles similarity matrix for boolean data. 
+// Stiles (1946). 
 func StilesBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

@@ -1,14 +1,16 @@
-// Sørensen similarity and distance
-// Soerensen (1948)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Sørensen similarity and distance
+// Soerensen (1948)
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Sørensen similarity matrix, for boolean data
-// Legendre & Legendre (1998): 256, eq. 7.11  (S8 index)
+// SorensenBool_S returns a Sørensen similarity matrix for boolean data. 
+// Legendre & Legendre (1998): 256, eq. 7.11  (S8 index). 
 func SorensenBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
@@ -27,7 +29,7 @@ func SorensenBool_S(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// Sørensen distance matrix, for boolean data
+// SorensenBool_D returns a Sørensen distance matrix for boolean data. 
 func SorensenBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		aa, bb, jj float64
@@ -53,9 +55,7 @@ func SorensenBool_D(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-/*
 // Sørensen distance matrix, for quantitative data
 func Sorensen_D(data *aux.Matrix) *aux.Matrix {
 	return Czekanowski_D(data)
 }
-*/

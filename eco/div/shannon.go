@@ -1,16 +1,19 @@
-// Shannon diversity matrix
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 package div
 
+// Shannon diversity. 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-func Shannon(data *aux.Matrix, base byte, corr bool) *Vector {
+// ShannonDiv returns vector of Shannon diversities. 
+func ShannonDiv(data *aux.Matrix, base byte, corr bool) *aux.Vector {
 	var log float64
 	rows := data.R
 	cols := data.C
-	div := NewVector(rows)
+	div := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		h := 0.0
@@ -45,6 +48,7 @@ func Shannon(data *aux.Matrix, base byte, corr bool) *Vector {
 	return div
 }
 
+// ShannonMax returns ...
 func ShannonMax(spec int64, base byte) float64 {
 	var x float64
 	s := float64(spec)
@@ -61,6 +65,7 @@ func ShannonMax(spec int64, base byte) float64 {
 	return x
 }
 
+// ShannonMin returns ...
 func ShannonMin(tot, spec int64, base byte) float64 {
 	//tot	total number of all individuals,  tot = sum(x[j]) 
 	var x float64

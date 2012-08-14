@@ -1,5 +1,6 @@
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 // Rogers - Tanimoto similarity matrix
-// Rogers & Tanimoto (1960), Gower & Legendre (1986)
 
 package sim
 
@@ -7,8 +8,9 @@ import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Rogers - Tanimoto similarity matrix
-// Legendre & Legendre (1998): 255, eq. 7.2 (S1 index)
+// RogersTanimotoBool_S returns a Rogers - Tanimoto similarity matrix for floating-point data. 
+// Rogers & Tanimoto (1960); Gower & Legendre (1986); 
+// Legendre & Legendre (1998): 255, eq. 7.2 (S1 index). 
 func RogersTanimotoBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

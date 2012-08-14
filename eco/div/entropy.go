@@ -1,19 +1,21 @@
-// Entropy inequality index
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package div
+
+// Entropy inequality index. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-// Entropy inequality index TT
+// EntropyIneq returns vector of Entropy inequality indices TT. 
 // F A Cowell: Measurement of Inequality, 2000, in A B Atkinson & F Bourguignon (Eds): Handbook of Income Distribution. Amsterdam.
 // F A Cowell: Measuring Inequality, 1995 Prentice Hall/Harvester Wheatshef.
 // Marshall & Olkin: Inequalities: Theory of Majorization and Its Applications, New York 1979 (Academic Press).
-// Algorithm inspired by R:ineq
-func Entropy_D(data *aux.Matrix, p float64) *Vector {
-	var out *Vector
+func EntropyIneq(data *aux.Matrix, p float64) *aux.Vector {
+	// Algorithm inspired by R:ineq
+	var out *aux.Vector
 	rows := data.R
 	cols := data.C
 
@@ -22,7 +24,7 @@ func Entropy_D(data *aux.Matrix, p float64) *Vector {
 	} else if p == 1 {
 		out = Theil_D(data, 0)
 	} else {
-		out = NewVector(rows)
+		out = aux.NewVector(rows)
 		for i := 0; i < rows; i++ {
 			// calculate mean and count number of species
 			meanX := 0.0

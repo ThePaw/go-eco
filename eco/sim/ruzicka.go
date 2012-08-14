@@ -1,12 +1,14 @@
-// Růžička distance and similarity
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Růžička distance
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Růžička distance matrix
+// Ruzicka_D returns a Růžička distance matrix for floating-point data. 
 func Ruzicka_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		aa, bb, jj float64

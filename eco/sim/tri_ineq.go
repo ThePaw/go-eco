@@ -1,14 +1,16 @@
-// Test of triangular inequality for distance matrix
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Test of triangular inequality for a distance matrix. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-// Test of triangular inequality for distance matrix
-// Returns 0 if holds, or positive integer = number of violations
+// TriIneq Tests for triangular inequality for a distance matrix. 
+// Returns 0 if holds, or positive integer = number of violations. 
 func TriIneq(dist *aux.Matrix) int {
 	n := dist.R
 	ineq := 0

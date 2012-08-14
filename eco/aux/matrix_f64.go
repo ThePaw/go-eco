@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-// Matrix represents a dense matriux struct. 
+// Matrix represents a dense matrix struct. 
 type Matrix struct {
 	R int
 	C int
@@ -24,15 +24,15 @@ func NewMatrix(rows, cols int) (m *Matrix) {
 	return m
 }
 
-// Get returns x_ij element of the matrix. 
-func (m Matrix) Get(i int, j int) float64 {
-	return m.A[i*m.C+j]
-}
-
-// Get sets x_ij element of the matrix. 
+// Set sets x_ij element of the matrix. 
 func (m Matrix) Set(i int, j int, x float64) {
 	//	m.A[i+j*m.C] = x
 	m.A[i*m.C+j] = x
+}
+
+// Get returns x_ij th element of the matrix. 
+func (m Matrix) Get(i int, j int) float64 {
+	return m.A[i*m.C+j]
 }
 
 // Print prints the matrix on stdout. 

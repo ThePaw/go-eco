@@ -1,9 +1,14 @@
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 package sim
+
+// Size difference dissimilarity. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
+// SizeDiffBool_D returns a Size difference dissimilarity matrix for boolean data. 
 func SizeDiffBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		out        *aux.Matrix

@@ -1,9 +1,11 @@
-// Steinhaus similarity
-// Motyka (1947)
-// Legendre & Legendre (1998): 265, eq. 7.24 (S17 index)
-// for count or interval data
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Steinhaus similarity
+// Motyka (1947). 
+// Legendre & Legendre (1998): 265, eq. 7.24 (S17 index). 
+// For count or interval data. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
@@ -11,6 +13,8 @@ import (
 )
 
 // Steinhaus similarity matrix
+// Steinhaus_S returns a Steinhaus similarity matrix for floating-point data. 
+// Legendre & Legendre (1998): 265, eq. 7.24 (S17 index). 
 func Steinhaus_S(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C

@@ -1,9 +1,14 @@
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 package sim
+
+// Variance distance. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
+// VarianceBool_D returns a Variance distance matrix for boolean data. 
 func VarianceBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		out        *aux.Matrix

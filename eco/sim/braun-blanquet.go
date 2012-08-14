@@ -3,14 +3,14 @@
 package sim
 
 // Braun–Blanquet similarity matrix
-// Braun-Blanquet 1932; Magurran 2004.
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-// Braun–Blanquet similarity
+// BraunBlanquetBool_S returns a Braun–Blanquet similarity matrix for boolean data. 
+// Braun-Blanquet 1932; Magurran 2004.
 func BraunBlanquetBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64

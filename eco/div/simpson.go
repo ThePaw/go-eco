@@ -1,11 +1,13 @@
-// Simpson diversity matrix
-// Simpson, E H. 1949. Measurement of diversity. Nature 163:688
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package div
 
+// Simpson diversity. 
+// Simpson, E H. 1949. Measurement of diversity. Nature 163:688
+
 import "code.google.com/p/go-eco/eco/aux"
 
-// Simpson index matrix
+// Simpson diversity index. 
 // The Simpson index was introduced in 1949 by Edward H. Simpson to measure the degree of concentration when individuals are classified into types.[6] 
 // The same index was rediscovered by Orris C. Herfindahl in 1950.[7] The square root of the index had already been introduced in 1945 by the economist Albert O. Hirschman.[8] 
 // As a result, the same measure is usually known as the Simpson index in ecology, and as the Herfindahl index or the Herfindahl-Hirschman index (HHI) in economics.
@@ -24,10 +26,13 @@ import "code.google.com/p/go-eco/eco/aux"
 // λ obtains small values in datasets of high diversity and large values in datasets of low diversity. This is counterintuitive behavior for a diversity index, 
 // so often such transformations of λ that increase with increasing diversity have been used instead. The most popular of such indices have been the inverse Simpson index (1/λ) and the Gini-Simpson index (1 - λ).[1][2] 
 // Both of these have also been called the Simpson index in the ecological literature, so care is needed to avoid accidentally comparing the different indices as if they were the same.
-func Simpson_Lambda(data *aux.Matrix, small bool) *Vector {
+
+// SimpsonLambdaDiv returns vector of Simpson λ diversities. 
+// Simpson 1949. 
+func SimpsonLambdaDiv(data *aux.Matrix, small bool) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		λ := 0.0
@@ -54,8 +59,9 @@ func Simpson_Lambda(data *aux.Matrix, small bool) *Vector {
 	return out
 }
 
-// Simpson diversity matrix
-func Simpson(data *aux.Matrix, which byte, small bool) *Vector {
+// SimpsonDiv returns vector of Simpson diversities. 
+// Simpson 1949. 
+func SimpsonDiv(data *aux.Matrix, which byte, small bool) *aux.Vector {
 	var d float64
 	rows := data.R
 	div := Simpson_Lambda(data, small)
@@ -75,12 +81,11 @@ func Simpson(data *aux.Matrix, which byte, small bool) *Vector {
 	return div
 }
 
-/*
-// Simpson equitability matrix
-func Simpson_E(data *aux.Matrix, which byte, small bool) *Vector {
+// SimpsonEq returns vector of Simpson equitabilities. 
+func SimpsonEq(data *aux.Matrix, which byte, small bool) *aux.Vector {
 	div := Simpson(data, which, small)
 
-	equ := NewVector(rows)
+	equ := aux.NewVector(rows)
 
 	rows := div.R
 	for i := 0; i < rows; i++ {
@@ -90,5 +95,3 @@ func Simpson_E(data *aux.Matrix, which byte, small bool) *Vector {
 	}
 	return equ
 }
-
-*/

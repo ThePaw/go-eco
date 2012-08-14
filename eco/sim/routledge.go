@@ -1,14 +1,17 @@
-// Routledge dissimilarity matrices
-// Routledge (1977), Magurran (1988), Wilson & Shmida (1984)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 
 package sim
+
+// Routledge dissimilarity matrices
+// Routledge (1977), Magurran (1988), Wilson & Shmida (1984)
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-// Routledge dissimilarity matrix #1
+// Routledge1Bool_D returns a Routledge dissimilarity matrix #1 for boolean data. 
 // Routledge (1977), Magurran (1988)
 func Routledge1Bool_D(data *aux.Matrix) *aux.Matrix {
 	var (
@@ -29,8 +32,8 @@ func Routledge1Bool_D(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// Routledge dissimilarity matrix #2
-// Routledge (1977), Wilson & Shmida (1984)
+// Routledge2Bool_D returns a Routledge dissimilarity matrix #2 for boolean data. 
+// Routledge (1977), Wilson & Shmida (1984). 
 func Routledge2Bool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
@@ -49,8 +52,8 @@ func Routledge2Bool_D(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// Routledge dissimilarity matrix #3
-// Routledge (1977)
+// Routledge3Bool_D returns a Routledge dissimilarity matrix #3 for boolean data. 
+// Routledge (1977). 
 func Routledge3Bool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas

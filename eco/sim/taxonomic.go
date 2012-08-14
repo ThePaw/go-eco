@@ -1,15 +1,18 @@
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
+package sim
+
 // Taxonomic distance
 // Dij = [ Σ ( Xki – Xkj )^2 / N] ^(1/2)
 // Sneath, PHA & RR Sokal 1973 Numerical Taxonomy: the principles and practice of numerical classification. WH Freeman and Co., San Francisco.
-
-package sim
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	. "math"
 )
 
-// Taxonomic distance matrix
+// Taxonomic_D returns a Taxonomic distance matrix for floating-point data. 
+// Sneath & Sokal 1973. 
 func Taxonomic_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
@@ -40,7 +43,7 @@ func Taxonomic_D(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// Scaled taxonomic distance matrix
+// TaxonomicSc_D returns a Scaled taxonomic distance matrix for floating-point data. 
 func TaxonomicSc_D(data *aux.Matrix) *aux.Matrix {
 	out := Taxonomic_D(data)
 	rows := data.R

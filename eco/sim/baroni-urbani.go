@@ -10,7 +10,7 @@ import (
 	"math"
 )
 
-// Baroni-Urbani and Buser similarity matrix
+// BaroniUrbaniBool_S returns a Baroni-Urbani and Buser  similarity matrix for floating-point data. 
 func BaroniUrbaniBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		out        *aux.Matrix
@@ -32,9 +32,9 @@ func BaroniUrbaniBool_S(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// Baroni-Urbani and Buser dissimilarity matrix
-// according to R:vegan
+// BaroniUrbaniBool_D returns a Baroni-Urbani and Buser dissimilarity matrix for floating-point data. 
 func BaroniUrbaniBool_D(data *aux.Matrix) *aux.Matrix {
+// according to R:vegan
 	var (
 		a, b, c, d float64
 	)

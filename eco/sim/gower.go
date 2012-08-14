@@ -9,8 +9,6 @@ package sim
 // dis[jk] = (1/M) sum (abs(x[ij]-x[ik])/(max(x[i])-min(x[i]))
 // where M is the number of columns (excluding missing values) 
 // 
-// Gower, J. C. (1971), “A general coefficient of similarity and some of its properties”. Biometrics, 27, 623–637.
-// Kaufman, L. and Rousseeuw, P.J. (1990), Finding Groups in Data: An Introduction to Cluster Analysis. Wiley, New York. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
@@ -18,6 +16,8 @@ import (
 )
 
 // Gower_D returns a Gower distance matrix for floating-point data. 
+// Gower, J. C. (1971), “A general coefficient of similarity and some of its properties”. Biometrics, 27, 623–637.
+// Kaufman, L. and Rousseeuw, P.J. (1990), Finding Groups in Data: An Introduction to Cluster Analysis. Wiley, New York. 
 func Gower_D(data *aux.Matrix) *aux.Matrix {
 	const missing float64 = -999 //code for missing values
 

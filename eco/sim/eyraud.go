@@ -3,14 +3,14 @@
 package sim
 
 // Eyraud dissimilarity matrix
-// Eyraud (1936) in Shi (1993)
-// Warning: it gives values near zero for both identical, and complementary data!!! STRANGE!
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
 // EyraudBool_D returns a Eyraud dissimilarity matrix for boolean data.
+// Eyraud (1936) in Shi (1993)
+// Warning: it gives values near zero for both identical, and complementary data!!! STRANGE!
 func EyraudBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

@@ -1,13 +1,15 @@
-// Peirce similarity matrix
-// Peirce (1884)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Peirce similarity matrix
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Peirce similarity matrix
+// PeirceBool_S returns a Peirce similarity matrix for boolean data. 
+// Peirce (1884) ???
 func PeirceBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

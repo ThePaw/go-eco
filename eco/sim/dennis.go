@@ -3,7 +3,6 @@
 package sim
 
 // Dennis similarity matrix
-// Holliday et al. (2002), Ellis et al. (1993)
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
@@ -11,6 +10,7 @@ import (
 )
 
 // DennisBool_S returns a Dennis similarity matrix for boolean data. 
+// Holliday et al. (2002), Ellis et al. (1993). 
 func DennisBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

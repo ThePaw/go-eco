@@ -3,13 +3,13 @@
 package sim
 
 // Hamann similarity matrix
-// Holley JW, Guilford JP 1964 A note on the G index of agreement. Educational and Psychological Measurement, 24(7):749-753.
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
 // HamannBool_S returns a Hamann similarity matrix for boolean data.
+// Holley JW, Guilford JP 1964 A note on the G index of agreement. Educational and Psychological Measurement, 24(7):749-753.
 func HamannBool_S(data *aux.Matrix) *aux.Matrix {
 	// Legendre & Legendre 1998: 256, eq. 7.7. 
 	// S9 index of Gower & Legendre (1986)

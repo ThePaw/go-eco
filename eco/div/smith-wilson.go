@@ -1,7 +1,9 @@
-// Smith and Wilson's evenness index 1-D 
-// Smith & Wilson, 1996
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package div
+
+// Smith and Wilson's evenness index 1-D. 
+// Smith & Wilson, 1996. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
@@ -9,14 +11,15 @@ import (
 	"math"
 )
 
-// Smith and Wilson's evenness index 1-D 
+// Smith and Wilson's evenness index 
 // needs to be verified !
-func SmithWilson1_E(data *aux.Matrix, which byte, small bool) *Vector {
+// SmithWilson1Eq returns vector of Smith and Wilson's evenness indices 1-D. 
+func SmithWilson1Eq(data *aux.Matrix, which byte, small bool) *aux.Vector {
 	rows := data.R
 	cols := data.C
 	dd := Simpson(data, which, small)
 	ss := SObs(data)
-	out := NewVector(cols)
+	out := aux.NewVector(cols)
 
 	for i := 0; i < rows; i++ {
 		s := ss.Get(i)
@@ -27,11 +30,11 @@ func SmithWilson1_E(data *aux.Matrix, which byte, small bool) *Vector {
 	return out
 }
 
-// Smith and Wilson's evenness index B
-func SmithWilson2_E(data *aux.Matrix) *Vector {
+// SmithWilson2Eq returns vector of Smith and Wilson's evenness indices B. 
+func SmithWilson2Eq(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	out := NewVector(cols)
+	out := aux.NewVector(cols)
 
 	for i := 0; i < rows; i++ {
 		s := 0.0 // number of species

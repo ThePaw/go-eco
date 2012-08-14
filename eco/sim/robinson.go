@@ -1,13 +1,16 @@
-// Robinson's similarity function
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
+
+// Robinson's similarity. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	. "math"
 )
 
-func robinson_S(data *aux.Matrix) *aux.Matrix {
+// Robinson_S returns a Robinson similarity matrix for floating-point data. 
+func Robinson_S(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
 	out := aux.NewMatrix(data.R, data.R) // square similarity matrix row vs. row

@@ -1,6 +1,8 @@
-// Pielou's evenness (J)
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package div
+
+// Pielou's evenness (J)
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
@@ -8,11 +10,12 @@ import (
 	"math"
 )
 
-func Pielou_E(data *aux.Matrix, base byte, corr bool) *Vector {
+// PielouEq returns vector of Pielou equitabilities. 
+func PielouEq(data *aux.Matrix, base byte, corr bool) *aux.Vector {
 	rows := data.R
 	hh := Shannon(data, base, corr)
 	ss := SObs(data)
-	j := NewVector(rows)
+	j := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		s := ss.Get(i)

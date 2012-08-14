@@ -1,21 +1,23 @@
-// Kolm inequality index
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package div
+
+// Kolm inequality index
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 	"math"
 )
 
-// Kolm inequality index TT
+// KolmIneq returns vector of Kolm TT inequalities. 
 // F A Cowell: Measurement of Inequality, 2000, in A B Atkinson & F Bourguignon (Eds): Handbook of Income Distribution. Amsterdam.
 // F A Cowell: Measuring Inequality, 1995 Prentice Hall/Harvester Wheatshef.
 // Marshall & Olkin: Inequalities: Theory of Majorization and Its Applications, New York 1979 (Academic Press).
-// Algorithm inspired by R:ineq
-func Kolm_D(data *aux.Matrix, m float64) *Vector {
+func KolmIneq(data *aux.Matrix, m float64) *aux.Vector {
+	// Algorithm inspired by R:ineq
 	rows := data.R
 	cols := data.C
-	out := NewVector(rows)
+	out := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
 		s := 0.0 // number of species
