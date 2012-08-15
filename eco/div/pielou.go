@@ -13,7 +13,7 @@ import (
 // PielouEq returns vector of Pielou equitabilities. 
 func PielouEq(data *aux.Matrix, base byte, corr bool) *aux.Vector {
 	rows := data.R
-	hh := Shannon(data, base, corr)
+	hh := ShannonDiv(data, base, corr)
 	ss := SObs(data)
 	j := aux.NewVector(rows)
 

@@ -1,14 +1,17 @@
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
+package rich
+
 // Jackknife estimators of species richness (incidence-based) 
 // Burnham and Overton 1978,1979; Heltshe and Forrester 1983
 // These nonparametic estimators of species richness are minimum estimators: their computed values should be viewed as lower bounds of total species numbers, given the information in a sample or sample set.
-package rich
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// First-order jackknife estimator of species richness for boolean (= incidence, presence-absence) data
-// Burnham and Overton 1978,1979; Heltshe and Forrester 1983
+// Jack1S returns a vector of  the first-order jackknife estimator of species richness for boolean (= incidence, presence-absence) data. 
+// Burnham and Overton (1978,1979); Heltshe and Forrester (1983).  
 func Jack1S(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
@@ -35,8 +38,8 @@ func Jack1S(data *aux.Matrix) *aux.Vector {
 	return out
 }
 
-// Second-order jackknife estimator of species richness for boolean (= incidence, presence-absence) data
-// Smith and van Belle 1984
+// Jack2S returns a vector of  the second-order jackknife estimator of species richness for boolean (= incidence, presence-absence) data. 
+// Smith and van Belle (1984). 
 func Jack2S(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C

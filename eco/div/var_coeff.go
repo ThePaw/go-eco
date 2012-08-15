@@ -79,7 +79,7 @@ func VarCoeffSmpIneq(data *aux.Matrix) *aux.Vector {
 func VarCoeffSqIneq(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	out := aux.NewVector(rows)
-	vc := VarCoeff_D(data)
+	vc := VarCoeffIneq(data)
 
 	for i := 0; i < rows; i++ {
 		v := vc.Get(i)
@@ -93,7 +93,7 @@ func VarCoeffSqIneq(data *aux.Matrix) *aux.Vector {
 func VarCoeffSqSmpIneq(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	out := aux.NewVector(rows)
-	vc := VarCoeffSmp_D(data)
+	vc := VarCoeffSmpIneq(data)
 
 	for i := 0; i < rows; i++ {
 		v := vc.Get(i)

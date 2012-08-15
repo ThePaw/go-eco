@@ -1,13 +1,16 @@
-// Bootstrap estimator of species richness (incidence-based)
-// Smith and van Belle 1984
-// These nonparametic estimators of species richness are minimum estimators: their computed values should be viewed as lower bounds of total species numbers, given the information in a sample or sample set.
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+
 package rich
+
+// Bootstrap estimator of species richness (incidence-based). 
+// Smith and van Belle (1984). 
+// These nonparametic estimators of species richness are minimum estimators: their computed values should be viewed as lower bounds of total species numbers, given the information in a sample or sample set. 
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// Bootstrap estimator of species richness (incidence-based)
+// BootS returns a vector of bootstrap estimator of species richness (incidence-based). 
 // Smith and van Belle 1984
 func BootS(data *aux.Matrix) *aux.Vector {
 	rows := data.R

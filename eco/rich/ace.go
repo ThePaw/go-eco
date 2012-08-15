@@ -1,6 +1,8 @@
-// Abundance - based Coverage Estimator
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package rich
+
+// Abundance - based Coverage Estimator
 
 import (
 	//	"code.google.com/p/go-fn/fn"
@@ -8,9 +10,9 @@ import (
 	"math"
 )
 
-// Computes the extrapolated species richness of a population using the Abundance - based Coverage Estimator
-// Returns a vector of values representing a minimum number of species present in each assemblage if the entire population was censused.
-// Colwell K et al.  (2012)
+// ACE computes the extrapolated species richness of a population using the Abundance - based Coverage Estimator. 
+// Returns a vector of values representing a minimum number of species present in each assemblage if the entire population was censused. 
+// Colwell et al.  (2012). 
 func ACE(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C
@@ -57,9 +59,9 @@ func ACE(data *aux.Matrix) *aux.Vector {
 	return out
 }
 
-// Computes the extrapolated species richness of a population using the Incidence - based Coverage Estimator
-// Returns a vector of values representing a minimum number of species present in each assemblage if the entire population was censused.
-// Colwell K et al.  (2012)
+// ICE computes the extrapolated species richness of a population using the Incidence - based Coverage Estimator. 
+// Returns a vector of values representing a minimum number of species present in each assemblage if the entire population was censused. 
+// Colwell K et al.  (2012). 
 func ICE(data *aux.Matrix) *aux.Vector {
 	rows := data.R
 	cols := data.C

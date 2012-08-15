@@ -17,7 +17,7 @@ import (
 func SmithWilson1Eq(data *aux.Matrix, which byte, small bool) *aux.Vector {
 	rows := data.R
 	cols := data.C
-	dd := Simpson(data, which, small)
+	dd := SimpsonDiv(data, which, small)
 	ss := SObs(data)
 	out := aux.NewVector(cols)
 

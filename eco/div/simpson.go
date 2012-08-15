@@ -64,7 +64,7 @@ func SimpsonLambdaDiv(data *aux.Matrix, small bool) *aux.Vector {
 func SimpsonDiv(data *aux.Matrix, which byte, small bool) *aux.Vector {
 	var d float64
 	rows := data.R
-	div := Simpson_Lambda(data, small)
+	div := SimpsonLambdaDiv(data, small)
 
 	for i := 0; i < rows; i++ {
 		λ := div.Get(i)
@@ -80,14 +80,12 @@ func SimpsonDiv(data *aux.Matrix, which byte, small bool) *aux.Vector {
 	}
 	return div
 }
-
+/*
 // SimpsonEq returns vector of Simpson equitabilities. 
 func SimpsonEq(data *aux.Matrix, which byte, small bool) *aux.Vector {
-	div := Simpson(data, which, small)
-
+	rows := data.R
+	div := SimpsonDiv(data, which, small)
 	equ := aux.NewVector(rows)
-
-	rows := div.R
 	for i := 0; i < rows; i++ {
 		d := div.Get(i)
 		e := (1 / d) / S
@@ -95,3 +93,4 @@ func SimpsonEq(data *aux.Matrix, which byte, small bool) *aux.Vector {
 	}
 	return equ
 }
+*/

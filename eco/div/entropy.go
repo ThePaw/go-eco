@@ -20,9 +20,9 @@ func EntropyIneq(data *aux.Matrix, p float64) *aux.Vector {
 	cols := data.C
 
 	if p == 0 {
-		out = Theil_D(data, 1)
+		out = TheilIneq(data, 1)
 	} else if p == 1 {
-		out = Theil_D(data, 0)
+		out = TheilIneq(data, 0)
 	} else {
 		out = aux.NewVector(rows)
 		for i := 0; i < rows; i++ {
