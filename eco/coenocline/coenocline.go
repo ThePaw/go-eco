@@ -11,13 +11,13 @@ write publication ;-)
 package main
 
 import (
-	. "gostat.googlecode.com/hg/stat/prob"
+	. "code.google.com/p/probab/dst"
 	"math"
 	"math/rand"
 	"sort"
 )
 
-// generate sampling points along the gradient
+// Generate sampling points along the gradient
 func generate_points(k int, spacing byte) (arr []float64) {
 	const offset = 0.2
 	arr = make([]float64, k)
@@ -51,33 +51,13 @@ func generate_points(k int, spacing byte) (arr []float64) {
 	return
 }
 
-/*
-// Triangular response function of a taxon on a gradient. 
-func triang(x, max, exc, opt, tol float64) (y float64) {
-		// x	 point on the gradient
-		// max	 amplitude, maximum abundance
-		// exc	 excentricity = left/range   <--- not very nice definition
-		// opt	 mean, position of max. abundance on the gradient
-		// tol	 range of nonzero values of abundance
-
-	if x < opt {
-		y = x*(max/(exc*tol)) + max - opt*(max/(exc*tol))
-	} else if x < (opt + tol - tol*exc) {
-		y = x*(-max)/(tol-exc*tol) + max - opt*(-max)/(tol-exc*tol)
-	} else {
-		y = 0
-	}
-	return
-}
-*/
-
 // Triangular response function of a taxon on a gradient. 
 func triangSRF(opt, tol, max, exc, x float64) (y float64) {
-	// x	 point on the gradient
-	// max	 amplitude, maximum abundance
-	// exc	 excentricity = left-right; is zero if symmetric, -1 or +1 if extremely asymmetric
-	// opt	 modus, position of max. abundance on the gradient
-	// tol	 tolerance, range of nonzero values of abundance
+	// opt	optimum = modus = position of max. abundance on the gradient
+	// tol	tolerance, range of nonzero values of abundance (fraction of gradient length)
+	// max	amplitude, maximum abundance = abundance at modus
+	// exc	excentricity = left-right; is zero if symmetric, -1 or +1 if extremely asymmetric
+	// x		point on the gradient
 
 	// exc = left-right; tol = left-right; thus:
 	right := (tol - exc) / 2 // segment above optimum
@@ -99,11 +79,14 @@ func triangSRF(opt, tol, max, exc, x float64) (y float64) {
 }
 
 // Gaussian response function 
-func gaussSRF(opt, tol, max, x float64) (y float64) {
-	// x	 point at which the function is evaluated
-	// opt	 optimum
-	// tol	 tolerance (fraction of gradient length)
-	// max	 maximum abundance = modus = mean
+func gaussSRF(opt, tol, max, exc, x float64) (y float64) {
+	// opt	 optimum = modus = position of max. abundance on the gradient (= mean for Gaussian)
+	// tol	tolerance, range of nonzero values of abundance (fraction of gradient length)
+	// max	amplitude, maximum abundance = abundance at modus
+	// exc	excentricity: not applicable, as Gaussian fn is symmetric; just for compatibility with other SRF's
+	// x		point on the gradient
+
+	exc = 0
 	spanZ := 2 * 2.326348 // span between 2% (arbitrarily chosen) tails of Z distribution
 	maxZ := 0.3989423     // value of Z at 0 (=mean=mode)
 	x -= opt
@@ -112,68 +95,79 @@ func gaussSRF(opt, tol, max, x float64) (y float64) {
 	return
 }
 
-// Beta response function 
-// Austin, M.P., 1976. On non-linear species responses models in ordination. Vegetatio 33, 33-41. DOI: 10.1007/BF00055297
-// Austin, M.P., Gaywood, M.J., 1994. Current problems of environmental gradients and species response curves in relation to continuum theory. J. Veg. Sci. 5, 473-482. DOI: 10.2307/3235973
-// This is NOT the Beta PDF !
-// thanks to Jari Oksanen, betasimu.c
-
-// func beta(max, lo, hi, α, γ, x float64) (y float64) {
-func betaSRF(opt, tol, max, α, γ, x float64) (y float64) {
-	// opt is where first derivative is zero
-	// solve lo, hi
-	/////gnuplot> f(x)=k*(x-l)**a * (h-x)**g
-
-	// Return zero if x is not in (lo,hi)
-	if x <= lo || x >= hi {
-		y = 0
-	} else {
-		// Otherwise evaluate the beta-function at x
-		k := kSolve(tol, α, γ, max)
-		t2 := math.Pow(x-lo, α)
-		t3 := math.Pow(hi-x, γ)
-		y = k * t2 * t3
+// SRF to be used
+func sRF(which byte) func() (x float64) {
+	return func() (y float64) {
+		const (
+			Gaussian = iota
+			Triangular
+		)
+		srf := gaussSRF //default
+		switch which {
+		case Gaussian:
+			srf = gaussSRF
+		case Triangular:
+			srf = triangSRF
+		}
+		return 
 	}
-	return
 }
 
-// Solve k from the maximum height of the response function
-// thanks to Jari Oksanen, betasimu.c
-func kSolve(tol, max, α, γ float64) (k float64) {
-	t4 := tol / (α + γ)
-	t6 := math.Pow(α*t4, α)
-	t11 := math.Pow(γ*t4, γ)
-	return max / t6 / t11
-}
+// Random variable generator for abundance and tolerance
+func rndFn(which byte, a, b, c float64) func() (x float64) {
+	return func() (x float64) {
+		const (
+			Flat = iota
+			Gaussian
+			Beta
+			ParetoSing
+			ParetoI
+			ParetoII
+			ParetoIII
+			ParetoIV
+			ParetoG
+			ParetoTap
+			Yule
+			Planck
+			Zeta
+		)
 
-// HOF response function 
-// Huisman, J., Olff, H. & Fresco, L.F.M. (1993) A hierarchical set of models for species response analysis. Journal of Vegetation Science, 4, 37-46. 
-func hof(a, b, c, d, m, x float64, which byte) (y float64) {
-	switch which {
-	case 1: // model I
-		y = m / (1 + math.Exp(a))
-	case 2: // model II
-		y = m / (1 + math.Exp(a+b*x))
-	case 3: // model III
-		y = m / ((1 + math.Exp(a+b*x)) * (1 + math.Exp(c)))
-	case 4: // model IV
-		y = m / ((1 + math.Exp(a+b*x)) * (1 + math.Exp(c-b*x)))
-	case 5: // model IV
-		y = m / ((1 + math.Exp(a+b*x)) * (1 + math.Exp(c+d*x)))
-	}
-	return
-}
-
+		switch which {
+		case Flat: // Flat
+			x = rand.Float64()
+		case Gaussian: // Gaussian
+			x = NextNormal(a, b)
+		case Beta: // Beta
+			x = NextBeta(a, b)
+		case ParetoSing: // single-parameter Pareto
+			x = NextParetoSing(a, b)
 /*
-
-// SRF model
-func srfModel(which byte) (y float64) {
-	switch which {
-	case 0:	// Gaussian
-		srf := 
-
-
-
+		case ParetoI: // Pareto I
+			x = NextPareto(a)
+*/
+		case ParetoII: // Pareto II
+			x = NextParetoII(a, b)
+/*
+		case ParetoIII: // Pareto III
+			x = NextParetoIII(a, b)
+		case ParetoIV: // Pareto IV
+			x = NextParetoIV(a, b)
+*/
+		case ParetoG: // Generalized Pareto
+			x = NextParetoG(a, b, c)
+		case ParetoTap: // tapered Pareto
+			x = NextParetoTap(a, b, c)  
+/*
+		case Yule: // Yule
+			x = NextYule(a)
+		case Planck: // Planck
+			x = NextPlanck(a, b)
+		case Zeta: // Zeta
+			x = NextZeta(a)
+*/
+		}
+		return
+	}
 }
 
 // Coenocline modeller
@@ -181,12 +175,13 @@ func Coenocline(nSpec, nSamp int, srfModel, optModel, abuModel, tolModel, spacin
 	var lo float64
 	out = NewMatrix(nSamp, nSpec)
 	points := generate_points(nSamp, spacing)	// generate sampling points
-	rngO := ....			// optima distribution model
+	rngO := rndFn(optModel, ao, bo)			// optima distribution model
 	rngA := rndFn(abuModel, aa, ba)			// abundance distribution model
-	rngT := rndFn(tolModel, at, bt)			// tolerance distribution model
+	rngT := rndFn(tolModel, at, bt)				// tolerance distribution model
 	if srfModel < 0 || srfModel > 3 {
 		panic("this SRF model is not defined")
 	}
+/*
 	switch {
 	case srfModel == 0: // Gaussian
 		for j := 0; j < nSpec; j++ {
@@ -262,42 +257,8 @@ func Coenocline(nSpec, nSamp int, srfModel, optModel, abuModel, tolModel, spacin
 		}
 	}
 //	fmt.Println("MODEL: ", srfModel)
+*/
 
 	return
 }
 
-*/
-// Random variable generator for abundance and tolerance
-func rndFn(which byte, a, b, c float64) func() (x float64) {
-	return func() (x float64) {
-		switch {
-		case which == 0: // flat
-			x = rand.Float64()
-		case which == 1: // Gaussian
-			x = NextNormal(a, b)
-		case which == 2: // Beta
-			x = NextBeta(a, b)
-		case which == 3: // single-parameter Pareto
-			x = NextParetoSing(a, b)
-		case which == 3: // Pareto I
-			x = NextPareto(a)
-		case which == 3: // Pareto II
-			x = NextParetoII(a, b)
-		case which == 3: // Pareto III
-			x = NextParetoIII(a, b)
-		case which == 3: // Pareto IV
-			x = NextParetoIV(a, b)
-		case which == 4: // Generalized Pareto
-			x = NextParetoG(a, b, c)
-		case which == 3: // tapered Pareto
-			x = NextParetoTap(a, b)
-		case which == 5: // Yule
-			x = NextYule(a)
-		case which == 6: // Planck
-			x = NextPlanck(a, b)
-		case which == 7: // Zeta
-			x = NextZeta(a)
-		}
-		return
-	}
-}

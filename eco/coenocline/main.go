@@ -1,15 +1,16 @@
 // Main
 
 package main
-
 import (
 	"flag"
+	"fmt"
+	"code.google.com/p/go-eco/eco/aux"
 )
 
 func main() {
 	help := flag.Bool("h", false, "Coenocline modeller\nUsage: coenocline -m [0|1|2] [-rsxya]")
 	srfModel := flag.Int("m", 0, "Response function: 0 = Gaussian, 1 = Beta, 2 = Triangular")
-	spacing := flag.Int("r", false, "true if spacing of samples along the gradient is random")
+	spacing := flag.Int("r", 0, "Spacing of samples: 0 = .....")
 	nSpec := flag.Int("x", 20, "number of species")
 	nSamp := flag.Int("y", 30, "number of samples")
 	abuModel := flag.Int("abuModel", 0, "model of distribution of abundances")
@@ -29,7 +30,10 @@ func main() {
 	if *help {
 		flag.PrintDefaults()
 	} else {
-		mtx := Coenocline(*nSpec, *nSamp, *srfModel, *abuModel, *aa, *ba, *tolModel, *at, *bt, *spacing, *abumax, *tmax, *alphamax, *gammamax)
+
+NewMatrix(rows, cols int) (m *Matrix) {
+
+//		mtx := Coenocline(*nSpec, *nSamp, *srfModel, *abuModel, *aa, *ba, *tolModel, *at, *bt, *spacing, *abumax, *tmax, *alphamax, *gammamax)
 		for i := 0; i < *nSamp; i++ {
 			for j := 0; j < *nSpec; j++ {
 				fmt.Print(mtx.Get(i, j), ",")
@@ -38,3 +42,4 @@ func main() {
 		}
 	}
 }
+
