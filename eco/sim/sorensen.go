@@ -55,7 +55,3 @@ func SorensenBool_D(data *aux.Matrix) *aux.Matrix {
 	return out
 }
 
-// Sørensen distance matrix, for quantitative data
-func Sorensen_D(data *aux.Matrix) *aux.Matrix {
-	return Czekanowski_D(data)
-}

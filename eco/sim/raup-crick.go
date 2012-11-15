@@ -6,10 +6,9 @@ package sim
 // Raup & Crick (1979). 
 
 import (
-	"code.google.com/p/go-eco/eco/aux"
+	. "code.google.com/p/go-eco/eco/aux"
 	"code.google.com/p/go-fn/fn"
-	"code.google.com/p/prob/dst"
-	//	. "gostat.googlecode.com/hg/stat/prob"
+	"code.google.com/p/probab/dst"
 	"math"
 )
 
@@ -82,7 +81,7 @@ func RaupCrickBool_D(data *Matrix) *Matrix {
 			//	v = 1 - phyper(jjj, aaa, float64(count) - aaa, bbb, 1, 0);
 
 			//fmt.Println("hyper: ", cols, aaa, bbb, jjj)
-			v = 1.0 - dst.Hypergeometric_CDF_At(int64(cols), aaa, bbb, jjj)
+			v = 1.0 - dst.HypergeometricCDFAt(int64(cols), aaa, bbb, jjj)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
@@ -101,7 +100,6 @@ func RaupCrickBool1_S(data *Matrix) *Matrix {
 	cols := data.C
 	out := NewMatrix(rows, rows)
 	WarnIfNotBool(data)
-	WarnIfDblNewMatrix(data)
 
 	n = int64(cols)
 	for i := 0; i < rows; i++ {
@@ -146,7 +144,6 @@ func RaupCrickBool2_S(data *Matrix, p []float64) *Matrix {
 	cols := data.C
 	out := NewMatrix(rows, rows)
 	WarnIfNotBool(data)
-	WarnIfDblNewMatrix(data)
 
 	a := make([]int, cols)
 	b := make([]int, cols)
@@ -206,7 +203,7 @@ func RaupCrickBool2_S(data *Matrix, p []float64) *Matrix {
 			L1:
 				for {
 					// draw from categorical ditribution
-					cat := NextChoice(p)
+					cat := dst.ChoiceNext(p)
 					// add the species to assemblage, if new
 					if a[cat] == 0 {
 						a[cat] = 1
@@ -226,7 +223,7 @@ func RaupCrickBool2_S(data *Matrix, p []float64) *Matrix {
 			L2:
 				for {
 					// draw from categorical ditribution
-					cat := NextChoice(p)
+					cat := dst.ChoiceNext(p)
 					// add the species to assemblage, if new
 					if b[cat] == 0 {
 						b[cat] = 1
