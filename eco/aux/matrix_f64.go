@@ -46,11 +46,11 @@ func (m *Matrix) Print() {
 	}
 }
 
-// FetchCsvMatrix opens a CSV file and reads the matrix from it. 
+// ReadCsvMatrix opens a CSV file and reads the matrix from it. 
 func ReadCsvMatrix(s string) (m *Matrix) {
 	f, err := os.Open(s)
 	if err != nil {
-		fmt.Println("Could not Open the CSV File")
+		fmt.Println("Could not open the CSV File")
 		return
 	}
 	read := csv.NewReader(io.Reader(f))
@@ -69,3 +69,19 @@ func ReadCsvMatrix(s string) (m *Matrix) {
 	}
 	return
 }
+
+/*
+func WriteCsvMatrix(s string) () {
+	f, err := os.Open(s)
+	if err != nil {
+		fmt.Println("Could not open the CSV File")
+		return
+	}
+	write := csv.NewWriter(io.Writer(f))
+	data, err := write.WriteAll()
+	return
+}
+
+func (r *Reader) ReadAll() (records [][]string, err error)
+func (w *Writer) WriteAll(records [][]string) (err error)
+*/
