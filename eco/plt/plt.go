@@ -29,9 +29,10 @@ func main() {
 	help := flag.Bool("h", false, "Simple CSV matrix plotter Usage: plt -f file")
 	inFile := flag.String("f", "data.csv", "data file")
 	outFile := flag.String("o", "plot.png", "output file")
-	title := flag.String("t", "Plot", "plot title")
-	xLabel := flag.String("x", "x", "label of the X axis")
-	yLabel := flag.String("y", "y", "label of the Y ayis")
+	title := flag.String("t", "", "plot title")
+	xLabel := flag.String("x", "", "label of the X axis")
+	yLabel := flag.String("y", "", "label of the Y ayis")
+	pal := flag.String("p", "W3CColors", "color palette to be used")
 
 	flag.Parse()
 
@@ -40,8 +41,19 @@ func main() {
 		return
 	}
 
-	palette = W3CSel
+switch *pal {
+	case "W3C":
+		palette = W3C
+	case "Gold":
+		palette = Gold
+	case "Hilite":
+		palette = Hilite
+	default :
+		palette = W3C
+}
+
 	numColors := len(palette)
+
 
 	// Create a new plot, set its title and
 	// axis labels.

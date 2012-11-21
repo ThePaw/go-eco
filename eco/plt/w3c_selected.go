@@ -1,4 +1,5 @@
-// W3CSel is a set of selected colors by the W3Consortium.
+// W3C is a set of selected colors by the W3Consortium.
+
 package main
 
 import (
@@ -114,7 +115,7 @@ const (
 	yellowgreen
 )
 
-var W3CSel = color.Palette{
+var W3C = color.Palette{
 	color.RGBA{ 0, 255, 255, 255},
 	color.RGBA{127, 255, 212, 255},
 	color.RGBA{138, 43, 226, 255},
