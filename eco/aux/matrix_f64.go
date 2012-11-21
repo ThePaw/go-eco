@@ -47,7 +47,7 @@ func (m *Matrix) Print() {
 }
 
 // ReadCsvMatrix opens a CSV file and reads the matrix from it. 
-func ReadCsvMatrix(s string) (m *Matrix) {
+ func ReadCsvMatrix(s string) (m *Matrix) {
 	f, err := os.Open(s)
 	if err != nil {
 		fmt.Println("Could not open the CSV File")
