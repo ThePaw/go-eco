@@ -1,5 +1,4 @@
 // Coenocline modeller: Gaussian SRF
-
 package main
 
 import (

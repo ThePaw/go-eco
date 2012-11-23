@@ -1,3 +1,4 @@
+// Plots multiple rows of a matrix as lines.
 package main
 
 import (

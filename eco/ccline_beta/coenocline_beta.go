@@ -1,5 +1,4 @@
-// Coenocline modeller: Gaussian SRF
-
+// Coenocline modeller: Beta SRF (inspired by Jari Oksanen).
 package main
 
 import (
