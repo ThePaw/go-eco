@@ -39,14 +39,25 @@ func generate_points(k, spacing int) (arr []float64) {
 }
 
 // Gaussian response function 
-func gaussSRF(μ, σ, popSize, x float64) float64 {
+func gaussSRF(μ, σ, x float64) float64 {
 	// μ	 	optimum = modus = position of max. abundance on the gradient (= mean for Gaussian)
 	// σ		measure of tolerance, range of nonzero values of abundance (fraction of gradient length)
-	// popSize	total size of population, along the whole gradient
 	// x		point on the gradient
 
-	return popSize * NormalPDFAt(μ, σ, x)
+	return NormalPDFAt(μ, σ, x)
 }
+
+// Gaussian external influences ("error" in terms of Fisherian statistics)
+func realizeDensity(μ, σ float64) float64 {
+	// μ	 	theoretical value of density according to model
+	// σ		standard deviation due to external (to the model) factors
+	y := NormalNext(μ, σ)
+	if y < 0 {
+		y = 0
+	}
+	return y 
+}
+
 
 // Random variable generator for optima, abundances and tolerances
 func rndFn(which int, μ, σ float64) func() (x float64) {
@@ -104,26 +115,33 @@ func rndFn(which int, μ, σ float64) func() (x float64) {
 }
 
 // Coenocline modeller 
-func Coenocline(nSpec, nSamp, sampModel, optModel, abuModel, tolModel int, μOpt, σOpt, μAbu, σAbu, μTol, σTol float64) (out *Matrix) {
+func Coenocline(nSpec, nSamp, sampModel, optModel, abuModel, tolModel int, μOpt, σOpt, μAbu, σAbu, μTol, σTol, σOut float64) (out *Matrix) {
 	out = NewMatrix(nSamp, nSpec)
 	points := generate_points(nSamp, sampModel) // generate sampling points
 	rngO := rndFn(optModel, μOpt, σOpt)       // optima distribution model
 	rngA := rndFn(abuModel, μAbu, σAbu)       // abundance distribution model
 	rngT := rndFn(tolModel, μTol, σTol)       // tolerance distribution model
-	for j := 0; j < nSpec; j++ {              // for every species: 
+
+	// for every species: 
+	for j := 0; j < nSpec; j++ {
 		μ := rngO()                // generate optimum (point on the gradient)
 		σ := rngT()                // generate tolerance (range of acceptable gradient values)
 		for σ < 1/float64(nSamp) { // if tolerance is too small, generate new value
 			σ = rngT()
 		}
-
 		popSize := rngA() // generate species' population size (abundance)
 		for popSize <= 0.02*μAbu { // if population size is too small, generate new value
 			popSize = rngA()
 		}
 		for i := 0; i < nSamp; i++ {
 			x := points[i]
-			y := gaussSRF(μ, σ, popSize, x)
+			y := gaussSRF(μ, σ, x)
+			// add "noise", if required
+			if σOut > 0 {
+				y = realizeDensity(y, σOut)
+			}
+			// scale by population size
+			y *= popSize
 			out.Set(i, j, y)
 		}
 	}
@@ -145,6 +163,7 @@ func main() {
 	tolModel := flag.Int("t", 1, "tolerance model: 0 - flat, 1 - Gaussian, 2 - Beta...")
 	μTol := flag.Float64("tm", 0.003, "mean tolerance")
 	σTol := flag.Float64("ts", 0.2, "standard deviation of tolerance")
+	σOut := flag.Float64("e", 0.0, "outer noise as standard deviation")
 	seed := flag.Int64("z", 1, "seed of random number generator")
 
 	flag.Parse()
@@ -157,7 +176,7 @@ func main() {
 
 
 	// compute the coenocline matrix
-	mtx := Coenocline(*nSpec, *nSamp, *sampModel, *optModel, *abuModel, *tolModel, *μOpt, *σOpt, *μAbu, *σAbu, *μTol, *σTol)
+	mtx := Coenocline(*nSpec, *nSamp, *sampModel, *optModel, *abuModel, *tolModel, *μOpt, *σOpt, *μAbu, *σAbu, *μTol, *σTol, *σOut)
 	// and write it out as CSV, transposed so that rows are species, columns are sampling points (to be reimplemented using csv.WriteAll)
 	for i := 0; i < *nSpec; i++ {
 		for j := 0; j < *nSamp; j++ {

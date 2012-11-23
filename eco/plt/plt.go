@@ -75,6 +75,18 @@ func main() {
 			palette = Hilite
 		case "Inkscape":
 			palette = Inkscape
+		case "Khaki":
+			palette = Khaki
+		case "Namib":
+			palette = Namib
+		case "Caramel":
+			palette = Caramel
+		case "Rainforest":
+			palette = Rainforest
+		case "Op2":
+			palette = Op2
+		case "Gray":
+			palette = Gray
 		default :
 			palette = W3C
 	}
