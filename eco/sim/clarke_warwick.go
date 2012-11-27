@@ -2,15 +2,14 @@
 
 package sim
 
-// Average taxonomic distinctness Δ⁺
-// Clarke & Warwick (1998)
-// Clarke & Warwick (2001), Eq. 2
+// Average taxonomic distinctness difference
 
 import (
 	"code.google.com/p/go-eco/eco/aux"
 )
 
-// AvTDBool_D returns a Clarke & Warwick Average taxonomic distinctness matrix for boolean data. 
+// AvTDBool_D returns a Clarke & Warwick Average taxonomic distinctness-based  difference matrix for boolean data. Not published. Experimental, by ++pac.
+// Based on Clarke & Warwick (2001), Eq. 2
 func AvTDBool_D(data *aux.Matrix, weight *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C
