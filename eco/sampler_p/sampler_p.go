@@ -1,5 +1,5 @@
-// Coenoses sampler: Poisson
-// Performs Poisson sampling of species populations given population densities and sample size.
+// Coenoses sampler: Poisson sampling model.
+// Performs Poisson sampling of species populations given population densities and sample size (sampling intensity).
 package main
 
 import (

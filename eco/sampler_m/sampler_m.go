@@ -1,4 +1,4 @@
-// Coenoses sampler: Multinomial
+// Coenoses sampler: Multinomial sampling model.
 // Performs multinomial sampling of species populations given population densities and sample size.
 package main
 

@@ -1,4 +1,5 @@
 // Coenoses sampler: Beta-Binomial sampling model.
+// Performs Beta-Binomial sampling of species populations given population densities, sample size and an array of overdispersion parameters for every species.
 package main
 
 // Thanks to Jari Oksanen: betasimu.c
