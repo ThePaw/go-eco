@@ -1,4 +1,4 @@
-// Huisman-Olff-Fresco coenocline modeller
+// Huisman-Olff-Fresco coenocline modeller. 
 // Huisman, J., Olff, H. & Fresco, L.F.M. (1993) A hierarchical set of models for species response analysis. Journal of Vegetation Science, 4, 37-46. 
 package main
 
