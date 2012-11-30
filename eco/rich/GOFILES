@@ -1,6 +1,0 @@
-GOFILES=\
-     ace.go\
-     bootstrap.go\
-     chao.go\
-     jackknife.go\
-     sobs.go\

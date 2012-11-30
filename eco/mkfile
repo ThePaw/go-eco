@@ -1,8 +1,0 @@
-< $GOROOT/src/9bootstrap.mk
-
-TARG=go-eco.googlecode.com/hg/eco
-
-< GOFILES
-
-< $GOROOT/src/mk.pkg
-

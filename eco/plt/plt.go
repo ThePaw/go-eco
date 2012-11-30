@@ -2,21 +2,20 @@
 package main
 
 import (
-	"flag"
-	"fmt"
-	"image/color"
-	"os"
 	"code.google.com/p/go-eco/eco/aux"
 	"code.google.com/p/plotinum/plot"
 	"code.google.com/p/plotinum/plotter"
 	"code.google.com/p/plotinum/vg"
+	"flag"
+	"fmt"
+	"image/color"
+	"os"
 )
 
 func usage() {
-        fmt.Fprintf(os.Stderr, "usage: plt [-t title] -x [x-label] [-y y-label] [-p palette] [-o outfile]  [datafile]")
-        os.Exit(2)
+	fmt.Fprintf(os.Stderr, "usage: plt [-t title] -x [x-label] [-y y-label] [-p palette] [-o outfile]  [datafile]")
+	os.Exit(2)
 }
-
 
 // getPoints returns x, y points from the specified row of the data matrix.
 func getPoints(m *aux.Matrix, row int) plotter.XYs {
@@ -30,11 +29,11 @@ func getPoints(m *aux.Matrix, row int) plotter.XYs {
 
 func main() {
 	var (
-		inFile *os.File
-		err error
+		inFile   *os.File
+		err      error
 		lineData plotter.XYs
 		l        *plotter.Line
-		palette color.Palette
+		palette  color.Palette
 	)
 
 	help := flag.Bool("h", false, "show usage message")
@@ -58,7 +57,7 @@ func main() {
 		inFile = os.Stdin
 	case 1:
 		inFile, err = os.Open(flag.Arg(0))
-	default: 
+	default:
 		flag.Usage()
 		os.Exit(1)
 	}
@@ -68,28 +67,28 @@ func main() {
 
 	// select palette
 	switch *pal {
-		case "W3C":
-			palette = W3C
-		case "Gold":
-			palette = Gold
-		case "Hilite":
-			palette = Hilite
-		case "Inkscape":
-			palette = Inkscape
-		case "Khaki":
-			palette = Khaki
-		case "Namib":
-			palette = Namib
-		case "Caramel":
-			palette = Caramel
-		case "Rainforest":
-			palette = Rainforest
-		case "Op2":
-			palette = Op2
-		case "Gray":
-			palette = Gray
-		default :
-			palette = W3C
+	case "W3C":
+		palette = W3C
+	case "Gold":
+		palette = Gold
+	case "Hilite":
+		palette = Hilite
+	case "Inkscape":
+		palette = Inkscape
+	case "Khaki":
+		palette = Khaki
+	case "Namib":
+		palette = Namib
+	case "Caramel":
+		palette = Caramel
+	case "Rainforest":
+		palette = Rainforest
+	case "Op2":
+		palette = Op2
+	case "Gray":
+		palette = Gray
+	default:
+		palette = W3C
 	}
 	numColors := len(palette)
 
@@ -103,7 +102,7 @@ func main() {
 	p.Y.Label.Text = *yLabel
 
 	for row := 0; row < mtx.R; row++ {
-		n := row%numColors
+		n := row % numColors
 
 		// Make a line plotter and set its style.
 		lineData = getPoints(mtx, n)
