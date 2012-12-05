@@ -6,4 +6,8 @@ Kempton-1979 Q
 ###!!! Niche_apportionment_models
 http://en.wikipedia.org/wiki/Niche_apportionment_models
 
-
+## Implement density posterior from abundance and time-interval estimation
+D= pop. density
+T=time
+A=abundance
+I have A ∼ Poisson(D*T), where T ∼ N(mu, sigma) . I want to sample from D. Is it correct just to sample D*T from the Gamma posterior and divide the sampled value by T (sampled from Normal)?
