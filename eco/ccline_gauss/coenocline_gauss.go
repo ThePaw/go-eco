@@ -24,7 +24,7 @@ func main() {
 	var mod Models
 
 	help := flag.Bool("h", false, "print usage")
-	srfModel := flag.String("srf", "gauss", "type of Species Response Function")
+	srfModel := flag.String("srf", "gauss", "type of Species Response Function: gauss | beta")
 	nSpec := flag.Int("n", 20, "number of species")
 	nSamp := flag.Int("m", 200, "number of samples")
 	sampModel := flag.Int("s", 0, "sampling model: 0 - regular, 1 - uniform, 2 - Poisson")
@@ -35,7 +35,7 @@ func main() {
 	μPop := flag.Float64("pm", 10.0, "mean population size")
 	σPop := flag.Float64("ps", 0.2, "standard deviation of population size, relative to population size = 1")
 	tolModel := flag.Int("t", 1, "tolerance model: 0 - flat, 1 - Gaussian, 2 - Beta...")
-	μTol := flag.Float64("tm", 0.08, "mean tolerance")
+	μTol := flag.Float64("tm", 0.2, "mean tolerance")
 	σTol := flag.Float64("ts", 0.4, "standard deviation of tolerance, relative to tolerance = 1")
 	ρPopTol := flag.Float64("r", 0.0, "correlation between ")
 	σNoise := flag.Float64("e", 0.0, "outer noise as standard deviation")
