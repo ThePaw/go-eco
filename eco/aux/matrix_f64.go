@@ -35,6 +35,11 @@ func (m Matrix) Get(i int, j int) float64 {
 	return m.A[i*m.C+j]
 }
 
+// PrintRC prints number of rows  and columns of  the matrix on stdout. 
+func (m *Matrix) PrintRC() {
+	fmt.Printf("%d %d \n \n", m.R, m.C)
+}
+
 // Print prints the matrix on stdout. 
 func (m *Matrix) Print() {
 	var i, j int
@@ -44,10 +49,46 @@ func (m *Matrix) Print() {
 		}
 		fmt.Print("\n")
 	}
+	fmt.Print("\n")
+}
+
+// Transpose returns a pointer to transposed matrix. 
+func  (m *Matrix) Transpose() *Matrix {
+b := NewMatrix(m.C, m.R)
+	for i := 0; i < m.R; i++ {
+		for j := 0; j < m.C; j++ {
+			b.Set(j, i, m.Get(i, j))
+		}
+	}
+	return b
+}
+
+// Scale scales the matrix to the specified maximum value. 
+func (m *.Matrix) Scale(scale float64) {
+	var maxVal float64 = 0
+	// find max value
+	for i := 0; i < rows; i++ {
+		for j := 0; j < cols; j++ {
+			if m.Get(i, j) > maxVal {
+				maxVal = m.Get(i, j)
+			}
+		}
+	}
+	coeff := scale / maxVal
+	in := aux.NewMatrixInt64(rows, cols)
+	for i := 0; i < rows; i++ {
+		for j := 0; j < cols; j++ {
+			x := m.Get(i, j)
+			// scale ma 
+			x *= coeff
+			x = math.Floor(x)
+			m.Set(i, j, int64(x))
+		}
+	}
 }
 
 // ReadCsvMatrix  reads the matrix from an opened CSV file. 
- func ReadCsvMatrix(f *os.File) (m *Matrix) {
+func ReadCsvMatrix(f *os.File) (m *Matrix) {
 	read := csv.NewReader(io.Reader(f))
 	data, err := read.ReadAll()
 	if err != nil {
