@@ -63,9 +63,11 @@ b := NewMatrix(m.C, m.R)
 	return b
 }
 
-// Scale scales the matrix to the specified maximum value. 
-func (m *.Matrix) Scale(scale float64) {
+// Scale scales the matrix (in place) to the specified maximum value. 
+func (m *Matrix) Scale(scale float64) {
 	var maxVal float64 = 0
+	rows := m.R
+	cols := m.C
 	// find max value
 	for i := 0; i < rows; i++ {
 		for j := 0; j < cols; j++ {
@@ -75,14 +77,9 @@ func (m *.Matrix) Scale(scale float64) {
 		}
 	}
 	coeff := scale / maxVal
-	in := aux.NewMatrixInt64(rows, cols)
 	for i := 0; i < rows; i++ {
 		for j := 0; j < cols; j++ {
-			x := m.Get(i, j)
-			// scale ma 
-			x *= coeff
-			x = math.Floor(x)
-			m.Set(i, j, int64(x))
+			m.Set(i, j, coeff*m.Get(i, j))
 		}
 	}
 }
