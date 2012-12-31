@@ -12,7 +12,7 @@ import (
 
 // Canonical_D returns a Canonical distance distance matrix for floating-point data. 
 func Canonical_D(data *aux.Matrix) *aux.Matrix {
-// Algorithm from R:ade4
+	// Algorithm from R:ade4
 	rows := data.R
 	cols := data.C
 	out := aux.NewMatrix(rows, rows)

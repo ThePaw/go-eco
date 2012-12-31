@@ -9,7 +9,7 @@ import (
 )
 
 // FaithBool_S returns a Faith similarity matrix for boolean data  (S26 index in Legendre & Legendre, 1998). 
-	// Faith (1983). 
+// Faith (1983). 
 func FaithBool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

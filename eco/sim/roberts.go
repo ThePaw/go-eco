@@ -12,7 +12,7 @@ import (
 // Roberts_S returns a Roberts similarity matrix for floating-point data. 
 // Roberts 1986. 
 func Roberts_S(data *aux.Matrix) *aux.Matrix {
-// Algorithm inspired by R:labdsv. 
+	// Algorithm inspired by R:labdsv. 
 	rows := data.R
 	cols := data.C
 	out := aux.NewMatrix(rows, rows)

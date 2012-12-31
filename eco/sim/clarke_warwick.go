@@ -28,15 +28,15 @@ func AvTDBool_D(data *aux.Matrix, weight *aux.Matrix) *aux.Matrix {
 		for j := i + 1; j < rows; j++ {
 			sum := 0.0
 			for k := 0; k < cols; k++ {
-				for l := 0; l < cols; l++ {	// allow for asymmetric weights
+				for l := 0; l < cols; l++ { // allow for asymmetric weights
 					if k != l {
-					a := data.Get(i, k)
-					b := data.Get(j, k)
-					c := data.Get(i, l)
-					d := data.Get(j, l)
-					if a+b+c+d == 4 { // both species present in both samples
-						sum += weight.Get(k, l)
-					}
+						a := data.Get(i, k)
+						b := data.Get(j, k)
+						c := data.Get(i, l)
+						d := data.Get(j, l)
+						if a+b+c+d == 4 { // both species present in both samples
+							sum += weight.Get(k, l)
+						}
 					}
 				}
 			}

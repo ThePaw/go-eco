@@ -10,7 +10,6 @@ import "code.google.com/p/go-eco/eco/aux"
 // Because richness does not take the abundances of the types into account, it is not the same thing as diversity, which does take abundances into account. 
 // However, if true diversity is calculated with q = 0, the effective number of types (0D) equals the actual number of types (R).[2][4]
 
-
 // SObs returns a vector of numbers of species actually observed in every row of the data matrix.
 func SObs(data *aux.Matrix) *aux.Vector {
 	rows := data.R

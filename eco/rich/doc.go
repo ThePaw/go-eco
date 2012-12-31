@@ -2,4 +2,3 @@
 
 // Package rich implements a species richness estimation library.
 package rich
-

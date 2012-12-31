@@ -350,4 +350,3 @@ func GenBetaSRF(x float64, par ...float64) float64 {
 	return a
 }
 */
-

@@ -34,7 +34,7 @@ func BaroniUrbaniBool_S(data *aux.Matrix) *aux.Matrix {
 
 // BaroniUrbaniBool_D returns a Baroni-Urbani and Buser dissimilarity matrix for floating-point data. 
 func BaroniUrbaniBool_D(data *aux.Matrix) *aux.Matrix {
-// according to R:vegan
+	// according to R:vegan
 	var (
 		a, b, c, d float64
 	)

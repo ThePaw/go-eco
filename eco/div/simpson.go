@@ -80,6 +80,7 @@ func SimpsonDiv(data *aux.Matrix, which byte, small bool) *aux.Vector {
 	}
 	return div
 }
+
 /*
 // SimpsonEq returns vector of Simpson equitabilities. 
 func SimpsonEq(data *aux.Matrix, which byte, small bool) *aux.Vector {

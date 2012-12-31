@@ -10,8 +10,8 @@ import (
 )
 
 // Clark_D returns Clark dissimilarity matrix for count or interval data. 
-	// Clark (1952). 
-	// Legendre & Legendre (1998): 283, eq. 7.51 (D11 index). 
+// Clark (1952). 
+// Legendre & Legendre (1998): 283, eq. 7.51 (D11 index). 
 func Clark_D(data *aux.Matrix) *aux.Matrix {
 	rows := data.R
 	cols := data.C

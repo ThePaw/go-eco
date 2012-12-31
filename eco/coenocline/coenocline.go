@@ -9,7 +9,6 @@
 // Gradient spans from 0 to 1. 
 package main
 
-
 import (
 	. "code.google.com/p/go-eco/eco/cc"
 	"flag"
@@ -53,8 +52,8 @@ func main() {
 	}
 
 	// set up models
-	mp:= &mod	// pointer to models
-	mp.SetUpModels(*srfModel, *sampModel, *optModel, *denModel, *tolModel, *betaParamModel, *μOpt, *εOpt, *μPop, *εPop, *μTol, *εTol, *ρPopTol, *μα,  *εα, *μγ, *εγ,  *εNoise)
+	mp := &mod // pointer to models
+	mp.SetUpModels(*srfModel, *sampModel, *optModel, *denModel, *tolModel, *betaParamModel, *μOpt, *εOpt, *μPop, *εPop, *μTol, *εTol, *ρPopTol, *μα, *εα, *μγ, *εγ, *εNoise)
 
 	// compute the coenocline matrix
 	mtx := Coenocline(*nSpec, *nSamp, mod)

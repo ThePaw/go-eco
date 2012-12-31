@@ -95,7 +95,7 @@ func SokalSneath4Bool_S(data *aux.Matrix) *aux.Matrix {
 // Sokal & Sneath (1963)  ### REF!pg, eq. 
 // Legendre & Legendre 1998: 255, eq. 7.13 (S10 index). 
 func SokalSneath5Bool_S(data *aux.Matrix) *aux.Matrix {
-// sokal1 of R:simba
+	// sokal1 of R:simba
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -115,7 +115,7 @@ func SokalSneath5Bool_S(data *aux.Matrix) *aux.Matrix {
 
 // SokalSneath6Bool_S returns a Sokal - Sneath similarity matrix #6 for boolean data. 
 func SokalSneath6Bool_S(data *aux.Matrix) *aux.Matrix {
-// sokal2 of R:simba
+	// sokal2 of R:simba
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -135,7 +135,7 @@ func SokalSneath6Bool_S(data *aux.Matrix) *aux.Matrix {
 
 // SokalSneath7Bool_S returns a Sokal - Sneath similarity matrix #7 for boolean data. 
 func SokalSneath7Bool_S(data *aux.Matrix) *aux.Matrix {
-// sokal3 of R:simba
+	// sokal3 of R:simba
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)
@@ -155,7 +155,7 @@ func SokalSneath7Bool_S(data *aux.Matrix) *aux.Matrix {
 
 // SokalSneath8Bool_S returns a Sokal - Sneath similarity matrix #8 for boolean data. 
 func SokalSneath8Bool_S(data *aux.Matrix) *aux.Matrix {
-// sokal4 of R:simba
+	// sokal4 of R:simba
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas
 	)

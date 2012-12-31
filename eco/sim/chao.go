@@ -14,7 +14,7 @@ import (
 )
 
 // Chao_D returns a Chao distance matrix for floating-point data. 
-	// Chao et al. (2005). 
+// Chao et al. (2005). 
 func Chao_D(data *aux.Matrix) *aux.Matrix {
 	// Algorithm inspired by R:vegan
 	var v float64
@@ -113,8 +113,8 @@ func Chao_D(data *aux.Matrix) *aux.Matrix {
 // ChaoJaccard_S returns a Chao - Jaccard similarity matrix for floating-point data. 
 // Chao et al. (2005). 
 func ChaoJaccard_S(data *aux.Matrix) *aux.Matrix {
-// Chao’s Jaccard shared species estimators for use with incomplete datasets
-// Algorithm inspired by R:fossil
+	// Chao’s Jaccard shared species estimators for use with incomplete datasets
+	// Algorithm inspired by R:fossil
 	rows := data.R
 	cols := data.C
 	out := aux.NewMatrix(rows, rows)
@@ -204,7 +204,7 @@ func ChaoJaccard_S(data *aux.Matrix) *aux.Matrix {
 // Chao’s Sorensen shared species estimators for use with incomplete datasets. 
 // Chao et al. (2005). 
 func ChaoSorensen_S(data *aux.Matrix) *aux.Matrix {
-// Algorithm inspired by R:fossil
+	// Algorithm inspired by R:fossil
 	rows := data.R
 	cols := data.C
 	out := aux.NewMatrix(rows, rows)

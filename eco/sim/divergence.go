@@ -11,7 +11,7 @@ import (
 )
 
 // DivergenceBool_D returns a Divergence dissimilarity matrix for boolean data.
-	// Ellis et al. (1993). 
+// Ellis et al. (1993). 
 func DivergenceBool_D(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c, d float64 // these are actually counts, but float64 simplifies the formulas

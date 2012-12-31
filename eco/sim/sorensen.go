@@ -54,4 +54,3 @@ func SorensenBool_D(data *aux.Matrix) *aux.Matrix {
 	}
 	return out
 }
-

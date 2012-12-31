@@ -112,8 +112,6 @@ func S15(data *aux.Matrix) *aux.Matrix {
 	return GowerBool_S(data)
 }
 
-
-
 // S16 returns an S16 similarity matrix for boolean data. 
 // Legendre & Legendre (1998): 261, eq. 7.21 (S16 index). 
 // S16 matrix == Estabrook & Rogers
