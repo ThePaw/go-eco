@@ -115,7 +115,7 @@ func GaussSRF(x float64, par ...float64) float64 {
 	opt, tol := par[0], par[1]
 	σ := tol / 6 // 99.7% of population lies within μ±3*σ for Normal (Gaussian) distribution
 	y := NormalPDFAt(opt, σ, opt)
-	return NormalPDFAt(opt, σ, x) / y
+	return NormalPDFAt(opt, σ, x) / y // normalize so that maximum value is 1.0
 }
 
 // BetaSRF computes the β-function of Austin, 1976
@@ -275,7 +275,7 @@ func Coenocline(nSpec, nSamp int, m Models) (out *Matrix) {
 		// force max population density and tolerance within some considerable limits
 		lo := m.MaxLoc - 3*m.MaxScale
 		if lo < 0 {
-			lo = 0
+			lo = m.MaxLoc*0.05
 		}
 		if aMax < lo {
 			aMax = lo
@@ -330,7 +330,7 @@ func Coenocline(nSpec, nSamp int, m Models) (out *Matrix) {
 	return
 }
 
-/* Something went wrong... bad formula?
+// Something went wrong here... needs revision.  
 // GeneralisedBeta response function. 
 // Austin et al. (2006), p. 200. 
 func GenBetaSRF(x float64, par ...float64) float64 {
@@ -343,10 +343,10 @@ func GenBetaSRF(x float64, par ...float64) float64 {
 	// x		point on the gradient
 
 	opt, tol, α, γ := par[0], par[1], par[2], par[3]
+
 	b := α / (α + γ)
 	d := math.Pow(b, α) * math.Pow(1-b, γ)
 	e := (x-opt)/tol + b
-	a := (math.Pow(e, α) * math.Pow(1-e, γ))/d 
+	a := (math.Pow(e, α) * math.Pow(1-e, γ)) / d
 	return a
 }
-*/
