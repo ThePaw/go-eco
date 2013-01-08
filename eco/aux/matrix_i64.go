@@ -53,6 +53,18 @@ func (m *MatrixInt64) Print() {
 		fmt.Print("\n")
 }
 
+// Print prints the matrix on stdout. 
+func (m *MatrixInt64) PrintCSV() {
+	var i, j int
+	for i = 0; i < m.R; i++ {
+		fmt.Printf("%d", m.Get(i, 0))	// no leading comma
+		for j = 1; j < m.C; j++ {
+			fmt.Printf(", %d", m.Get(i, j))
+		}
+		fmt.Print("\n")
+	}
+}
+
 func skip(rd *bufio.Reader) {
 	var b byte = ' '
 	var err error

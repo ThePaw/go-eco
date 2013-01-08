@@ -3,15 +3,15 @@
 package main
 
 import (
+	. "code.google.com/p/go-eco/eco/aux"
 	"flag"
 	"fmt"
 	"math"
 	"math/rand"
-	. "code.google.com/p/go-eco/eco/aux"
 )
 
 // HOF response function 
-func hofSRF(which int, a, b, c, d, m, x float64, ) (y float64) {
+func hofSRF(which int, a, b, c, d, m, x float64) (y float64) {
 	switch which {
 	case 1: // model I
 		y = m / (1 + math.Exp(a))
@@ -39,16 +39,16 @@ func Coenocline(nSpec, nSamp, srfModel int, abumax float64) (out *Matrix) {
 
 	for j := 0; j < nSpec; j++ {
 
-		z:= 10.0
-		a := z*rand.Float64()
-		b := z*rand.Float64()
-		c := z*rand.Float64()
-		d := z*rand.Float64()
-		m := abumax*rand.Float64()
-//		m := abumax
+		z := 10.0
+		a := z * rand.Float64()
+		b := z * rand.Float64()
+		c := z * rand.Float64()
+		d := z * rand.Float64()
+		m := abumax * rand.Float64()
+		//		m := abumax
 
-		for i := 0; i < nSamp; i++ {		// generate SRF values at every sampling point
-			x := (points[i]-0.5)*12	// scaling [0, 1] to [-6, +6], a typical interval of HOF response
+		for i := 0; i < nSamp; i++ { // generate SRF values at every sampling point
+			x := (points[i] - 0.5) * 12 // scaling [0, 1] to [-6, +6], a typical interval of HOF response
 			y := hofSRF(srfModel, a, b, c, d, m, x)
 			if y < 0 {
 				y = 0
@@ -56,14 +56,14 @@ func Coenocline(nSpec, nSamp, srfModel int, abumax float64) (out *Matrix) {
 			out.Set(i, j, y)
 		}
 
-		max := -1e20		// find maximum
+		max := -1e20 // find maximum
 		for i := 0; i < nSamp; i++ {
 			if out.Get(i, j) > max {
 				max = out.Get(i, j)
 			}
 		}
-		for i := 0; i < nSamp; i++ {	//  and recalculate so that maximum has the desired value
-			y:= m* out.Get(i, j) / max 
+		for i := 0; i < nSamp; i++ { //  and recalculate so that maximum has the desired value
+			y := m * out.Get(i, j) / max
 			out.Set(i, j, y)
 		}
 
@@ -84,7 +84,7 @@ func main() {
 	if *help {
 		flag.PrintDefaults()
 	} else {
-		mtx := Coenocline(*nSpec, *nSamp, *srfModel, *abumax )
+		mtx := Coenocline(*nSpec, *nSamp, *srfModel, *abumax)
 		for i := 0; i < *nSamp; i++ {
 			for j := 0; j < *nSpec; j++ {
 				fmt.Print(mtx.Get(i, j), ",")

@@ -1,4 +1,4 @@
-// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+// Copyright 2012 - 2013 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package cc
 
@@ -275,7 +275,7 @@ func Coenocline(nSpec, nSamp int, m Models) (out *Matrix) {
 		// force max population density and tolerance within some considerable limits
 		lo := m.MaxLoc - 3*m.MaxScale
 		if lo < 0 {
-			lo = m.MaxLoc*0.05
+			lo = m.MaxLoc * 0.05
 		}
 		if aMax < lo {
 			aMax = lo

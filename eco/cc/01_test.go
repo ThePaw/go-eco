@@ -8,6 +8,6 @@ import (
 
 func TestGenBeta(t *testing.T) {
 	for i := 0; i < 100; i++ {
-				fmt.Println(GenBetaSRF(float64(i), 50.0, 50.0, 4.0, 2.0))
+		fmt.Println(GenBetaSRF(float64(i), 50.0, 50.0, 4.0, 2.0))
 	}
 }

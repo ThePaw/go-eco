@@ -3,22 +3,22 @@
 package main
 
 import (
+	"code.google.com/p/go-eco/eco/aux"
+	. "code.google.com/p/probab/dst"
 	"flag"
 	"fmt"
 	"os"
-	"code.google.com/p/go-eco/eco/aux"
-	. "code.google.com/p/probab/dst"
 )
 
 func usage() {
-        fmt.Fprintf(os.Stderr, "usage: sampler_m [-s sample_size]  [datafile.csv]")
-        os.Exit(2)
+	fmt.Fprintf(os.Stderr, "usage: sampler_m [-s sample_size]  [datafile.csv]")
+	os.Exit(2)
 }
 
 func main() {
 	var (
 		inFile *os.File
-		err error
+		err    error
 	)
 
 	help := flag.Bool("h", false, "show usage message")
@@ -32,7 +32,7 @@ func main() {
 		inFile = os.Stdin
 	case 1:
 		inFile, err = os.Open(flag.Arg(0))
-	default: 
+	default:
 		flag.Usage()
 		os.Exit(1)
 	}
@@ -55,7 +55,7 @@ func main() {
 
 	for i := 0; i < nSamp; i++ {
 		for j := 0; j < nSpec; j++ {
-			y := *sSize * mtx.Get(j, i) 
+			y := *sSize * mtx.Get(j, i)
 			y = float64(PoissonNext(y))
 			out.Set(j, i, y)
 		}
@@ -63,9 +63,9 @@ func main() {
 	for i := 0; i < nSpec; i++ {
 		for j := 0; j < nSamp; j++ {
 			if j == 0 {
-				fmt.Print(out.Get(i,j))
+				fmt.Print(out.Get(i, j))
 			} else {
-				fmt.Print(",", out.Get(i,j))
+				fmt.Print(",", out.Get(i, j))
 			}
 		}
 		fmt.Println()
@@ -73,9 +73,9 @@ func main() {
 	for i := 0; i < nSpec; i++ {
 		for j := 0; j < nSamp; j++ {
 			if j == 0 {
-				fmt.Print(out.Get(i,j))
+				fmt.Print(out.Get(i, j))
 			} else {
-				fmt.Print(",", out.Get(i,j))
+				fmt.Print(",", out.Get(i, j))
 			}
 		}
 		fmt.Println()

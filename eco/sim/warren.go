@@ -1,4 +1,4 @@
-// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+// Copyright 2012 - 2013 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
 
@@ -33,7 +33,7 @@ func Warren_S(data *aux.Matrix) *aux.Matrix {
 				y := math.Sqrt(data.Get(j, k))
 				sum += (x - y) * (x - y)
 			}
-			v := 1-0.5*sum
+			v := 1 - 0.5*sum
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}

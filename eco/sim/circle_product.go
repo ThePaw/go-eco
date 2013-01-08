@@ -1,4 +1,4 @@
-// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
+// Copyright 2012 - 2013 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package sim
 
@@ -10,12 +10,12 @@ import (
 )
 
 // CircleProduct_S returns a Circle product similarity matrix for floating-point data. 
-// Marquardt, W.H. 1978 Archaeological seriation. In: Schiffer, M.B.(ed.)
-// Advances in Archaeological Method and Theory. Academic Press, N.Y., p.281.
-// Kendall, D.G. 1971b Seriation from abundance matrices. In: Hodson, F.R.,
-// Kendall, D.G. & Tautu, P: Mathematics in the archaeological and historical
-// sciences. Edinburgh University Press, pp. 215-252. 
 func CircleProduct_S(data *aux.Matrix) *aux.Matrix {
+	// Marquardt, W.H. 1978 Archaeological seriation. In: Schiffer, M.B.(ed.)
+	// Advances in Archaeological Method and Theory. Academic Press, N.Y., p.281.
+	// Kendall, D.G. 1971b Seriation from abundance matrices. In: Hodson, F.R.,
+	// Kendall, D.G. & Tautu, P: Mathematics in the archaeological and historical
+	// sciences. Edinburgh University Press, pp. 215-252. 
 	rows := data.R
 	cols := data.C
 	out := aux.NewMatrix(rows, rows)
