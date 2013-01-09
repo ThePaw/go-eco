@@ -4,146 +4,144 @@ package ser
 //   simulated annealing algorithm 
 //   by Brusco, M., Kohn, H.F., and Stahl, S. 
 
-// To do:
-// slices should start from 0, not 1
-
 import (
 	"fmt"
 	"math"
 	"math/rand"
 )
 
-//   cool = 0.5
-//   tmin = 0.1
-//   nreps = 20
+var verbose bool
 
-// create2dsliceInt makes [][]int
-func create2dsliceInt(dimensionX, dimensionY int) [][]int {
-	_2d := make([][]int, dimensionX)
-	for i := 0; i < dimensionX; i++ {
-		_2d[i] = make([]int, dimensionY)
+//   cool = 0.5
+//   tMin = 0.1
+//   nRep = 20
+
+// make2DsliceInt makes [][]int
+func make2DsliceInt(rows, cols int) [][]int {
+	arr2 := make([][]int, rows)
+	for i := 0; i < rows; i++ {
+		arr2[i] = make([]int, cols)
 	}
-	return _2d
+	return arr2
 }
 
-// create2dsliceFloat64 makes [][]float64
-func create2dsliceFloat64(dimensionX, dimensionY int) [][]float64 {
-	_2d := make([][]float64, dimensionX)
-	for i := 0; i < dimensionX; i++ {
-		_2d[i] = make([]float64, dimensionY)
+// make2DsliceFloat64 makes [][]float64
+func make2DsliceFloat64(rows, cols int) [][]float64 {
+	arr2 := make([][]float64, rows)
+	for i := 0; i < rows; i++ {
+		arr2[i] = make([]float64, cols)
 	}
-	return _2d
+	return arr2
 }
 
 // ARSA implements Anti-Robinson Seriation of distance matrix using simulated annealing algorithm by Brusco, Kohn and Stahl. 
-func ARSA(n int, a [][]float64, cool, tmin float64, nreps int, verbose bool) (iperm []int) {
+// Returns (quasi)optimal permutation of matrix rows/cols. 
+func ARSA(n int, a [][]float64, cool, tMin float64, nRep int) (perm []int) {
 	var (
-		k, l, m, q, i1, j1, ict, ijk, kkk, iset, iloop, unsel, nloop                           int
-		s1, eps, span, asum, temp, rule, rdum, tmax, zmin, zmax, span2, delta, rcrit, z, zbest float64
+		count, i1, j1, k, l, loop, m, nLoop, q, set, unsel                                     int
+		delta, dummy, eps, rCrit, rule, s1, span, span2, sum, temp, tMax, z, zBest, zMax, zMin float64
 	)
 	if verbose {
 		fmt.Println("Anti-Robinson seriation by simulated annealing")
 		fmt.Println("based on arsa.f by Brusco, M., Kohn, H.F.,and Stahl, S. (2007)")
-		fmt.Println("COOL = ", cool)
-		fmt.Println("TMIN = ", tmin)
-		fmt.Println("NREPS= ", nreps)
+		fmt.Println("cool = ", cool)
+		fmt.Println("tMin = ", tMin)
+		fmt.Println("nRep= ", nRep)
 	}
 
-	w := n + 1
-	r1 := make([]float64, w*w/2)
-	r2 := make([]float64, w*w/2)
-	d := create2dsliceFloat64(w, w)
-	u := make([]int, w)
-	s := make([]int, w)
-	sb := make([]int, w)
-	t := create2dsliceInt(100, w)
-	iperm = make([]int, w)
+	r1 := make([]float64, n*n/2)
+	r2 := make([]float64, n*n/2)
+	d := make2DsliceFloat64(n, n)
+	u := make([]int, n)
+	s := make([]int, n)
+	sb := make([]int, n)
+	t := make2DsliceInt(100, n)
+	perm = make([]int, n)
 
 	rule = .5
-	ict = 0
-	for i := 1; i < n-1; i++ {
-		for j := i + 1; j <= n; j++ {
-			ict++
-			d[i][j] = float64(j - i)
-			d[j][i] = d[i][j]
-			r1[ict] = d[i][j]
-			r2[ict] = a[i][j]
-		}
-	}
-
-	for i := 1; i <= ict-1; i++ {
-		for j := i + 1; j <= ict; j++ {
-			if r1[j] > r1[i] {
-				rdum = r1[j]
-				r1[j] = r1[i]
-				r1[i] = rdum
-			}
-			if r2[j] > r2[i] {
-				rdum = r2[j]
-				r2[j] = r2[i]
-				r2[i] = rdum
-			}
-		}
-	}
-
-	asum = 0
-	for i := 1; i <= ict; i++ {
-		asum += r1[i] * r2[i]
-	}
 	eps = 1e-8
 
-	for iii := 1; iii <= nreps; iii++ {
-		for i := 1; i <= n; i++ {
+	count = 0
+	for i := 0; i < n-1; i++ {
+		for j := i + 1; j < n; j++ {
+			count++
+			d[i][j] = float64(j - i)
+			d[j][i] = d[i][j]
+			r1[count] = d[i][j]
+			r2[count] = a[i][j]
+		}
+	}
+
+	for i := 0; i < count-1; i++ {
+		for j := i + 1; j < count; j++ {
+			if r1[j] > r1[i] {
+				dummy = r1[j]
+				r1[j] = r1[i]
+				r1[i] = dummy
+			}
+			if r2[j] > r2[i] {
+				dummy = r2[j]
+				r2[j] = r2[i]
+				r2[i] = dummy
+			}
+		}
+	}
+
+	sum = 0
+	for i := 0; i <= count; i++ {
+		sum += r1[i] * r2[i]
+	}
+
+	for iii := 0; iii < nRep; iii++ {
+		for i := 0; i < n; i++ {
 			u[i] = i
 			t[iii][i] = 0
 		}
-		unsel = n
-		for i := 1; i <= n; i++ {
-			//s1 = rand.Float64()
-			i1 = rand.Intn(unsel) + 1
-			if iset > unsel {
-				iset = unsel
+		unsel = n - 1
+		for i := 0; i < n; i++ {
+			if unsel == 0 { // ++pac
+				i1 = 0
+			}else{
+				i1 = rand.Intn(unsel)
 			}
-			t[iii][i] = u[iset]
-			// 	    out of bounds error reported by Rohan Shah (9/13/12) 
-			for j := iset; j <= unsel-1; j++ {
+			if set > unsel {
+				set = unsel
+			}
+			t[iii][i] = u[set]
+			for j := set; j < unsel; j++ {
 				u[j] = u[j+1]
 			}
-			unsel--
-			// L1: 
+				unsel--
 		}
-		// L999: 
 	}
 
-	zmin = 9.9e20
-	zmax = 0
+	zMin = 9.9e20
+	zMax = 0
 
-	for iii := 1; iii <= nreps; iii++ {
-		for i := 1; i <= n; i++ {
+	for iii := 0; iii < nRep; iii++ {
+		for i := 0; i < n; i++ {
 			s[i] = t[iii][i]
 		}
 		z = 0
-		for i := 1; i <= n-1; i++ {
+		for i := 0; i < n-1; i++ {
 			k = s[i]
-			for j := i + 1; j <= n; j++ {
+			for j := i + 1; j < n; j++ {
 				l = s[j]
 				z += d[i][j] * a[k][l]
 			}
 		}
 
-		zbest = z
-		tmax = 0
-		for lll := 1; lll <= 5000; lll++ {
-			s1 = rand.Float64()
-			i1 = rand.Intn(n) + 1
+		zBest = z
+		tMax = 0
+		for lll := 0; lll < 5000; lll++ {
+			i1 = rand.Intn(n - 1)
 			if i1 > n {
 				i1 = n
 			}
 			//L199:
 			j1 = i1
 			for i1 == j1 {
-				s1 = rand.Float64()
-				j1 = rand.Intn(n) + 1
+				j1 = rand.Intn(n - 1)
 				if j1 > n {
 					j1 = n
 				}
@@ -158,47 +156,47 @@ func ARSA(n int, a [][]float64, cool, tmin float64, nreps int, verbose bool) (ip
 			m = s[j1]
 			delta = 0.
 
-			for l1 := 1; l1 <= n; l1++ {
+			for l1 := 0; l1 < n; l1++ {
 				if !(i1 == l1 || j1 == l1) {
 					l = s[l1]
 					delta += (d[l1][i1] - d[l1][j1]) * (a[l][m] - a[l][k])
 				}
 			}
 			if delta < 0 {
-				if math.Abs(delta) > tmax {
-					tmax = math.Abs(delta)
+				if math.Abs(delta) > tMax {
+					tMax = math.Abs(delta)
 				}
 			}
 		}
 
-		iloop = n * 100
-		nloop = int(math.Floor((math.Log(tmin) - math.Log(tmax)) / math.Log(cool)))
+		loop = n * 100
+		nLoop = int(math.Floor((math.Log(tMin) - math.Log(tMax)) / math.Log(cool)))
 
 		if verbose {
-			fmt.Println("Steps needed:  ", nloop)
+			fmt.Println("Steps needed:  ", nLoop)
 		}
 
-		temp = tmax
-		for i := 1; i <= n; i++ {
+		temp = tMax
+		for i := 0; i < n; i++ {
 			sb[i] = s[i]
 		}
 
-		for ijk = 1; ijk <= nloop; ijk++ {
+		for ijk := 0; ijk < nLoop; ijk++ {
 			if verbose {
 				fmt.Printf("Temp = ", temp)
 			}
 
-			for kkk = 1; kkk <= iloop; kkk++ {
+			for kkk := 0; kkk < loop; kkk++ {
 				s1 = rand.Float64()
 				if s1 <= rule {
 					// interchange, insertion, or both
-					i1 = rand.Intn(n) + 1
+					i1 = rand.Intn(n - 1)
 					if i1 > n {
 						i1 = n
 					}
 					j1 = i1
 					for i1 == j1 {
-						j1 = rand.Intn(n) + 1
+						j1 = rand.Intn(n - 1)
 						if j1 > n {
 							j1 = n
 						}
@@ -213,7 +211,7 @@ func ARSA(n int, a [][]float64, cool, tmin float64, nreps int, verbose bool) (ip
 					m = s[j1]
 					delta = 0.
 
-					for l1 := 1; l1 <= n; l1++ {
+					for l1 := 0; l1 < n; l1++ {
 						if !(i1 == l1 || j1 == l1) {
 							l = s[l1]
 							delta += (d[l1][i1] - d[l1][j1]) * (a[l][m] - a[l][k])
@@ -225,16 +223,16 @@ func ARSA(n int, a [][]float64, cool, tmin float64, nreps int, verbose bool) (ip
 						z += delta
 						s[i1] = m
 						s[j1] = k
-						if z > zbest {
-							zbest = z
-							for i := 1; i <= n; i++ {
+						if z > zBest {
+							zBest = z
+							for i := 0; i < n; i++ {
 								sb[i] = s[i]
 							}
 						}
 					} else {
 						s1 = rand.Float64()
-						rcrit = math.Exp(delta / temp)
-						if s1 <= rcrit {
+						rCrit = math.Exp(delta / temp)
+						if s1 <= rCrit {
 							z += delta
 							s[i1] = m
 							s[j1] = k
@@ -242,16 +240,16 @@ func ARSA(n int, a [][]float64, cool, tmin float64, nreps int, verbose bool) (ip
 					}
 				} else {
 					// insertion 
-					i1 = rand.Intn(n) + 1
-					// object position is I1 
-					if i1 > n {
-						i1 = n
+					i1 = rand.Intn(n - 1)
+					// object position is i1 (base zero)
+					if i1 > n-1 {
+						i1 = n - 1
 					}
 					j1 = i1
 					for i1 == j1 {
-						j1 = rand.Intn(n) + 1
-						if j1 > n {
-							j1 = n
+						j1 = rand.Intn(n - 1)
+						if j1 > n-1 {
+							j1 = n - 1
 						}
 					}
 
@@ -261,22 +259,22 @@ func ARSA(n int, a [][]float64, cool, tmin float64, nreps int, verbose bool) (ip
 						span = float64(j1 - i1)
 						for l = i1 + 1; l <= j1; l++ {
 							q = s[l]
-							for i := j1 + 1; i <= n; i++ {
+							for i := j1 + 1; i < n; i++ {
 								m = s[i]
 								delta += a[m][q]
 							}
-							for i := 1; i <= i1-1; i++ {
+							for i := 0; i < i1-1; i++ {
 								m = s[i]
 								delta -= a[m][q]
 							}
 						}
 
-						for i := 1; i <= i1-1; i++ {
+						for i := 0; i < i1-1; i++ {
 							m = s[i]
 							delta += span * a[m][k]
 						}
 
-						for i := j1 + 1; i <= n; i++ {
+						for i := j1 + 1; i < n; i++ {
 							m = s[i]
 							delta -= span * a[k][m]
 						}
@@ -291,22 +289,22 @@ func ARSA(n int, a [][]float64, cool, tmin float64, nreps int, verbose bool) (ip
 						span = float64(i1 - j1)
 						for l = j1; l <= i1-1; l++ {
 							q = s[l]
-							for i := i1 + 1; i <= n; i++ {
+							for i := i1 + 1; i < n; i++ {
 								m = s[i]
 								delta -= a[m][q]
 							}
-							for i := 1; i <= j1-1; i++ {
+							for i := 0; i <= j1-1; i++ {
 								m = s[i]
 								delta += a[m][q]
 							}
 						}
 
-						for i := 1; i <= j1-1; i++ {
+						for i := 0; i < j1-1; i++ {
 							m = s[i]
 							delta -= span * a[m][k]
 						}
 
-						for i := i1 + 1; i <= n; i++ {
+						for i := i1 + 1; i < n; i++ {
 							m = s[i]
 							delta += span * a[k][m]
 						}
@@ -331,16 +329,16 @@ func ARSA(n int, a [][]float64, cool, tmin float64, nreps int, verbose bool) (ip
 							}
 							s[j1] = k
 						}
-						if z > zbest {
-							zbest = z
-							for i := 1; i <= n; i++ {
+						if z > zBest {
+							zBest = z
+							for i := 0; i < n; i++ {
 								sb[i] = s[i]
 							}
 						}
 					} else {
 						s1 = rand.Float64()
-						rcrit = math.Exp(delta / temp)
-						if s1 <= rcrit {
+						rCrit = math.Exp(delta / temp)
+						if s1 <= rCrit {
 							z += delta
 							if j1 > i1 {
 								for l = i1; l <= j1-1; l++ {
@@ -360,13 +358,13 @@ func ARSA(n int, a [][]float64, cool, tmin float64, nreps int, verbose bool) (ip
 			}
 			temp *= cool
 		}
-		if zbest < zmin {
-			zmin = zbest
+		if zBest < zMin {
+			zMin = zBest
 		}
-		if zbest > zmax {
-			zmax = zbest
-			for i := 1; i <= n; i++ {
-				iperm[i] = sb[i]
+		if zBest > zMax {
+			zMax = zBest
+			for i := 0; i < n; i++ {
+				perm[i] = sb[i]
 			}
 		}
 	}
