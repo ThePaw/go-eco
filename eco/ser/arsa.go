@@ -1,10 +1,8 @@
-// Copyright 2012 - 2013 The Eco Authors. All rights reserved. See the LICENSE file.
-
 package ser
 
 //   Anti-Robinson Seriation
 //   simulated annealing algorithm 
-//   by Brusco, M., Kohn, H.F., and Stahl, S. 
+//   by Brusco, Kohn and Stahl, 2008
 
 import (
 	"fmt"
@@ -18,25 +16,7 @@ var verbose bool
 //   tMin = 0.1
 //   nRep = 20
 
-// make2DsliceInt makes [][]int
-func make2DsliceInt(rows, cols int) [][]int {
-	arr2 := make([][]int, rows)
-	for i := 0; i < rows; i++ {
-		arr2[i] = make([]int, cols)
-	}
-	return arr2
-}
-
-// make2DsliceFloat64 makes [][]float64
-func make2DsliceFloat64(rows, cols int) [][]float64 {
-	arr2 := make([][]float64, rows)
-	for i := 0; i < rows; i++ {
-		arr2[i] = make([]float64, cols)
-	}
-	return arr2
-}
-
-// ARSA implements Anti-Robinson Seriation of distance matrix using simulated annealing algorithm by Brusco, Kohn and Stahl. 
+// ARSA implements Anti-Robinson Seriation of distance matrix using simulated annealing algorithm by Brusco, Kohn and Stahl, 2008. 
 // Returns (quasi)optimal permutation of matrix rows/cols. 
 func ARSA(n int, a [][]float64, cool, tMin float64, nRep int) (perm []int) {
 	var (
@@ -103,7 +83,7 @@ func ARSA(n int, a [][]float64, cool, tMin float64, nRep int) (perm []int) {
 		for i := 0; i < n; i++ {
 			if unsel == 0 { // ++pac
 				i1 = 0
-			}else{
+			} else {
 				i1 = rand.Intn(unsel)
 			}
 			if set > unsel {
@@ -113,7 +93,7 @@ func ARSA(n int, a [][]float64, cool, tMin float64, nRep int) (perm []int) {
 			for j := set; j < unsel; j++ {
 				u[j] = u[j+1]
 			}
-				unsel--
+			unsel--
 		}
 	}
 

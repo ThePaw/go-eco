@@ -9,7 +9,36 @@ import (
 	"math"
 )
 
-// Renkonen_D returns a Renkonen dissimilarity matrix for floating-point data. 
+// Renkonen_S returns a Renkonen similarity matrix for proportions. 
+func Renkonen_S(data *aux.Matrix) *aux.Matrix {
+
+	// recalculate data to proportions
+	aux.RecalcToProp(data)
+
+	rows := data.R
+	cols := data.C
+	out := aux.NewMatrix(rows, rows)
+
+	for i := 0; i < rows; i++ {
+		out.Set(i, i, 1.0)
+	}
+
+	for i := 0; i < rows; i++ {
+		for j := i + 1; j < rows; j++ {
+			sum := 0.0
+			for k := 0; k < cols; k++ {
+				x := data.Get(i, k)
+				y := data.Get(j, k)
+				sum += math.Min(x, y)
+			}
+			out.Set(i, j, sum)
+			out.Set(j, i, sum)
+		}
+	}
+	return out
+}
+
+// Renkonen_D returns a Renkonen dissimilarity matrix for proportions. 
 func Renkonen_D(data *aux.Matrix) *aux.Matrix {
 
 	// recalculate data to proportions
