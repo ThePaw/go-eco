@@ -274,7 +274,7 @@ func Coenocline(nSpec, nSamp int, m Models) (out *Matrix) {
 
 		// force max population density and tolerance within some considerable limits
 		lo := m.MaxLoc - 3*m.MaxScale
-		if lo < 0 {
+		if lo < m.MaxLoc * 0.05 {
 			lo = m.MaxLoc * 0.05
 		}
 		if aMax < lo {
@@ -285,7 +285,7 @@ func Coenocline(nSpec, nSamp int, m Models) (out *Matrix) {
 			aMax = hi
 		}
 		lo = m.TolLoc - 3*m.TolScale
-		if lo < 0 {
+		if lo < 0.1 * m.TolScale {
 			lo = 0.1 * m.TolScale
 		}
 		if tol < lo {

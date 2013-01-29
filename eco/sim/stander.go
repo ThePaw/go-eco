@@ -33,11 +33,11 @@ func Stander_S(data *aux.Matrix) *aux.Matrix {
 			for k := 0; k < cols; k++ {
 				x := data.Get(i, k)
 				y := data.Get(j, k)
-				sumxy += x*y
-				sumxx += x*x
-				sumyy += y*y
+				sumxy += x * y
+				sumxx += x * x
+				sumyy += y * y
 			}
-			v := sumxy/math.Sqrt(sumxx*sumyy)
+			v := sumxy / math.Sqrt(sumxx*sumyy)
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}

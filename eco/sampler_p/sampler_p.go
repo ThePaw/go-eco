@@ -70,14 +70,4 @@ func main() {
 		}
 		fmt.Println()
 	}
-	for i := 0; i < nSpec; i++ {
-		for j := 0; j < nSamp; j++ {
-			if j == 0 {
-				fmt.Print(out.Get(i, j))
-			} else {
-				fmt.Print(",", out.Get(i, j))
-			}
-		}
-		fmt.Println()
-	}
 }

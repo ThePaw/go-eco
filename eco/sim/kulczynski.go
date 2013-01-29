@@ -32,6 +32,7 @@ func Kulczynski1Bool_S(data *aux.Matrix) *aux.Matrix {
 }
 
 // Kulczynski2Bool_S returns a Kulczynski similarity matrix #2 for boolean data. 
+// From Boyce and Ellison 2001: 713, Tab. 3.
 func Kulczynski2Bool_S(data *aux.Matrix) *aux.Matrix {
 	var (
 		a, b, c float64 // these are actually counts, but float64 simplifies the formulas
@@ -42,7 +43,8 @@ func Kulczynski2Bool_S(data *aux.Matrix) *aux.Matrix {
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a, b, c, _ = aux.GetABCD(data, i, j)
-			v := ((a / 2) * ((2 * a) + b + c)) / ((a + b) * (a + c))
+			//			v := ((a / 2) * ((2 * a) + b + c)) / ((a + b) * (a + c))
+			v := 0.5 * (a/(a+b) + a/(a+c))
 			out.Set(i, j, v)
 			out.Set(j, i, v)
 		}
