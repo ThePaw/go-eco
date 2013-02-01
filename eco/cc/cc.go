@@ -318,10 +318,12 @@ func Coenocline(nSpec, nSamp int, m Models) (out *Matrix) {
 		for i := 0; i < nSamp; i++ {
 			x := points[i]
 			y := srf(x, opt, tol, α, γ)
+
 			// add "noise", if required
 			if m.Noise > 0 {
 				y = noise(y, m.Noise)
 			}
+
 			// scale by max population density
 			y *= aMax
 			out.Set(i, j, y)
