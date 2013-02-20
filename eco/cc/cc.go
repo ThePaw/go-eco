@@ -19,16 +19,11 @@ import (
 const (
 	flat = iota
 	gaussian
-	paretoI
+	logNormal
+	exponential
+	pareto
 	paretoII
-	paretoIII
-	paretoIV
-	paretoG
-	paretoTap
 	paretoSing
-	yule
-	planck
-	zeta
 )
 
 type Models struct {
@@ -171,7 +166,7 @@ func noise(μ, ε float64) float64 {
 // Random variable generator for optima, population sizes and tolerances, and for α, γ params of the β-function
 func rndFn(which int, μ, ε float64) func() (x float64) {
 	// μ	mean or modus
-	// ε	tolerance
+	// ε	tolerance: for Uniform it equals range, for Gaussian it equals 6*σ, for other distributions their scale parameter
 
 	return func() (x float64) {
 		switch which {
@@ -182,30 +177,32 @@ func rndFn(which int, μ, ε float64) func() (x float64) {
 		case gaussian: // Gaussian distribution
 			σ := ε / 6
 			x = NormalNext(μ, σ)
+		case logNormal: // Exponential distribution
+			x = LogNormalNext(μ, ε)
+		case exponential: // Exponential distribution
+			x = ExponentialNext(1 / ε)
+
+		case pareto: // Pareto I
+			minValue := 0.01
+			x = ParetoNext(minValue, 1/ε)
+
+		case paretoII: // Pareto II distribution
+			x = ParetoIINext(1/ε, μ)
+		case paretoSing: // single-parameter Pareto distribution
+			x = ParetoSingNext(1/ε, μ)
 			/*
-						case levy: // Lévy (unshifted)
-							x = LevyNext(6/ε)	// terrible ad-hockery, empirical
-						case paretoI: // Pareto I
-				minValue := 0.01
-							x = ParetoNext(minValue, 6/ε)	// terrible ad-hockery, empirical
-						case ParetoII: // Pareto II distribution
-							x = ParetoIINext(a, b)
-						case ParetoIII: // Pareto III distribution
-							x = ParetoIIINext(a, b)
-						case ParetoIV: // Pareto IV distribution
-							x = ParetoIVNext(a, b)
-						case ParetoG: // Generalized Pareto distribution
-							x = ParetoGNext(a, b, c)
-						case ParetoTap: // tapered Pareto distribution
-							x = ParetoTapNext(a, b, c)
-						case ParetoSing: // single-parameter Pareto distribution
-							x = ParetoSingNext(a, b)
-						case Yule: // Yule distribution
-							x = YuleNext(a)
-						case Planck: // Planck distribution
-							x = PlanckNext(a, b)
-						case Zeta: // Zeta distribution
-							x = ZetaNext(a)
+				case levy: // Lévy (unshifted)
+					x = LevyNext(1/ε)	// terrible ad-hockery, empirical
+				case ParetoIII: // Pareto III distribution
+					x = ParetoIIINext(a, b)
+				case ParetoIV: // Pareto IV distribution
+					x = ParetoIVNext(a, b)
+				case ParetoG: // Generalized Pareto distribution
+					x = ParetoGNext(a, b, c)
+				case ParetoTap: // tapered Pareto distribution
+					x = ParetoTapNext(a, b, c)
+				case Planck: // Planck distribution
+					x = PlanckNext(a, b)
 			*/
 		}
 		return
@@ -274,7 +271,7 @@ func Coenocline(nSpec, nSamp int, m Models) (out *Matrix) {
 
 		// force max population density and tolerance within some considerable limits
 		lo := m.MaxLoc - 3*m.MaxScale
-		if lo < m.MaxLoc * 0.05 {
+		if lo < m.MaxLoc*0.05 {
 			lo = m.MaxLoc * 0.05
 		}
 		if aMax < lo {
@@ -285,7 +282,7 @@ func Coenocline(nSpec, nSamp int, m Models) (out *Matrix) {
 			aMax = hi
 		}
 		lo = m.TolLoc - 3*m.TolScale
-		if lo < 0.1 * m.TolScale {
+		if lo < 0.1*m.TolScale {
 			lo = 0.1 * m.TolScale
 		}
 		if tol < lo {
