@@ -12,7 +12,7 @@ import (
 // VectorInt64 represents a dense vector struct. 
 type VectorInt64 struct {
 	A []int64 // data
-	L int       // length
+	L int     // length
 }
 
 // NewVectorInt64 returns a pointer to new instance of VectorInt64. 

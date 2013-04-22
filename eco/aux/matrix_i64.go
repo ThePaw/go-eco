@@ -38,7 +38,7 @@ func (m MatrixInt64) Get(i int, j int) int64 {
 
 // PrintRC prints number of rows  and columns of  the matrix on stdout. 
 func (m *MatrixInt64) PrintRC() {
-			fmt.Printf("%d %d \n \n", m.R, m.C)
+	fmt.Printf("%d %d \n \n", m.R, m.C)
 }
 
 // Print prints the matrix on stdout. 
@@ -50,14 +50,14 @@ func (m *MatrixInt64) Print() {
 		}
 		fmt.Print("\n")
 	}
-		fmt.Print("\n")
+	fmt.Print("\n")
 }
 
 // Print prints the matrix on stdout. 
 func (m *MatrixInt64) PrintCSV() {
 	var i, j int
 	for i = 0; i < m.R; i++ {
-		fmt.Printf("%d", m.Get(i, 0))	// no leading comma
+		fmt.Printf("%d", m.Get(i, 0)) // no leading comma
 		for j = 1; j < m.C; j++ {
 			fmt.Printf(", %d", m.Get(i, j))
 		}
@@ -121,7 +121,7 @@ func ReadMatrixInt64(rd *bufio.Reader, n, m int) *MatrixInt64 {
 }
 
 // ReadCsvMatrixInt64  reads the matrix from an opened CSV file. 
- func ReadCsvMatrixInt64(f *os.File) (m *MatrixInt64) {
+func ReadCsvMatrixInt64(f *os.File) (m *MatrixInt64) {
 	read := csv.NewReader(io.Reader(f))
 	data, err := read.ReadAll()
 	if err != nil {

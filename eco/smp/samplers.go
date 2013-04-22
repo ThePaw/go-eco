@@ -4,9 +4,9 @@ package smp
 // Performs sampling of species populations given population densities and sample size (sampling intensity).
 
 import (
-	"math"
 	"code.google.com/p/go-eco/eco/aux"
 	"code.google.com/p/probab/dst"
+	"math"
 )
 
 // betapara estimates the parameters a, b of beta distribution from expected proportion (pi), binomial denominator (m), and shape parameter (tau2). 

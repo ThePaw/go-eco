@@ -21,7 +21,7 @@ func durationNext(m, s float64) float64 {
 
 // postDensityGNext returns random number drawn from the posterior distribution of population density 
 // inferred from abundance and sampling duration, using conjugate
-func postDensityNext(k int64, dur, m, s float64) float64 {
+func postDensityGNext(k int64, dur, m, s float64) float64 {
 	// Use r=m^2/s^2, and v=m/s^2, if you summarize your prior belief (Gamma) with mean == m, and std == s.
 	r := m * m / (s * s)
 	v := m / (s * s)
@@ -33,7 +33,7 @@ func postDensityNext(k int64, dur, m, s float64) float64 {
 }
 
 // postDensityFNext returns random number drawn from the posterior distribution of population density inferred from abundance and sampling duration. 
-func postDensityNext(k int64, dur float64) float64 {
+func postDensityFNext(k int64, dur float64) float64 {
 	qtl := bayes.PoissonLambdaQtlFPri(k, 1) // using Flat prior
 	p := rand.Float64()
 	lambda := qtl(p)
@@ -42,8 +42,8 @@ func postDensityNext(k int64, dur float64) float64 {
 }
 
 // postDensityJNext returns random number drawn from the posterior distribution of population density inferred from abundance and sampling duration. 
-func postDensityNext(k int64, dur float64) float64 {
-	qtl := bayes.PoissonLambdaQtlFPri(k, 1) // using Flat prior
+func postDensityJNext(k int64, dur float64) float64 {
+	qtl := bayes.PoissonLambdaQtlJPri(k, 1) // using Flat prior
 	p := rand.Float64()
 	lambda := qtl(p)
 	// lambda = density*duration, thus density = lambda/duration
@@ -60,6 +60,8 @@ func Densities(counts, durations Matrix, prior byte) (out *Matrix) {
 		jeffreys
 		gamma
 	)
+	var y float64
+
 	nSamp := counts.R
 	nSpec := counts.C
 	out = NewMatrix(nSamp, nSpec) // sample of posterior pop. densities
@@ -77,14 +79,14 @@ func Densities(counts, durations Matrix, prior byte) (out *Matrix) {
 			k := int64(math.Floor(kf))
 			switch prior {
 			case flat:
-				y := postDensityFNext(k, dur)
+				y = postDensityFNext(k, dur)
 			case jeffreys:
-				y := postDensityFNext(k, dur)
+				y = postDensityJNext(k, dur)
 			case gamma:
 				// just for now, needs to be reimplemented:
 				mLambda := kf
 				sLambda := 0.3 * mLambda
-				y := postDensityGNext(k, dur, mLambda, sLambda)
+				y = postDensityGNext(k, dur, mLambda, sLambda)
 			}
 			out.Set(i, j, y)
 		}

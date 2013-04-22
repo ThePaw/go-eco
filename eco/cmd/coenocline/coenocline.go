@@ -59,23 +59,23 @@ func main() {
 	// compute the coenocline matrix
 	mtx := Coenocline(*nSpec, *nSamp, mod)
 
-/*
-	// and write it out as CSV, transposed so that rows are species, columns are sampling points (to be reimplemented using csv.WriteAll)
-	for i := 0; i < *nSpec; i++ {
-		for j := 0; j < *nSamp; j++ {
-			if j == 0 {
-				fmt.Print(mtx.Get(j, i))
-			} else {
-				fmt.Print(",", mtx.Get(j, i))
+	/*
+		// and write it out as CSV, transposed so that rows are species, columns are sampling points (to be reimplemented using csv.WriteAll)
+		for i := 0; i < *nSpec; i++ {
+			for j := 0; j < *nSamp; j++ {
+				if j == 0 {
+					fmt.Print(mtx.Get(j, i))
+				} else {
+					fmt.Print(",", mtx.Get(j, i))
+				}
 			}
+			fmt.Println()
 		}
-		fmt.Println()
-	}
-*/
+	*/
 	// and write it out as CSV, transposed so that rows are species, columns are sampling points (to be reimplemented using csv.WriteAll)
 	for i := 0; i < *nSpec; i++ {
 		for j := 0; j < *nSamp; j++ {
-			c :=	int(math.Floor(mtx.Get(i, j)))
+			c := int(math.Floor(mtx.Get(i, j)))
 
 			if j == 0 {
 				fmt.Print(c)

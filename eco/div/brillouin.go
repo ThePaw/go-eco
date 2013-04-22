@@ -16,16 +16,15 @@ import (
 // The correct formulation for the finite sample is given by the Brillouin formula. 
 // Peet (1974). 
 func BrillouinDiv(data *aux.Matrix) *aux.Vector {
-	var tot int64
 	rows := data.R
 	cols := data.C
 	div := aux.NewVector(rows)
 
 	for i := 0; i < rows; i++ {
-		tot = 0 // total number of all individuals in the sample
+		tot := 0.0 // total number of all individuals in the sample
 		sumLnF := 0.0
 		for j := 0; j < cols; j++ {
-			x := int64(math.Floor(data.Get(i, j))) // must be int64
+			x := math.Floor(data.Get(i, j))
 			if x > 0 {
 				tot += x
 			}

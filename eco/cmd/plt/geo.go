@@ -3,6 +3,7 @@ package main
 import (
 	"image/color"
 )
+
 // Geodesic palette, 1000 colors, sorted order.
 var Geo256 = color.Palette{
 	color.RGBA{123, 9, 195, 255},
@@ -260,5 +261,5 @@ var Geo256 = color.Palette{
 	color.RGBA{244, 63, 54, 255},
 	color.RGBA{244, 60, 54, 255},
 	color.RGBA{245, 57, 54, 255},
-	color.RGBA{245, 54, 54 255},
+	color.RGBA{245, 54, 54, 255},
 }

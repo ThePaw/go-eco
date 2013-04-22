@@ -53,8 +53,8 @@ func (m *Matrix) Print() {
 }
 
 // Transpose returns a pointer to transposed matrix. 
-func  (m *Matrix) Transpose() *Matrix {
-b := NewMatrix(m.C, m.R)
+func (m *Matrix) Transpose() *Matrix {
+	b := NewMatrix(m.C, m.R)
 	for i := 0; i < m.R; i++ {
 		for j := 0; j < m.C; j++ {
 			b.Set(j, i, m.Get(i, j))

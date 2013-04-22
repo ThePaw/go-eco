@@ -12,7 +12,7 @@ import (
 	"math"
 )
 
-func probK(a, b, n, k int64) float64 {
+func probK(a, b, n, k float64) float64 {
 	logNum1 := fn.LnFactBig(b) - (fn.LnFactBig(b-k) + fn.LnFactBig(k))
 	logNum2 := fn.LnFactBig(n-b) - (fn.LnFactBig(n-b-a+k) + fn.LnFactBig(a-k))
 	logDen := fn.LnFactBig(n) - (fn.LnFactBig(n-a) + fn.LnFactBig(a))
@@ -94,14 +94,14 @@ func RaupCrickBool_D(data *Matrix) *Matrix {
 // This is the naive version of their similarity index;
 // for final version, use the algorithm described on page 1219
 func RaupCrickBool1_S(data *Matrix) *Matrix {
-	var a, b, n int64
+	var a, b, n float64
 
 	rows := data.R
 	cols := data.C
 	out := NewMatrix(rows, rows)
 	WarnIfNotBool(data)
 
-	n = int64(cols)
+	n = float64(cols)
 	for i := 0; i < rows; i++ {
 		for j := i; j < rows; j++ {
 			a = 0
@@ -124,7 +124,7 @@ func RaupCrickBool1_S(data *Matrix) *Matrix {
 
 			p := 0.0
 			for k := 0; k < common; k++ {
-				p += probK(a, b, n, int64(k))
+				p += probK(a, b, n, float64(k))
 			}
 
 			out.Set(i, j, p)
