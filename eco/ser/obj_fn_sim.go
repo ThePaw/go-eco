@@ -23,5 +23,3 @@ func PsiLossSim(sim Matrix64, p IntVector) float64 {
 	}
 	return c
 }
-
-

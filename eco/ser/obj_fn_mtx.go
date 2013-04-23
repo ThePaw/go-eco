@@ -5,8 +5,9 @@ package ser
 // Objective (loss and gain) functions for mxn data matrices. 
 
 import (
-	"math"
+	//	"fmt"
 	"code.google.com/p/go-fn/fn"
+	"math"
 )
 
 // MooreStressLoss returns the Moore Stress criterion (Niermann 2005:42, Eq. 1, 2).
@@ -94,57 +95,67 @@ func MEffGain(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
 }
 
 // MirrorLoss computes energy E(p) of the permuted matrix according to Miklos (2005:3400), Eqs. 2, 3.
-func MirrorLoss(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
+func MirrorLoss(mtx Matrix64, rowPerm, colPerm IntVector, normalize bool) float64 {
+	// normalize: Eq 3 of Miklos (2005:3400)
+
+	var av float64
 	rows, cols := mtx.Dims()
 	if !(rowPerm.Len() == rows && colPerm.Len() == cols) {
 		panic("bad dimensions")
 	}
-
-	av := 0.0
-	for i := 0; i < rows; i++ {
-		for k := 0; k < cols; k++ {
-			for l := 0; l < cols; l++ {
-				if k < l {
-					av += math.Abs(mtx[rowPerm[i]][colPerm[k]] - mtx[rowPerm[i]][colPerm[l]])
-				}
-			}
-		}
-	}
-
-	for k := 0; k < cols; k++ {
+	if normalize {
+		av = 0.0
 		for i := 0; i < rows; i++ {
-			for j := 0; j < rows; j++ {
-				if i < j {
-					av += math.Abs(mtx[rowPerm[i]][colPerm[k]] - mtx[rowPerm[j]][colPerm[k]])
+			for k := 0; k < cols; k++ {
+				for l := 0; l < cols; l++ {
+					if k < l {
+						av += math.Abs(mtx[rowPerm[i]][colPerm[k]] - mtx[rowPerm[i]][colPerm[l]])
+					}
 				}
 			}
 		}
+
+		for k := 0; k < cols; k++ {
+			for i := 0; i < rows; i++ {
+				for j := 0; j < rows; j++ {
+					if i < j {
+						av += math.Abs(mtx[rowPerm[i]][colPerm[k]] - mtx[rowPerm[j]][colPerm[k]])
+					}
+				}
+			}
+		}
+
+		denom := float64(rows)*fn.BinomCoeff(int64(cols), 2) + float64(cols)*fn.BinomCoeff(int64(rows), 2)
+		av /= denom
 	}
-
-	denom := float64(rows)*fn.BinomCoeff(int64(cols), 2) + float64(cols)*fn.BinomCoeff(int64(rows), 2)
-	av /= denom
-
 	loss := 0.0
+
+	//sum #1
 	for i := 0; i < rows; i++ {
 		for j := 0; j < cols-1; j++ {
 			loss += math.Abs(mtx[rowPerm[i]][colPerm[j]] - mtx[rowPerm[i]][colPerm[j+1]])
 		}
 	}
 
+	//sum #2
 	for i := 0; i < rows-1; i++ {
 		for j := 0; j < cols; j++ {
 			loss += math.Abs(mtx[rowPerm[i]][colPerm[j]] - mtx[rowPerm[i+1]][colPerm[j]])
 		}
 	}
 
+	//sum #3
 	for j := 0; j < cols; j++ {
-		loss += (math.Abs(mtx[rowPerm[0]][colPerm[j]]-mtx[rowPerm[1]][colPerm[j]]) + (math.Abs(mtx[rowPerm[rows-1]][colPerm[j]] - mtx[rowPerm[rows]][colPerm[j]])))
+		loss += (math.Abs(mtx[rowPerm[0]][colPerm[j]]-mtx[rowPerm[1]][colPerm[j]]) + (math.Abs(mtx[rowPerm[rows-2]][colPerm[j]] - mtx[rowPerm[rows-1]][colPerm[j]])))
 	}
 
-	for i := 0; i <rows; i++ {
-		loss += (math.Abs(mtx[rowPerm[i]][colPerm[0]]-mtx[rowPerm[i]][colPerm[1]]) + (math.Abs(mtx[rowPerm[i]][colPerm[cols-1]] - mtx[rowPerm[i]][colPerm[cols]])))
+	//sum #4
+	for i := 0; i < rows; i++ {
+		loss += (math.Abs(mtx[rowPerm[i]][colPerm[0]]-mtx[rowPerm[i]][colPerm[1]]) + (math.Abs(mtx[rowPerm[i]][colPerm[cols-2]] - mtx[rowPerm[i]][colPerm[cols-1]])))
 	}
-	loss /= av
+	if normalize {
+		loss /= av
+	}
 	return loss
 }
 
@@ -165,5 +176,3 @@ func PsiLoss(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
 	}
 	return loss
 }
-
-

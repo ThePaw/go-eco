@@ -5,7 +5,7 @@ package ser
 //   by Brusco, Kohn and Stahl, 2008
 
 import (
-	"fmt"
+	//	"fmt"
 	"math"
 	"math/rand"
 )
@@ -18,27 +18,20 @@ var verbose bool
 
 // ARSA implements Anti-Robinson Seriation of distance matrix using simulated annealing algorithm by Brusco, Kohn and Stahl, 2008. 
 // Returns (quasi)optimal permutation of matrix rows/cols. 
-func ARSA(n int, a [][]float64, cool, tMin float64, nRep int) (perm []int) {
+func ARSA(n int, a Matrix64, cool, tMin float64, nRep int) (perm IntVector) {
 	var (
 		count, i1, j1, k, l, loop, m, nLoop, q, set, unsel                                     int
 		delta, dummy, eps, rCrit, rule, s1, span, span2, sum, temp, tMax, z, zBest, zMax, zMin float64
 	)
-	if verbose {
-		fmt.Println("Anti-Robinson seriation by simulated annealing")
-		fmt.Println("based on arsa.f by Brusco, M., Kohn, H.F.,and Stahl, S. (2007)")
-		fmt.Println("cool = ", cool)
-		fmt.Println("tMin = ", tMin)
-		fmt.Println("nRep= ", nRep)
-	}
 
-	r1 := make([]float64, n*n/2)
-	r2 := make([]float64, n*n/2)
-	d := make2DsliceFloat64(n, n)
-	u := make([]int, n)
-	s := make([]int, n)
-	sb := make([]int, n)
-	t := make2DsliceInt(100, n)
-	perm = make([]int, n)
+	r1 := NewVector64(n * n / 2)
+	r2 := NewVector64(n * n / 2)
+	d := NewMatrix64(n, n)
+	u := NewIntVector(n)
+	s := NewIntVector(n)
+	sb := NewIntVector(n)
+	t := NewIntMatrix(100, n)
+	perm = NewIntVector(n)
 
 	rule = .5
 	eps = 1e-8
@@ -154,9 +147,7 @@ func ARSA(n int, a [][]float64, cool, tMin float64, nRep int) (perm []int) {
 		loop = n * 100
 		nLoop = int(math.Floor((math.Log(tMin) - math.Log(tMax)) / math.Log(cool)))
 
-		if verbose {
-			fmt.Println("Steps needed:  ", nLoop)
-		}
+		//			fmt.Println("Steps needed:  ", nLoop)
 
 		temp = tMax
 		for i := 0; i < n; i++ {
@@ -164,9 +155,7 @@ func ARSA(n int, a [][]float64, cool, tMin float64, nRep int) (perm []int) {
 		}
 
 		for ijk := 0; ijk < nLoop; ijk++ {
-			if verbose {
-				fmt.Printf("Temp = ", temp)
-			}
+			//				fmt.Printf("Temp = ", temp)
 
 			for kkk := 0; kkk < loop; kkk++ {
 				s1 = rand.Float64()
