@@ -115,9 +115,9 @@ func hGain(dis Matrix64, p IntVector) float64 {
 
 	c := 0.0
 	for i := 0; i < n-1; i++ {
-		for j := i + 1; j < n-1; j++ {
+		for j := i + 1; j < n; j++ {
 			d := math.Abs(float64(i - j))
-			x := dis[p[i]][p[i]]
+			x := dis[p[i]][p[j]]
 			c += d * x
 		}
 	}
@@ -131,12 +131,12 @@ func optimize(dis Matrix64, p IntVector) {
 	// TO BE IMPLEMENTED
 }
 
-// ChenLoss returns a count of Anti-Robinson events (Streng and Schoenfelder 1978; Chen 2002:21).
-func ChenLoss(dis Matrix64, p IntVector, which int) float64 {
+// chenLoss returns a count of Anti-Robinson events (Streng and Schoenfelder 1978; Chen 2002:21).
+func chenLoss(dis Matrix64, p IntVector, which int) float64 {
 	//which indicates the weighing scheme
 	// 1 ... no weighting (i)
-	// 2 ... math.Abs. deviations (s)
-	// 3 ... weighted math.Abs. deviations (w)
+	// 2 ... abs. deviations (s)
+	// 3 ... weighted abs. deviations (w)
 
 	n := p.Len()
 	sum := 0.0
@@ -187,6 +187,21 @@ func ChenLoss(dis Matrix64, p IntVector, which int) float64 {
 		}
 	}
 	return sum
+}
+
+// ChenLoss1 returns a count of Anti-Robinson events, no weighting (Streng and Schoenfelder 1978; Chen 2002:21).
+func ChenLoss1(dis Matrix64, p IntVector) float64 {
+	return chenLoss(dis, p, 1)
+}
+
+// ChenLoss2 returns a count of Anti-Robinson events, weighted by abs. deviations (Streng and Schoenfelder 1978; Chen 2002:21).
+func ChenLoss2(dis Matrix64, p IntVector) float64 {
+	return chenLoss(dis, p, 2)
+}
+
+// ChenLoss3 returns a count of Anti-Robinson events, weighted by weighted abs. deviations (Streng and Schoenfelder 1978; Chen 2002:21).
+func ChenLoss3(dis Matrix64, p IntVector) float64 {
+	return chenLoss(dis, p, 3)
 }
 
 // InertiaGain returns the Inertia criterion (Caraux and Pinloche 2005).
@@ -270,4 +285,19 @@ func Brusco2008(dis Matrix64, p IntVector, v int) {
 			}
 		}
 	}
+}
+
+// MooreStressDisLoss returns the Moore Stress criterion (Niermann 2005:42, Eq. 1, 2) for a distance matrix.
+func MooreStressDisLoss(dis Matrix64, p IntVector) float64 {
+	return MooreStressLoss(dis, p, p)
+}
+
+// VonNeumannStressDisLoss returns the Moore Stress criterion (Niermann 2005:42) for a distance matrix.
+func VonNeumannStressDisLoss(dis Matrix64, p IntVector) float64 {
+	return VonNeumannStressLoss(dis, p, p)
+}
+
+// MEffDisGain returns the measure of Effectiveness (McCormick 1972) for a distance matrix.
+func MEffDisGain(dis Matrix64, p IntVector) float64 {
+	return MEffGain(dis, p, p)
 }

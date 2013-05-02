@@ -141,7 +141,7 @@ func (m Matrix64) WriteCSV() {
 func (m Matrix64) Print() {
 	for i, row := range m {
 		for j, _ := range row {
-			fmt.Printf("%d ", m[i][j])
+			fmt.Print(m[i][j], " ")
 		}
 		fmt.Println()
 	}
@@ -257,6 +257,8 @@ func (a Matrix64) IsSymmetric() bool {
 	for i := 0; i < nRow && q; i++ {
 		for j := 0; j < nCol && q; j++ {
 			if a[i][j] != a[j][i] {
+
+				fmt.Println("i, j, a[i][j], a[j][i] :", i, j, a[i][j], a[j][i])
 				q = false
 			}
 		}
@@ -271,7 +273,7 @@ func (a Matrix64) IsQ() bool {
 	q := true
 	for j := 0; j < nCol && q; j++ {
 		//find peak in column j
-		peak := -Inf
+		peak := -inf
 		peakPos := 0
 		for i := 0; i < nRow; i++ {
 			if a[i][j] >= peak {

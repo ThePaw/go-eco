@@ -10,7 +10,7 @@ import (
 )
 
 const iInf int = math.MaxInt32
-const Inf float64 = math.MaxFloat64
+const inf float64 = math.MaxFloat64
 
 func min(a, b float64) float64 {
 	if a < b {
@@ -259,7 +259,42 @@ func dist2sim(mat Matrix64, lambda float64) {
 	//similarity( x , y ) = exp{− λ ⋅ distance( x , y )}
 	for i, row := range mat {
 		for j, val := range row {
-			mat[i][j] = math.Exp(lambda * val)
+			mat[i][j] = math.Exp(-lambda * val)
+		}
+	}
+}
+
+/*
+// sim2dist converts similarity matrix to  distance matrix (ad hoc !!!)
+func sim2dist(mat Matrix64, lambda float64) {
+	//distance( x , y ) = -log{λ ⋅ similarity( x , y )}
+	for i, row := range mat {
+		for j, val := range row {
+			if val == 0 {
+			mat[i][j] = inf
+
+}else{
+			mat[i][j] = -math.Log(lambda * val)
+}
+		}
+	}
+}
+*/
+// sim2dist converts similarity matrix to  distance matrix (ad hoc !!!)
+func sim2dist(mat Matrix64, lambda float64) {
+	// find max value
+	maxVal := -inf
+	for _, row := range mat {
+		for _, val := range row {
+			if val > maxVal {
+				maxVal = val
+			}
+		}
+	}
+	// calc distance
+	for i, row := range mat {
+		for j, val := range row {
+			mat[i][j] = maxVal - val
 		}
 	}
 }

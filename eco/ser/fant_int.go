@@ -1,4 +1,4 @@
-// Copyright 2012 The Gt Authors. All rights reserved. See the LICENSE file.
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package ser
 

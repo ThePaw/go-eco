@@ -106,7 +106,7 @@ func main() {
 
 		// Make a line plotter and set its style.
 		lineData = getPoints(mtx, n)
-		l = plotter.NewLine(lineData)
+		l, err = plotter.NewLine(lineData)
 		l.LineStyle.Width = vg.Points(1)
 		l.LineStyle.Color = palette[n]
 
