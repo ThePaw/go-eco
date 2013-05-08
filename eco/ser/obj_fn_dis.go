@@ -131,14 +131,21 @@ func optimize(dis Matrix64, p IntVector) {
 	// TO BE IMPLEMENTED
 }
 
-// chenLoss returns a count of Anti-Robinson events (Streng and Schoenfelder 1978; Chen 2002:21).
-func chenLoss(dis Matrix64, p IntVector, which int) float64 {
+// strengLoss returns a count of Anti-Robinson events (Streng and Schoenfelder 1978; Chen 2002:21).
+func strengLoss(dis Matrix64, p IntVector, which int) float64 {
 	//which indicates the weighing scheme
 	// 1 ... no weighting (i)
 	// 2 ... abs. deviations (s)
 	// 3 ... weighted abs. deviations (w)
 
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
 	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+
 	sum := 0.0
 	for i := 0; i < n; i++ {
 		for j := 0; j < n; j++ {
@@ -189,24 +196,31 @@ func chenLoss(dis Matrix64, p IntVector, which int) float64 {
 	return sum
 }
 
-// ChenLoss1 returns a count of Anti-Robinson events, no weighting (Streng and Schoenfelder 1978; Chen 2002:21).
-func ChenLoss1(dis Matrix64, p IntVector) float64 {
-	return chenLoss(dis, p, 1)
+// StrengLoss1 returns a count of Anti-Robinson events, no weighting (Streng and Schoenfelder 1978; Chen 2002:21).
+func StrengLoss1(dis Matrix64, p IntVector) float64 {
+	return strengLoss(dis, p, 1)
 }
 
-// ChenLoss2 returns a count of Anti-Robinson events, weighted by abs. deviations (Streng and Schoenfelder 1978; Chen 2002:21).
-func ChenLoss2(dis Matrix64, p IntVector) float64 {
-	return chenLoss(dis, p, 2)
+// StrengLoss2 returns a count of Anti-Robinson events, weighted by abs. deviations (Streng and Schoenfelder 1978; Chen 2002:21).
+func StrengLoss2(dis Matrix64, p IntVector) float64 {
+	return strengLoss(dis, p, 2)
 }
 
-// ChenLoss3 returns a count of Anti-Robinson events, weighted by weighted abs. deviations (Streng and Schoenfelder 1978; Chen 2002:21).
-func ChenLoss3(dis Matrix64, p IntVector) float64 {
-	return chenLoss(dis, p, 3)
+// StrengLoss3 returns a count of Anti-Robinson events, weighted by weighted abs. deviations (Streng and Schoenfelder 1978; Chen 2002:21).
+func StrengLoss3(dis Matrix64, p IntVector) float64 {
+	return strengLoss(dis, p, 3)
 }
 
 // InertiaGain returns the Inertia criterion (Caraux and Pinloche 2005).
 func InertiaGain(dis Matrix64, p IntVector) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
 	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+
 	sum := 0.0
 	for i := 0; i < n; i++ {
 		for j := 0; j < n; j++ {
@@ -218,7 +232,14 @@ func InertiaGain(dis Matrix64, p IntVector) float64 {
 
 // LeastSquaresLoss returns the Least Squares criterion (Caraux and Pinloche 2005).
 func LeastSquaresLoss(dis Matrix64, p IntVector) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
 	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+
 	sum := 0.0
 	for i := 0; i < n; i++ {
 		for j := 0; j < n; j++ {
@@ -242,7 +263,7 @@ func Brusco2008(dis Matrix64, p IntVector, v int) {
 		panic("dimensions not equal")
 	}
 	if v >= n {
-		panic("v too big")
+		v = n - 1
 	}
 
 	q := NewMatrix64(v, v)
@@ -300,4 +321,73 @@ func VonNeumannStressDisLoss(dis Matrix64, p IntVector) float64 {
 // MEffDisGain returns the measure of Effectiveness (McCormick 1972) for a distance matrix.
 func MEffDisGain(dis Matrix64, p IntVector) float64 {
 	return MEffGain(dis, p, p)
+}
+
+// GARLoss returns the GAR(w) (Wu 2010: 773) generalized anti-Robinson loss function for a distance matrix.
+func GARLoss(dis Matrix64, p IntVector, w int) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+
+	sum := 0.0
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			dij := dis[i][j]
+			for k := 0; k < n; k++ {
+				dik := dis[i][k]
+				if (i-w) <= j && j < k && k < i && dij < dik {
+					sum++
+				}
+			}
+		}
+	}
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			dij := dis[i][j]
+			for k := 0; k < n; k++ {
+				dik := dis[i][k]
+				if i < j && j < k && k <= i+w && dij > dik {
+					sum++
+				}
+			}
+		}
+	}
+	return sum
+}
+
+// RGARLoss returns the relative generalized anti-Robinson loss function for a distance matrix RGAR(w)  (Wu 2010: 773) .
+func RGARLoss(dis Matrix64, p IntVector, w int) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+
+	gar := GARLoss(dis, p, w)
+	sum := 0.0
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			for k := 0; k < n; k++ {
+				if (i-w) <= j && j < k && k < i {
+					sum++
+				}
+			}
+		}
+	}
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			for k := 0; k < n; k++ {
+				if i < j && j < k && k <= i+w {
+					sum++
+				}
+			}
+		}
+	}
+	return gar / sum
 }

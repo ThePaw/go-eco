@@ -10,7 +10,7 @@ import (
 
 // PsiLossSim computes energy ψ(p) of the permuted similarity matrix according to Podani (1994); see  Miklos (2005), Eq. 4.
 func PsiLossSim(sim Matrix64, p IntVector) float64 {
-	c := 0.0
+	loss := 0.0
 	rows := p.Len()
 	cols := p.Len()
 	for i := 0; i < p.Len(); i++ {
@@ -18,8 +18,8 @@ func PsiLossSim(sim Matrix64, p IntVector) float64 {
 			x := sim[p[i]][p[j]]
 			a := math.Abs(float64(cols*(i+1))/float64(rows) - float64(j+1))
 			b := math.Abs(float64(rows*(j+1))/float64(cols) - float64(i+1))
-			c += x*a + b
+			loss += x*a + b
 		}
 	}
-	return c
+	return loss
 }

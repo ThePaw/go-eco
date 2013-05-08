@@ -23,10 +23,10 @@ func proposeRowPerm(rowPerm, rowPermNew IntVector) {
 	rowPermNew.Swap(d, e)
 }
 
-// BoltzmannMCMC does MCMC reordering of similarity matrix to minimize energy function (close to Robinson form)
+// BoltzmannMCMC does MCMC sampling from Boltzmann distribution of reordered similarity matrices  (close to Robinson form).
 // Inspired by Miklos (2005). 
 // WARNING: when data is a similarity (correlation, gain) matrix, then columns MUST NOT be permuted separately!! Implemented. Publish!!
-func BoltzmannMCMC(sim Matrix64, energyFn string, temp float64, burnIn, totalSamples, iter int) (rhoH IntVector, h, pOH IntMatrix) {
+func BoltzmannMCMC(sim Matrix64, energyFn string, temp float64, burnIn, totalSamples, iter int) (permBest, rhoH IntVector, h, pOH IntMatrix, enBest float64) {
 
 	rows, _ := sim.Dims()
 	if !sim.IsSymmetric() {
@@ -36,7 +36,7 @@ func BoltzmannMCMC(sim Matrix64, energyFn string, temp float64, burnIn, totalSam
 	en := PsiLossSim
 
 	switch energyFn {
-	case "psiLoss":
+	case "Psi":
 		en = PsiLossSim
 	default:
 		panic("bad energyFn")
@@ -45,6 +45,7 @@ func BoltzmannMCMC(sim Matrix64, energyFn string, temp float64, burnIn, totalSam
 	// allocate slices
 	rowPerm := NewIntVector(rows)
 	rowPermNew := NewIntVector(rows)
+	permBest = NewIntVector(rows)
 	rhoH = NewIntVector(20)        // rho histogram
 	pOH = NewIntMatrix(rows, rows) // pair-order histogram
 	h = NewIntMatrix(rows, rows)   // ranks histogram
@@ -60,6 +61,11 @@ func BoltzmannMCMC(sim Matrix64, energyFn string, temp float64, burnIn, totalSam
 			proposeRowPerm(rowPerm, rowPermNew)
 			enNew := en(sim, rowPermNew)
 
+			// save if best so far
+			if enNew < enOld {
+				enBest = enNew
+				permBest = rowPerm
+			}
 			// Metropolis ratio (Miklos 2005:3403, Eq. 10)
 			deltaE := enNew - enOld
 			metropolisRatio := math.Exp(-deltaE / temp)

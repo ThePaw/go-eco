@@ -72,10 +72,10 @@ func main() {
 			fmt.Println()
 		}
 	*/
-	// and write it out as CSV, transposed so that rows are species, columns are sampling points (to be reimplemented using csv.WriteAll)
+	// and write it out as CSV
 	for i := 0; i < *nSpec; i++ {
 		for j := 0; j < *nSamp; j++ {
-			c := int(math.Floor(mtx.Get(i, j)))
+			c := float64(math.Floor(mtx.Get(i, j)))
 
 			if j == 0 {
 				fmt.Print(c)
