@@ -57,6 +57,7 @@ func RobFAntK(sim Matrix64, objFn ObjFn, isLoss bool, trials, improLagMax int, r
 	best = p.Clone()
 	for i := 0; i < trials; i++ {
 		p.Perm()
+
 		c := RobFAnt(sim, p, objFn, isLoss, r, improLagMax)
 		if c < cost {
 			cost = c

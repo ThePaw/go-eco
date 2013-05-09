@@ -6,21 +6,21 @@ import (
 	"sort"
 )
 
-type IntVector []int
+type IntVector64 []int
 
-// NewIntVector creates a new IntVector instance with specified number of elements. 
-func NewIntVector(nElem int) IntVector {
+// NewIntVector64 creates a new IntVector64 instance with specified number of elements. 
+func NewIntVector64(nElem int) IntVector64 {
 	v := make([]int, nElem)
 	return v
 }
 
 // Len returns number of elements in the vector. 
-func (v IntVector) Len() int {
+func (v IntVector64) Len() int {
 	return len(v)
 }
 
 // Copy from an existing vector
-func (v IntVector) CopyFrom(w IntVector) {
+func (v IntVector64) CopyFrom(w IntVector64) {
 	n := v.Len()
 	if n > 0 {
 		copy(v, w)
@@ -28,9 +28,9 @@ func (v IntVector) CopyFrom(w IntVector) {
 }
 
 // Clone to a new vector
-func (v IntVector) Clone() IntVector {
+func (v IntVector64) Clone() IntVector64 {
 	n := v.Len()
-	w := NewIntVector(n)
+	w := NewIntVector64(n)
 	if n > 0 {
 		copy(w, v)
 	}
@@ -38,14 +38,14 @@ func (v IntVector) Clone() IntVector {
 }
 
 // Swap elements i, j
-func (v IntVector) Swap(i, j int) {
+func (v IntVector64) Swap(i, j int) {
 	x := v[i]
 	v[i] = v[j]
 	v[j] = x
 }
 
 // Fill-in ordered sequence 0 .. n-1. 
-func (v IntVector) Order() {
+func (v IntVector64) Order() {
 	n := v.Len()
 	for i := 0; i < n; i++ {
 		v[i] = i
@@ -53,21 +53,41 @@ func (v IntVector) Order() {
 }
 
 // Fill in a pseudo-random permutation of the integers [0,n).
-func (v IntVector) Perm() {
+func (v IntVector64) Perm() {
 	n := v.Len()
 	copy(v, rand.Perm(n))
 	return
 }
 
-func (v IntVector) ReadCSV() {
+func (v IntVector64) ReadCSV() {
 	// to be implemented
 }
 
-func (v IntVector) WriteCSV() {
-	// to be implemented
+func (v IntVector64) WriteCSV() {
+	for i, val := range v {
+		if i == 0 {
+			fmt.Print(val)
+		} else {
+			fmt.Print(",", val)
+		}
+	}
+	fmt.Println()
 }
 
-func (v IntVector) Print() {
+func (v IntVector64) WriteGo() {
+	fmt.Println("vector := IntVector64{")
+	for i, val := range v {
+		if i == 0 {
+			fmt.Print(val)
+		} else {
+			fmt.Print(",", val)
+		}
+	}
+	fmt.Println("}")
+	fmt.Println()
+}
+
+func (v IntVector64) Print() {
 	for i := 0; i < len(v); i++ {
 		fmt.Printf("%d ", v[i])
 	}
@@ -75,7 +95,7 @@ func (v IntVector) Print() {
 }
 
 // Increasing reverses the order in case that lower half sum > upper half sum
-func (v IntVector) Increasing() {
+func (v IntVector64) Increasing() {
 	smp := len(v)
 	half := smp / 2
 	sum1 := 0
@@ -108,7 +128,7 @@ func (v IntVector) Increasing() {
 	return
 }
 
-func (v IntVector) IsIdentical(w IntVector) bool {
+func (v IntVector64) IsIdentical(w IntVector64) bool {
 	nElem := v.Len()
 	if w.Len() != nElem {
 		return false
@@ -122,7 +142,7 @@ func (v IntVector) IsIdentical(w IntVector) bool {
 	return true
 }
 
-func (v IntVector) IsPermutation() bool {
+func (v IntVector64) IsPermutation() bool {
 	w := v.Clone()
 	w.Order()
 	z := v.Clone()

@@ -27,7 +27,6 @@ func AntiRobFAnt(a Matrix64, p IntVector, objFn ObjFn, isLoss bool, r float64, i
 		// Build a new solution
 		genTraceF64(w, trace)
 		c = objFn(a, w)
-
 		// Improve solution with a local search
 		robLocalSearch(a, w, &c, objFn, isLoss)
 

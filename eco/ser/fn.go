@@ -1,4 +1,4 @@
-// Copyright 2012 The Gt Authors. All rights reserved. See the LICENSE file.
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package ser
 
@@ -251,19 +251,6 @@ func addToPairOrderHistogram(perm IntVector, h IntMatrix) {
 	return
 }
 
-// dist2sim converts distance matrix to similarity matrix
-func dist2sim(mat Matrix64, lambda float64) {
-	//To convert distance to similarity value, we
-	//adopt the formula inspired by Mochihashi, and
-	//Matsumoto 2002.
-	//similarity( x , y ) = exp{− λ ⋅ distance( x , y )}
-	for i, row := range mat {
-		for j, val := range row {
-			mat[i][j] = math.Exp(-lambda * val)
-		}
-	}
-}
-
 /*
 // sim2dist converts similarity matrix to  distance matrix (ad hoc !!!)
 func sim2dist(mat Matrix64, lambda float64) {
@@ -280,21 +267,10 @@ func sim2dist(mat Matrix64, lambda float64) {
 	}
 }
 */
-// sim2dist converts similarity matrix to  distance matrix (ad hoc !!!)
-func sim2dist(mat Matrix64, lambda float64) {
-	// find max value
-	maxVal := -inf
-	for _, row := range mat {
-		for _, val := range row {
-			if val > maxVal {
-				maxVal = val
-			}
-		}
+
+func isOdd(x int) bool {
+	if x%2 == 0 {
+		return false
 	}
-	// calc distance
-	for i, row := range mat {
-		for j, val := range row {
-			mat[i][j] = maxVal - val
-		}
-	}
+	return true
 }

@@ -15,84 +15,85 @@ type IntMatrix [][]int
 // NewIntMatrix creates a new IntMatrix instance with specified number of rows and columns
 func NewIntMatrix(nRow, nCol int) IntMatrix {
 	s := make([]int, nCol*nRow)
-	m := make(IntMatrix, nRow)
+	a := make(IntMatrix, nRow)
 	for i, p := 0, 0; i < nRow; i++ {
-		m[i] = s[p : p+nCol]
+		a[i] = s[p : p+nCol]
 		p += nCol
 	}
-	return m
+	return a
 }
 
 // Dims return the dimensions of the matrix.
-func (m IntMatrix) Dims() (int, int) {
-	return len(m), len(m[0])
+func (a IntMatrix) Dims() (int, int) {
+	return len(a), len(a[0])
 }
 
 // Rows returns the number of rows
-func (m IntMatrix) Rows() int {
-	return len(m)
+func (a IntMatrix) Rows() int {
+	return len(a)
 }
 
 // Cols returns the number of columns
-func (m IntMatrix) Cols() int {
-	if len(m) == 0 {
+func (a IntMatrix) Cols() int {
+	if len(a) == 0 {
 		return 0
 	}
-	return len(m[0])
+	return len(a[0])
 }
 
 // Copy to an existing matrix
-func (m IntMatrix) CopyTo(targetMat IntMatrix) {
-	n := m.Rows() * m.Cols()
-	if n > 0 {
-		//		copy(targetMat[0][:n], m[0][:n])
-		copy(targetMat, m)
+func (a IntMatrix) CopyTo(targetMat IntMatrix) {
+	for i, row := range a {
+		for j, _ := range row {
+			targetMat[i][j] = a[i][j]
+		}
 	}
 	return
 }
 
 // Copy from an existing matrix
-func (m IntMatrix) CopyFrom(srcMat IntMatrix) {
-	n := m.Rows() * m.Cols()
-	if n > 0 {
-		copy(m, srcMat)
+func (a IntMatrix) CopyFrom(srcMat IntMatrix) {
+	for i, row := range a {
+		for j, _ := range row {
+			a[i][j] = srcMat[i][j]
+		}
 	}
 	return
 }
 
 // Clone clones an IntMatrix
-func (m IntMatrix) Clone() IntMatrix {
-	clone := NewIntMatrix(m.Rows(), m.Cols())
-	n := m.Rows() * m.Cols()
-	if n > 0 {
-		//		copy(clone[0][:n], m[0][:n])
-		copy(clone, m)
+func (a IntMatrix) Clone() IntMatrix {
+	clone := NewIntMatrix(a.Dims())
+	for i, row := range a {
+		for j, val := range row {
+			clone[i][j] = val
+		}
 	}
 	return clone
 }
 
 // Swap rows i, j
-func (m IntMatrix) SwapRows(i int, j int) {
-	nCol := m.Cols()
+func (a IntMatrix) SwapRows(i int, j int) {
+	nCol := a.Cols()
 	for k := 0; k < nCol; k++ {
-		x := m[i][k]
-		m[i][k] = m[j][k]
-		m[j][k] = x
+		x := a[i][k]
+		a[i][k] = a[j][k]
+		a[j][k] = x
 	}
 }
 
 // Swap columns i, j
-func (m IntMatrix) SwapCols(i int, j int) {
-	nRow := m.Rows()
+func (a IntMatrix) SwapCols(i int, j int) {
+	nRow := a.Rows()
 	for k := 0; k < nRow; k++ {
-		x := m[k][i]
-		m[k][i] = m[k][j]
-		m[k][j] = x
+		x := a[k][i]
+		a[k][i] = a[k][j]
+		a[k][j] = x
 	}
 }
 
 // ReadCsvIntMatrix  reads the matrix from an opened CSV file. 
-func ReadCsvIntMatrix(f *os.File) (m IntMatrix) {
+func ReadCsvIntMatrix(f *os.File) (a IntMatrix) {
 	read := csv.NewReader(io.Reader(f))
 	data, err := read.ReadAll()
 	if err != nil {
@@ -100,25 +101,25 @@ func ReadCsvIntMatrix(f *os.File) (m IntMatrix) {
 	}
 	nRow := len(data)
 	nCol := len(data[0])
-	m = NewIntMatrix(nRow, nCol)
-	for i, row := range m {
+	a = NewIntMatrix(nRow, nCol)
+	for i, row := range a {
 		for j, _ := range row {
 			x, _ := strconv.ParseInt(data[i][j], 10, 32) // why this is not int??
-			m[i][j] = int(x)
+			a[i][j] = int(x)
 		}
 	}
 	return
 }
 
 /*
-func (m IntMatrix) WriteCSV(f *os.File)  {
+func (a IntMatrix) WriteCSV(f *os.File)  {
 	// to be implemented
 	write := csv.NewWriter(io.Writer(f))
 	records := // [][]string TO BE IMPLEMENTED
 	nRow, cols := m.Dims()
 	for i := 0; i < nRow; i++ {
 		for j := 0; j < cols; j++ {
-			records[i][j] = strconv.FormatInt(m[i][j], 10)
+			records[i][j] = strconv.FormatInt(a[i][j], 10)
 		}
 	}
 	err :=WriteAll(records)
@@ -128,28 +129,28 @@ func (m IntMatrix) WriteCSV(f *os.File)  {
 }
 */
 
-func (m IntMatrix) WriteCSV() {
-	for i, row := range m {
+func (a IntMatrix) WriteCSV() {
+	for i, row := range a {
 		for j, _ := range row {
 			if j == 0 {
-				fmt.Print(m[i][j])
+				fmt.Print(a[i][j])
 			} else {
-				fmt.Print(",", m[i][j])
+				fmt.Print(",", a[i][j])
 			}
 		}
 		fmt.Println()
 	}
 }
 
-func (m IntMatrix) WriteGo() {
+func (a IntMatrix) WriteGo() {
 	fmt.Println("matrix := IntMatrix{")
-	for i, row := range m {
+	for i, row := range a {
 		fmt.Print("{")
 		for j, _ := range row {
 			if j == 0 {
-				fmt.Print(m[i][j])
+				fmt.Print(a[i][j])
 			} else {
-				fmt.Print(",", m[i][j])
+				fmt.Print(",", a[i][j])
 			}
 		}
 		fmt.Println("},")
@@ -157,19 +158,20 @@ func (m IntMatrix) WriteGo() {
 	fmt.Println("}")
 }
 
-func (m IntMatrix) Print() {
-	for i, row := range m {
+func (a IntMatrix) Print() {
+	for i, row := range a {
 		for j, _ := range row {
-			fmt.Printf("%d ", m[i][j])
+			fmt.Printf("%d ", a[i][j])
 		}
 		fmt.Println()
 	}
+	fmt.Println()
 }
 
 // PrettyString returns a pretty string form of the matrix
-func (m IntMatrix) PrettyString() string {
-	sa := make([][]string, 0, m.Rows())
-	for _, row := range m {
+func (a IntMatrix) PrettyString() string {
+	sa := make([][]string, 0, a.Rows())
+	for _, row := range a {
 		sr := make([]string, 0, len(row))
 		for _, cell := range row {
 			sr = append(sr, fmt.Sprint(cell))
@@ -177,9 +179,9 @@ func (m IntMatrix) PrettyString() string {
 		sa = append(sa, sr)
 	} // for row
 
-	wds := make([]int, m.Cols())
-	for j := 0; j < m.Cols(); j++ {
-		for i := 0; i < m.Rows(); i++ {
+	wds := make([]int, a.Cols())
+	for j := 0; j < a.Cols(); j++ {
+		for i := 0; i < a.Rows(); i++ {
 			if len(sa[i][j]) > wds[j] {
 				wds[j] = len(sa[i][j])
 			} //  if
@@ -202,7 +204,7 @@ func (m IntMatrix) PrettyString() string {
 		} // for j, cell
 		res += "]"
 		if i == len(sa)-1 {
-			res += fmt.Sprintf("](%dx%d)", m.Rows(), m.Cols())
+			res += fmt.Sprintf("](%dx%d)", a.Rows(), a.Cols())
 		} // else
 		res += "\n"
 	} // for row
@@ -246,6 +248,20 @@ func (a IntMatrix) CircleProduct(b IntMatrix) IntMatrix {
 		}
 	}
 	return c
+}
+
+// CirclePower computes circular power of a matrix. 
+// See Kendall, 1971: 111, for definition.
+func (a IntMatrix) CirclePower(n int) IntMatrix {
+	// S0
+	w := a.Clone()
+	t := w.Transpose()
+	s := w.CircleProduct(t)
+	for i := 1; i < n; i++ { // S1 ... Sn
+		t = s.Transpose()
+		s = s.CircleProduct(t)
+	}
+	return s
 }
 
 // Transpose returns transposed matrix. 
@@ -328,82 +344,88 @@ func (a IntMatrix) IsR() bool {
 	return q
 }
 
-// CirclePower computes circular power of a matrix. 
-// See Kendall, 1971: 111, for definition.
-func (a IntMatrix) CirclePower(n int) IntMatrix {
-	// S0
-	w := a.Clone()
-	t := w.Transpose()
-	s := w.CircleProduct(t)
-	for i := 1; i < n; i++ { // S1 ... Sn
-		t = s.Transpose()
-		s = s.CircleProduct(t)
+// IsAR tests whether the square matrix is an Anti-R-matrix (Anti-Robinson, columnwise). 
+// See Kendall, 1971, for definition.
+func (a IntMatrix) IsAR() bool {
+	if !a.IsSymmetric() {
+		return false
 	}
-	return s
-}
-
-// RearrangeRows returns rearranged matrix according to a row permutation vector. 
-func (a IntMatrix) RearrangeRows(r IntVector) {
-	// r - rows permutation vector
 	nRow, nCol := a.Dims()
-	if r.Len() != nRow {
-		panic("bad dimensions")
-	}
-	newMat := NewIntMatrix(nRow, nCol)
-	for i, row := range a {
-		for j, _ := range row {
-			newMat[i][j] = a[r[i]][j]
+	q := true
+	for j := 0; j < nCol && q; j++ {
+		//find minimum in column j
+		minimum := iInf
+		minimumPos := 0
+		for i := 0; i < nRow; i++ {
+			if a[i][j] <= minimum {
+				minimum = a[i][j]
+				minimumPos = i
+
+			} else {
+				break
+			}
+		}
+
+		// now test whether further is nonincreasing
+		for i := minimumPos + 1; i < nRow && q; i++ {
+			if a[i][j] < a[i-1][j] {
+				q = false
+			}
 		}
 	}
-	// Copy back
-	a.CopyFrom(newMat)
-	return
+	return q
 }
 
-// RearrangeCols returns rearranged matrix according to a row permutation vector. 
-func (a IntMatrix) RearrangeCols(c IntVector) {
-	// c - columns permutation vector
-	nRow, nCol := a.Dims()
-	if c.Len() != nCol {
-		panic("bad dimensions")
+// PermuteRows returns rearranged matrix according to a row permutation vector. 
+func (a IntMatrix) PermuteRows(p IntVector) {
+	if p.Len() != a.Rows() || !p.IsPermutation() {
+		panic("bad permutation vector")
 	}
-	newMat := NewIntMatrix(nRow, nCol)
+	b := a.Clone()
 	for i, row := range a {
 		for j, _ := range row {
-			newMat[i][j] = a[i][c[j]]
+			b[i][j] = a[p[i]][j]
 		}
 	}
-	// Copy back
-	a.CopyFrom(newMat)
-	return
+	a.CopyFrom(b)
 }
 
-// Rearrange returns rearranged matrix according to row and column permutation vectors. 
-func (a IntMatrix) Rearrange(r, c IntVector) {
-	// r - rows permutation vector
-	// c - columns permutation vector
-
-	nRow, nCol := a.Dims()
-	if r.Len() != nRow || c.Len() != nCol {
-		panic("bad dimensions")
+// PermuteCols returns rearranged matrix according to a row permutation vector. 
+func (a IntMatrix) PermuteCols(p IntVector) {
+	if p.Len() != a.Cols() || !p.IsPermutation() {
+		panic("bad permutation vector")
 	}
-	newMat := NewIntMatrix(nRow, nCol)
+	b := a.Clone()
 	for i, row := range a {
 		for j, _ := range row {
-			newMat[i][j] = a[r[i]][c[j]]
+			b[i][j] = a[i][p[j]]
 		}
 	}
-	// Copy back
-	//	a.CopyFrom(newMat)
-	a.CopyFrom(newMat)
-	return
+	a.CopyFrom(b)
 }
 
-// IsEqual tests whether the matrices are the same. 
-func (a IntMatrix) IsEqual(b IntMatrix) bool {
-	nRowA, nColA := a.Dims()
-	nRowB, nColB := b.Dims()
-	if nRowA != nRowB || nColA != nColB {
+// Permute returns rearranged matrix according to row and column permutation vectors. 
+func (a IntMatrix) Permute(pRow, pCol IntVector) {
+	if pRow.Len() != a.Rows() || !pRow.IsPermutation() {
+		panic("bad row permutation vector")
+	}
+	if pCol.Len() != a.Cols() || !pCol.IsPermutation() {
+		panic("bad col permutation vector")
+	}
+	b := a.Clone()
+	for i, row := range a {
+		for j, _ := range row {
+			b[i][j] = a[pRow[i]][pCol[j]]
+		}
+	}
+	a.CopyFrom(b)
+}
+
+// IsIdentical tests whether the matrices are the same. 
+func (a IntMatrix) IsIdentical(b IntMatrix) bool {
+	r1, c1 := a.Dims()
+	r2, c2 := b.Dims()
+	if r1 != r2 || c1 != c2 {
 		return false
 	}
 	for i, row := range a {

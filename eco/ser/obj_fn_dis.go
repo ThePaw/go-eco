@@ -5,6 +5,7 @@ package ser
 // Objective (loss and gain) functions for distance (dissimilarity) matrices. 
 
 import (
+//"fmt"
 	"math"
 )
 
@@ -224,7 +225,7 @@ func InertiaGain(dis Matrix64, p IntVector) float64 {
 	sum := 0.0
 	for i := 0; i < n; i++ {
 		for j := 0; j < n; j++ {
-			sum += dis[i][j] * math.Abs(float64((i-j)*(i-j)))
+			sum += dis[p[i]][p[j]] * math.Abs(float64((i-j)*(i-j)))
 		}
 	}
 	return sum
@@ -243,10 +244,9 @@ func LeastSquaresLoss(dis Matrix64, p IntVector) float64 {
 	sum := 0.0
 	for i := 0; i < n; i++ {
 		for j := 0; j < n; j++ {
-			incr := dis[i][j] - math.Abs(float64(i-j))
+			incr := dis[p[i]][p[j]] - math.Abs(float64(i-j))
 			incr *= incr
 			sum += incr
-
 		}
 	}
 	return sum
@@ -316,11 +316,6 @@ func MooreStressDisLoss(dis Matrix64, p IntVector) float64 {
 // VonNeumannStressDisLoss returns the Moore Stress criterion (Niermann 2005:42) for a distance matrix.
 func VonNeumannStressDisLoss(dis Matrix64, p IntVector) float64 {
 	return VonNeumannStressLoss(dis, p, p)
-}
-
-// MEffDisGain returns the measure of Effectiveness (McCormick 1972) for a distance matrix.
-func MEffDisGain(dis Matrix64, p IntVector) float64 {
-	return MEffGain(dis, p, p)
 }
 
 // GARLoss returns the GAR(w) (Wu 2010: 773) generalized anti-Robinson loss function for a distance matrix.
