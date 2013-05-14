@@ -5,7 +5,7 @@ package ser
 // Objective (loss and gain) functions for distance (dissimilarity) matrices. 
 
 import (
-//"fmt"
+	//"fmt"
 	"math"
 )
 

@@ -2,15 +2,16 @@
 
 package ser
 
-// Sort the pre-Anti-Robinson matrix using the Fast ant system. 
+// Sort the pre-(Anti)-Robinson matrix using the Fast ant system. 
 // E. D. Taillard 1998. "FANT: Fast ant system.  Technical report IDSIA-46-98, IDSIA, Lugano.
+// Use functions in obj_fn_sim.go for Robinson, obj_fn_dis.go for Anti-Robinson matrix.
 
 import (
 	"math"
 )
 
-// AntiRobFAnt  sorts the pre-Anti-Robinson matrix using the Fast ant system, single trial. 
-func AntiRobFAnt(a Matrix64, p IntVector, objFn ObjFn, isLoss bool, r float64, improLagMax int) float64 {
+// RobFAnt  sorts the pre-Anti-Robinson matrix using the Fast ant system, single trial. 
+func RobFAnt(a Matrix64, p IntVector, objFn ObjFn, isLoss bool, r float64, improLagMax int) float64 {
 	var inc, c, cost float64
 	n := p.Len()
 	w := p.Clone()
@@ -44,8 +45,8 @@ func AntiRobFAnt(a Matrix64, p IntVector, objFn ObjFn, isLoss bool, r float64, i
 	return cost
 }
 
-// AntiRobFAntK sorts the pre-Robinson matrix using the Fast Ant System, in k trials. 
-func AntiRobFAntK(sim Matrix64, objFn ObjFn, isLoss bool, trials, improLagMax int, r float64) (cost float64, best IntVector) {
+// RobFAntK sorts the pre-(Anti)-Robinson matrix using the Fast Ant System, in k trials. 
+func RobFAntK(sim Matrix64, objFn ObjFn, isLoss bool, trials, improLagMax int, r float64) (cost float64, best IntVector) {
 	if isLoss {
 		cost = math.Inf(1)
 	} else {
@@ -56,7 +57,7 @@ func AntiRobFAntK(sim Matrix64, objFn ObjFn, isLoss bool, trials, improLagMax in
 	best = p.Clone()
 	for i := 0; i < trials; i++ {
 		p.Perm()
-		c := AntiRobFAnt(sim, p, objFn, isLoss, r, improLagMax)
+		c := RobFAnt(sim, p, objFn, isLoss, r, improLagMax)
 		if (isLoss && c < cost) || (!isLoss && c > cost) {
 			cost = c
 			best.CopyFrom(p)
