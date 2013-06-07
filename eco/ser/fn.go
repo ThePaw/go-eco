@@ -274,3 +274,40 @@ func isOdd(x int) bool {
 	}
 	return true
 }
+
+// compareFloat64 returns true iff a equals b.
+//
+// Two floating point numbers are assumed to be equal if
+// absolute error |a-b| < 1e-10
+// relative error < 1e-10
+//
+// compareFloat64(a,b) == compareFloat64(b,a)
+// code by Lennart Oymanns
+// https://github.com/lmcoy/crossx/blob/master/math/linalg/mathutil.go
+func compareFloat64(a, b float64) bool {
+	const (
+		epsilon = 1.0e-10
+	)
+	var relError float64
+	if a == b {
+		return true
+	}
+	// check absolute error
+	if math.Abs(a-b) < epsilon {
+		return true
+	}
+	// check relative error
+	// do this since an error of 1 is very large for a value near 0
+	// but it is small enough to assume two values to be equal
+	// if the values are really large.
+	// use two cases two ensure that compareFloat64(a,b) == compareFloat64(b,a) in any case.
+	if math.Abs(b) > math.Abs(a) {
+		relError = math.Abs((a - b) / b)
+	} else {
+		relError = math.Abs((a - b) / a)
+	}
+	if relError <= epsilon {
+		return true
+	}
+	return false
+}

@@ -5,8 +5,6 @@ package ser
 // Sort the pre-(Anti-)Robinson matrix using the Fast ant system. Common functions.
 // E. D. Taillard 1998. "FANT: Fast ant system.  Technical report IDSIA-46-98, IDSIA, Lugano.
 
-type ObjFn func(sim Matrix64, p IntVector) float64
-
 func robDelta(a Matrix64, p IntVector, r, s int, objFn ObjFn) float64 {
 	pNew := p.Clone()
 	pNew.Swap(r, s)

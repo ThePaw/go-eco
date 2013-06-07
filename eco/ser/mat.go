@@ -82,6 +82,16 @@ func (a Matrix64) CopyFrom(srcMat Matrix64) {
 	return
 }
 
+// CopyFromInt copies matrix from an existing integer matrix.
+func (a Matrix64) CopyFromInt(srcMat IntMatrix) {
+	for i, row := range a {
+		for j, _ := range row {
+			a[i][j] = float64(srcMat[i][j])
+		}
+	}
+	return
+}
+
 // Clone clones a matrix.
 func (a Matrix64) Clone() Matrix64 {
 	clone := NewMatrix64(a.Dims())
@@ -160,6 +170,23 @@ func (a Matrix64) WriteCSV() {
 		}
 		fmt.Println()
 	}
+	fmt.Println()
+	fmt.Println()
+}
+
+func (a Matrix64) WriteCSV3() {
+	for i, row := range a {
+		for j, _ := range row {
+			if j == 0 {
+				fmt.Printf("%6.3f", a[i][j])
+			} else {
+				fmt.Printf(",%6.3f", a[i][j])
+			}
+		}
+		fmt.Println()
+	}
+	fmt.Println()
+	fmt.Println()
 }
 
 func (a Matrix64) WriteGo() {
@@ -171,6 +198,22 @@ func (a Matrix64) WriteGo() {
 				fmt.Print(a[i][j])
 			} else {
 				fmt.Print(",", a[i][j])
+			}
+		}
+		fmt.Println("},")
+	}
+	fmt.Println("}")
+}
+
+func (a Matrix64) WriteGo3() {
+	fmt.Println("matrix := Matrix64{")
+	for i, row := range a {
+		fmt.Print("{")
+		for j, _ := range row {
+			if j == 0 {
+				fmt.Printf("%6.3f", a[i][j])
+			} else {
+				fmt.Printf(",%6.3f", a[i][j])
 			}
 		}
 		fmt.Println("},")
@@ -406,7 +449,7 @@ func (a Matrix64) IntRound() IntMatrix {
 	return out
 }
 
-// SimToDist converts similarity matrix to  distance matrix (ad hoc !!!)
+// SimToDist converts similarity matrix to distance matrix, and vice versa (ad hoc !!!)
 func (a Matrix64) SimToDist() {
 	// find max value
 	maxVal := -inf
@@ -480,7 +523,7 @@ func (a Matrix64) Permute(pRow, pCol IntVector) {
 	a.CopyFrom(b)
 }
 
-func (a Matrix64) IsIdentical(b Matrix64) bool {
+func (a Matrix64) Equals(b Matrix64) bool {
 	r1, c1 := a.Dims()
 	r2, c2 := b.Dims()
 	if r1 != r2 || c1 != c2 {
@@ -494,4 +537,29 @@ func (a Matrix64) IsIdentical(b Matrix64) bool {
 		}
 	}
 	return true
+}
+
+func (a Matrix64) ForceTo01() {
+	// find maximum and minimum
+	max := -inf
+	min := inf
+	for _, row := range a {
+		for _, val := range row {
+			if val < min {
+				min = val
+			}
+			if val > max {
+				max = val
+			}
+		}
+	}
+
+	// recalc
+	span := max - min
+	for i, row := range a {
+		for j, val := range row {
+			a[i][j] = (val - min) / span
+		}
+	}
+	return
 }

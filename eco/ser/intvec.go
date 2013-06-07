@@ -39,6 +39,11 @@ func (v IntVector) Clone() IntVector {
 
 // Swap elements i, j
 func (v IntVector) Swap(i, j int) {
+	// exchange mutation operator (Banzhaf 1990)
+	// swap mutation operator (Oliver et al. 1987)
+	// point mutation operator (Ambati et al. 1991)
+	// reciprocal exchange mutation operator (Michalewicz 1992)
+	// order based mutation operator (Syswerda 1991)
 	x := v[i]
 	v[i] = v[j]
 	v[j] = x
@@ -108,7 +113,7 @@ func (v IntVector) Increasing() {
 	return
 }
 
-func (v IntVector) IsIdentical(w IntVector) bool {
+func (v IntVector) Equals(w IntVector) bool {
 	nElem := v.Len()
 	if w.Len() != nElem {
 		return false
@@ -127,8 +132,416 @@ func (v IntVector) IsPermutation() bool {
 	w.Order()
 	z := v.Clone()
 	sort.Ints(z)
-	if !w.IsIdentical(z) {
+	if !w.Equals(z) {
 		return false
 	}
 	return true
 }
+
+func (v IntVector) Invert() {
+	n := v.Len()
+	w := v.Clone()
+
+	for i, val := range v {
+		w[n-i-1] = val
+	}
+	v.CopyFrom(w)
+}
+
+func (v IntVector) InvertFromTo(a, b int) {
+	// simple inversion mutation operator (Holland 1975; Grefenstette 1987)
+	n := v.Len()
+	if a > n || a < 0 || b > n || b < 0 {
+		panic(" bad params")
+	}
+	if a == b {
+		return
+	}
+	if a > b { //swap
+		c := a
+		a = b
+		b = c
+	}
+	w := v.Clone()
+
+	for i := 0; i < b-a+1; i++ {
+		w[a+i] = v[b-i]
+	}
+	v.CopyFrom(w)
+}
+
+func (v IntVector) InvertTo(a int) {
+	n := v.Len()
+	if a >= n || a < 0 {
+		panic(" bad params")
+	}
+	w := v.Clone()
+
+	for i := 0; i <= a; i++ {
+		w[a-i] = v[i]
+	}
+	v.CopyFrom(w)
+}
+
+func (v IntVector) InvertFrom(a int) {
+	n := v.Len()
+	if a >= n || a < 0 {
+		panic(" bad params")
+	}
+	w := v.Clone()
+
+	for i := 0; i < n-a; i++ {
+		w[a+i] = v[n-i-1]
+	}
+	v.CopyFrom(w)
+}
+
+func (v IntVector) InsideOut(a int) {
+	n := v.Len()
+	if a >= n || a < 0 {
+		panic(" bad params")
+	}
+	w := v.Clone()
+
+	for i := 0; i < a; i++ {
+		w[a-i] = v[i]
+	}
+
+	for i := 0; i < n-a; i++ {
+		w[a+i] = v[n-i-1]
+	}
+	v.CopyFrom(w)
+}
+
+func (v IntVector) InsertAt(a, b int) {
+	// insertion mutation operator (Fogel 1988; Michalewicz 1992)
+	// position based mutation operator (Syswerda 1991)
+	n := v.Len()
+	if a > n || a < 0 || b > n || b < 0 {
+		panic(" bad params")
+	}
+	if a == b {
+		return
+	}
+	if a > b { //swap
+		c := a
+		a = b
+		b = c
+	}
+	w := v.Clone()
+
+	x := v[a]                // cut
+	for i := a; i < b; i++ { //  shift
+		w[i] = v[i+1]
+	}
+	w[b] = x // insert
+
+	v.CopyFrom(w)
+}
+
+func (v IntVector) InvertHeadAndTail(a, b int) {
+	n := v.Len()
+	if a > n || a < 0 || b > n || b < 0 {
+		panic(" bad params")
+	}
+	if a == b {
+		return
+	}
+	if a > b { //swap
+		c := a
+		a = b
+		b = c
+	}
+	w := v.Clone()
+
+	// invert head
+	for i := 0; i <= a; i++ {
+		w[a-i] = v[i]
+	}
+
+	// invert tail
+	for i := 0; i < n-b; i++ {
+		w[b+i] = v[n-i-1]
+	}
+
+	v.CopyFrom(w)
+}
+
+// modified from displacement mutation operator (Michalewicz 1992) ==  cut mutation (Banzhaf 1990)
+func (v IntVector) Displace(a, b, c int) {
+	n := v.Len()
+	if a > n || a < 0 || b > n || b < 0 || c > n || c < 0 {
+		panic(" bad params")
+	}
+	if a == b || b == c || c == a {
+		return
+	}
+	// sort ascending
+	if a > b { //swap
+		x := a
+		a = b
+		b = x
+	}
+	if a > c { //swap
+		x := c
+		c = b
+		b = x
+	}
+	if a > b { //swap
+		x := a
+		a = b
+		b = x
+	}
+	if b > c { //swap
+		x := b
+		b = c
+		c = x
+	}
+	w := v.Clone()
+	left := NewIntVector(b - a)
+	m := left.Len()
+	for i := 0; i < m; i++ { //  copy left block
+		left[i] = v[i+a]
+	}
+	for i := 0; i < c-b; i++ { //  shift right block
+		w[i+a] = v[i+b]
+	}
+	for i := 0; i < m; i++ { //  insert left block
+		w[i+a+c-b] = left[i]
+	}
+	v.CopyFrom(w)
+}
+
+func (v IntVector) DisplaceInv(a, b, c int) {
+	// inversion mutation (Fogel 1990, 1993)
+	// cut-inverse mutation operator (Banzhaf 1990)
+
+	n := v.Len()
+	if a > n || a < 0 || b > n || b < 0 || c > n || c < 0 {
+		panic(" bad params")
+	}
+	if a == b || b == c || c == a {
+		return
+	}
+	// sort ascending
+	if a > b { //swap
+		x := a
+		a = b
+		b = x
+	}
+	if a > c { //swap
+		x := c
+		c = b
+		b = x
+	}
+	if a > b { //swap
+		x := a
+		a = b
+		b = x
+	}
+	if b > c { //swap
+		x := b
+		b = c
+		c = x
+	}
+	w := v.Clone()
+	left := NewIntVector(b - a)
+	m := left.Len()
+	for i := 0; i < m; i++ { //  copy left block
+		left[i] = v[i+a]
+	}
+
+	left.Invert() //  invert left block
+
+	for i := 0; i < c-b; i++ { //  shift right block
+		w[i+a] = v[i+b]
+	}
+	for i := 0; i < m; i++ { //  insert left block
+		w[i+a+c-b] = left[i]
+	}
+	v.CopyFrom(w)
+}
+
+//Two point Swapped Inversion
+// inspired by Sallabi (2009)
+func (v IntVector) TwoPointSwapInv(a, b int) {
+	n := v.Len()
+	if a > n || a < 0 || b > n || b < 0 {
+		panic(" bad params")
+	}
+	if a == b {
+		return
+	}
+	if a > b { //swap
+		c := a
+		a = b
+		b = c
+	}
+	head := NewIntVector(a)
+	mid := NewIntVector(b - a)
+	tail := NewIntVector(n - b)
+
+	// invert head
+	for i := 0; i < a; i++ {
+		head[i] = v[i]
+	}
+	head.Invert()
+
+	// copy middle
+	for i := 0; i < b-a; i++ {
+		mid[i] = v[a+i]
+	}
+
+	// invert tail
+	for i := 0; i < n-b; i++ {
+		tail[i] = v[b+i]
+	}
+	head.Invert()
+
+	//assemble
+	for i := 0; i < n-b; i++ {
+		v[i] = tail[i]
+	}
+	for i := n - b; i < n-a; i++ {
+		v[i] = mid[i-n+b]
+	}
+	for i := n - a; i < n; i++ {
+		v[i] = head[i-n+a]
+	}
+}
+
+func (v IntVector) Scramble(a, b int) {
+	n := v.Len()
+	if a > n || a < 0 || b > n || b < 0 {
+		panic(" bad params")
+	}
+	if a == b {
+		return
+	}
+	if a > b { //swap
+		c := a
+		a = b
+		b = c
+	}
+	mid := NewIntVector(b - a)
+	p := NewIntVector(b - a)
+	p.Perm()
+
+	// copy and scramble middle segment
+	for i := 0; i < b-a; i++ {
+		mid[i] = v[a+p[i]]
+	}
+
+	// paste back
+	for i := 0; i < b-a; i++ {
+		v[i+a] = mid[i]
+	}
+}
+
+func (v IntVector) Scramble3(a int) {
+	n := v.Len()
+	if a > n || a < 0 {
+		panic(" bad params")
+	}
+	if a > n-3 {
+		a = n - 3
+	}
+
+	mid := NewIntVector(3)
+	p := NewIntVector(3)
+	p.Perm()
+
+	// copy and scramble middle segment
+	for i := 0; i < 3; i++ {
+		mid[i] = v[a+p[i]]
+	}
+
+	// paste back
+	for i := 0; i < 3; i++ {
+		v[i+a] = mid[i]
+	}
+}
+
+func (v IntVector) Scramble4(a int) {
+	n := v.Len()
+	if a > n || a < 0 {
+		panic(" bad params")
+	}
+	if a > n-4 {
+		a = n - 4
+	}
+
+	mid := NewIntVector(4)
+	p := NewIntVector(4)
+	p.Perm()
+
+	// copy and scramble middle segment
+	for i := 0; i < 4; i++ {
+		mid[i] = v[a+p[i]]
+	}
+
+	// paste back
+	for i := 0; i < 4; i++ {
+		v[i+a] = mid[i]
+	}
+}
+
+// inspired by 3-opt move
+func (v IntVector) ThreePointExch(a, b, c int) {
+	n := v.Len()
+	if a > n || a < 0 || b > n || b < 0 || c > n || c < 0 {
+		panic(" bad params")
+	}
+	w := v.Clone()
+	// leave unchanged up to a inclusive
+	// go from a to c and inverse-continue to b+1
+	j := a + 1
+	for i := c; i > b; i-- {
+		w[j] = v[i]
+		j++
+	}
+	// go from b+1 to a+1 and continue to b
+	for i := a + 1; i <= b; i++ {
+		w[j] = v[i]
+		j++
+	}
+	// go from c+1 to end
+	for i := c + 1; i < n; i++ {
+		w[j] = v[i]
+		j++
+	}
+	v.CopyFrom(w)
+}
+
+// inspired by non-sequential 4-change
+func (v IntVector) FourPointExch(a, b, c, d int) {
+	n := v.Len()
+	if a > n || a < 0 || b > n || b < 0 || c > n || c < 0 || d > n || d < 0 {
+		panic(" bad params")
+	}
+	w := v.Clone()
+	// leave unchanged up to a inclusive
+	j := a + 1
+	// go from a to c+1 and continue to d
+	for i := c + 1; i <= d; i++ {
+		w[j] = v[i]
+		j++
+	}
+	// go from d to b+1 and continue to c
+	for i := b + 1; i <= c; i++ {
+		w[j] = v[i]
+		j++
+	}
+	// go from c to a+1 and continue to b
+	for i := a + 1; i <= b; i++ {
+		w[j] = v[i]
+		j++
+	}
+	// go from b to d+1 and continue to end
+	for i := d + 1; i < n; i++ {
+		w[j] = v[i]
+		j++
+	}
+	v.CopyFrom(w)
+}
+

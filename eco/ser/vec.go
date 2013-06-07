@@ -63,7 +63,7 @@ func (v Vector64) WriteCSV() {
 
 func (v Vector64) Print() {
 	for i := 0; i < len(v); i++ {
-		fmt.Printf("%d ", v[i])
+		fmt.Printf("%f ", v[i])
 	}
 	fmt.Print("\n")
 }

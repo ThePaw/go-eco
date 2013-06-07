@@ -128,7 +128,7 @@ func (v IntVector64) Increasing() {
 	return
 }
 
-func (v IntVector64) IsIdentical(w IntVector64) bool {
+func (v IntVector64) Equals(w IntVector64) bool {
 	nElem := v.Len()
 	if w.Len() != nElem {
 		return false
@@ -147,7 +147,7 @@ func (v IntVector64) IsPermutation() bool {
 	w.Order()
 	z := v.Clone()
 	sort.Ints(z)
-	if !w.IsIdentical(z) {
+	if !w.Equals(z) {
 		return false
 	}
 	return true
