@@ -545,3 +545,79 @@ func (v IntVector) FourPointExch(a, b, c, d int) {
 	v.CopyFrom(w)
 }
 
+// ========================================================================
+/*
+Lexicographic order and finding the next permutation
+Permutation f precedes a permutation g in the lexicographic (alphabetic) order iff for the minimum value of k such that f(k)≠ g(k), we have f(k) < g(k). Starting with the identical permutation f(i) = i for all i, the second algorithm generates sequentially permutaions in the lexicographic order. The algorithm is described in [Dijkstra, p. 71]. 
+E. W. Dijkstra, A Discipline of Programming, Prentice-Hall, 1997.
+*/
+
+func (p IntVector) NextPermLex() {
+	var i, j int
+	n := p.Len()
+	i = n - 1
+	for p[i-1] >= p[i] {
+		i = i - 1
+	}
+	j = n
+	for p[j-1] <= p[i-1] {
+		j = j - 1
+	}
+	p.Swap(i-1, j-1) // swap values at positions (i-1) and (j-1)
+
+	i++
+	j = n
+	for i < j {
+		p.Swap(i-1, j-1)
+		i++
+		j--
+	}
+}
+
+func visit(p IntVector, level, n, k int) {
+	level++
+	p[k] = level
+	if level == n {
+		//      AddItem();     // to the list box
+		p.Print()
+	} else {
+		for i := 0; i < n; i++ {
+			if p[i] == 0 {
+				visit(p, level, n, i)
+			}
+		}
+	}
+	level = level - 1
+	p[k] = 0
+}
+
+func AllPerms(n int) {
+	p := NewIntVector(n)
+	level := -1
+	visit(p, level, n, 0)
+}
+
+//    Heap's short and elegant algorithm is implemented as a recursive method HeapPermute [Levitin, p. 179]. It is invoked with HeapPermute(N).
+// A. Levitin, Introduction to The Design & Analysis of Algorithms, Addison Wesley, 2003.
+func heapPermute(p IntVector, n int) {
+	if n == 1 {
+		//        AddItem();
+		p.Print()
+
+	} else {
+		for i := 0; i < n; i++ {
+			heapPermute(p, n-1)
+			if n%2 == 1 { // if n is odd 
+				p.Swap(0, n-1)
+			} else { // if n is even
+				p.Swap(i, n-1)
+			}
+		}
+	}
+}
+
+func AllPermsHeap(n int) {
+	p := NewIntVector(n)
+	p.Order()
+	heapPermute(p, n)
+}

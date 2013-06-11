@@ -1,4 +1,4 @@
-// Copyright 2012 The Gt Authors. All rights reserved. See the LICENSE file.
+// Copyright 2012 The Eco Authors. All rights reserved. See the LICENSE file.
 
 package ser
 
@@ -128,10 +128,6 @@ func HGain(dis Matrix64, p IntVector) float64 {
 // HNormGain returns gain of the permuted matrix according to Szczotka 1972; see Brusco et al. 2008: 507-508, Eq. 7.
 // TO BE IMPLEMENTED
 
-func optimize(dis Matrix64, p IntVector) {
-	// TO BE IMPLEMENTED
-}
-
 // strengLoss returns a count of Anti-Robinson events (Streng and Schoenfelder 1978; Chen 2002:21).
 func strengLoss(dis Matrix64, p IntVector, which int) float64 {
 	//which indicates the weighing scheme
@@ -250,62 +246,6 @@ func LeastSquaresLoss(dis Matrix64, p IntVector) float64 {
 		}
 	}
 	return sum
-}
-
-// Brusco2008 implements submatrix optimization.
-// see Brusco et al. 2008: 509.
-func Brusco2008(dis Matrix64, p IntVector, v int) {
-	if !dis.IsSymmetric() {
-		panic("distance matrix not symmetric")
-	}
-	n := p.Len()
-	if dis.Rows() != n {
-		panic("dimensions not equal")
-	}
-	if v >= n {
-		v = n - 1
-	}
-
-	q := NewMatrix64(v, v)
-	psiSub := NewIntVector(v)
-	psiSub.Perm()
-	δ := NewIntVector(v)
-	δ.Perm()
-
-	improved := true
-	for improved {
-		improved = false
-		for i := 0; i < n-v+1; i++ {
-
-			// Step 1a
-			for k := i; k < n-v+1; k++ {
-				psiSub[k-i] = p[k]
-			}
-
-			// Step 1b
-			for k := i; k < n-v+1; k++ {
-				for l := i; l < n-v+1; l++ {
-					q[p[k-i]][p[l-i]] = dis[p[k]][p[l]]
-				}
-			}
-
-			// Step 1c
-			optimize(q, δ)
-
-			// Step 1d
-			for k := i; k < n-v+1; k++ {
-				p[k] = psiSub[δ[k-i]]
-			}
-
-			// Step 1e
-			for k := 0; k < v; k++ {
-				if δ[k] != k {
-					improved = true
-					break
-				}
-			}
-		}
-	}
 }
 
 // MooreStressDisLoss returns the Moore Stress criterion (Niermann 2005:42, Eq. 1, 2) for a distance matrix.

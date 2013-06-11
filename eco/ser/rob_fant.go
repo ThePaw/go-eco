@@ -102,3 +102,32 @@ func RobFAntK2(sim Matrix64, p IntVector, objFn ObjFn, isLoss bool, trials, impr
 	}
 	return
 }
+
+// RobFA3 sorts the pre-(Anti)-Robinson matrix using the Fast Ant System, in k trials. New version.
+func RobFA3(sim Matrix64, p IntVector, objFn ObjFn, isLoss bool) (cost float64) {
+	improLagMax := 60
+	r := 5.0
+	trials := 2
+	return RobFAntK3(sim, p, objFn, isLoss, trials, improLagMax, r)
+}
+
+// RobFAntK3 sorts the pre-(Anti)-Robinson matrix using the Fast Ant System, in k trials. 
+func RobFAntK3(sim Matrix64, p IntVector, objFn ObjFn, isLoss bool, trials, improLagMax int, r float64) (cost float64) {
+	if isLoss {
+		cost = math.Inf(1)
+	} else {
+		cost = math.Inf(-1)
+	}
+	w := p.Clone()
+	best := p.Clone()
+	for i := 0; i < trials; i++ {
+		w.Perm()
+		c := RobFAnt(sim, p, objFn, isLoss, r, improLagMax)
+		if (isLoss && c < cost) || (!isLoss && c > cost) {
+			cost = c
+			best.CopyFrom(w)
+		}
+	}
+	p.CopyFrom(best)
+	return
+}

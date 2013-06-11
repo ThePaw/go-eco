@@ -6,7 +6,7 @@ package ser
 // Use functions in obj_fn_sim.go for Robinson, obj_fn_dis.go for Anti-Robinson matrix.
 
 import (
-//	"fmt"
+	//	"fmt"
 	"math"
 	"math/rand"
 
@@ -224,69 +224,102 @@ func RobSA2(a Matrix64, p IntVector, objFn ObjFn, isLoss bool) (bestEnergy float
 	return
 }
 
-// Segment4Opt modifies permutation by greedy optimization of all segments legth 4.
-func Segment4Opt(a Matrix64, p IntVector, objFn ObjFn, isLoss bool) {
+// ==========================================================
 
-	perm4 := IntMatrix{
-		{0, 1, 3, 2},
-		{0, 2, 1, 3},
-		{0, 2, 3, 1},
-		{0, 3, 1, 2},
-		{0, 3, 2, 1},
-		{1, 0, 2, 3},
-		{1, 0, 3, 2},
-		{1, 2, 0, 3},
-		{1, 2, 3, 0},
-		{1, 3, 0, 2},
-		{1, 3, 2, 0},
-		{2, 0, 1, 3},
-		{2, 0, 3, 1},
-		{2, 1, 0, 3},
-		{2, 1, 3, 0},
-		{2, 3, 0, 1},
-		{2, 3, 1, 0},
-		{3, 0, 1, 2},
-		{3, 0, 2, 1},
-		{3, 1, 0, 2},
-		{3, 1, 2, 0},
-		{3, 2, 0, 1},
-	}
+// SimAnn3 minimizes a loss function using simulated annealing (Kirkpatrick et al., 1983)
+func SimAnn3(a Matrix64, p IntVector, loss ObjFn, isLoss bool, proposePerm GenFn, cool CoolFn) (bestEnergy float64) {
+	//    Kirkpatrick, S., Gelatt, C.D., & Vecchi, M.P. (1983). Optimization by Simulated Annealing. Science, 220: 671-680.
+	//    Based on "anneal.m" code by Joachim Vandekerckhove joachim.vandekerckhove@psy.kuleuven.be
+	//    http://www.mathworks.com/matlabcentral/fileexchange/10548-general-simulated-annealing-algorithm/content/anneal.m
 
-	cost := objFn(a, p)
+	var (
+		seed      int64
+		newEnergy float64
+	)
 
-	if !isLoss {
-		cost = -cost
-	}
-	best := cost
-	seg := NewIntVector(4)
-	n := p.Len() - 3
-	for i := 0; i < n; i++ {
-		for j := 0; j < 22; j++ {
-			w := p.Clone()
-			for k := 0; k < 4; k++ {
-				seg[k] = w[i+perm4[j][k]]
+	// params
+	initT := 1.0 // The initial temperature, can be any positive number.
+	minT := 1e-8 // Temperature at which to stop, can be any positive number
+	//                  smaller than initT. 
+	stopVal := -inf //Value at which to stop immediately, can be any output of
+	//                  loss fn that is sufficiently low for you.
+	maxConsRej := 1000 // Maximum number of consecutive rejections, can be any
+	//                  positive number.
+	maxTries := 300 // Maximum number of tries within one temperature, can be
+	//                  any positive number.
+	maxSuccess := 20 // Maximum number of successes within one temperature, can
+	//                  be any positive number.
+	k := 1.0 // Boltzmann constant.
+
+	// init
+	try := 0
+	success := 0
+	finished := false
+	consec := 0
+	temp := initT
+	stopVal = -inf
+	total := 0
+	newSolution := p.Clone()
+	initialEnergy := loss(a, p)
+	bestEnergy = initialEnergy
+
+	// Create and seed the generator.
+	// Typically a non-fixed seed should be used, such as time.Now().UnixNano().
+	// Using a fixed seed will produce the same output on every run.
+	// seed := time.Now().UnixNano()
+	seed = 5
+	r := rand.New(rand.NewSource(seed))
+
+	for !finished {
+		try++ // just an iteration counter
+		newSolution.CopyFrom(p)
+
+		//  Stop / decrement temp criteria
+		if try >= maxTries || success >= maxSuccess {
+			if temp < minT || consec >= maxConsRej {
+				finished = true
+				total = total + try
+				break
+			} else {
+				temp = cool(temp) // decrease temp according to cooling schedule
+				total = total + try
+				try = 1
+				success = 1
 			}
-			for k := 0; k < 4; k++ {
-				w[i+k] = seg[k]
-			}
-			cost = objFn(a, w)
-			if !isLoss {
-				cost = -cost
-			}
-			if cost < best {
-//				fmt.Println("=== IMPROVED ===", cost, best, i, j)
-				best = cost
-				p.CopyFrom(w)
-				j = 0
-				if !p.IsPermutation() {
-					seg.Print()
-					p.Print()
-					panic("not a permutation")
-				}
+		}
+
+		proposePerm(newSolution)
+		if isLoss {
+			newEnergy = loss(a, newSolution)
+		} else {
+			newEnergy = -loss(a, newSolution)
+		}
+		if newEnergy < stopVal {
+			p.CopyFrom(newSolution)
+			bestEnergy = newEnergy
+			break
+		}
+
+		if bestEnergy-newEnergy > 1e-6 {
+			p.CopyFrom(newSolution)
+			bestEnergy = newEnergy
+			success++
+			consec = 0
+		} else {
+			if r.Float64() < math.Exp((bestEnergy-newEnergy)/(k*temp)) {
+				p.CopyFrom(newSolution)
+				bestEnergy = newEnergy
+				success++
+			} else {
+				consec++
 			}
 		}
 	}
-//	cost = objFn(a, p)
-//					p.Print()
-//				fmt.Println("=== Final cost:  ===", cost)
+
+	return
+}
+
+func RobSA3(a Matrix64, p IntVector, objFn ObjFn, isLoss bool) (bestEnergy float64) {
+	bestEnergy = SimAnn3(a, p, objFn, isLoss, proposePerm, cool)
+	return
 }

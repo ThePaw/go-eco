@@ -75,16 +75,16 @@ func proposePerm(p IntVector) {
 	case x < 5:
 		a = rand.Intn(rows)
 	case x < 10:
-		b = rand.Intn(rows-1)+1 // avoid zero
+		b = rand.Intn(rows-1) + 1 // avoid zero
 		a = rand.Intn(b)
 	case x < 13:
-		c = rand.Intn(rows-2)+2
-		b = rand.Intn(c-1)+1
+		c = rand.Intn(rows-2) + 2
+		b = rand.Intn(c-1) + 1
 		a = rand.Intn(b)
 	default:
-		d = rand.Intn(rows-3)+3
-		c = rand.Intn(d-2)+2
-		b = rand.Intn(c-1)+1
+		d = rand.Intn(rows-3) + 3
+		c = rand.Intn(d-2) + 2
+		b = rand.Intn(c-1) + 1
 		a = rand.Intn(b)
 	}
 
