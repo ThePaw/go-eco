@@ -311,3 +311,18 @@ func compareFloat64(a, b float64) bool {
 	}
 	return false
 }
+
+// fact returns the factorial of an int
+func fact(n int) int {
+	if n < 0 {
+		panic("factorial not defined for negative numbers")
+	}
+	if n == 0 {
+		return 1
+	}
+	f := 1
+	for i := 0; i < n; i++ {
+		f *= f
+	}
+	return f
+}

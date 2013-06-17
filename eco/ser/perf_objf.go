@@ -40,12 +40,14 @@ func ObjFnPerformance(sim Matrix64, objFn ObjFn, isLoss, isDistFn bool, optMetho
 		switch impro {
 		case 0: // no improvement
 		case 1:
-			Segment4Opt(a, p, objFn, isLoss)
+			SegmentOpt(a, p, window, objFn, isLoss)
 		case 2:
 			SubMatOpt(a, p, window, objFn, isLoss, optMethodForImpro)
 		case 3:
-			RobSA3(a, p, objFn, isLoss)
+			SwapOpt(a, p, objFn, isLoss)
 		case 4:
+			RobSA3(a, p, objFn, isLoss)
+		case 5:
 			RobFA3(a, p, objFn, isLoss)
 		default:
 			// no improvement

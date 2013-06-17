@@ -560,3 +560,24 @@ func ParabolaLoss(sim Matrix64, p IntVector) float64 {
 	}
 	return loss
 }
+
+// QAPGain returns gain of the permuted matrix according to Brusco 2000: 201, Eq. 5.
+func QAPGain(dis Matrix64, p IntVector) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+
+	c := 0.0
+	for i := 1; i < n; i++ {
+		for j := 0; j < i; j++ {
+			d := math.Abs(float64(i - j))
+			x := dis[p[i]][p[j]]
+			c += d * x
+		}
+	}
+	return c
+}
