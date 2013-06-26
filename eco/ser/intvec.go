@@ -213,6 +213,7 @@ func (v IntVector) InsideOut(a int) {
 	v.CopyFrom(w)
 }
 
+// InsertAt implements the insertion mutation operator (Fogel 1988; Michalewicz 1992).
 func (v IntVector) InsertAt(a, b int) {
 	// insertion mutation operator (Fogel 1988; Michalewicz 1992)
 	// position based mutation operator (Syswerda 1991)
@@ -239,6 +240,7 @@ func (v IntVector) InsertAt(a, b int) {
 	v.CopyFrom(w)
 }
 
+// InvertHeadAndTail inverts head and tail of a vector, specified by two positions.
 func (v IntVector) InvertHeadAndTail(a, b int) {
 	n := v.Len()
 	if a > n || a < 0 || b > n || b < 0 {
@@ -267,7 +269,7 @@ func (v IntVector) InvertHeadAndTail(a, b int) {
 	v.CopyFrom(w)
 }
 
-// modified from displacement mutation operator (Michalewicz 1992) ==  cut mutation (Banzhaf 1990)
+// Displace implements a mutation modified from displacement mutation operator (Michalewicz 1992) ==  cut mutation (Banzhaf 1990).
 func (v IntVector) Displace(a, b, c int) {
 	n := v.Len()
 	if a > n || a < 0 || b > n || b < 0 || c > n || c < 0 {
@@ -362,8 +364,7 @@ func (v IntVector) DisplaceInv(a, b, c int) {
 	v.CopyFrom(w)
 }
 
-//Two point Swapped Inversion
-// inspired by Sallabi (2009)
+//TwoPointSwapInv performs the Two point Swapped Inversion,  inspired by Sallabi (2009).
 func (v IntVector) TwoPointSwapInv(a, b int) {
 	n := v.Len()
 	if a > n || a < 0 || b > n || b < 0 {
@@ -410,6 +411,7 @@ func (v IntVector) TwoPointSwapInv(a, b int) {
 	}
 }
 
+// Scramble scrambles a segment of a vector.
 func (v IntVector) Scramble(a, b int) {
 	n := v.Len()
 	if a > n || a < 0 || b > n || b < 0 {
@@ -438,6 +440,7 @@ func (v IntVector) Scramble(a, b int) {
 	}
 }
 
+// Scramble3 scrambles a segment of length 3 of a vector.
 func (v IntVector) Scramble3(a int) {
 	n := v.Len()
 	if a > n || a < 0 {
@@ -462,6 +465,7 @@ func (v IntVector) Scramble3(a int) {
 	}
 }
 
+// Scramble4 scrambles a segment of length 4 of a vector.
 func (v IntVector) Scramble4(a int) {
 	n := v.Len()
 	if a > n || a < 0 {
@@ -486,7 +490,7 @@ func (v IntVector) Scramble4(a int) {
 	}
 }
 
-// inspired by 3-opt move
+// ThreePointExch is inspired by 3-opt move for the TSP.
 func (v IntVector) ThreePointExch(a, b, c int) {
 	n := v.Len()
 	if a > n || a < 0 || b > n || b < 0 || c > n || c < 0 {
@@ -513,7 +517,7 @@ func (v IntVector) ThreePointExch(a, b, c int) {
 	v.CopyFrom(w)
 }
 
-// inspired by non-sequential 4-change
+// FourPointExch is inspired by non-sequential 4-change for the TSP.
 func (v IntVector) FourPointExch(a, b, c, d int) {
 	n := v.Len()
 	if a > n || a < 0 || b > n || b < 0 || c > n || c < 0 || d > n || d < 0 {
@@ -597,7 +601,7 @@ func AllPerms(n int) {
 	visit(p, level, n, 0)
 }
 
-//    Heap's short and elegant algorithm is implemented as a recursive method HeapPermute [Levitin, p. 179]. It is invoked with HeapPermute(N).
+//    Heap's short and elegant algorithm is implemented as a recursive method HeapPermute [Levitin, p. 179]. It is invoked with HeapPermute(n).
 // A. Levitin, Introduction to The Design & Analysis of Algorithms, Addison Wesley, 2003.
 func heapPermute(p IntVector, n int) {
 	if n == 1 {
