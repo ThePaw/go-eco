@@ -37,7 +37,7 @@ func (v IntVector) Clone() IntVector {
 	return w
 }
 
-// Swap elements i, j
+// Swap swaps elements i, j
 func (v IntVector) Swap(i, j int) {
 	// exchange mutation operator (Banzhaf 1990)
 	// swap mutation operator (Oliver et al. 1987)
@@ -148,6 +148,7 @@ func (v IntVector) Invert() {
 	v.CopyFrom(w)
 }
 
+// InvertFromTo implements simple inversion mutation operator (Holland 1975; Grefenstette 1987).
 func (v IntVector) InvertFromTo(a, b int) {
 	// simple inversion mutation operator (Holland 1975; Grefenstette 1987)
 	n := v.Len()
@@ -170,6 +171,7 @@ func (v IntVector) InvertFromTo(a, b int) {
 	v.CopyFrom(w)
 }
 
+// InvertTo inverts the head of a vector from the beginning to a specified position.
 func (v IntVector) InvertTo(a int) {
 	n := v.Len()
 	if a >= n || a < 0 {
@@ -183,6 +185,7 @@ func (v IntVector) InvertTo(a int) {
 	v.CopyFrom(w)
 }
 
+// InvertFrom inverts the tail of a vector from specified position to the end.
 func (v IntVector) InvertFrom(a int) {
 	n := v.Len()
 	if a >= n || a < 0 {
@@ -196,6 +199,7 @@ func (v IntVector) InvertFrom(a int) {
 	v.CopyFrom(w)
 }
 
+// InsideOut inverts both head and tail of a vector at specified position.
 func (v IntVector) InsideOut(a int) {
 	n := v.Len()
 	if a >= n || a < 0 {
@@ -314,6 +318,7 @@ func (v IntVector) Displace(a, b, c int) {
 	v.CopyFrom(w)
 }
 
+// DisplaceInv works like Displace, but inverts the middle segmant.
 func (v IntVector) DisplaceInv(a, b, c int) {
 	// inversion mutation (Fogel 1990, 1993)
 	// cut-inverse mutation operator (Banzhaf 1990)
@@ -411,7 +416,7 @@ func (v IntVector) TwoPointSwapInv(a, b int) {
 	}
 }
 
-// Scramble scrambles a segment of a vector.
+// Scramble scrambles a segment of a vector, specified by two positions.
 func (v IntVector) Scramble(a, b int) {
 	n := v.Len()
 	if a > n || a < 0 || b > n || b < 0 {

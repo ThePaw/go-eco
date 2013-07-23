@@ -128,7 +128,7 @@ func HGain(dis Matrix64, p IntVector) float64 {
 // HNormGain returns gain of the permuted matrix according to Szczotka 1972; see Brusco et al. 2008: 507-508, Eq. 7.
 // TO BE IMPLEMENTED
 
-// strengLoss returns a count of Anti-Robinson events (Streng and Schoenfelder 1978; Chen 2002:21).
+// strengLoss returns a count of Anti-Robinson events (Streng and Schoenfelder 1978; Streng 1991 Chen 2002:21).
 func strengLoss(dis Matrix64, p IntVector, which int) float64 {
 	//which indicates the weighing scheme
 	// 1 ... no weighting (i)
@@ -193,7 +193,7 @@ func strengLoss(dis Matrix64, p IntVector, which int) float64 {
 	return sum
 }
 
-// StrengLoss1 returns a count of Anti-Robinson events, no weighting (Streng and Schoenfelder 1978; Chen 2002:21).
+// StrengLoss1 returns a count of Anti-Robinson events, no weighting (Streng and Schoenfelder 1978; Chen 2002:21).(also Wu 2010: 773)
 func StrengLoss1(dis Matrix64, p IntVector) float64 {
 	return strengLoss(dis, p, 1)
 }
@@ -258,6 +258,7 @@ func VonNeumannStressDisLoss(dis Matrix64, p IntVector) float64 {
 	return VonNeumannStressLoss(dis, p, p)
 }
 
+/*
 // GARLoss returns the generalized anti-Robinson loss function for a distance matrix GAR(w) (Wu 2010: 773) .
 func GARLoss(dis Matrix64, p IntVector, w int) float64 {
 	if !dis.IsSymmetric() {
@@ -271,9 +272,9 @@ func GARLoss(dis Matrix64, p IntVector, w int) float64 {
 	sum := 0.0
 	for i := 0; i < n; i++ {
 		for j := 0; j < n; j++ {
-			dij := dis[i][j]
+			dij := dis[p[i]][p[j]]
 			for k := 0; k < n; k++ {
-				dik := dis[i][k]
+				dik := dis[p[i]][p[k]]
 				if (i-w) <= j && j < k && k < i && dij < dik {
 					sum++
 				}
@@ -282,10 +283,61 @@ func GARLoss(dis Matrix64, p IntVector, w int) float64 {
 	}
 	for i := 0; i < n; i++ {
 		for j := 0; j < n; j++ {
-			dij := dis[i][j]
+			dij := dis[p[i]][p[j]]
 			for k := 0; k < n; k++ {
-				dik := dis[i][k]
-				if i < j && j < k && k <= i+w && dij > dik {
+				dik := dis[p[i]][p[k]]
+				if i < j && j < k && k <= (i+w) && dij > dik {
+					sum++
+				}
+			}
+		}
+	}
+	return sum
+}
+*/
+
+// GARLoss returns the generalized anti-Robinson loss function for a distance matrix GAR(w) (Wu 2010: 773) .
+func GARLoss(dis Matrix64, p IntVector, w int) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+	if w == 0 || w == 1 {
+		return 0
+	}
+	sum := 0.0
+
+	for i := 0; i < n; i++ {
+		imw := i - w
+		if imw < 0 {
+			imw = 0
+		}
+
+		for j := imw; j < i; j++ {
+			dij := dis[p[i]][p[j]]
+
+			for k := j + 1; k < i; k++ {
+				dik := dis[p[i]][p[k]]
+				if dij < dik {
+					sum++
+				}
+			}
+		}
+
+		ipw := i + w
+		if ipw >= n {
+			ipw = n - 1
+		}
+
+		for j := i + 1; j <= ipw; j++ {
+			dij := dis[p[i]][p[j]]
+
+			for k := j + 1; k < ipw; k++ {
+				dik := dis[p[i]][p[k]]
+				if dij > dik {
 					sum++
 				}
 			}
@@ -343,7 +395,7 @@ func RGARLoss10(dis Matrix64, p IntVector) float64 {
 	return RGARLoss(dis, p, 10)
 }
 
-// HamiltonLoss returns the length of the Hamiltonian path.
+// HamiltonLoss returns the length of the shortest Hamiltonian path (openTSP).
 func HamiltonLoss(dis Matrix64, p IntVector) float64 {
 	if !dis.IsSymmetric() {
 		panic("distance matrix not symmetric")
@@ -431,6 +483,7 @@ func parabolaFit(v Vector64) (c1, c2, c3 float64, err bool) {
 	return
 }
 
+// ParabolaLoss returns the su of squared residues of fitted parabola.
 func ParabolaLoss(sim Matrix64, p IntVector) float64 {
 	if !sim.IsSymmetric() {
 		panic("similarity matrix not symmetric")

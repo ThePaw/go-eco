@@ -213,7 +213,7 @@ func SegmentImpro(a Matrix64, p IntVector, v int, objFn ObjFn, isLoss bool) {
 				if !p.IsPermutation() {
 					seg.Print()
 					p.Print()
-					panic("not a permutation")
+					panic("not a permutation") // should never happen
 				}
 			}
 		}
