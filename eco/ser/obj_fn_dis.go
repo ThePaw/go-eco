@@ -9,6 +9,23 @@ import (
 	"math"
 )
 
+func f(x, y float64) float64 {
+	if x > y {
+		return 1
+	}
+	if x == y {
+		return 0
+	}
+	return -1
+}
+
+func g(x, y float64) float64 {
+	if x < y {
+		return 1
+	}
+	return 0
+}
+
 // G1Gain returns gain of the permuted matrix according to Hubert, Arabie & Meulman 2001, Chapter 4; see Brusco 2002: 50, Eq. 6. (WRUG)
 func G1Gain(dis Matrix64, p IntVector) float64 {
 	if !dis.IsSymmetric() {
@@ -128,8 +145,8 @@ func HGain(dis Matrix64, p IntVector) float64 {
 // HNormGain returns gain of the permuted matrix according to Szczotka 1972; see Brusco et al. 2008: 507-508, Eq. 7.
 // TO BE IMPLEMENTED
 
-// strengLoss returns a count of Anti-Robinson events (Streng and Schoenfelder 1978; Streng 1991 Chen 2002:21).
-func strengLoss(dis Matrix64, p IntVector, which int) float64 {
+// StrengLossW returns a count of Anti-Robinson events (Streng and Schoenfelder 1978; Streng 1991; Chen 2002:21).
+func StrengLossW(dis Matrix64, p IntVector, which int) float64 {
 	//which indicates the weighing scheme
 	// 1 ... no weighting (i)
 	// 2 ... abs. deviations (s)
@@ -195,17 +212,17 @@ func strengLoss(dis Matrix64, p IntVector, which int) float64 {
 
 // StrengLoss1 returns a count of Anti-Robinson events, no weighting (Streng and Schoenfelder 1978; Chen 2002:21).(also Wu 2010: 773)
 func StrengLoss1(dis Matrix64, p IntVector) float64 {
-	return strengLoss(dis, p, 1)
+	return StrengLossW(dis, p, 1)
 }
 
 // StrengLoss2 returns a count of Anti-Robinson events, weighted by abs. deviations (Streng and Schoenfelder 1978; Chen 2002:21).
 func StrengLoss2(dis Matrix64, p IntVector) float64 {
-	return strengLoss(dis, p, 2)
+	return StrengLossW(dis, p, 2)
 }
 
 // StrengLoss3 returns a count of Anti-Robinson events, weighted by weighted abs. deviations (Streng and Schoenfelder 1978; Chen 2002:21).
 func StrengLoss3(dis Matrix64, p IntVector) float64 {
-	return strengLoss(dis, p, 3)
+	return StrengLossW(dis, p, 3)
 }
 
 // InertiaGain returns the Inertia criterion (Caraux and Pinloche 2005).
@@ -633,4 +650,195 @@ func QAPGain(dis Matrix64, p IntVector) float64 {
 		}
 	}
 	return c
+}
+
+// CompatibilityGain returns gain of the permuted matrix according to Kostopoulos & Goulermas
+func CompatibilityGain(dis Matrix64, p IntVector) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+
+	c := 0.0
+	for i := 0; i < n; i++ {
+		for j := i + 2; j < n; j++ {
+			for k := i + 1; k < j; k++ {
+				x := dis[p[i]][p[k]]
+				y := dis[p[i]][p[j]]
+				c += f(x, y)
+			}
+		}
+	}
+	for i := 0; i < n; i++ {
+		for j := i + 2; j < n; j++ {
+			for k := i + 1; k < j; k++ {
+				x := dis[p[k]][p[j]]
+				y := dis[p[i]][p[j]]
+				c += f(x, y)
+			}
+		}
+	}
+	return c
+}
+
+// WeightedCompatibilityGain returns gain of the permuted matrix according to Kostopoulos & Goulermas
+func WeightedCompatibilityGain(dis Matrix64, p IntVector) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+
+	c := 0.0
+	for i := 0; i < n; i++ {
+		for j := i + 2; j < n; j++ {
+			for k := i + 1; k < j; k++ {
+				x := dis[p[i]][p[k]]
+				y := dis[p[i]][p[j]]
+				d := math.Abs(x - y)
+				c += d * f(x, y)
+			}
+		}
+	}
+	for i := 0; i < n; i++ {
+		for j := i + 2; j < n; j++ {
+			for k := i + 1; k < j; k++ {
+				x := dis[p[k]][p[j]]
+				y := dis[p[i]][p[j]]
+				d := math.Abs(x - y)
+				c += d * f(x, y)
+			}
+		}
+	}
+	return c
+}
+
+// AREventsViolationLoss returns gain of the permuted matrix according to Kostopoulos & Goulermas
+func AREventsViolationLoss(dis Matrix64, p IntVector) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+
+	c := 0.0
+	for i := 0; i < n; i++ {
+		for j := i + 2; j < n; j++ {
+			for k := i + 1; k < j; k++ {
+				x := dis[p[i]][p[k]]
+				y := dis[p[i]][p[j]]
+				c += g(x, y)
+			}
+		}
+	}
+	for i := 0; i < n; i++ {
+		for j := i + 2; j < n; j++ {
+			for k := i + 1; k < j; k++ {
+				x := dis[p[k]][p[j]]
+				y := dis[p[i]][p[j]]
+				c += g(x, y)
+			}
+		}
+	}
+	return c
+}
+
+// WeightedAREventsViolationLoss returns gain of the permuted matrix according to Kostopoulos & Goulermas
+func WeightedAREventsViolationLoss(dis Matrix64, p IntVector) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+
+	c := 0.0
+	for i := 0; i < n; i++ {
+		for j := i + 2; j < n; j++ {
+			for k := i + 1; k < j; k++ {
+				x := dis[p[i]][p[k]]
+				y := dis[p[i]][p[j]]
+				d := math.Abs(x - y)
+				c += d * g(x, y)
+			}
+		}
+	}
+	for i := 0; i < n; i++ {
+		for j := i + 2; j < n; j++ {
+			for k := i + 1; k < j; k++ {
+				x := dis[p[k]][p[j]]
+				y := dis[p[i]][p[j]]
+				d := math.Abs(x - y)
+				c += d * g(x, y)
+			}
+		}
+	}
+	return c
+}
+
+// DoublyWeightedAREventsViolationLoss returns gain of the permuted matrix according to Kostopoulos & Goulermas
+func DoublyWeightedAREventsViolationLoss(dis Matrix64, p IntVector) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+
+	c := 0.0
+	for i := 0; i < n; i++ {
+		for j := i + 2; j < n; j++ {
+			ij := math.Abs(float64(i - j))
+			for k := i + 1; k < j; k++ {
+				x := dis[p[i]][p[k]]
+				y := dis[p[i]][p[j]]
+				d := math.Abs(x - y)
+				c += d * g(x, y)
+			}
+		}
+	}
+	for i := 0; i < n; i++ {
+		for j := i + 2; j < n; j++ {
+			ij := math.Abs(float64(i - j))
+			for k := i + 1; k < j; k++ {
+				x := dis[p[k]][p[j]]
+				y := dis[p[i]][p[j]]
+				d := math.Abs(x - y)
+				c += d * g(x, y)
+			}
+		}
+	}
+	return c
+}
+
+// RelativeGARLoss returns loss of the permuted matrix according to Kostopoulos & Goulermas
+func RelativeGARLoss(dis Matrix64, p IntVector, w int) float64 {
+	c := GARLoss(dis, p, w)
+	n := float64(dis.Rows())
+	v := float64(w)
+	return c / (n*v*(v-1) - 2*v*(1-v*v)/3)
+}
+
+func EffectivenessGain(dis Matrix64, p IntVector) float64 {
+	sum := 0.0
+	for i := 1; i < n-1; i++ {
+		for j := 1; j < n-1; j++ {
+			a := dis[p[i]][p[j+1]]
+			b := dis[p[i]][p[j-1]]
+			c := dis[p[i+1]][p[j]]
+			d := dis[p[i-1]][p[j]]
+			e := dis[p[i]][p[j]]
+			sum += e * (a + b + c + d)
+		}
+	}
+	return sum
 }
