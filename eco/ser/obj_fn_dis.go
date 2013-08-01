@@ -802,7 +802,7 @@ func DoublyWeightedAREventsViolationLoss(dis Matrix64, p IntVector) float64 {
 				x := dis[p[i]][p[k]]
 				y := dis[p[i]][p[j]]
 				d := math.Abs(x - y)
-				c += d * g(x, y)
+				c += ij * d * g(x, y)
 			}
 		}
 	}
@@ -813,7 +813,7 @@ func DoublyWeightedAREventsViolationLoss(dis Matrix64, p IntVector) float64 {
 				x := dis[p[k]][p[j]]
 				y := dis[p[i]][p[j]]
 				d := math.Abs(x - y)
-				c += d * g(x, y)
+				c += ij * d * g(x, y)
 			}
 		}
 	}
@@ -828,7 +828,15 @@ func RelativeGARLoss(dis Matrix64, p IntVector, w int) float64 {
 	return c / (n*v*(v-1) - 2*v*(1-v*v)/3)
 }
 
+// EffectivenessGain returns gain of the permuted matrix according to Kostopoulos & Goulermas
 func EffectivenessGain(dis Matrix64, p IntVector) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
 	sum := 0.0
 	for i := 1; i < n-1; i++ {
 		for j := 1; j < n-1; j++ {
@@ -838,6 +846,29 @@ func EffectivenessGain(dis Matrix64, p IntVector) float64 {
 			d := dis[p[i-1]][p[j]]
 			e := dis[p[i]][p[j]]
 			sum += e * (a + b + c + d)
+		}
+	}
+	return sum
+}
+
+// BertinLoss returns loss of the permuted matrix according to Kostopoulos & Goulermas
+func BertinLoss(dis Matrix64, p IntVector) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+	sum := 0.0
+	for i := 1; i < n; i++ {
+		for j := 0; j < n-1; j++ {
+			for k := 0; k < i-1; j++ {
+				for l := j + 1; k < n; j++ {
+					sum += dis[p[k]][p[l]]
+				}
+			}
+			sum *= dis[p[i]][p[j]]
 		}
 	}
 	return sum
