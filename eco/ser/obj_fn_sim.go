@@ -31,3 +31,26 @@ func PsiLossSim(sim Matrix64, p IntVector) float64 {
 	}
 	return loss
 }
+
+// BertinLossSim returns loss of the permuted matrix according to Kostopoulos & Goulermas
+func BertinLossSim(dis Matrix64, p IntVector) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+	sum := 0.0
+	for i := 1; i < n; i++ {
+		for j := 0; j < n-1; j++ {
+			for k := 0; k < i-1; k++ {
+				for l := j + 1; l < n; l++ {
+					sum += dis[p[k]][p[l]]
+				}
+			}
+			sum *= dis[p[i]][p[j]]
+		}
+	}
+	return sum
+}

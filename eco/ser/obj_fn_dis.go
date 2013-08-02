@@ -5,7 +5,7 @@ package ser
 // Objective (loss and gain) functions for distance (dissimilarity) matrices. 
 
 import (
-	//"fmt"
+//	"fmt"
 	"math"
 )
 
@@ -820,12 +820,50 @@ func DoublyWeightedAREventsViolationLoss(dis Matrix64, p IntVector) float64 {
 	return c
 }
 
+// GeneralizedARLoss returns loss of the permuted matrix according to Kostopoulos & Goulermas
+func GeneralizedARLoss(dis Matrix64, p IntVector, w int) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+
+	sum := 0.0
+	for i := 0; i < n; i++ {
+		for j := i + w; j < n; j++ {
+			for k := i+1; k < j; k++ {
+				x := dis[p[i]][p[k]]
+				y := dis[p[i]][p[j]]
+				sum += g(x, y)
+				x = dis[p[k]][p[j]]
+				y = dis[p[i]][p[j]]
+				sum += g(x, y)
+
+			}
+		}
+	}
+				return sum
+}
+// GeneralizedARLoss10 returns loss of the permuted matrix with window = 10 according to Kostopoulos & Goulermas
+func GeneralizedARLoss10(dis Matrix64, p IntVector) float64 {
+	w := 10
+	return RelativeGARLoss(dis, p, w)
+}
+
 // RelativeGARLoss returns loss of the permuted matrix according to Kostopoulos & Goulermas
 func RelativeGARLoss(dis Matrix64, p IntVector, w int) float64 {
-	c := GARLoss(dis, p, w)
+	c := GeneralizedARLoss(dis, p, w)
 	n := float64(dis.Rows())
 	v := float64(w)
 	return c / (n*v*(v-1) - 2*v*(1-v*v)/3)
+}
+
+// RelativeGARLoss10 returns loss of the permuted matrix with window = 10 according to Kostopoulos & Goulermas
+func RelativeGARLoss10(dis Matrix64, p IntVector) float64 {
+	w := 10
+	return RelativeGARLoss(dis, p, w)
 }
 
 // EffectivenessGain returns gain of the permuted matrix according to Kostopoulos & Goulermas
@@ -846,29 +884,6 @@ func EffectivenessGain(dis Matrix64, p IntVector) float64 {
 			d := dis[p[i-1]][p[j]]
 			e := dis[p[i]][p[j]]
 			sum += e * (a + b + c + d)
-		}
-	}
-	return sum
-}
-
-// BertinLoss returns loss of the permuted matrix according to Kostopoulos & Goulermas
-func BertinLoss(dis Matrix64, p IntVector) float64 {
-	if !dis.IsSymmetric() {
-		panic("distance matrix not symmetric")
-	}
-	n := p.Len()
-	if dis.Rows() != n {
-		panic("dimensions not equal")
-	}
-	sum := 0.0
-	for i := 1; i < n; i++ {
-		for j := 0; j < n-1; j++ {
-			for k := 0; k < i-1; j++ {
-				for l := j + 1; k < n; j++ {
-					sum += dis[p[k]][p[l]]
-				}
-			}
-			sum *= dis[p[i]][p[j]]
 		}
 	}
 	return sum
