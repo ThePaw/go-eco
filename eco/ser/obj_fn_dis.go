@@ -5,7 +5,7 @@ package ser
 // Objective (loss and gain) functions for distance (dissimilarity) matrices. 
 
 import (
-//	"fmt"
+	//	"fmt"
 	"math"
 )
 
@@ -833,7 +833,7 @@ func GeneralizedARLoss(dis Matrix64, p IntVector, w int) float64 {
 	sum := 0.0
 	for i := 0; i < n; i++ {
 		for j := i + w; j < n; j++ {
-			for k := i+1; k < j; k++ {
+			for k := i + 1; k < j; k++ {
 				x := dis[p[i]][p[k]]
 				y := dis[p[i]][p[j]]
 				sum += g(x, y)
@@ -844,12 +844,13 @@ func GeneralizedARLoss(dis Matrix64, p IntVector, w int) float64 {
 			}
 		}
 	}
-				return sum
+	return sum
 }
+
 // GeneralizedARLoss10 returns loss of the permuted matrix with window = 10 according to Kostopoulos & Goulermas
 func GeneralizedARLoss10(dis Matrix64, p IntVector) float64 {
 	w := 10
-	return RelativeGARLoss(dis, p, w)
+	return GeneralizedARLoss(dis, p, w)
 }
 
 // RelativeGARLoss returns loss of the permuted matrix according to Kostopoulos & Goulermas
@@ -866,25 +867,3 @@ func RelativeGARLoss10(dis Matrix64, p IntVector) float64 {
 	return RelativeGARLoss(dis, p, w)
 }
 
-// EffectivenessGain returns gain of the permuted matrix according to Kostopoulos & Goulermas
-func EffectivenessGain(dis Matrix64, p IntVector) float64 {
-	if !dis.IsSymmetric() {
-		panic("distance matrix not symmetric")
-	}
-	n := p.Len()
-	if dis.Rows() != n {
-		panic("dimensions not equal")
-	}
-	sum := 0.0
-	for i := 1; i < n-1; i++ {
-		for j := 1; j < n-1; j++ {
-			a := dis[p[i]][p[j+1]]
-			b := dis[p[i]][p[j-1]]
-			c := dis[p[i+1]][p[j]]
-			d := dis[p[i-1]][p[j]]
-			e := dis[p[i]][p[j]]
-			sum += e * (a + b + c + d)
-		}
-	}
-	return sum
-}

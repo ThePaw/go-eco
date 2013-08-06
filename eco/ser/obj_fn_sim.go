@@ -32,6 +32,48 @@ func PsiLossSim(sim Matrix64, p IntVector) float64 {
 	return loss
 }
 
+// EffectivenessGain returns gain of the permuted matrix according to Kostopoulos & Goulermas
+func EffectivenessGain(dis Matrix64, p IntVector) float64 {
+	var a, b, c, d, e float64
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+	sum := 0.0
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			if j > n-2 {
+				a = 0
+			} else {
+				a = dis[p[i]][p[j+1]]
+			}
+			if j == 0 {
+				b = 0
+			} else {
+				b = dis[p[i]][p[j-1]]
+			}
+
+			if i > n-2 {
+				c = 0
+			} else {
+				c = dis[p[i+1]][p[j]]
+			}
+			if i == 0 {
+				d = 0
+			} else {
+
+				d = dis[p[i-1]][p[j]]
+			}
+			e = dis[p[i]][p[j]]
+			sum += e * (a + b + c + d)
+		}
+	}
+	return sum / 2
+}
+
 // BertinLossSim returns loss of the permuted matrix according to Kostopoulos & Goulermas
 func BertinLossSim(dis Matrix64, p IntVector) float64 {
 	if !dis.IsSymmetric() {
