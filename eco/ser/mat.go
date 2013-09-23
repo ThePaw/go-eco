@@ -2,6 +2,7 @@ package ser
 
 import (
 	"encoding/csv"
+	//	"errors"
 	"fmt"
 	"io"
 	"math"
@@ -123,7 +124,7 @@ func (a Matrix64) SwapCols(i int, j int) {
 	}
 }
 
-// ReadCsvMatrix64  reads the matrix from an opened CSV file. 
+// ReadCsvMatrix64  reads the matrix from an opened CSV file. There must be no spaces between values, just commas.
 func ReadCsvMatrix64(f *os.File) (a Matrix64) {
 	read := csv.NewReader(io.Reader(f))
 	data, err := read.ReadAll()
@@ -135,7 +136,11 @@ func ReadCsvMatrix64(f *os.File) (a Matrix64) {
 	a = NewMatrix64(nRow, nCol)
 	for i, row := range a {
 		for j, _ := range row {
-			x, _ := strconv.ParseFloat(data[i][j], 10)
+			x, err := strconv.ParseFloat(data[i][j], 64)
+			if err != nil {
+				fmt.Print(err)
+				panic("could not convert the string")
+			}
 			a[i][j] = float64(x)
 		}
 	}
@@ -219,6 +224,7 @@ func (a Matrix64) WriteGo3() {
 		fmt.Println("},")
 	}
 	fmt.Println("}")
+	fmt.Println()
 }
 
 func (a Matrix64) Print() {
