@@ -3,7 +3,7 @@ package ser
 // Test of obj fns aganist Kostopoulos values
 import (
 	"fmt"
-//	"math"
+	//	"math"
 	"os"
 	"testing"
 )
@@ -15,14 +15,11 @@ func TestObjFns(t *testing.T) {
 	}
 	a := ReadCsvMatrix64(file)
 
-
-
 	n := a.Rows()
 	p := NewIntVector(n)
 	p.Order()
 
-
-//AntiRobinson
+	//AntiRobinson
 	a.SimToDist()
 
 	fmt.Println("G1Gain: ", G1Gain(a, p))

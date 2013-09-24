@@ -13,7 +13,7 @@ func f(x, y float64) float64 {
 	if x < y {
 		return 1
 	}
-	if x == y{
+	if x == y {
 		return 0
 	}
 	return -1
@@ -631,92 +631,6 @@ func ParabolaLoss(sim Matrix64, p IntVector) float64 {
 	return loss
 }
 
-// QAPGain returns gain of the permuted matrix according to Brusco 2000: 201, Eq. 5. (==HGain)
-func QAPGain(dis Matrix64, p IntVector) float64 {
-	if !dis.IsSymmetric() {
-		panic("distance matrix not symmetric")
-	}
-	n := p.Len()
-	if dis.Rows() != n {
-		panic("dimensions not equal")
-	}
-
-	c := 0.0
-	for i := 1; i < n; i++ {
-		for j := 0; j < i; j++ {
-			d := math.Abs(float64(i - j))
-			x := dis[p[i]][p[j]]
-			c += d * x
-		}
-	}
-	return c
-}
-
-// CompatibilityGain returns gain of the permuted matrix according to Kostopoulos & Goulermas (==G2Gain)
-func CompatibilityGain(dis Matrix64, p IntVector) float64 {
-	if !dis.IsSymmetric() {
-		panic("distance matrix not symmetric")
-	}
-	n := p.Len()
-	if dis.Rows() != n {
-		panic("dimensions not equal")
-	}
-
-	c := 0.0
-	for i := 0; i < n; i++ {
-		for j := i + 2; j < n; j++ {
-			for k := i + 1; k < j; k++ {
-				x := dis[p[i]][p[k]]
-				y := dis[p[i]][p[j]]
-				c += f(x, y)
-			}
-		}
-	}
-	for i := 0; i < n; i++ {
-		for j := i + 2; j < n; j++ {
-			for k := i + 1; k < j; k++ {
-				x := dis[p[k]][p[j]]
-				y := dis[p[i]][p[j]]
-				c += f(x, y)
-			}
-		}
-	}
-	return c
-}
-
-// WeightedCompatibilityGain returns gain of the permuted matrix according to Kostopoulos & Goulermas (==G4Gain)
-func WeightedCompatibilityGain(dis Matrix64, p IntVector) float64 {
-	if !dis.IsSymmetric() {
-		panic("distance matrix not symmetric")
-	}
-	n := p.Len()
-	if dis.Rows() != n {
-		panic("dimensions not equal")
-	}
-
-	c := 0.0
-	for i := 0; i < n; i++ {
-		for j := i + 2; j < n; j++ {
-			for k := i + 1; k < j; k++ {
-				x := dis[p[i]][p[k]]
-				y := dis[p[i]][p[j]]
-				d := math.Abs(x - y)
-				c += d * f(x, y)
-			}
-		}
-	}
-	for i := 0; i < n; i++ {
-		for j := i + 2; j < n; j++ {
-			for k := i + 1; k < j; k++ {
-				x := dis[p[k]][p[j]]
-				y := dis[p[i]][p[j]]
-				d := math.Abs(x - y)
-				c += d * f(x, y)
-			}
-		}
-	}
-	return c
-}
 /*
 // AREventsViolationLoss returns gain of the permuted matrix according to Kostopoulos & Goulermas
 func AREventsViolationLoss(dis Matrix64, p IntVector) float64 {
@@ -828,7 +742,7 @@ func DoublyWeightedAREventsViolationLoss(dis Matrix64, p IntVector) float64 {
 	}
 
 	c := 0.0
-	for i := 0; i < n-2 ; i++ {
+	for i := 0; i < n-2; i++ {
 		for j := i + 2; j < n; j++ {
 			ij := math.Abs(float64(i - j))
 			for k := i + 1; k < j; k++ {
@@ -839,11 +753,11 @@ func DoublyWeightedAREventsViolationLoss(dis Matrix64, p IntVector) float64 {
 			}
 		}
 	}
-	for i := 0; i < n-2 ; i++ {
+	for i := 0; i < n-2; i++ {
 		for j := i + 2; j < n; j++ {
 			ij := math.Abs(float64(i - j))
 			for k := i + 1; k < j; k++ {
-			x := dis[p[i]][p[k]]
+				x := dis[p[i]][p[k]]
 				y := dis[p[i]][p[j]]
 				z := dis[p[k]][p[j]]
 				d := math.Abs(x - y)
@@ -901,6 +815,158 @@ func RelativeGARLoss10(dis Matrix64, p IntVector) float64 {
 	return RelativeGARLoss(dis, p, w)
 }
 
+// BertinLoss returns loss of the permuted matrix according to Kostopoulos & Goulermas
+func BertinLossSim(dis Matrix64, p IntVector) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+	sum := 0.0
+	for i := 1; i < n; i++ {
+		for j := 0; j < n-1; j++ {
+			for k := 0; k < i-1; k++ {
+				for l := j + 1; l < n; l++ {
+					sum += dis[p[k]][p[l]]
+				}
+			}
+			sum *= dis[p[i]][p[j]]
+		}
+	}
+	return sum
+}
+
+// MEffGainDis returns the measure of Effectiveness (McCormick 1972).
+func MEffGainDis(a Matrix64, p IntVector) float64 {
+	var x0, x1, x2, x3, x4 float64
+	rows := a.Rows()
+
+	if !(p.Len() == rows) {
+		panic("bad dimensions")
+	}
+	gain := 0.0
+	for i := 0; i < rows; i++ {
+		for j := 0; j < rows; j++ {
+			x0 = a[p[i]][p[j]]
+			if j-1 < 0 {
+				x1 = 0
+			} else {
+				x1 = a[p[i]][p[j-1]]
+			}
+			if j+1 > rows-1 {
+				x2 = 0
+			} else {
+				x2 = a[p[i]][p[j+1]]
+			}
+			if i-1 < 0 {
+				x3 = 0
+			} else {
+				x3 = a[p[i-1]][p[j]]
+			}
+
+			if i+1 > rows-1 {
+				x4 = 0
+			} else {
+
+				x4 = a[p[i+1]][p[j]]
+			}
+			gain += x0 * (x1 + x2 + x3 + x4)
+		}
+	}
+	return gain / 2
+}
+
+// Duplicated functions
+
+// QAPGain returns gain of the permuted matrix according to Brusco 2000: 201, Eq. 5. (==HGain)
+func QAPGain(dis Matrix64, p IntVector) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+
+	c := 0.0
+	for i := 1; i < n; i++ {
+		for j := 0; j < i; j++ {
+			d := math.Abs(float64(i - j))
+			x := dis[p[i]][p[j]]
+			c += d * x
+		}
+	}
+	return c
+}
+
+// CompatibilityGain returns gain of the permuted matrix according to Kostopoulos & Goulermas (==G2Gain)
+func CompatibilityGain(dis Matrix64, p IntVector) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+
+	c := 0.0
+	for i := 0; i < n; i++ {
+		for j := i + 2; j < n; j++ {
+			for k := i + 1; k < j; k++ {
+				x := dis[p[i]][p[k]]
+				y := dis[p[i]][p[j]]
+				c += f(x, y)
+			}
+		}
+	}
+	for i := 0; i < n; i++ {
+		for j := i + 2; j < n; j++ {
+			for k := i + 1; k < j; k++ {
+				x := dis[p[k]][p[j]]
+				y := dis[p[i]][p[j]]
+				c += f(x, y)
+			}
+		}
+	}
+	return c
+}
+
+// WeightedCompatibilityGain returns gain of the permuted matrix according to Kostopoulos & Goulermas (==G4Gain)
+func WeightedCompatibilityGain(dis Matrix64, p IntVector) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+
+	c := 0.0
+	for i := 0; i < n; i++ {
+		for j := i + 2; j < n; j++ {
+			for k := i + 1; k < j; k++ {
+				x := dis[p[i]][p[k]]
+				y := dis[p[i]][p[j]]
+				d := math.Abs(x - y)
+				c += d * f(x, y)
+			}
+		}
+	}
+	for i := 0; i < n; i++ {
+		for j := i + 2; j < n; j++ {
+			for k := i + 1; k < j; k++ {
+				x := dis[p[k]][p[j]]
+				y := dis[p[i]][p[j]]
+				d := math.Abs(x - y)
+				c += d * f(x, y)
+			}
+		}
+	}
+	return c
+}
+
 // EffectivenessGain returns gain of the permuted matrix according to Kostopoulos & Goulermas(==MEffGainDis)
 func EffectivenessGain(dis Matrix64, p IntVector) float64 {
 	var a, b, c, d, e float64
@@ -941,66 +1007,4 @@ func EffectivenessGain(dis Matrix64, p IntVector) float64 {
 		}
 	}
 	return sum / 2
-}
-
-// BertinLoss returns loss of the permuted matrix according to Kostopoulos & Goulermas
-func BertinLossSim(dis Matrix64, p IntVector) float64 {
-	if !dis.IsSymmetric() {
-		panic("distance matrix not symmetric")
-	}
-	n := p.Len()
-	if dis.Rows() != n {
-		panic("dimensions not equal")
-	}
-	sum := 0.0
-	for i := 1; i < n; i++ {
-		for j := 0; j < n-1; j++ {
-			for k := 0; k < i-1; k++ {
-				for l := j + 1; l < n; l++ {
-					sum += dis[p[k]][p[l]]
-				}
-			}
-			sum *= dis[p[i]][p[j]]
-		}
-	}
-	return sum
-}
-// MEffGainDis returns the measure of Effectiveness (McCormick 1972).
-func MEffGainDis(a Matrix64, p IntVector) float64 {
-	var x0, x1, x2, x3, x4 float64
-	rows:= a.Rows()
-
-	if !(p.Len() == rows) {
-		panic("bad dimensions")
-	}
-	gain := 0.0
-	for i := 0; i < rows; i++ {
-		for j := 0; j < rows; j++ {
-			x0 = a[p[i]][p[j]]
-			if j-1 < 0 {
-				x1 = 0
-			} else {
-				x1 = a[p[i]][p[j-1]]
-			}
-			if j+1 > rows-1 {
-				x2 = 0
-			} else {
-				x2 = a[p[i]][p[j+1]]
-			}
-			if i-1 < 0 {
-				x3 = 0
-			} else {
-				x3 = a[p[i-1]][p[j]]
-			}
-
-			if i+1 > rows-1 {
-				x4 = 0
-			} else {
-
-				x4 = a[p[i+1]][p[j]]
-			}
-			gain += x0 * (x1 + x2 + x3 + x4)
-		}
-	}
-	return gain / 2
 }
