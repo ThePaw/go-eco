@@ -20,7 +20,7 @@ func f(x, y float64) float64 {
 }
 
 func g(x, y float64) float64 {
-	if x < y {
+	if x > y {
 		return 1
 	}
 	return 0
@@ -676,8 +676,8 @@ func AREventsViolationLoss(dis Matrix64, p IntVector) float64 {
 	}
 
 	c := 0.0
-	for i := 0; i < n; i++ {
-		for j := i + 2; j < n-2; j++ {
+	for i := 0; i < n-2; i++ {
+		for j := i + 2; j < n; j++ {
 			for k := i + 1; k < j; k++ {
 				x := dis[p[i]][p[k]]
 				y := dis[p[i]][p[j]]
@@ -685,7 +685,7 @@ func AREventsViolationLoss(dis Matrix64, p IntVector) float64 {
 			}
 		}
 	}
-	for i := 0; i < n; i++ {
+	for i := 0; i < n-2; i++ {
 		for j := i + 2; j < n; j++ {
 			for k := i + 1; k < j; k++ {
 				x := dis[p[k]][p[j]]
@@ -795,6 +795,12 @@ func GeneralizedARLoss(dis Matrix64, p IntVector, w int) float64 {
 	return sum
 }
 
+// GeneralizedARLoss5 returns loss of the permuted matrix with window = 5 according to Kostopoulos & Goulermas
+func GeneralizedARLoss5(dis Matrix64, p IntVector) float64 {
+	w := 5
+	return GeneralizedARLoss(dis, p, w)
+}
+
 // GeneralizedARLoss10 returns loss of the permuted matrix with window = 10 according to Kostopoulos & Goulermas
 func GeneralizedARLoss10(dis Matrix64, p IntVector) float64 {
 	w := 10
@@ -809,11 +815,44 @@ func RelativeGARLoss(dis Matrix64, p IntVector, w int) float64 {
 	return c / (n*v*(v-1) - 2*v*(1-v*v)/3)
 }
 
+// RelativeGARLoss5 returns loss of the permuted matrix with window = 5 according to Kostopoulos & Goulermas
+func RelativeGARLoss5(dis Matrix64, p IntVector) float64 {
+	w := 5
+	return RelativeGARLoss(dis, p, w)
+}
+
 // RelativeGARLoss10 returns loss of the permuted matrix with window = 10 according to Kostopoulos & Goulermas
 func RelativeGARLoss10(dis Matrix64, p IntVector) float64 {
 	w := 10
 	return RelativeGARLoss(dis, p, w)
 }
+
+/*
+
+// BertinLoss returns loss of the permuted matrix according to Kostopoulos & Goulermas
+func BertinLossSim(dis Matrix64, p IntVector) float64 {
+	if !dis.IsSymmetric() {
+		panic("distance matrix not symmetric")
+	}
+	n := p.Len()
+	if dis.Rows() != n {
+		panic("dimensions not equal")
+	}
+	sum := 0.0
+	for i := 1; i < n; i++ {
+		for j := 0; j < n-1; j++ {
+			for k := 0; k < i-1; k++ {
+				for l := j + 1; l < n; l++ {
+					sum += dis[p[k]][p[l]]
+				}
+			}
+			sum *= dis[p[i]][p[j]]
+		}
+	}
+	return sum
+}
+
+*/
 
 // BertinLoss returns loss of the permuted matrix according to Kostopoulos & Goulermas
 func BertinLossSim(dis Matrix64, p IntVector) float64 {
