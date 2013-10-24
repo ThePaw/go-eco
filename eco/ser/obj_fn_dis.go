@@ -13,10 +13,10 @@ func f(x, y float64) float64 {
 	if x < y {
 		return 1
 	}
-	if x == y {
-		return 0
+	if x > y {
+		return -1
 	}
-	return -1
+	return 0
 }
 
 func g(x, y float64) float64 {
@@ -33,7 +33,7 @@ func G1Gain(dis Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	c := 0
@@ -56,7 +56,7 @@ func G2Gain(dis Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	c := 0
@@ -81,7 +81,7 @@ func G3Gain(dis Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	c := 0.0
@@ -104,7 +104,7 @@ func G4Gain(dis Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	c := 0.0
@@ -128,7 +128,7 @@ func HGain(dis Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	c := 0.0
@@ -157,7 +157,7 @@ func StrengLossW(dis Matrix64, p IntVector, which int) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	sum := 0.0
@@ -232,7 +232,7 @@ func InertiaGain(dis Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	sum := 0.0
@@ -251,7 +251,7 @@ func LeastSquaresLoss(dis Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	sum := 0.0
@@ -283,7 +283,7 @@ func GARLoss(dis Matrix64, p IntVector, w int) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	sum := 0.0
@@ -320,7 +320,7 @@ func GARLoss(dis Matrix64, p IntVector, w int) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 	if w == 0 || w == 1 {
 		return 0
@@ -370,7 +370,7 @@ func RGARLoss(dis Matrix64, p IntVector, w int) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	gar := GARLoss(dis, p, w)
@@ -419,7 +419,7 @@ func HamiltonLoss(dis Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	sum := 0.0
@@ -507,7 +507,7 @@ func ParabolaLoss(sim Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if sim.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	loss := 0.0
@@ -639,7 +639,7 @@ func AREventsViolationLoss(dis Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	c := 0.0
@@ -672,7 +672,7 @@ func AREventsViolationLoss(dis Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	c := 0.0
@@ -704,7 +704,7 @@ func WeightedAREventsViolationLoss(dis Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	c := 0.0
@@ -738,7 +738,7 @@ func DoublyWeightedAREventsViolationLoss(dis Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	c := 0.0
@@ -757,11 +757,10 @@ func DoublyWeightedAREventsViolationLoss(dis Matrix64, p IntVector) float64 {
 		for j := i + 2; j < n; j++ {
 			ij := math.Abs(float64(i - j))
 			for k := i + 1; k < j; k++ {
-				x := dis[p[i]][p[k]]
+				x := dis[p[k]][p[j]]
 				y := dis[p[i]][p[j]]
-				z := dis[p[k]][p[j]]
 				d := math.Abs(x - y)
-				c += ij * d * g(z, y)
+				c += ij * d * g(x, y)
 			}
 		}
 	}
@@ -775,7 +774,7 @@ func GeneralizedARLoss(dis Matrix64, p IntVector, w int) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	sum := 0.0
@@ -827,54 +826,16 @@ func RelativeGARLoss10(dis Matrix64, p IntVector) float64 {
 	return RelativeGARLoss(dis, p, w)
 }
 
-/*
-
-// BertinLoss returns loss of the permuted matrix according to Kostopoulos & Goulermas
-func BertinLossSim(dis Matrix64, p IntVector) float64 {
+// BertinLossDis returns loss of the permuted matrix according to Kostopoulos & Goulermas
+func BertinLossDis(dis Matrix64, p IntVector) float64 {
 	if !dis.IsSymmetric() {
 		panic("distance matrix not symmetric")
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
-	sum := 0.0
-	for i := 1; i < n; i++ {
-		for j := 0; j < n-1; j++ {
-			for k := 0; k < i-1; k++ {
-				for l := j + 1; l < n; l++ {
-					sum += dis[p[k]][p[l]]
-				}
-			}
-			sum *= dis[p[i]][p[j]]
-		}
-	}
-	return sum
-}
-
-*/
-
-// BertinLoss returns loss of the permuted matrix according to Kostopoulos & Goulermas
-func BertinLossSim(dis Matrix64, p IntVector) float64 {
-	if !dis.IsSymmetric() {
-		panic("distance matrix not symmetric")
-	}
-	n := p.Len()
-	if dis.Rows() != n {
-		panic("dimensions not equal")
-	}
-	sum := 0.0
-	for i := 1; i < n; i++ {
-		for j := 0; j < n-1; j++ {
-			for k := 0; k < i-1; k++ {
-				for l := j + 1; l < n; l++ {
-					sum += dis[p[k]][p[l]]
-				}
-			}
-			sum *= dis[p[i]][p[j]]
-		}
-	}
-	return sum
+	return BertinLoss(dis, p, p)
 }
 
 // MEffGainDis returns the measure of Effectiveness (McCormick 1972).
@@ -883,7 +844,7 @@ func MEffGainDis(a Matrix64, p IntVector) float64 {
 	rows := a.Rows()
 
 	if !(p.Len() == rows) {
-		panic("bad dimensions")
+		panic("bad permutation vector length")
 	}
 	gain := 0.0
 	for i := 0; i < rows; i++ {
@@ -926,7 +887,7 @@ func QAPGain(dis Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	c := 0.0
@@ -947,11 +908,11 @@ func CompatibilityGain(dis Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	c := 0.0
-	for i := 0; i < n; i++ {
+	for i := 0; i < n-2; i++ {
 		for j := i + 2; j < n; j++ {
 			for k := i + 1; k < j; k++ {
 				x := dis[p[i]][p[k]]
@@ -960,7 +921,7 @@ func CompatibilityGain(dis Matrix64, p IntVector) float64 {
 			}
 		}
 	}
-	for i := 0; i < n; i++ {
+	for i := 0; i < n-2; i++ {
 		for j := i + 2; j < n; j++ {
 			for k := i + 1; k < j; k++ {
 				x := dis[p[k]][p[j]]
@@ -979,11 +940,11 @@ func WeightedCompatibilityGain(dis Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 
 	c := 0.0
-	for i := 0; i < n; i++ {
+	for i := 0; i < n-2; i++ {
 		for j := i + 2; j < n; j++ {
 			for k := i + 1; k < j; k++ {
 				x := dis[p[i]][p[k]]
@@ -993,7 +954,7 @@ func WeightedCompatibilityGain(dis Matrix64, p IntVector) float64 {
 			}
 		}
 	}
-	for i := 0; i < n; i++ {
+	for i := 0; i < n-2; i++ {
 		for j := i + 2; j < n; j++ {
 			for k := i + 1; k < j; k++ {
 				x := dis[p[k]][p[j]]
@@ -1014,7 +975,7 @@ func EffectivenessGain(dis Matrix64, p IntVector) float64 {
 	}
 	n := p.Len()
 	if dis.Rows() != n {
-		panic("dimensions not equal")
+		panic("bad permutation vector length")
 	}
 	sum := 0.0
 	for i := 0; i < n; i++ {
