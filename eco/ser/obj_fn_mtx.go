@@ -179,6 +179,7 @@ func PsiLoss(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
 
 // BertinLoss returns loss of the permuted matrix according to Kostopoulos & Goulermas
 func BertinLoss(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
+	// Bertin Classification Criterion of Pilhofer 2012: 2509, Eq. 1
 	n, m := mtx.Dims()
 	sum := 0.0
 	for i := 1; i < n; i++ {
@@ -195,10 +196,31 @@ func BertinLoss(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
 	return sum
 }
 
+///////////////////// Untested functions
+
+// BertinGain returns gain of the permuted matrix according to Kostopoulos & Goulermas
+func BertinGain(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
+	// B(A) of Pilhofer 2012: 2509, Eq. 1
+	n, m := mtx.Dims()
+	sum := 0.0
+	for i := 1; i < n; i++ {
+		for j := 0; j < m-1; j++ {
+			tmp := float64(0)
+			for k := 0; k <= i-1; k++ {
+				for l := 0; l < j; l++ {
+					tmp += mtx[rowPerm[k]][colPerm[l]]
+				}
+			}
+			sum += tmp * mtx[rowPerm[i]][colPerm[j]]
+		}
+	}
+	return sum
+}
+
 /*
 
-// BertinGain returns loss of the permuted matrix according to Kostopoulos & Goulermas MATLAB code
-func BertinGain(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
+// BertinLoss returns loss of the permuted matrix according to Kostopoulos & Goulermas MATLAB code
+func BertinLoss(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
 	n, m := mtx.Dims()
 	sum := 0.0
 	for i := 1; i < n; i++ {
@@ -213,3 +235,97 @@ func BertinGain(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
 	return sum
 }
 */
+
+// X(A) of Pilhofer 2012: 2509
+func xA(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
+	n, m := mtx.Dims()
+	sum := 0.0
+	for i := 0; i < n; i++ {
+		for j := 0; j < m; j++ {
+			for l := 0; l < m; l++ {
+				if j != l {
+					sum += mtx[rowPerm[i]][colPerm[j]] * mtx[rowPerm[i]][colPerm[l]]
+				}
+			}
+		}
+	}
+	return sum
+}
+
+// Y(A) of Pilhofer 2012: 2509
+func yA(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
+	n, m := mtx.Dims()
+	sum := 0.0
+	for i := 0; i < n; i++ {
+		for j := 0; j < m; j++ {
+			for k := 0; k < n; k++ {
+				if i != k {
+					sum += mtx[rowPerm[i]][colPerm[j]] * mtx[rowPerm[i]][colPerm[j]]
+				}
+			}
+		}
+	}
+	return sum
+}
+
+// BI(A) of Pilhofer 2012: 2509
+func biA(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
+	n, m := mtx.Dims()
+	b1 := BertinGain(mtx, rowPerm, colPerm)
+	b2 := BertinLoss(mtx, rowPerm, colPerm)
+	x := xA(mtx, rowPerm, colPerm)
+	y := yA(mtx, rowPerm, colPerm)
+	nm2 := float64(n * n * m * m)
+
+	return (b1 + b2 + x) * (b1 + b2 + y) / nm2
+
+}
+
+// Bertin Classification Index (BCI) of Pilhofer 2012: 2509, Eq. 2
+func BertinScaledLoss(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
+	b1 := BertinLoss(mtx, rowPerm, colPerm)
+	b2 := biA(mtx, rowPerm, colPerm)
+	return b1 / b2
+}
+
+// Weighted Bertin Classification Criterion (WBCC) of Pilhofer 2012: 2509  using Hamming distance
+func BertinWeightedHGain(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
+	// B(A) of Pilhofer 2012: 2509, Eq. 1
+	n, m := mtx.Dims()
+	sum := 0.0
+	for i := 0; i < n; i++ {
+		for j := 0; j < m; j++ {
+			for k := 0; k <= i; k++ {
+				for l := 0; l <= j; l++ {
+					w1 := math.Abs(float64(i - k))
+					w2 := math.Abs(float64(j - l))
+					w := w1 + w2
+					sum += w * mtx[rowPerm[i]][colPerm[j]] * mtx[rowPerm[k]][colPerm[l]]
+
+				}
+			}
+		}
+	}
+	return sum
+}
+
+// Weighted Bertin Classification Criterion (WBCC) of Pilhofer 2012: 2509  using Euclidean distance
+func BertinWeightedEGain(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
+	// B(A) of Pilhofer 2012: 2509, Eq. 1
+	n, m := mtx.Dims()
+	sum := 0.0
+	for i := 0; i < n; i++ {
+		for j := 0; j < m; j++ {
+			for k := 0; k <= i; k++ {
+				for l := 0; l <= j; l++ {
+					w1 := (i - k) * (i - k)
+					w2 := (j - l) * (j - l)
+					w := math.Sqrt(w1 + w2)
+					sum += w * mtx[rowPerm[i]][colPerm[j]] * mtx[rowPerm[k]][colPerm[l]]
+
+				}
+			}
+		}
+	}
+	return sum
+}
