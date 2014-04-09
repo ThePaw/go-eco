@@ -1,4 +1,4 @@
-// Copyright 2012 The Gt Authors. All rights reserved. See the LICENSE file.
+// Copyright 2012 The Seriation Authors. All rights reserved. See the LICENSE file.
 
 package ser
 
@@ -177,8 +177,8 @@ func PsiLoss(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
 	return loss
 }
 
-// BertinLoss returns loss of the permuted matrix according to Kostopoulos & Goulermas
-func BertinLoss(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
+// BertinLoss2 returns loss of the permuted matrix according to Kostopoulos & Goulermas
+func BertinLoss2(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
 	// Bertin Classification Criterion of Pilhofer 2012: 2509, Eq. 1
 	n, m := mtx.Dims()
 	sum := 0.0
@@ -198,7 +198,7 @@ func BertinLoss(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
 
 ///////////////////// Untested functions
 
-// BertinGain returns gain of the permuted matrix according to Kostopoulos & Goulermas
+// BertinGain returns 
 func BertinGain(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
 	// B(A) of Pilhofer 2012: 2509, Eq. 1
 	n, m := mtx.Dims()
@@ -217,8 +217,6 @@ func BertinGain(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
 	return sum
 }
 
-/*
-
 // BertinLoss returns loss of the permuted matrix according to Kostopoulos & Goulermas MATLAB code
 func BertinLoss(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
 	n, m := mtx.Dims()
@@ -227,14 +225,13 @@ func BertinLoss(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
 		for j := 0; j < m-1; j++ {
 			for k := 0; k <= i-1; k++ {
 				for l := j + 1; l < m; l++ {
-					sum += mtx[rowPerm[k]][colPerm[l]]* mtx[rowPerm[i]][colPerm[j]]
+					sum += mtx[rowPerm[k]][colPerm[l]] * mtx[rowPerm[i]][colPerm[j]]
 				}
 			}
 		}
 	}
 	return sum
 }
-*/
 
 // X(A) of Pilhofer 2012: 2509
 func xA(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
@@ -320,7 +317,7 @@ func BertinWeightedEGain(mtx Matrix64, rowPerm, colPerm IntVector) float64 {
 				for l := 0; l <= j; l++ {
 					w1 := (i - k) * (i - k)
 					w2 := (j - l) * (j - l)
-					w := math.Sqrt(w1 + w2)
+					w := math.Sqrt(float64(w1 + w2))
 					sum += w * mtx[rowPerm[i]][colPerm[j]] * mtx[rowPerm[k]][colPerm[l]]
 
 				}

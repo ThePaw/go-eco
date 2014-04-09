@@ -31,3 +31,15 @@ func PsiLossSim(sim Matrix64, p IntVector) float64 {
 	}
 	return loss
 }
+
+// BertinLossSim returns loss of the permuted matrix according to Kostopoulos & Goulermas
+func BertinLossSim(sim Matrix64, p IntVector) float64 {
+	if !sim.IsSymmetric() {
+		panic("simtance matrix not symmetric")
+	}
+	n := p.Len()
+	if sim.Rows() != n {
+		panic("bad permutation vector length")
+	}
+	return BertinLoss(sim, p, p)
+}
