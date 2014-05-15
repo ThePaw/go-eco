@@ -318,7 +318,7 @@ func (v IntVector) Displace(a, b, c int) {
 	v.CopyFrom(w)
 }
 
-// DisplaceInv works like Displace, but inverts the middle segmant.
+// DisplaceInv works like Displace, but inverts the left block.
 func (v IntVector) DisplaceInv(a, b, c int) {
 	// inversion mutation (Fogel 1990, 1993)
 	// cut-inverse mutation operator (Banzhaf 1990)

@@ -244,6 +244,24 @@ func addToRhoHistogram(rho float64, h IntVector) {
 func addToPairOrderHistogram(perm IntVector, h IntMatrix) {
 	smp := len(perm)
 	for i := 0; i < smp; i++ {
+//		for j := i + 1; j < smp; j++ {
+		for j := 0; j < smp; j++ {
+if i < j && perm[i] > perm[j] {
+			h[i][j]++
+}
+if i > j && perm[i] < perm[j] {
+			h[i][j]++
+}
+		}
+	}
+	return
+}
+/*
+
+// addToPairOrderHistogram updates Pair-Order Violations matrix
+func addToPairOrderHistogram(perm IntVector, h IntMatrix) {
+	smp := len(perm)
+	for i := 0; i < smp; i++ {
 		for j := i + 1; j < smp; j++ {
 			h[perm[i]][perm[j]]++
 		}
@@ -251,7 +269,6 @@ func addToPairOrderHistogram(perm IntVector, h IntMatrix) {
 	return
 }
 
-/*
 // sim2dist converts similarity matrix to  distance matrix (ad hoc !!!)
 func sim2dist(mat Matrix64, lambda float64) {
 	//distance( x , y ) = -log{λ ⋅ similarity( x , y )}

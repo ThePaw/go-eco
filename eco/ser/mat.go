@@ -175,8 +175,6 @@ func (a Matrix64) WriteCSV() {
 		}
 		fmt.Println()
 	}
-	fmt.Println()
-	fmt.Println()
 }
 
 func (a Matrix64) WriteCSV3() {
@@ -190,8 +188,6 @@ func (a Matrix64) WriteCSV3() {
 		}
 		fmt.Println()
 	}
-	fmt.Println()
-	fmt.Println()
 }
 
 func (a Matrix64) WriteGo() {

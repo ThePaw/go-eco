@@ -655,23 +655,23 @@ func DoublyWeightedAREventsViolationLoss(dis Matrix64, p IntVector) float64 {
 	c := 0.0
 	for i := 0; i < n-2; i++ {
 		for j := i + 2; j < n; j++ {
-			ij := math.Abs(float64(i - j))
 			for k := i + 1; k < j; k++ {
+				jk := math.Abs(float64(j-k))
 				x := dis[p[i]][p[k]]
 				y := dis[p[i]][p[j]]
 				d := math.Abs(x - y)
-				c += ij * d * g(x, y)
+				c += jk * d * g(x, y)
 			}
 		}
 	}
 	for i := 0; i < n-2; i++ {
 		for j := i + 2; j < n; j++ {
-			ij := math.Abs(float64(i - j))
 			for k := i + 1; k < j; k++ {
+				ik := math.Abs(float64(i - k))
 				x := dis[p[k]][p[j]]
 				y := dis[p[i]][p[j]]
 				d := math.Abs(x - y)
-				c += ij * d * g(x, y)
+				c += ik * d * g(x, y)
 			}
 		}
 	}

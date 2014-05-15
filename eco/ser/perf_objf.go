@@ -28,7 +28,7 @@ func ObjFnPerformance(sim Matrix64, objFn ObjFn, isLoss, isDistFn bool, optMetho
 		p.Perm()
 		//		a.ForceTo01()
 
-		// if objFn is distance-based, convert to distances
+		// if objFn is distance-based, convert similarities to distances
 		if isDistFn {
 			a.SimToDist()
 		}
@@ -99,7 +99,7 @@ func ObjFnPerformance(sim Matrix64, objFn ObjFn, isLoss, isDistFn bool, optMetho
 				rSum++
 			}
 		}
-
+		p.Print()
 	}
 
 	// calc mean and st. deviation
@@ -207,6 +207,7 @@ func ObjFnPerformancePerm(sim Matrix64, p IntVector, objFn ObjFn, isLoss, isDist
 				rSum++
 			}
 		}
+		p.Print()
 
 	}
 
