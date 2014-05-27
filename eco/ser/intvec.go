@@ -8,13 +8,13 @@ import (
 
 type IntVector []int
 
-// NewIntVector creates a new IntVector instance with specified number of elements. 
+// NewIntVector creates a new IntVector instance with specified number of elements.
 func NewIntVector(nElem int) IntVector {
 	v := make([]int, nElem)
 	return v
 }
 
-// Len returns number of elements in the vector. 
+// Len returns number of elements in the vector.
 func (v IntVector) Len() int {
 	return len(v)
 }
@@ -49,7 +49,7 @@ func (v IntVector) Swap(i, j int) {
 	v[j] = x
 }
 
-// Fill-in ordered sequence 0 .. n-1. 
+// Fill-in ordered sequence 0 .. n-1.
 func (v IntVector) Order() {
 	n := v.Len()
 	for i := 0; i < n; i++ {
@@ -557,7 +557,7 @@ func (v IntVector) FourPointExch(a, b, c, d int) {
 // ========================================================================
 /*
 Lexicographic order and finding the next permutation
-Permutation f precedes a permutation g in the lexicographic (alphabetic) order iff for the minimum value of k such that f(k)≠ g(k), we have f(k) < g(k). Starting with the identical permutation f(i) = i for all i, the second algorithm generates sequentially permutaions in the lexicographic order. The algorithm is described in [Dijkstra, p. 71]. 
+Permutation f precedes a permutation g in the lexicographic (alphabetic) order iff for the minimum value of k such that f(k)≠ g(k), we have f(k) < g(k). Starting with the identical permutation f(i) = i for all i, the second algorithm generates sequentially permutaions in the lexicographic order. The algorithm is described in [Dijkstra, p. 71].
 E. W. Dijkstra, A Discipline of Programming, Prentice-Hall, 1997.
 */
 
@@ -616,7 +616,7 @@ func heapPermute(p IntVector, n int) {
 	} else {
 		for i := 0; i < n; i++ {
 			heapPermute(p, n-1)
-			if n%2 == 1 { // if n is odd 
+			if n%2 == 1 { // if n is odd
 				p.Swap(0, n-1)
 			} else { // if n is even
 				p.Swap(i, n-1)
@@ -629,4 +629,19 @@ func AllPermsHeap(n int) {
 	p := NewIntVector(n)
 	p.Order()
 	heapPermute(p, n)
+}
+
+func (perm IntVector) Rank(elem int) (rank int) {
+	rank = -999
+	smp := len(perm)
+	for i := 0; i < smp; i++ {
+		if perm[i] == elem { // find rank of sample i
+			rank = i
+			break
+		}
+	}
+	if rank == -999 {
+		panic("element not found")
+	}
+	return
 }

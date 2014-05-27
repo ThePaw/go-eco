@@ -2,7 +2,7 @@
 
 package ser
 
-// Some handy functions. 
+// Some handy functions.
 
 import (
 	"math"
@@ -80,18 +80,18 @@ func cube(x float64) float64 {
 	return x * x * x
 }
 
-// Uniform random number. 
+// Uniform random number.
 func unif(low, high int) int {
 	return low + rand.Intn(high-low+1)
 }
 
-// Uniform random number. 
+// Uniform random number.
 func unif64(low, high int64) int64 {
 	return low + rand.Int63n(high-low+1)
 }
 
-// Laplacian returns the Laplacian of a symmetric matrix (adjacency matrix). 
-// See Atkins et al. (1998). 
+// Laplacian returns the Laplacian of a symmetric matrix (adjacency matrix).
+// See Atkins et al. (1998).
 func Laplacian(adj IntMatrix) IntMatrix {
 	if !adj.IsSymmetric() {
 		panic("matrix not symmetric")
@@ -115,8 +115,8 @@ func Laplacian(adj IntMatrix) IntMatrix {
 }
 
 /*
-// NormLaplacian returns the normalized Laplacian of a symmetric matrix (adjacency matrix). 
-// See  Weisstein, Eric W. "Laplacian Matrix." From MathWorld--A Wolfram Web Resource. http://mathworld.wolfram.com/LaplacianMatrix.html 
+// NormLaplacian returns the normalized Laplacian of a symmetric matrix (adjacency matrix).
+// See  Weisstein, Eric W. "Laplacian Matrix." From MathWorld--A Wolfram Web Resource. http://mathworld.wolfram.com/LaplacianMatrix.html
 func NormLaplacian(adj [][]int, rows int) [][]int {
 	lap := make2DsliceInt(rows)
 	deg := make2DsliceInt(rows)
@@ -240,25 +240,23 @@ func addToRhoHistogram(rho float64, h IntVector) {
 	return
 }
 
-// addToPairOrderHistogram updates Pair-Order matrix
+// addToPairOrderHistogram updates Pair-Order Violations matrix
 func addToPairOrderHistogram(perm IntVector, h IntMatrix) {
 	smp := len(perm)
 	for i := 0; i < smp; i++ {
-//		for j := i + 1; j < smp; j++ {
-		for j := 0; j < smp; j++ {
-if i < j && perm[i] > perm[j] {
-			h[i][j]++
-}
-if i > j && perm[i] < perm[j] {
-			h[i][j]++
-}
+		for j := i + 1; j < smp; j++ {
+			if perm.Rank(i) > perm.Rank(j) {
+				h[i][j]++
+				h[j][i]++
+			}
 		}
 	}
 	return
 }
+
 /*
 
-// addToPairOrderHistogram updates Pair-Order Violations matrix
+// addToPairOrderHistogram updates Pair-Order matrix
 func addToPairOrderHistogram(perm IntVector, h IntMatrix) {
 	smp := len(perm)
 	for i := 0; i < smp; i++ {

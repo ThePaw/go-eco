@@ -43,7 +43,7 @@ func (v Vector64) Swap(i, j int) {
 	v[j] = x
 }
 
-// Permute the vector randomly. 
+// Permute the vector randomly.
 func (v Vector64) Permute() {
 	n := v.Len()
 	w := v.Clone()

@@ -2,14 +2,14 @@
 
 package ser
 
-// Objective (loss and gain) functions for similarity matrices. 
+// Objective (loss and gain) functions for similarity matrices.
 
 import (
 	"math"
 )
 
 // PsiLossSim computes energy ψ(p) of the permuted similarity matrix according to Podani (1994); see  Miklos (2005), Eq. 4.
-func PsiLossSim(sim Matrix64, p IntVector) float64 {
+func Psis(sim Matrix64, p IntVector) float64 {
 	if !sim.IsSymmetric() {
 		panic("similarity matrix not symmetric")
 	}
@@ -33,7 +33,7 @@ func PsiLossSim(sim Matrix64, p IntVector) float64 {
 }
 
 // BertinLossSim returns loss of the permuted matrix according to Kostopoulos & Goulermas
-func BertinLossSim(sim Matrix64, p IntVector) float64 {
+func Bers(sim Matrix64, p IntVector) float64 {
 	if !sim.IsSymmetric() {
 		panic("simtance matrix not symmetric")
 	}

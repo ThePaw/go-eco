@@ -24,7 +24,7 @@ func proposeRowPerm(rowPerm, rowPermNew IntVector) {
 }
 
 // BoltzmannMCMC does MCMC sampling from Boltzmann distribution of reordered similarity matrices  (close to Robinson form).
-// Inspired by Miklos (2005). 
+// Inspired by Miklos (2005).
 // WARNING: when data is a similarity (correlation, gain) matrix, then columns MUST NOT be permuted separately!! Implemented. Publish!!
 func BoltzmannMCMC(sim Matrix64, energyFn string, temp float64, burnIn, totalSamples, iter int) (permBest, rhoH IntVector, h, pOH IntMatrix, enBest float64) {
 
@@ -33,11 +33,11 @@ func BoltzmannMCMC(sim Matrix64, energyFn string, temp float64, burnIn, totalSam
 		panic("not a symmetric similarity matrix")
 	}
 
-	en := PsiLossSim
+	en := Psis
 
 	switch energyFn {
 	case "Psi":
-		en = PsiLossSim
+		en = Psis
 	default:
 		panic("bad energyFn")
 	}

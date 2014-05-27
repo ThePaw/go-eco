@@ -1,15 +1,90 @@
-Brusco, M. J., Köhn, H. F., & Stahl, S. (2008). Heuristic implementation of dynamic programming for matrix permutation problems in combinatorial data analysis. Psychometrika, 73(3), 503-522.
-Brusco, M. J., & Stahl, S. (2005). Branch-and-bound applications in combinatorial data analysis. Springer Science+ Business Media.
-Caraux, G., & Pinloche, S. (2005). PermutMatrix: a graphical environment to arrange gene expression profiles in optimal linear order. Bioinformatics, 21(7), 1280-1281.
-Chen, C. H. (2002). Generalized association plots: Information visualization via iteratively generated correlation matrices. Statistica Sinica, 12(1), 7-30.
-Hayya, J., Armstrong, D., & Gressis, N. (1975). A note on the ratio of two normally distributed variables. Management Science, 21(11), 1338-1341.
-Hinkley, D. V. (1969). On the ratio of two correlated normal random variables. Biometrika, 56(3), 635-639.
-Hubert, L., Arabie, P., & Meulman, J. (1987). Combinatorial data analysis: Optimization by dynamic programming (Vol. 6). Society for Industrial and Applied Mathematics.
-Hubert, L., Arabie, P., & Meulman, J. (2001). Combinatorial Data Analysis: Optimization by Dynamic Programming. Society for Industrial Mathematics.
-Miklós, I., Somodi, I., & Podani, J. (2005). Rearrangement of ecological data matrices via Markov chain Monte Carlo simulation. Ecology, 86(12), 3398-3410.
-Niermann, S. (2005). Optimizing the Ordering of Tables With Evolutionary Computation, The American Statistician, 59(1), 41–46.
-Robinson, W. S. (1951). A method for chronologically ordering archaeological deposits. American antiquity, 16(4), 293-301.
-McCormick, W. T., Schweitzer, P. J., & White, T. W. (1972). Problem decomposition and data reorganization by a clustering technique. Operations Research, 20(5), 993-1009.
-Streng, R., & Schönfelder, P. (1978). Ein heuristisches Computer-Programm zur Ordnung pflanzensoziologischer Tabellen. Hoppea, Denkschr. Regensb. Bot. Ges, 37, 407-433.
-Streng, R. (1991). Classification and seriation by iterative reordering of a data matrix. In: H. H. Bock and P. Ihm, eds.: Classification, Data Analysis, and Knowledge Organization (pp. 121-130). Springer Berlin Heidelberg.
-Wu, H. M., Tien, Y. J., & Chen, C. H. (2010). GAP: A graphical environment for matrix visualization and cluster analysis. Computational Statistics & Data Analysis, 54(3), 767-778.
+References
+
+Banzhaf W (1990). “The molecular traveling salesman.” Biological Cybernetics, 64(1), 7–14.
+Barthelemy JP, Brucker F (2001). “NP-hard Approximation Problems in Overlapping Clus-
+tering.” Journal of Classification, 18(2), 159–183. ISSN 01764268. URL http://search.
+ebscohost.com/login.aspx?direct=true&db=a9h&AN=5643823&site=ehost-live.
+Bertin J (1981). Graphics and Graphic Information Processing. Walter de Gruyter, Berlin.
+Translated by William J. Berg and Paul Scott.
+Brusco M, Kohn HF, Stahl S (2008). “Heuristic Implementation of Dynamic Programming
+for Matrix Permutation Problems in Combinatorial Data Analysis.” Psychometrika, 73(3),
+503–522. ISSN 0033-3123. doi:10.1007/s11336-007-9049-5. URL http://dx.doi.org/
+10.1007/s11336-007-9049-5.
+Brusco M, Stahl S (2000). “Using Quadratic Assignment Methods to Generate Initial Per-
+mutations for Least-Squares Unidimensional Scaling of Symmetric Proximity Matrices.”
+Journal of Classification, 17(2), 197. ISSN 01764268. URL http://search.ebscohost.
+com/login.aspx?direct=true&db=a9h&AN=5349633&site=ehost-live.
+Brusco MJ (2002). “Integer Programming Methods for Seriation and Unidemensional Scaling
+of Proximity Matrices: A Review and Some Extensions.” Journal of Classification, 19(1),
+45–67. ISSN 0176-4268. doi:10.1007/s00357-001-0032-z. URL http://dx.doi.org/
+10.1007/s00357-001-0032-z.
+Caraux G, Pinloche S (2005). “PermutMatrix: a graphical environment to arrange gene ex-
+pression profiles in optimal linear order.” Bioinformatics, 21(7), 1280–1281. doi:10.1093/
+bioinformatics/bti141. http://bioinformatics.oxfordjournals.org/content/21/
+7/1280.full.pdf+html, URL http://bioinformatics.oxfordjournals.org/content/
+21/7/1280.abstract.
+Cerny V (1985). “Thermodynamical approach to the travelling salesman problem: an efficient
+simulation algorithm.” Journal of Optimization Theory and Applications, 45, 41–51.
+Chen CH (2002). “Generalized association plots: Information visualization via iteratively
+generated correlation matrices.” Statistica Sinica, 12(1), 7–30.18
+Performance of Different Objective Functions for Seriation of Pre-Robinson Matrices
+Fogel DB (1988). “An evolutionary approach to the traveling salesman problem.” Biological
+Cybernetics, 60(2), 139–144.
+Garey MR, Johnson DS (1979). “Computers and Intractability: An Introduction to the
+Theory of NP-completeness.”
+Hahsler M, Hornik K, Buchta C (2008). “Getting Things in Order: An Introduction to the
+R Package seriation.” Journal of Statistical Software, 25(3), 1–34. ISSN 1548-7660. URL
+http//www.jstatsoft.org/v25/i03.
+Holland JH (1975). Adaptation in natural and artificial systems: An introductory analysis with
+applications to biology, control, and artificial intelligence. University of Michigan Press.
+Hubert L, Arabie P, Meulman J (2001). Combinatorial Data Analysis: Optimization by
+Dynamic Programming. Society for Industrial Mathematics.
+Kirkpatrick S, Vecchi M, et al. (1983). “Optimization by simmulated annealing.” Science,
+220(4598), 671–680.
+Kostopoulos T, Goulermas J (2014). “A hybrid stochastic algorithm for one- and two-mode
+seriation.” in preparation.
+Liiv I (2010). “Seriation and matrix reordering methods: An historical overview.” Statistical
+Analysis and Data Mining, 3(2), 70–91. ISSN 1932-1872. doi:10.1002/sam.10071. URL
+http://dx.doi.org/10.1002/sam.10071.
+Marcotorchino F (1987). “Block Seriation Problems: A Unified Approach.” Applied Stochastic
+Models and Data Analysis, 3, 73–91.
+Merz P, Freisleben B (1997). “Genetic local search for the TSP: New results.” In IEEE
+International Conference on Evolutionary Computation, 1997, pp. 159–164. IEEE.
+Michalewicz Z (1992). Genetic Algorithms + Data Structure = Evolution Programs. Springer,
+Berlin.
+Mikl ́os I, Somodi I, Podani J (2005). “Rearrangement of ecological data matrices via Markov
+chain Monte Carlo simulation.” Ecology, 86(12), 3398–3410.
+Niermann S (2005). “Optimizing the Ordering of Tables with Evolutionary Computation.”
+The American Statistician, 59(1), 41–46. ISSN 00031305. URL http://www.jstor.org/
+stable/27643614.
+Oliver I, Smith D, Holland J (1987). “A study of permutation crossover operators on the
+TSP, genetic algorithms and their applications.” In Proceedings of the Second International
+Conference on Genetic Algorithms, pp. 224–230.
+Pilhofer A, Gribov A, Unwin A (2012). “Comparing Clusterings Using Bertin’s Idea.” Visu-
+alization and Computer Graphics, IEEE Transactions on, 18(12), 2506–2515.
+Podani J, et al. (1994). Multivariate data analysis in ecology and systematics: a methodological
+guide to the SYN-TAX 5.0 package. SPB Academic Publishing.Journal of Statistical Software
+19
+Robinson WS (1951). “A Method for Chronologically Ordering Archaeological Deposits.”
+American Antiquity, 16, 293–301.
+Sallabi OM, El-Haddad Y (2009). “An Improved Genetic Algorithm to Solve the Traveling
+Salesman Problem.” Proceedings of World Academy of Science: Engineering & Technology,
+52.
+Streng R (1991). “Classification and seriation by iterative reordering of a data matrix.” In
+Classification, Data Analysis, and Knowledge Organization, pp. 121–130. Springer.
+Streng R, Sch ̈
+onfelder P (1978). “Ein heuristisches Computer-Progremm zum Ordnung
+pflanzensoziologischer Tabellen.”
+Syswerda G (1991). “Schedule optimization using genetic algorithms.” Handbook of genetic
+algorithms.
+Szczotka F (1972). “On a method of ordering and clustering of objects.” Zastosowania
+Mathematyki, 13, 23–33.
+Tien YJ, Lee YS, Wu HM, Chen CH (2008). “Methods for simultaneously identifying coherent
+local clusters with smooth global patterns in gene expression profiles.” BMC Bioinformatics,
+9(1), 155.
+Van Laarhoven PJ, Aarts EH (1987). Simulated annealing. Springer.
+Wu HM, Tien YJ, Chen CH (2010). “GAP: A graphical environment for matrix visual-
+ization and cluster analysis.” Computational Statistics Data Analysis, 54(3), 767–778.
+ISSN 0167-9473. doi:10.1016/j.csda.2008.09.029. Second Special Issue on Statistical
+Algorithms and Software, URL http://www.sciencedirect.com/science/article/pii/
+S0167947308004349.
