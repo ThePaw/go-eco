@@ -1,0 +1,2 @@
+Similarity, dissimilarity and distance matrices; diversity, equitability and inequality  measures; species richness estimators; coenocline models.
+Find the doucumentation here: http://godoc.org/code.google.com/p/go-eco
